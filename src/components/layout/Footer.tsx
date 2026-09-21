@@ -55,14 +55,8 @@ export default function Footer() {
             </div>
             <p className="text-sm text-wine-300 leading-relaxed mb-4">{t('description')}</p>
             <div className="flex gap-3">
-              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="YouTube">
-                <YoutubeIcon />
-              </a>
-              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/p/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82-100071633452675/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Facebook">
                 <FacebookIcon />
-              </a>
-              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Instagram">
-                <InstagramIcon />
               </a>
             </div>
           </div>
