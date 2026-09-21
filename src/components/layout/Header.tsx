@@ -45,17 +45,17 @@ export default function Header({ locale }: HeaderProps) {
           <Link href={`/${locale}`} className="flex items-center gap-2 group">
             <Image
               src="/logo.png"
-              alt="Glory Church Nanshijiao Logo"
+              alt="Glory Church Of Nanshijiao Logo"
               width={40}
               height={40}
               className="rounded-full shadow-md group-hover:shadow-lg transition-shadow"
             />
             <div className="hidden sm:block">
               <p className="font-bold text-wine-900 text-sm leading-tight">
-                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
+                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Of Nanshijiao'}
               </p>
               <p className="text-xs text-wine-500 leading-tight">
-                {locale === 'zh-TW' ? 'Glory Church Nanshijiao' : '行道會南勢角榮耀堂'}
+                {locale === 'zh-TW' ? 'Glory Church Of Nanshijiao' : '行道會南勢角榮耀堂'}
               </p>
             </div>
           </Link>

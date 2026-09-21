@@ -8,7 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "行道會南勢角榮耀堂 | Glory Church Nanshijiao",
+  title: "行道會南勢角榮耀堂 | Glory Church Of Nanshijiao",
   description: "歡迎來到行道會南勢角榮耀堂。位於新北市中和區，在這裡你將找到愛、盼望與群體。",
   icons: {
     icon: "/favicon.png",

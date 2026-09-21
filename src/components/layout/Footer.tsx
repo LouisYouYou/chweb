@@ -44,13 +44,13 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-3">
               <Image
                 src="/logo.png"
-                alt="Glory Church Nanshijiao Logo"
+                alt="Glory Church Of Nanshijiao Logo"
                 width={40}
                 height={40}
                 className="rounded-full"
               />
               <p className="font-bold text-white text-lg">
-                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
+                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Of Nanshijiao'}
               </p>
             </div>
             <p className="text-sm text-wine-300 leading-relaxed mb-4">{t('description')}</p>
