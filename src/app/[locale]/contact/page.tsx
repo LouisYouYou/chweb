@@ -107,7 +107,7 @@ export default function ContactPage() {
                 {
                   icon: Phone,
                   label: t('phone'),
-                  value: '(02) 2700-0000',
+                  value: '(02) 8668-5515',
                   color: 'bg-green-50 text-green-600',
                 },
                 {
