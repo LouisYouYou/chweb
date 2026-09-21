@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Service Times",
+    "sermons": "Sermons",
+    "events": "Events",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Welcome to",
+      "title": "Grace & Light Church",
+      "description": "Here you will find love, hope, and community. Wherever you go, grace walks with you.",
+      "cta_primary": "Service Times",
+      "cta_secondary": "About Us"
+    },
+    "service_times": {
+      "title": "Service Times",
+      "subtitle": "Weekly gatherings — everyone is welcome"
+    },
+    "latest_sermons": {
+      "title": "Latest Sermons",
+      "subtitle": "Grow in faith, one sermon at a time",
+      "view_all": "View All Sermons"
+    },
+    "upcoming_events": {
+      "title": "Upcoming Events",
+      "subtitle": "Join us and grow together",
+      "view_all": "View All Events"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "mission_title": "Our Mission",
+    "mission_text": "Through the love of Jesus Christ, to build a faith community that cares for one another, grows together, and brings the Gospel to everyone.",
+    "vision_title": "Our Vision",
+    "vision_text": "To be the light and salt of our community, living out Christ's teachings in every aspect of life, transforming our city and world.",
+    "values_title": "Core Values",
+    "values": [
+      { "icon": "heart", "title": "Love", "text": "To love one another with God's love, welcoming all people" },
+      { "icon": "book", "title": "Truth", "text": "The Bible as the standard and guide for life" },
+      { "icon": "users", "title": "Community", "text": "Building authentic fellowship in Christ" },
+      { "icon": "globe", "title": "Mission", "text": "Bringing the Gospel to the ends of the earth" }
+    ],
+    "history_title": "Our History",
+    "history_text": "Grace & Light Church was founded in 2005. Starting with 20 members, we have grown into a vibrant community of hundreds of believers. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling."
+  },
+  "services": {
+    "title": "Service Times",
+    "subtitle": "We offer multiple gathering types — join us as you are",
+    "location_title": "Location",
+    "location_address": "5F, No. 123, Fuxing S. Rd. Sec. 2, Xinyi Dist., Taipei",
+    "location_hint": "5-minute walk from MRT Da'an Station Exit 5",
+    "transport_title": "Getting Here",
+    "parking_title": "Parking",
+    "parking_text": "Underground parking available at the rear of the building. Free parking for 2 hours during church services."
+  },
+  "sermons": {
+    "title": "Sermon Library",
+    "subtitle": "Listen to past sermons and continue growing in faith",
+    "search_placeholder": "Search by topic, speaker, or scripture...",
+    "filter_all": "All",
+    "filter_series": "Series",
+    "listen": "Listen",
+    "download_pdf": "Download Notes",
+    "duration": "Duration",
+    "date": "Date",
+    "speaker": "Speaker",
+    "series": "Series",
+    "scripture": "Scripture"
+  },
+  "events": {
+    "title": "Events Calendar",
+    "subtitle": "Join church events and grow together",
+    "register": "Register Now",
+    "registered": "Registered",
+    "seats_left": "Seats Left",
+    "free": "Free",
+    "view_detail": "View Details",
+    "registration": {
+      "title": "Event Registration",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "notes": "Notes (optional)",
+      "submit": "Confirm Registration",
+      "success": "Registration successful! We will confirm via email.",
+      "cancel": "Cancel"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a question or need prayer support? We're here for you.",
+    "form_title": "Send a Message",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send",
+    "success": "Message sent! We will get back to you soon.",
+    "info_title": "Contact Information",
+    "address": "Address",
+    "phone": "Phone",
+    "email_label": "Email",
+    "office_hours": "Office Hours",
+    "office_hours_text": "Mon–Fri 9:00 AM – 5:00 PM"
+  },
+  "footer": {
+    "description": "Grace & Light Church — serving with love, rooted in truth.",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact",
+    "follow_us": "Follow Us",
+    "copyright": "© 2025 Grace & Light Church. All rights reserved.",
+    "live_stream": "Live Stream"
+  },
+  "common": {
+    "read_more": "Read More",
+    "back": "Back",
+    "loading": "Loading...",
+    "no_results": "No results found"
+  }
+}

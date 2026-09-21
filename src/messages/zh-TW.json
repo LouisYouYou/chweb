@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "首頁",
+    "about": "關於我們",
+    "services": "聚會資訊",
+    "sermons": "講道媒體",
+    "events": "活動行事曆",
+    "contact": "聯絡我們"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "歡迎來到",
+      "title": "恩典之光教會",
+      "description": "在這裡，你將找到愛、盼望與群體。無論你走到哪裡，恩典都與你同行。",
+      "cta_primary": "了解聚會時間",
+      "cta_secondary": "認識我們"
+    },
+    "service_times": {
+      "title": "聚會時間",
+      "subtitle": "每週固定聚會，歡迎加入我們"
+    },
+    "latest_sermons": {
+      "title": "最新講道",
+      "subtitle": "靈修與成長，從聆聽開始",
+      "view_all": "查看全部講道"
+    },
+    "upcoming_events": {
+      "title": "即將到來的活動",
+      "subtitle": "一起參與、一起成長",
+      "view_all": "查看所有活動"
+    }
+  },
+  "about": {
+    "title": "關於我們",
+    "mission_title": "我們的使命",
+    "mission_text": "透過耶穌基督的愛，建立一個彼此關懷、共同成長的信仰群體，並將福音帶給每一個人。",
+    "vision_title": "我們的異象",
+    "vision_text": "成為社區的光與鹽，在生活的每個層面活出基督的教導，轉化我們的城市與世界。",
+    "values_title": "核心價值",
+    "values": [
+      { "icon": "heart", "title": "愛", "text": "以神的愛彼此相愛，接納所有人" },
+      { "icon": "book", "title": "真理", "text": "以聖經為生命的準則與指引" },
+      { "icon": "users", "title": "群體", "text": "在基督裡建立真實的團契" },
+      { "icon": "globe", "title": "使命", "text": "將福音帶到地極" }
+    ],
+    "history_title": "教會歷史",
+    "history_text": "恩典之光教會創立於 2005 年，從最初的 20 位會友發展至今，已成為一個擁有數百位弟兄姊妹的活躍教會群體。我們相信每一個人都有神所賜的獨特恩賜，並致力於幫助每位會友發現並活出神的呼召。"
+  },
+  "services": {
+    "title": "聚會資訊",
+    "subtitle": "我們有多種聚會型態，歡迎你依照需求參與",
+    "location_title": "聚會地點",
+    "location_address": "台北市信義區復興南路二段 123 號 5 樓",
+    "location_hint": "捷運大安站 5 號出口步行 5 分鐘",
+    "transport_title": "交通方式",
+    "parking_title": "停車資訊",
+    "parking_text": "地下停車場入口位於建物後方，教會聚會期間免費停車 2 小時。"
+  },
+  "sermons": {
+    "title": "講道媒體庫",
+    "subtitle": "聆聽過去的講道，持續靈命成長",
+    "search_placeholder": "搜尋講道主題、講員或書卷...",
+    "filter_all": "全部",
+    "filter_series": "系列",
+    "listen": "收聽",
+    "download_pdf": "下載講義",
+    "duration": "時長",
+    "date": "日期",
+    "speaker": "講員",
+    "series": "系列",
+    "scripture": "經文"
+  },
+  "events": {
+    "title": "活動行事曆",
+    "subtitle": "參與教會活動，與弟兄姊妹一起成長",
+    "register": "立即報名",
+    "registered": "已報名",
+    "seats_left": "剩餘名額",
+    "free": "免費",
+    "view_detail": "查看詳情",
+    "registration": {
+      "title": "活動報名",
+      "name": "姓名",
+      "email": "電子郵件",
+      "phone": "電話",
+      "notes": "備註（選填）",
+      "submit": "確認報名",
+      "success": "報名成功！我們將以電子郵件確認您的報名。",
+      "cancel": "取消"
+    }
+  },
+  "contact": {
+    "title": "聯絡我們",
+    "subtitle": "有任何問題或需要禱告支持，請隨時與我們聯繫",
+    "form_title": "傳送訊息",
+    "name": "姓名",
+    "email": "電子郵件",
+    "subject": "主旨",
+    "message": "訊息內容",
+    "submit": "傳送",
+    "success": "訊息已送出，我們將盡快回覆您。",
+    "info_title": "聯絡資訊",
+    "address": "地址",
+    "phone": "電話",
+    "email_label": "電子郵件",
+    "office_hours": "辦公時間",
+    "office_hours_text": "週一至週五 9:00 - 17:00"
+  },
+  "footer": {
+    "description": "恩典之光教會，以愛服事，以真理立根。",
+    "quick_links": "快速連結",
+    "contact_info": "聯絡資訊",
+    "follow_us": "關注我們",
+    "copyright": "© 2025 恩典之光教會. 版權所有。",
+    "live_stream": "線上直播"
+  },
+  "common": {
+    "read_more": "閱讀更多",
+    "back": "返回",
+    "loading": "載入中...",
+    "no_results": "找不到相關結果"
+  }
+}
