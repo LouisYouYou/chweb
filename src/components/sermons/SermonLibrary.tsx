@@ -38,7 +38,7 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
               placeholder={t('search_placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
             />
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -47,7 +47,7 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeSeries === 'all'
                   ? 'church-gradient text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-700'
+                  : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
               }`}
             >
               {t('filter_all')}
@@ -59,7 +59,7 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeSeries === series
                     ? 'church-gradient text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-700'
+                    : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
                 }`}
               >
                 {series}
@@ -76,10 +76,10 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
             {filtered.map((sermon) => (
               <div
                 key={sermon.id}
-                className="group bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all duration-300 overflow-hidden"
+                className="group bg-white rounded-2xl border border-gray-100 hover:border-wine-200 hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 {/* Thumbnail */}
-                <div className="h-44 bg-gradient-to-br from-blue-700 to-blue-950 flex items-center justify-center relative">
+                <div className="h-44 bg-gradient-to-br from-wine-700 to-wine-950 flex items-center justify-center relative">
                   <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Play size={24} className="text-white ml-1" />
                   </div>
@@ -87,7 +87,7 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
                     <Clock size={10} />
                     {sermon.duration}
                   </div>
-                  <div className="absolute top-3 left-3 bg-blue-600/80 text-white text-xs px-2 py-1 rounded-full">
+                  <div className="absolute top-3 left-3 bg-wine-600/80 text-white text-xs px-2 py-1 rounded-full">
                     {sermon.series}
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
                     <span>{sermon.scripture}</span>
                     <span className="ml-auto">{sermon.date}</span>
                   </div>
-                  <h3 className="font-bold text-blue-900 text-lg mb-1 leading-tight group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-bold text-wine-900 text-lg mb-1 leading-tight group-hover:text-wine-700 transition-colors">
                     {locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
                   </h3>
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-4">

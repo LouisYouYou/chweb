@@ -35,7 +35,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-blue-950 text-blue-100">
+    <footer className="bg-wine-950 text-wine-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -48,15 +48,15 @@ export default function Footer() {
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
               </p>
             </div>
-            <p className="text-sm text-blue-300 leading-relaxed mb-4">{t('description')}</p>
+            <p className="text-sm text-wine-300 leading-relaxed mb-4">{t('description')}</p>
             <div className="flex gap-3">
-              <a href="#" className="p-2 rounded-full bg-blue-900 hover:bg-blue-700 transition-colors" aria-label="YouTube">
+              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="YouTube">
                 <YoutubeIcon />
               </a>
-              <a href="#" className="p-2 rounded-full bg-blue-900 hover:bg-blue-700 transition-colors" aria-label="Facebook">
+              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Facebook">
                 <FacebookIcon />
               </a>
-              <a href="#" className="p-2 rounded-full bg-blue-900 hover:bg-blue-700 transition-colors" aria-label="Instagram">
+              <a href="#" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Instagram">
                 <InstagramIcon />
               </a>
             </div>
@@ -70,7 +70,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-blue-300 hover:text-white transition-colors"
+                    className="text-sm text-wine-300 hover:text-white transition-colors"
                   >
                     {label}
                   </Link>
@@ -82,9 +82,9 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-white mb-4">{t('contact_info')}</h3>
-            <ul className="space-y-3 text-sm text-blue-300">
+            <ul className="space-y-3 text-sm text-wine-300">
               <li className="flex items-start gap-2">
-                <MapPin size={14} className="mt-0.5 shrink-0 text-blue-400" />
+                <MapPin size={14} className="mt-0.5 shrink-0 text-wine-400" />
                 <span>
                   {locale === 'zh-TW'
                     ? '新北市中和區忠孝街 39-15 號'
@@ -92,15 +92,15 @@ export default function Footer() {
                 </span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={14} className="shrink-0 text-blue-400" />
+                <Phone size={14} className="shrink-0 text-wine-400" />
                 <span>(02) 2700-0000</span>
               </li>
               <li className="flex items-center gap-2">
-                <Mail size={14} className="shrink-0 text-blue-400" />
+                <Mail size={14} className="shrink-0 text-wine-400" />
                 <span>info@gracelight.org.tw</span>
               </li>
               <li className="flex items-center gap-2">
-                <Clock size={14} className="shrink-0 text-blue-400" />
+                <Clock size={14} className="shrink-0 text-wine-400" />
                 <span>
                   {locale === 'zh-TW' ? '週一至週五 9:00 - 17:00' : 'Mon–Fri 9:00 AM – 5:00 PM'}
                 </span>
@@ -109,7 +109,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-blue-900 mt-10 pt-6 text-center text-xs text-blue-400">
+        <div className="border-t border-wine-900 mt-10 pt-6 text-center text-xs text-wine-400">
           {t('copyright')}
         </div>
       </div>

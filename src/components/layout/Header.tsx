@@ -37,7 +37,7 @@ export default function Header({ locale }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-blue-100">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-wine-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -46,10 +46,10 @@ export default function Header({ locale }: HeaderProps) {
               榮
             </div>
             <div className="hidden sm:block">
-              <p className="font-bold text-blue-900 text-sm leading-tight">
+              <p className="font-bold text-wine-900 text-sm leading-tight">
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
               </p>
-              <p className="text-xs text-blue-500 leading-tight">
+              <p className="text-xs text-wine-500 leading-tight">
                 {locale === 'zh-TW' ? 'Glory Church Nanshijiao' : '行道會南勢角榮耀堂'}
               </p>
             </div>
@@ -63,8 +63,8 @@ export default function Header({ locale }: HeaderProps) {
                 href={href}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive(href)
-                    ? 'text-blue-700 bg-blue-50'
-                    : 'text-gray-600 hover:text-blue-700 hover:bg-blue-50'
+                    ? 'text-wine-700 bg-wine-50'
+                    : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
                 }`}
               >
                 {label}
@@ -76,13 +76,13 @@ export default function Header({ locale }: HeaderProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={switchLocale}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-blue-700 border border-gray-200 hover:border-blue-300 rounded-full transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
             >
               <Globe size={14} />
               <span>{locale === 'zh-TW' ? 'EN' : '中文'}</span>
             </button>
             <button
-              className="lg:hidden p-2 rounded-md text-gray-600 hover:text-blue-700 hover:bg-blue-50"
+              className="lg:hidden p-2 rounded-md text-gray-600 hover:text-wine-700 hover:bg-wine-50"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -94,7 +94,7 @@ export default function Header({ locale }: HeaderProps) {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-blue-100 bg-white">
+        <div className="lg:hidden border-t border-wine-100 bg-white">
           <nav className="px-4 py-3 flex flex-col gap-1">
             {navLinks.map(({ href, label }) => (
               <Link
@@ -103,8 +103,8 @@ export default function Header({ locale }: HeaderProps) {
                 onClick={() => setMenuOpen(false)}
                 className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                   isActive(href)
-                    ? 'text-blue-700 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'
+                    ? 'text-wine-700 bg-wine-50'
+                    : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
                 }`}
               >
                 {label}

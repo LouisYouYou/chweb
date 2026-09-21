@@ -23,7 +23,7 @@ export default function ContactPage() {
       <section className="church-gradient py-20 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
-          <p className="text-blue-200 text-lg">{t('subtitle')}</p>
+          <p className="text-wine-200 text-lg">{t('subtitle')}</p>
           <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-6" />
         </div>
       </section>
@@ -32,7 +32,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Form */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-900 mb-6">{t('form_title')}</h2>
+            <h2 className="text-2xl font-bold text-wine-900 mb-6">{t('form_title')}</h2>
             {sent ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <CheckCircle size={48} className="text-green-500 mb-4" />
@@ -48,7 +48,7 @@ export default function ContactPage() {
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                   <div>
@@ -58,7 +58,7 @@ export default function ContactPage() {
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                 </div>
@@ -69,7 +69,7 @@ export default function ContactPage() {
                     required
                     value={form.subject}
                     onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                   />
                 </div>
                 <div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                     required
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm resize-none"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm resize-none"
                   />
                 </div>
                 <button
@@ -95,14 +95,14 @@ export default function ContactPage() {
 
           {/* Info */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-900 mb-6">{t('info_title')}</h2>
+            <h2 className="text-2xl font-bold text-wine-900 mb-6">{t('info_title')}</h2>
             <div className="space-y-5">
               {[
                 {
                   icon: MapPin,
                   label: t('address'),
                   value: locale === 'zh-TW' ? '新北市中和區忠孝街 39-15 號' : 'No.39-15, Zhongxiao St., Zhonghe Dist., New Taipei City',
-                  color: 'bg-blue-50 text-blue-600',
+                  color: 'bg-wine-50 text-wine-600',
                 },
                 {
                   icon: Phone,

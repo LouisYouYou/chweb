@@ -6,7 +6,7 @@ import { Calendar, MapPin, ArrowRight, Users } from 'lucide-react';
 import { events } from '@/lib/data/events';
 
 const categoryColors: Record<string, string> = {
-  worship: 'bg-blue-100 text-blue-700',
+  worship: 'bg-wine-100 text-wine-700',
   youth: 'bg-purple-100 text-purple-700',
   community: 'bg-green-100 text-green-700',
   retreat: 'bg-amber-100 text-amber-700',
@@ -32,13 +32,13 @@ export default function UpcomingEvents() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-3">{t('title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-3">{t('title')}</h2>
             <p className="text-gray-500">{t('subtitle')}</p>
             <div className="w-16 h-1 bg-amber-500 mt-4 rounded-full" />
           </div>
           <Link
             href={`/${locale}/events`}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium group"
+            className="flex items-center gap-2 text-wine-600 hover:text-wine-800 transition-colors text-sm font-medium group"
           >
             {t('view_all')}
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -51,7 +51,7 @@ export default function UpcomingEvents() {
             return (
               <div
                 key={event.id}
-                className="group bg-white rounded-2xl p-6 border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-4"
+                className="group bg-white rounded-2xl p-6 border border-gray-100 hover:border-wine-200 hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-4"
               >
                 {/* Date badge */}
                 <div className="church-gradient rounded-xl p-3 text-center min-w-[60px] text-white">
@@ -74,7 +74,7 @@ export default function UpcomingEvents() {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-semibold text-blue-900 text-lg group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-semibold text-wine-900 text-lg group-hover:text-wine-700 transition-colors">
                     {locale === 'zh-TW' ? event.titleZh : event.titleEn}
                   </h3>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400 mt-1">

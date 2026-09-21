@@ -3,9 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #1e40af;
-  --primary-dark: #1e3a8a;
-  --accent: #d4a017;
+  --primary: #7b1a2d;
+  --primary-dark: #380a14;
+  --accent: #c9a84c;
 }
 
 @theme inline {
@@ -13,6 +13,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Wine red enterprise palette */
+  --color-wine-50:  #fdf3f4;
+  --color-wine-100: #fbe5e8;
+  --color-wine-200: #f6c8cd;
+  --color-wine-300: #efa0a9;
+  --color-wine-400: #e2707d;
+  --color-wine-500: #ce4a58;
+  --color-wine-600: #b22e3c;
+  --color-wine-700: #92202f;
+  --color-wine-800: #761929;
+  --color-wine-900: #621422;
+  --color-wine-950: #380a14;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,9 +46,9 @@ html {
 }
 
 .church-gradient {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+  background: linear-gradient(135deg, #380a14 0%, #76192a 50%, #92202f 100%);
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #d97706 0%, #d4a017 100%);
+  background: linear-gradient(135deg, #b8860b 0%, #c9a84c 100%);
 }

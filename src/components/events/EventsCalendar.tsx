@@ -6,7 +6,7 @@ import { Calendar, MapPin, Users, Clock, X, CheckCircle } from 'lucide-react';
 import { events, ChurchEvent } from '@/lib/data/events';
 
 const categoryColors: Record<string, string> = {
-  worship: 'border-l-blue-500 bg-blue-50',
+  worship: 'border-l-wine-500 bg-wine-50',
   youth: 'border-l-purple-500 bg-purple-50',
   community: 'border-l-green-500 bg-green-50',
   retreat: 'border-l-amber-500 bg-amber-50',
@@ -14,7 +14,7 @@ const categoryColors: Record<string, string> = {
 };
 
 const categoryBadge: Record<string, string> = {
-  worship: 'bg-blue-100 text-blue-700',
+  worship: 'bg-wine-100 text-wine-700',
   youth: 'bg-purple-100 text-purple-700',
   community: 'bg-green-100 text-green-700',
   retreat: 'bg-amber-100 text-amber-700',
@@ -75,7 +75,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeFilter === f
                   ? 'church-gradient text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-700'
+                  : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
               }`}
             >
               {f === 'all'
@@ -116,7 +116,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-xl font-bold text-blue-900 mb-2">
+                    <h3 className="text-xl font-bold text-wine-900 mb-2">
                       {locale === 'zh-TW' ? event.titleZh : event.titleEn}
                     </h3>
                     <p className="text-gray-600 text-sm mb-3 leading-relaxed">
@@ -164,17 +164,17 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
             {submitted ? (
               <div className="text-center py-8">
                 <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-blue-900 mb-2">{t('registration.success')}</h3>
+                <h3 className="text-xl font-bold text-wine-900 mb-2">{t('registration.success')}</h3>
               </div>
             ) : (
               <>
                 <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-xl font-bold text-blue-900">{t('registration.title')}</h2>
+                  <h2 className="text-xl font-bold text-wine-900">{t('registration.title')}</h2>
                   <button onClick={() => setSelectedEvent(null)} className="p-1.5 hover:bg-gray-100 rounded-full">
                     <X size={18} />
                   </button>
                 </div>
-                <p className="text-sm font-medium text-blue-700 bg-blue-50 rounded-xl px-4 py-3 mb-5">
+                <p className="text-sm font-medium text-wine-700 bg-wine-50 rounded-xl px-4 py-3 mb-5">
                   {locale === 'zh-TW' ? selectedEvent.titleZh : selectedEvent.titleEn}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -185,7 +185,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                   <div>
@@ -195,7 +195,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                   <div>
@@ -204,7 +204,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                   <div>
@@ -213,7 +213,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                       rows={2}
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm resize-none"
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm resize-none"
                     />
                   </div>
                   <div className="flex gap-3 pt-2">

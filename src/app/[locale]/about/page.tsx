@@ -26,12 +26,12 @@ export default async function AboutPage() {
       {/* Mission & Vision */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-blue-50 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">{t('mission_title')}</h2>
+          <div className="bg-wine-50 rounded-2xl p-8">
+            <h2 className="text-2xl font-bold text-wine-900 mb-4">{t('mission_title')}</h2>
             <p className="text-gray-600 leading-relaxed">{t('mission_text')}</p>
           </div>
           <div className="bg-amber-50 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">{t('vision_title')}</h2>
+            <h2 className="text-2xl font-bold text-wine-900 mb-4">{t('vision_title')}</h2>
             <p className="text-gray-600 leading-relaxed">{t('vision_text')}</p>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default async function AboutPage() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-blue-900 mb-2">{t('values_title')}</h2>
+            <h2 className="text-3xl font-bold text-wine-900 mb-2">{t('values_title')}</h2>
             <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full mt-4" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -52,7 +52,7 @@ export default async function AboutPage() {
                   <div className="w-14 h-14 church-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon size={22} className="text-white" />
                   </div>
-                  <h3 className="font-bold text-blue-900 text-lg mb-2">{title}</h3>
+                  <h3 className="font-bold text-wine-900 text-lg mb-2">{title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{text}</p>
                 </div>
               );
@@ -64,7 +64,7 @@ export default async function AboutPage() {
       {/* History */}
       <section className="py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-blue-900 mb-6">{t('history_title')}</h2>
+          <h2 className="text-3xl font-bold text-wine-900 mb-6">{t('history_title')}</h2>
           <p className="text-gray-600 leading-relaxed text-lg">{t('history_text')}</p>
         </div>
       </section>
