@@ -116,8 +116,8 @@ export const serviceTimes = [
     dayZh: '每週二',
     dayEn: 'Every Tuesday',
     time: '19:30 - 21:00',
-    locationZh: '各小組地點',
-    locationEn: 'Various Cell Group Venues',
+    locationZh: '主堂',
+    locationEn: 'Main Sanctuary',
   },
   {
     id: '3',
@@ -126,7 +126,7 @@ export const serviceTimes = [
     dayZh: '每週六',
     dayEn: 'Every Saturday',
     time: '19:00 - 21:30',
-    locationZh: '青年中心',
-    locationEn: 'Youth Center',
+    locationZh: '主堂',
+    locationEn: 'Main Sanctuary',
   },
 ];
