@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Play, BookOpen, ArrowRight } from 'lucide-react';
-import { sermons } from '@/lib/data/sermons';
+import { sermons, getYoutubeThumbnail } from '@/lib/data/sermons';
 
 export default function LatestSermons() {
   const t = useTranslations('home.latest_sermons');
@@ -30,44 +31,44 @@ export default function LatestSermons() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recent.map((sermon) => (
-            <div
-              key={sermon.id}
-              className="group bg-wine-900/40 rounded-2xl overflow-hidden border border-wine-800 hover:border-wine-600 hover:bg-wine-900/60 transition-all duration-300"
-            >
-              {/* Thumbnail placeholder */}
-              <div className="h-40 bg-gradient-to-br from-wine-700 to-wine-900 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[url('/images/cross-pattern.png')] bg-center bg-cover" />
-                <div className="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform border border-white/20">
-                  <Play size={22} className="text-white ml-1" />
+          {recent.map((sermon) => {
+            const thumbnail = getYoutubeThumbnail(sermon.youtubeUrl);
+            return (
+              <Link
+                key={sermon.id}
+                href={`/${locale}/sermons`}
+                className="group bg-wine-900/40 rounded-2xl overflow-hidden border border-wine-800 hover:border-wine-600 hover:bg-wine-900/60 transition-all duration-300"
+              >
+                {/* Thumbnail */}
+                <div className="h-40 bg-gradient-to-br from-wine-700 to-wine-900 flex items-center justify-center relative overflow-hidden">
+                  {thumbnail && (
+                    <Image src={thumbnail} alt={sermon.titleZh} fill className="object-cover opacity-70 group-hover:opacity-80 transition-opacity" unoptimized />
+                  )}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-14 h-14 bg-white/15 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform border border-white/30">
+                      <Play size={22} className="text-white ml-1" />
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-xs text-wine-400 mb-2">
-                  <BookOpen size={12} />
-                  <span>{sermon.scripture}</span>
-                  <span>·</span>
-                  <span>{sermon.date}</span>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 text-xs text-wine-400 mb-2">
+                    <BookOpen size={12} />
+                    <span>{sermon.scripture}</span>
+                    <span>·</span>
+                    <span>{sermon.date}</span>
+                  </div>
+                  <h3 className="font-semibold text-white text-lg mb-1 leading-tight">
+                    {locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
+                  </h3>
+                  <p className="text-sm text-wine-300 mb-3">
+                    {locale === 'zh-TW' ? sermon.speakerZh : sermon.speakerEn}
+                  </p>
+                  <p className="text-xs text-amber-400 font-medium">{st('listen')} →</p>
                 </div>
-                <h3 className="font-semibold text-white text-lg mb-1 leading-tight">
-                  {locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
-                </h3>
-                <p className="text-sm text-wine-300 mb-3">
-                  {locale === 'zh-TW' ? sermon.speakerZh : sermon.speakerEn}
-                </p>
-                <div className="flex items-center justify-between text-xs text-wine-400">
-                  <span>{st('duration')}: {sermon.duration}</span>
-                  <Link
-                    href={`/${locale}/sermons`}
-                    className="text-amber-400 hover:text-amber-300 font-medium"
-                  >
-                    {st('listen')} →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

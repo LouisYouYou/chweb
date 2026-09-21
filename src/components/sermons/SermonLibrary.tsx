@@ -1,9 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Search, Play, FileText, Clock, User, BookOpen } from 'lucide-react';
-import { sermons, sermonSeries } from '@/lib/data/sermons';
+import { Search, Play, X, BookOpen, User, Calendar } from 'lucide-react';
+import {
+  sermons,
+  sermonCategories,
+  getYoutubeThumbnail,
+  getYoutubeEmbedUrl,
+  type Sermon,
+} from '@/lib/data/sermons';
 
 interface SermonLibraryProps {
   locale: string;
@@ -12,7 +19,8 @@ interface SermonLibraryProps {
 export default function SermonLibrary({ locale }: SermonLibraryProps) {
   const t = useTranslations('sermons');
   const [search, setSearch] = useState('');
-  const [activeSeries, setActiveSeries] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [playing, setPlaying] = useState<Sermon | null>(null);
 
   const filtered = sermons.filter((s) => {
     const title = locale === 'zh-TW' ? s.titleZh : s.titleEn;
@@ -21,109 +29,179 @@ export default function SermonLibrary({ locale }: SermonLibraryProps) {
       search === '' ||
       title.toLowerCase().includes(search.toLowerCase()) ||
       speaker.toLowerCase().includes(search.toLowerCase()) ||
-      s.scripture.toLowerCase().includes(search.toLowerCase());
-    const matchSeries = activeSeries === 'all' || s.series === activeSeries;
-    return matchSearch && matchSeries;
+      s.scripture.toLowerCase().includes(search.toLowerCase()) ||
+      s.series.toLowerCase().includes(search.toLowerCase());
+    const matchCat = activeCategory === 'all' || s.category === activeCategory;
+    return matchSearch && matchCat;
   });
+
+  // Group by series within filtered results
+  const seriesGroups = filtered.reduce<Record<string, Sermon[]>>((acc, s) => {
+    const key = locale === 'zh-TW' ? s.series : s.seriesEn;
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(s);
+    return acc;
+  }, {});
 
   return (
     <section className="py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Search & Filter */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder={t('search_placeholder')}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
-            />
-          </div>
-          <div className="flex gap-2 flex-wrap">
+
+        {/* Search */}
+        <div className="relative mb-6">
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder={t('search_placeholder')}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
+          />
+        </div>
+
+        {/* Category Tabs */}
+        <div className="flex gap-2 flex-wrap mb-10">
+          {sermonCategories.map((cat) => (
             <button
-              onClick={() => setActiveSeries('all')}
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                activeSeries === 'all'
-                  ? 'church-gradient text-white'
+                activeCategory === cat.key
+                  ? 'church-gradient text-white shadow-sm'
                   : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
               }`}
             >
-              {t('filter_all')}
+              {locale === 'zh-TW' ? cat.zh : cat.en}
             </button>
-            {sermonSeries.map((series) => (
-              <button
-                key={series}
-                onClick={() => setActiveSeries(series)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeSeries === series
-                    ? 'church-gradient text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
-                }`}
-              >
-                {series}
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
 
-        {/* Sermon Grid */}
-        {filtered.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">{t('filter_all')}</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((sermon) => (
-              <div
-                key={sermon.id}
-                className="group bg-white rounded-2xl border border-gray-100 hover:border-wine-200 hover:shadow-lg transition-all duration-300 overflow-hidden"
-              >
-                {/* Thumbnail */}
-                <div className="h-44 bg-gradient-to-br from-wine-700 to-wine-950 flex items-center justify-center relative">
-                  <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play size={24} className="text-white ml-1" />
-                  </div>
-                  <div className="absolute bottom-3 right-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                    <Clock size={10} />
-                    {sermon.duration}
-                  </div>
-                  <div className="absolute top-3 left-3 bg-wine-600/80 text-white text-xs px-2 py-1 rounded-full">
-                    {sermon.series}
-                  </div>
-                </div>
-
-                <div className="p-5">
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
-                    <BookOpen size={12} />
-                    <span>{sermon.scripture}</span>
-                    <span className="ml-auto">{sermon.date}</span>
-                  </div>
-                  <h3 className="font-bold text-wine-900 text-lg mb-1 leading-tight group-hover:text-wine-700 transition-colors">
-                    {locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-4">
-                    <User size={13} />
-                    {locale === 'zh-TW' ? sermon.speakerZh : sermon.speakerEn}
-                  </div>
-
-                  <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 py-2 church-gradient text-white text-sm rounded-xl hover:opacity-90 transition-opacity">
-                      <Play size={14} />
-                      {t('listen')}
-                    </button>
-                    {sermon.pdfUrl && (
-                      <button className="px-4 py-2 border border-gray-200 text-gray-600 text-sm rounded-xl hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-                        <FileText size={14} />
-                        PDF
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* No results */}
+        {filtered.length === 0 && (
+          <div className="text-center py-20 text-gray-400">
+            <Play size={40} className="mx-auto mb-3 opacity-30" />
+            <p>{t('no_results') ?? '找不到相關講道'}</p>
           </div>
         )}
+
+        {/* Grouped by Series */}
+        {Object.entries(seriesGroups).map(([seriesName, items]) => (
+          <div key={seriesName} className="mb-12">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 church-gradient rounded-full" />
+              <h3 className="text-lg font-bold text-wine-900">{seriesName}</h3>
+              <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                {items.length} {locale === 'zh-TW' ? '篇' : 'videos'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {items.map((sermon) => {
+                const thumbnail = getYoutubeThumbnail(sermon.youtubeUrl);
+                return (
+                  <div
+                    key={sermon.id}
+                    className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-wine-200 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                    onClick={() => setPlaying(sermon)}
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative h-44 bg-wine-950 overflow-hidden">
+                      {thumbnail ? (
+                        <Image
+                          src={thumbnail}
+                          alt={locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="w-full h-full church-gradient" />
+                      )}
+                      {/* Play overlay */}
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                        <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                          <Play size={22} className="text-wine-700 ml-1" fill="currentColor" />
+                        </div>
+                      </div>
+                      {/* Category badge */}
+                      <span className="absolute top-2 left-2 text-xs bg-wine-700/90 text-white px-2 py-0.5 rounded-full">
+                        {sermon.category}
+                      </span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="p-4">
+                      <h4 className="font-semibold text-wine-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-wine-700 transition-colors">
+                        {locale === 'zh-TW' ? sermon.titleZh : sermon.titleEn}
+                      </h4>
+                      <div className="space-y-1 text-xs text-gray-400">
+                        <div className="flex items-center gap-1.5">
+                          <User size={11} />
+                          <span>{locale === 'zh-TW' ? sermon.speakerZh : sermon.speakerEn}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <BookOpen size={11} />
+                          <span>{sermon.scripture}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Calendar size={11} />
+                          <span>{sermon.date}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
+
+      {/* YouTube Player Modal */}
+      {playing && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setPlaying(null)}
+        >
+          <div
+            className="w-full max-w-4xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-start justify-between mb-3">
+              <div>
+                <h3 className="text-white font-semibold text-lg leading-tight">
+                  {locale === 'zh-TW' ? playing.titleZh : playing.titleEn}
+                </h3>
+                <p className="text-white/60 text-sm mt-0.5">
+                  {locale === 'zh-TW' ? playing.speakerZh : playing.speakerEn}
+                  {' · '}
+                  {playing.scripture}
+                  {' · '}
+                  {playing.date}
+                </p>
+              </div>
+              <button
+                onClick={() => setPlaying(null)}
+                className="ml-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors shrink-0"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* YouTube embed */}
+            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={getYoutubeEmbedUrl(playing.youtubeUrl)}
+                title={locale === 'zh-TW' ? playing.titleZh : playing.titleEn}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
