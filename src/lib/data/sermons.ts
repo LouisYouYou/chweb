@@ -38,15 +38,15 @@ export function getYoutubeEmbedUrl(url: string): string {
 export const sermons: Sermon[] = [
   {
     id: '1',
-    titleZh: '講道標題（請更新）',
-    titleEn: 'Sermon Title (Please Update)',
-    speakerZh: '講員姓名',
-    speakerEn: 'Speaker Name',
-    date: '2026-09-14',
+    titleZh: '歡慶七週年 回家同慶賀',
+    titleEn: 'Celebrating 7 Years — Come Home and Rejoice',
+    speakerZh: '孟繁毅牧師',
+    speakerEn: 'Pastor Meng Fan-Yi',
+    date: '2026-09-20',
     series: '主日系列',
     seriesEn: 'Sunday Series',
     category: '主日講道',
-    scripture: '請填入經文',
+    scripture: '數算恩典 累代成全 獻上讚美祭',
     youtubeUrl: 'https://www.youtube.com/watch?v=-irNdmLFjVA',
   },
 ];
