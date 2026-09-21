@@ -1,4 +1,5 @@
 import { getTranslations, getLocale } from 'next-intl/server';
+import Image from 'next/image';
 import { Clock, MapPin, Car, Train } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 
@@ -46,13 +47,15 @@ export default async function ServicesPage() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-wine-900 mb-10 text-center">{t('location_title')}</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Map placeholder */}
-            <div className="rounded-2xl overflow-hidden shadow-md h-72 bg-wine-100 flex items-center justify-center">
-              <div className="text-center text-wine-400">
-                <MapPin size={40} className="mx-auto mb-2" />
-                <p className="font-medium">{t('location_address')}</p>
-                <p className="text-sm mt-1">{t('location_hint')}</p>
-              </div>
+            {/* Church photo */}
+            <div className="rounded-2xl overflow-hidden shadow-md h-72 relative">
+              <Image
+                src="/church.jpg"
+                alt="行道會南勢角榮耀堂"
+                fill
+                className="object-cover object-center"
+                quality={90}
+              />
             </div>
 
             {/* Info */}
