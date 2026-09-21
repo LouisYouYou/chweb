@@ -141,12 +141,9 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                   </div>
 
                   {/* CTA */}
-                  <button
-                    onClick={() => setSelectedEvent(event)}
-                    className="shrink-0 px-6 py-3 church-gradient text-white font-medium text-sm rounded-xl hover:opacity-90 transition-opacity shadow-sm"
-                  >
+                  <span className="shrink-0 px-6 py-3 bg-gray-200 text-gray-400 font-medium text-sm rounded-xl line-through cursor-not-allowed select-none">
                     {t('register')}
-                  </button>
+                  </span>
                 </div>
               </div>
             );

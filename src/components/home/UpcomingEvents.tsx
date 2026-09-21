@@ -96,12 +96,9 @@ export default function UpcomingEvents() {
                 </div>
 
                 {/* CTA */}
-                <Link
-                  href={`/${locale}/events`}
-                  className="shrink-0 px-5 py-2.5 church-gradient text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity shadow-sm"
-                >
+                <span className="shrink-0 px-5 py-2.5 bg-gray-200 text-gray-400 text-sm font-medium rounded-full line-through cursor-not-allowed select-none">
                   {et('register')}
-                </Link>
+                </span>
               </div>
             );
           })}
