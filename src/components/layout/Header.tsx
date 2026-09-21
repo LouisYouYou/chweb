@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
+import Image from 'next/image';
 import { Menu, X, Globe } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -42,9 +43,13 @@ export default function Header({ locale }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-full church-gradient flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow">
-              榮
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Glory Church Nanshijiao Logo"
+              width={40}
+              height={40}
+              className="rounded-full shadow-md group-hover:shadow-lg transition-shadow"
+            />
             <div className="hidden sm:block">
               <p className="font-bold text-wine-900 text-sm leading-tight">
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
@@ -41,9 +42,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-9 h-9 rounded-full church-gradient flex items-center justify-center text-white font-bold text-sm">
-                榮
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Glory Church Nanshijiao Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
               <p className="font-bold text-white text-lg">
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
               </p>
