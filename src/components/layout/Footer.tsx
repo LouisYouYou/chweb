@@ -42,10 +42,10 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="w-9 h-9 rounded-full church-gradient flex items-center justify-center text-white font-bold text-sm">
-                恩
+                榮
               </div>
               <p className="font-bold text-white text-lg">
-                {locale === 'zh-TW' ? '恩典之光教會' : 'Grace & Light Church'}
+                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
               </p>
             </div>
             <p className="text-sm text-blue-300 leading-relaxed mb-4">{t('description')}</p>
@@ -87,8 +87,8 @@ export default function Footer() {
                 <MapPin size={14} className="mt-0.5 shrink-0 text-blue-400" />
                 <span>
                   {locale === 'zh-TW'
-                    ? '台北市信義區復興南路二段 123 號 5 樓'
-                    : '5F, No.123, Fuxing S. Rd. Sec.2, Taipei'}
+                    ? '新北市中和區忠孝街 39-15 號'
+                    : 'No.39-15, Zhongxiao St., Zhonghe Dist., New Taipei City'}
                 </span>
               </li>
               <li className="flex items-center gap-2">

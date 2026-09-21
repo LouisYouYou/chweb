@@ -10,7 +10,7 @@
   "home": {
     "hero": {
       "subtitle": "Welcome to",
-      "title": "Grace & Light Church",
+      "title": "Glory Church Nanshijiao",
       "description": "Here you will find love, hope, and community. Wherever you go, grace walks with you.",
       "cta_primary": "Service Times",
       "cta_secondary": "About Us"
@@ -44,14 +44,14 @@
       { "icon": "globe", "title": "Mission", "text": "Bringing the Gospel to the ends of the earth" }
     ],
     "history_title": "Our History",
-    "history_text": "Grace & Light Church was founded in 2005. Starting with 20 members, we have grown into a vibrant community of hundreds of believers. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling."
+    "history_text": "Glory Church Nanshijiao is part of the Way Church (行道會) and is rooted in the Nanshijiao community of Zhonghe District, New Taipei City. Over the years, our congregation has continued to grow into a vibrant community of faith. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling."
   },
   "services": {
     "title": "Service Times",
     "subtitle": "We offer multiple gathering types — join us as you are",
     "location_title": "Location",
-    "location_address": "5F, No. 123, Fuxing S. Rd. Sec. 2, Xinyi Dist., Taipei",
-    "location_hint": "5-minute walk from MRT Da'an Station Exit 5",
+    "location_address": "No. 39-15, Zhongxiao St., Zhonghe Dist., New Taipei City",
+    "location_hint": "Approx. 10-minute walk from MRT Nanshijiao Station Exit 1",
     "transport_title": "Getting Here",
     "parking_title": "Parking",
     "parking_text": "Underground parking available at the rear of the building. Free parking for 2 hours during church services."
@@ -107,11 +107,11 @@
     "office_hours_text": "Mon–Fri 9:00 AM – 5:00 PM"
   },
   "footer": {
-    "description": "Grace & Light Church — serving with love, rooted in truth.",
+    "description": "Glory Church Nanshijiao — rooted in Zhonghe, serving with love and truth.",
     "quick_links": "Quick Links",
     "contact_info": "Contact",
     "follow_us": "Follow Us",
-    "copyright": "© 2025 Grace & Light Church. All rights reserved.",
+    "copyright": "© 2025 Glory Church Nanshijiao. All rights reserved.",
     "live_stream": "Live Stream"
   },
   "common": {

@@ -43,14 +43,14 @@ export default function Header({ locale }: HeaderProps) {
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2 group">
             <div className="w-9 h-9 rounded-full church-gradient flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow">
-              恩
+              榮
             </div>
             <div className="hidden sm:block">
               <p className="font-bold text-blue-900 text-sm leading-tight">
-                {locale === 'zh-TW' ? '恩典之光教會' : 'Grace & Light Church'}
+                {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Nanshijiao'}
               </p>
               <p className="text-xs text-blue-500 leading-tight">
-                {locale === 'zh-TW' ? 'Grace & Light Church' : '恩典之光教會'}
+                {locale === 'zh-TW' ? 'Glory Church Nanshijiao' : '行道會南勢角榮耀堂'}
               </p>
             </div>
           </Link>

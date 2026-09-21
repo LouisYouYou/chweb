@@ -8,8 +8,8 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "恩典之光教會 | Grace & Light Church",
-  description: "歡迎來到恩典之光教會。在這裡你將找到愛、盼望與群體。",
+  title: "行道會南勢角榮耀堂 | Glory Church Nanshijiao",
+  description: "歡迎來到行道會南勢角榮耀堂。位於新北市中和區，在這裡你將找到愛、盼望與群體。",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

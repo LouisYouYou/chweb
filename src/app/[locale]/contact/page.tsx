@@ -101,7 +101,7 @@ export default function ContactPage() {
                 {
                   icon: MapPin,
                   label: t('address'),
-                  value: locale === 'zh-TW' ? '台北市信義區復興南路二段 123 號 5 樓' : '5F, No.123, Fuxing S. Rd. Sec.2, Taipei',
+                  value: locale === 'zh-TW' ? '新北市中和區忠孝街 39-15 號' : 'No.39-15, Zhongxiao St., Zhonghe Dist., New Taipei City',
                   color: 'bg-blue-50 text-blue-600',
                 },
                 {
