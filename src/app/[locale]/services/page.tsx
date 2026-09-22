@@ -21,7 +21,7 @@ export default async function ServicesPage() {
       {/* Service Times */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {serviceTimes.map((s) => (
               <div key={s.id} className="bg-white border border-wine-100 rounded-2xl p-6 hover:shadow-lg transition-shadow hover:border-wine-300">
                 <div className="w-12 h-12 church-gradient rounded-xl flex items-center justify-center mb-4">

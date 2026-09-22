@@ -17,7 +17,7 @@ export default function ServiceTimesSection() {
           <div className="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {serviceTimes.map((s) => (
             <div
               key={s.id}
