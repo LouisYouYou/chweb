@@ -10,24 +10,7 @@ export default defineConfig({
   dataset: 'production',
   basePath: '/studio',
   plugins: [
-    structureTool({
-      structure: (S) =>
-        S.list()
-          .title('內容管理')
-          .items([
-            S.listItem()
-              .id('dailyScripture')
-              .title('每日經文')
-              .schemaType('dailyScripture')
-              .child(
-                S.documentList()
-                  .id('dailyScriptureList')
-                  .title('每日經文列表')
-                  .filter('_type == "dailyScripture"')
-                  .defaultOrdering([{ field: 'date', direction: 'desc' }])
-              ),
-          ]),
-    }),
+    structureTool(),
     visionTool(),
   ],
   schema: {
