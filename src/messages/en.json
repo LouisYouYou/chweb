@@ -5,7 +5,13 @@
     "services": "Service Times",
     "sermons": "Sermons",
     "events": "Events",
+    "daily_scripture": "Daily Scripture",
     "contact": "Contact"
+  },
+  "scripture": {
+    "title": "Daily Scripture",
+    "subtitle": "One verse a day, rooted in God's Word",
+    "empty": "No scripture posted yet. Check back soon."
   },
   "home": {
     "hero": {

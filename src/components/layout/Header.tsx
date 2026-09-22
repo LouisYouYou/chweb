@@ -23,6 +23,7 @@ export default function Header({ locale }: HeaderProps) {
     { href: `/${locale}/services`, label: t('services') },
     { href: `/${locale}/sermons`, label: t('sermons') },
     { href: `/${locale}/events`, label: t('events') },
+    { href: `/${locale}/daily-scripture`, label: t('daily_scripture') },
     { href: `/${locale}/contact`, label: t('contact') },
   ];
 

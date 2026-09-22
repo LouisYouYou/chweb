@@ -5,7 +5,13 @@
     "services": "聚會資訊",
     "sermons": "講道媒體",
     "events": "活動行事曆",
+    "daily_scripture": "每日經文",
     "contact": "聯絡我們"
+  },
+  "scripture": {
+    "title": "每日經文",
+    "subtitle": "每日一節，扎根神的話語",
+    "empty": "尚無每日經文，請稍後再來。"
   },
   "home": {
     "hero": {
