@@ -24,7 +24,7 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
         const ref = zh ? s.referenceZh : (s.referenceEn || s.referenceZh)
         const reflection = zh ? s.reflectionZh : (s.reflectionEn || s.reflectionZh)
         const imageUrl = s.image?.asset
-          ? urlFor(s.image).width(800).height(400).fit('crop').url()
+          ? urlFor(s.image).width(1200).url()
           : null
 
         return (
@@ -75,15 +75,15 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
               <div className="px-5 pb-6 border-t border-gray-100">
                 {/* Image */}
                 {imageUrl && (
-                  <div className="relative w-full h-52 sm:h-72 rounded-xl overflow-hidden my-5">
-                    <Image
-                      src={imageUrl}
-                      alt={s.image?.alt ?? ref}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
+                  <Image
+                    src={imageUrl}
+                    alt={s.image?.alt ?? ref}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-auto rounded-xl my-5"
+                    unoptimized
+                  />
                 )}
 
                 {/* Verse */}
