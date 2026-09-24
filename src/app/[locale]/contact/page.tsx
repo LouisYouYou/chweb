@@ -113,7 +113,7 @@ export default function ContactPage() {
                 {
                   icon: Mail,
                   label: t('email_label'),
-                  value: 'info@gracelight.org.tw',
+                  value: 'winson651202@gmail.com',
                   color: 'bg-amber-50 text-amber-600',
                 },
                 {

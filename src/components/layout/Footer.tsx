@@ -97,7 +97,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="shrink-0 text-wine-400" />
-                <span>info@gracelight.org.tw</span>
+                <span>winson651202@gmail.com</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-wine-400" />
