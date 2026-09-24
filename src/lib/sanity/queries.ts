@@ -4,24 +4,14 @@ import { groq } from 'next-sanity'
 export interface DailyScripture {
   _id: string
   date: string
-  verseZh: string
-  verseEn?: string
-  referenceZh: string
-  referenceEn?: string
-  reflectionZh?: string
-  reflectionEn?: string
   image?: {
     asset: { _ref: string }
-    alt?: string
     hotspot?: { x: number; y: number }
   }
 }
 
 const scriptureFields = groq`
-  _id, date, verseZh, verseEn,
-  referenceZh, referenceEn,
-  reflectionZh, reflectionEn,
-  image { asset, alt, hotspot }
+  _id, date, image { asset, hotspot }
 `
 
 export async function getTodayScripture(): Promise<DailyScripture | null> {
