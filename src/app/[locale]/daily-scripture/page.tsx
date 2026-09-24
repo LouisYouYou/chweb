@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server'
+
+export const metadata: Metadata = {
+  title: '每日經文',
+  description: '行道會南勢角榮耀堂每日經文。牧師精選聖經金句，每日更新，以神的話語開始美好的一天。',
+}
 import { getAllScriptures } from '@/lib/sanity/queries'
 import DailyScriptureList from '@/components/scripture/DailyScriptureList'
 

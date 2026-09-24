@@ -9,12 +9,32 @@ export default function ContactPage() {
   const locale = useLocale();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setForm({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSent(false), 5000);
+    setSending(true);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSent(true);
+        setForm({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setSent(false), 8000);
+      } else {
+        const data = await res.json();
+        setError(data.error ?? '傳送失敗，請稍後再試');
+      }
+    } catch {
+      setError('網路錯誤，請稍後再試');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -82,12 +102,18 @@ export default function ContactPage() {
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm resize-none"
                   />
                 </div>
+                {error && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                    ⚠️ {error}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-3.5 church-gradient text-white font-semibold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                  disabled={sending}
+                  className="w-full py-3.5 church-gradient text-white font-semibold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Send size={16} />
-                  {t('submit')}
+                  <Send size={16} className={sending ? 'animate-pulse' : ''} />
+                  {sending ? '傳送中...' : t('submit')}
                 </button>
               </form>
             )}

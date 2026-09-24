@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server';
 import { Heart, BookOpen, Users, Globe } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: '關於我們',
+  description: '認識行道會南勢角榮耀堂。我們的使命、異象與核心價值，以及教會的歷史與信仰立場。',
+}
 
 const iconMap = { heart: Heart, book: BookOpen, users: Users, globe: Globe };
 

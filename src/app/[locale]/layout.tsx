@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/lib/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import ChurchJsonLd from '@/components/seo/ChurchJsonLd';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -26,6 +27,9 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <html lang={locale}>
+        <head>
+          <ChurchJsonLd />
+        </head>
         <body className="min-h-full flex flex-col">
           <Header locale={locale} />
           <main className="flex-1">{children}</main>

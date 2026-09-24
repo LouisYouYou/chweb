@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import SermonLibrary from '@/components/sermons/SermonLibrary';
+
+export const metadata: Metadata = {
+  title: '講道媒體庫',
+  description: '行道會南勢角榮耀堂講道媒體庫。收聽主日講道、聖經研讀、青年講道影片，在家也能靈命成長。',
+}
 
 export default async function SermonsPage() {
   const t = await getTranslations('sermons');

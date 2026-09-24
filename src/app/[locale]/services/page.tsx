@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import Image from 'next/image';
+
+export const metadata: Metadata = {
+  title: '聚會資訊',
+  description: '行道會南勢角榮耀堂聚會時間：主日崇拜每週日10:00-11:30、小組聚會每週二19:30、青年聚會每週六19:00。地址：新北市中和區忠孝街39-15號，捷運南勢角站4號出口。',
+}
 import { Clock, MapPin, Car, Train } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 
