@@ -1,7 +1,8 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemas'
+import { StudioLogo } from './components/StudioLogo'
+import { StudioNavbar } from './components/StudioNavbar'
 
 export default defineConfig({
   name: 'nanshijiao-glory',
@@ -10,10 +11,17 @@ export default defineConfig({
   dataset: 'production',
   basePath: '/studio',
   plugins: [
-    structureTool(),
-    visionTool(),
+    structureTool({
+      title: '每日經文',
+    }),
   ],
   schema: {
     types: schemaTypes,
+  },
+  studio: {
+    components: {
+      logo: StudioLogo,
+      navbar: StudioNavbar,
+    },
   },
 })

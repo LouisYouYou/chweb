@@ -7,17 +7,22 @@ export default defineType({
   fields: [
     defineField({
       name: 'date',
-      title: '日期',
+      title: '📅 日期',
       type: 'date',
-      validation: (Rule) => Rule.required(),
-      options: { dateFormat: 'YYYY-MM-DD' },
+      description: '請選擇這張經文圖片對應的日期',
+      validation: (Rule) => Rule.required().error('請填寫日期'),
+      options: { dateFormat: 'YYYY年MM月DD日' },
     }),
     defineField({
       name: 'image',
-      title: '配圖',
+      title: '🖼️ 經文圖片',
       type: 'image',
-      validation: (Rule) => Rule.required(),
-      options: { hotspot: true },
+      description: '上傳當天的每日經文圖片（支援 JPG、PNG，建議寬度 1080px 以上）',
+      validation: (Rule) => Rule.required().error('請上傳圖片'),
+      options: {
+        hotspot: true,
+        accept: 'image/*',
+      },
     }),
   ],
   preview: {
@@ -26,8 +31,17 @@ export default defineType({
       media: 'image',
     },
     prepare({ title, media }) {
+      const formatted = title
+        ? new Date(title + 'T00:00:00').toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'short',
+          })
+        : '（未填日期）'
       return {
-        title: title ?? '（未填日期）',
+        title: formatted,
+        subtitle: '每日經文',
         media,
       }
     },
