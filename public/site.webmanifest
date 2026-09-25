@@ -1,0 +1,23 @@
+{
+  "name": "行道會南勢角榮耀堂",
+  "short_name": "榮耀堂",
+  "description": "行道會南勢角榮耀堂官方網站",
+  "start_url": "/zh-TW",
+  "display": "standalone",
+  "theme_color": "#92202f",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
