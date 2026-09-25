@@ -74,7 +74,7 @@ export default function Hero() {
           </Link>
           <Link
             href={`/${locale}/weekly-bulletin`}
-            className="flex items-center gap-2 px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
           >
             <FileText size={15} />
             {locale === 'zh-TW' ? '教會週報' : 'Bulletin'}
