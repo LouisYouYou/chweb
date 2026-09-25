@@ -3,11 +3,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { ChevronDown, FileText } from 'lucide-react';
+import { ChevronDown, FileText, Radio } from 'lucide-react';
+
+function isSundayInTaiwan(): boolean {
+  const tw = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei' }));
+  return tw.getDay() === 0;
+}
 
 export default function Hero() {
   const t = useTranslations('home.hero');
   const locale = useLocale();
+  const isSunday = isSundayInTaiwan();
+  const zh = locale === 'zh-TW';
 
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
@@ -77,8 +84,29 @@ export default function Hero() {
             className="flex items-center justify-center gap-2 px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
           >
             <FileText size={15} />
-            {locale === 'zh-TW' ? '教會週報' : 'Bulletin'}
+            {zh ? '教會週報' : 'Bulletin'}
           </Link>
+          <a
+            href="https://www.youtube.com/@winson651202/live"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-8 py-3.5 border border-red-400/60 text-red-300 font-semibold rounded-full hover:bg-red-400/10 hover:border-red-400 transition-all text-sm backdrop-blur-sm"
+          >
+            {isSunday ? (
+              <>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+                </span>
+                {zh ? '直播中' : 'Live Now'}
+              </>
+            ) : (
+              <>
+                <Radio size={15} />
+                {zh ? '主日直播' : 'Live Stream'}
+              </>
+            )}
+          </a>
         </div>
 
         {/* Stats */}
