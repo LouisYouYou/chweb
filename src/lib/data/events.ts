@@ -1,3 +1,10 @@
+export interface CourseItem {
+  nameZh: string;
+  nameEn: string;
+  day: string;
+  time: string;
+}
+
 export interface ChurchEvent {
   id: string;
   titleZh: string;
@@ -13,88 +20,27 @@ export interface ChurchEvent {
   seatsLeft?: number;
   fee?: number;
   image?: string;
+  courseItems?: CourseItem[];
 }
 
 export const events: ChurchEvent[] = [
   {
     id: '1',
-    titleZh: '秋季退修會',
-    titleEn: 'Autumn Retreat',
-    descriptionZh: '一年一度的教會退修會，帶著疲憊的心靈，在神的面前安靜，重新得力。今年主題：「歸回」。',
-    descriptionEn: 'Our annual church retreat. Come with a weary heart and find rest in God\'s presence. This year\'s theme: "Return."',
-    date: '2025-10-04',
-    time: '08:00 - 17:00',
-    locationZh: '宜蘭聖地休閒農場',
-    locationEn: 'Holy Land Farm, Yilan',
-    category: 'retreat',
-    seats: 80,
-    seatsLeft: 23,
-    fee: 800,
-    image: '/images/events/retreat.jpg',
-  },
-  {
-    id: '2',
-    titleZh: '青年主日特會',
-    titleEn: 'Youth Sunday Special',
-    descriptionZh: '青年世代的特別崇拜聚會，配合現代敬拜樂團，讓年輕人在信仰中找到歸屬感。',
-    descriptionEn: 'A special worship service for the youth generation, featuring a modern praise band and relevant messages.',
-    date: '2025-09-28',
-    time: '14:00 - 16:30',
+    titleZh: '致福益人學院課程',
+    titleEn: 'Fu-Yi Community Learning Program',
+    descriptionZh: '多樣化的社區互動課程，包含油性粉彩入門、創意拼豆世界、皮拉提斯等，歡迎社區鄰里一起來學習、交流、成長。',
+    descriptionEn: 'A diverse range of community interactive courses including oil pastel basics, creative Hama bead art, and Pilates. All community members are warmly welcome.',
+    date: '2026-10-01',
+    time: '依各課程時間',
     locationZh: '教會主堂',
     locationEn: 'Main Sanctuary',
-    category: 'youth',
-    seats: 150,
-    seatsLeft: 67,
-    fee: 0,
-    image: '/images/events/youth.jpg',
-  },
-  {
-    id: '3',
-    titleZh: '愛鄰舍社區服務日',
-    titleEn: 'Love Thy Neighbor Community Day',
-    descriptionZh: '走出教會，服事周圍的社區。今次我們將前往老人院探訪，以及協助社區清潔工作。',
-    descriptionEn: 'Step outside the church walls and serve our community — visiting elderly care homes and helping with neighborhood cleanup.',
-    date: '2025-10-11',
-    time: '09:00 - 13:00',
-    locationZh: '集合於教會大廳',
-    locationEn: 'Meet at Church Lobby',
     category: 'community',
-    seats: 40,
-    seatsLeft: 15,
     fee: 0,
-    image: '/images/events/community.jpg',
-  },
-  {
-    id: '4',
-    titleZh: '聖經研讀入門課程',
-    titleEn: 'Bible Study Foundations',
-    descriptionZh: '六週的聖經研讀基礎課程，適合初信者或想系統學習聖經的弟兄姊妹。',
-    descriptionEn: 'A 6-week foundational Bible study course, ideal for new believers or anyone wanting to study Scripture systematically.',
-    date: '2025-10-07',
-    time: '19:30 - 21:00',
-    locationZh: '教會 B203 教室',
-    locationEn: 'Room B203',
-    category: 'training',
-    seats: 30,
-    seatsLeft: 12,
-    fee: 0,
-    image: '/images/events/bible.jpg',
-  },
-  {
-    id: '5',
-    titleZh: '感恩節晚宴',
-    titleEn: 'Thanksgiving Dinner',
-    descriptionZh: '一年一度的感恩節大家庭晚宴，帶著感謝的心，與弟兄姊妹一起享用豐盛的愛筵。',
-    descriptionEn: 'Our annual Thanksgiving family dinner — come with a grateful heart and enjoy a feast with fellow believers.',
-    date: '2025-11-23',
-    time: '18:00 - 21:00',
-    locationZh: '教會多功能廳',
-    locationEn: 'Multi-Purpose Hall',
-    category: 'community',
-    seats: 200,
-    seatsLeft: 88,
-    fee: 300,
-    image: '/images/events/thanksgiving.jpg',
+    courseItems: [
+      { nameZh: '油性粉彩', nameEn: 'Oil Pastel',    day: '週三', time: '09:30' },
+      { nameZh: '皮拉提斯', nameEn: 'Pilates',        day: '週二', time: '14:00' },
+      { nameZh: '拼豆創意', nameEn: 'Hama Bead Art',  day: '週六', time: '10:00' },
+    ],
   },
 ];
 
