@@ -1,5 +1,5 @@
 const API_KEY = process.env.YOUTUBE_API_KEY
-const CHANNEL_HANDLE = 'winson651202'
+const CHANNEL_ID = 'UCjZ3SAhHJ7-gVgZcMk0TFFw'
 
 export interface YouTubeVideo {
   id: string
@@ -9,29 +9,12 @@ export interface YouTubeVideo {
   thumbnail: string
 }
 
-async function getChannelId(): Promise<string | null> {
-  if (!API_KEY) return null
-  try {
-    const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=${CHANNEL_HANDLE}&key=${API_KEY}`,
-      { next: { revalidate: 86400 } }
-    )
-    const data = await res.json()
-    return data.items?.[0]?.id ?? null
-  } catch {
-    return null
-  }
-}
-
 export async function getChannelVideos(maxResults = 24): Promise<YouTubeVideo[]> {
   if (!API_KEY) return []
   try {
-    const channelId = await getChannelId()
-    if (!channelId) return []
-
     const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&order=date&maxResults=${maxResults}&key=${API_KEY}`,
-      { next: { revalidate: 3600 } }
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&order=date&maxResults=${maxResults}&key=${API_KEY}`,
+      { cache: 'no-store' }
     )
     const data = await res.json()
     if (!data.items) return []
