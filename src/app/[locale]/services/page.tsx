@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '聚會資訊',
   description: '行道會南勢角榮耀堂聚會時間：主日崇拜每週日10:00-11:30、小組聚會每週二19:30、青年聚會每週六19:00。地址：新北市中和區忠孝街39-15號，捷運南勢角站4號出口。',
 }
-import { Clock, MapPin, Car, Train } from 'lucide-react';
+import { Clock, MapPin, Car, Train, ExternalLink } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 
 export default async function ServicesPage() {
@@ -53,15 +52,27 @@ export default async function ServicesPage() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-wine-900 mb-10 text-center">{t('location_title')}</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Church photo */}
-            <div className="rounded-2xl overflow-hidden shadow-md h-72 relative">
-              <Image
-                src="/church.jpg"
-                alt="行道會南勢角榮耀堂"
-                fill
-                className="object-cover object-center"
-                quality={90}
+            {/* Google Map */}
+            <div className="rounded-2xl overflow-hidden shadow-md flex flex-col">
+              <iframe
+                src="https://maps.google.com/maps?q=新北市中和區忠孝街39-15號&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="320"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="行道會南勢角榮耀堂地圖"
               />
+              <a
+                href="https://maps.google.com/maps?q=新北市中和區忠孝街39-15號"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 py-3 bg-wine-900 text-white text-sm font-medium hover:bg-wine-700 transition-colors"
+              >
+                <ExternalLink size={14} />
+                {locale === 'zh-TW' ? '在 Google 地圖開啟' : 'Open in Google Maps'}
+              </a>
             </div>
 
             {/* Info */}
