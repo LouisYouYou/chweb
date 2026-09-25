@@ -55,7 +55,7 @@ export default async function ServicesPage() {
             {/* Google Map */}
             <div className="rounded-2xl overflow-hidden shadow-md flex flex-col">
               <iframe
-                src="https://maps.google.com/maps?q=新北市中和區忠孝街39-15號&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=24.9846438,121.5119889&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="320"
                 style={{ border: 0 }}
@@ -65,7 +65,7 @@ export default async function ServicesPage() {
                 title="行道會南勢角榮耀堂地圖"
               />
               <a
-                href="https://maps.google.com/maps?q=新北市中和區忠孝街39-15號"
+                href="https://www.google.com/maps/place/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82/@24.9846438,121.509414,17z/data=!4m15!1m8!3m7!1s0x3468026d71f8fd71:0x9bc891e67ea791c7!2zMjM1NjjmlrDljJfluILkuK3lkozljYDmnbHljZfph4zlv6DlrZ3ooZczOS0xNeiZnw!3b1!8m2!3d24.9846438!4d121.5119889!16s%2Fg%2F11k99p6trw!3m5!1s0x3468037ce5095e09:0xc5132716d44891e0!8m2!3d24.9846438!4d121.5119889!16s%2Fg%2F11h7q1fpz6"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-3 bg-wine-900 text-white text-sm font-medium hover:bg-wine-700 transition-colors"
