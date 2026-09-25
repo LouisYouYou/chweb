@@ -35,7 +35,7 @@ export const events: ChurchEvent[] = [
     locationZh: '教會主堂',
     locationEn: 'Main Sanctuary',
     category: 'community',
-    fee: 0,
+    fee: 1500,
     courseItems: [
       { nameZh: '油性粉彩', nameEn: 'Oil Pastel',    day: '週三', time: '09:30' },
       { nameZh: '皮拉提斯', nameEn: 'Pilates',        day: '週二', time: '14:00' },

@@ -91,9 +91,13 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                         <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold border ${categoryBadge[event.category]}`}>
                           {zh ? categoryLabels[event.category].zh : categoryLabels[event.category].en}
                         </span>
-                        {event.fee === 0 && (
+                        {event.fee === 0 ? (
                           <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold">
                             {t('free')}
+                          </span>
+                        ) : event.fee != null && (
+                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 font-semibold">
+                            ${event.fee.toLocaleString()}
                           </span>
                         )}
                       </div>
