@@ -68,7 +68,7 @@ export default function Hero() {
           </Link>
           <Link
             href={`/${locale}/about`}
-            className="px-8 py-3.5 border border-white/40 text-white font-semibold rounded-full hover:bg-white/10 hover:border-white/70 transition-all text-sm backdrop-blur-sm"
+            className="px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
           >
             {t('cta_secondary')}
           </Link>
