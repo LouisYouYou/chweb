@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Search, Play, X, Calendar, Youtube, ExternalLink } from 'lucide-react';
+import { Search, Play, X, Calendar, PlayCircle, ExternalLink } from 'lucide-react';
 import { getEmbedUrl, getWatchUrl, type YouTubeVideo } from '@/lib/youtube';
 
 interface SermonLibraryProps {
@@ -40,7 +40,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
         {/* No API key notice */}
         {videos.length === 0 && (
           <div className="text-center py-20 text-gray-400">
-            <Youtube size={48} className="mx-auto mb-4 opacity-30" />
+            <PlayCircle size={48} className="mx-auto mb-4 opacity-30" />
             <p className="text-lg mb-2">{zh ? '尚無影片資料' : 'No videos found'}</p>
             <p className="text-sm text-gray-300">
               {zh ? '請確認 YOUTUBE_API_KEY 已設定於 Vercel 環境變數' : 'Please set YOUTUBE_API_KEY in Vercel env vars'}
@@ -84,7 +84,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
                     </div>
                   </div>
                   <span className="absolute top-2 left-2 text-xs bg-wine-700/90 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <Youtube size={10} />
+                    <PlayCircle size={10} />
                     {zh ? '主日講道' : 'Sermon'}
                   </span>
                 </div>
@@ -113,7 +113,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 border border-wine-200 text-wine-700 font-semibold rounded-full hover:bg-wine-50 transition-colors text-sm"
             >
-              <Youtube size={16} />
+              <PlayCircle size={16} />
               {zh ? '前往 YouTube 頻道觀看更多' : 'View more on YouTube'}
               <ExternalLink size={13} />
             </a>

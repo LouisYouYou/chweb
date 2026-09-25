@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations, getLocale } from 'next-intl/server';
-import { Play, ArrowRight, Calendar, Youtube } from 'lucide-react';
+import { Play, ArrowRight, Calendar, PlayCircle } from 'lucide-react';
 import type { YouTubeVideo } from '@/lib/youtube';
 
 interface LatestSermonsProps {
@@ -42,7 +42,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
 
         {recent.length === 0 ? (
           <div className="text-center py-12 text-wine-400">
-            <Youtube size={40} className="mx-auto mb-3 opacity-40" />
+            <PlayCircle size={40} className="mx-auto mb-3 opacity-40" />
             <p className="text-sm">{locale === 'zh-TW' ? '尚無影片，請稍後再來' : 'No videos yet'}</p>
           </div>
         ) : (
@@ -72,7 +72,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
                     </div>
                   </div>
                   <span className="absolute top-3 left-3 text-xs bg-wine-700/90 text-wine-100 px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
-                    <Youtube size={10} />
+                    <PlayCircle size={10} />
                     {locale === 'zh-TW' ? '主日講道' : 'Sermon'}
                   </span>
                 </div>
