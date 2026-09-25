@@ -80,6 +80,7 @@ export default function Hero() {
             { num: '7', label: locale === 'zh-TW' ? '週年' : 'Years' },
             { num: '∞', label: locale === 'zh-TW' ? '神的恩典' : "God's Grace" },
             { num: '3', label: locale === 'zh-TW' ? '週間聚會' : 'Weekly Meetings' },
+            { num: '✦', label: locale === 'zh-TW' ? '課後輔導教育' : 'After-School Tutoring' },
           ].map(({ num, label }) => (
             <div key={label} className="text-center">
               <p className="text-2xl sm:text-3xl font-bold gradient-text-gold">{num}</p>
