@@ -12,7 +12,7 @@ export default defineConfig({
   basePath: '/studio',
   plugins: [
     structureTool({
-      title: '每日經文',
+      title: '內容管理',
     }),
   ],
   schema: {

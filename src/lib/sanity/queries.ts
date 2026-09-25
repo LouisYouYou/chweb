@@ -1,6 +1,14 @@
 import { client } from './client'
 import { groq } from 'next-sanity'
 
+export interface WeeklyBulletin {
+  _id: string
+  date: string
+  file?: {
+    asset: { url: string }
+  }
+}
+
 export interface DailyScripture {
   _id: string
   date: string
@@ -31,5 +39,11 @@ export async function getLatestScripture(): Promise<DailyScripture | null> {
 export async function getAllScriptures(): Promise<DailyScripture[]> {
   return client.fetch(
     groq`*[_type == "dailyScripture"] | order(date desc) { ${scriptureFields} }`
+  )
+}
+
+export async function getAllBulletins(): Promise<WeeklyBulletin[]> {
+  return client.fetch(
+    groq`*[_type == "weeklyBulletin"] | order(date desc) { _id, date, file { asset->{ url } } }`
   )
 }

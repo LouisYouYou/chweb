@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, FileText } from 'lucide-react';
 
 export default function Hero() {
   const t = useTranslations('home.hero');
@@ -71,6 +71,13 @@ export default function Hero() {
             className="px-8 py-3.5 border border-white/40 text-white font-semibold rounded-full hover:bg-white/10 hover:border-white/70 transition-all text-sm backdrop-blur-sm"
           >
             {t('cta_secondary')}
+          </Link>
+          <Link
+            href={`/${locale}/weekly-bulletin`}
+            className="flex items-center gap-2 px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
+          >
+            <FileText size={15} />
+            {locale === 'zh-TW' ? '教會週報' : 'Bulletin'}
           </Link>
         </div>
 

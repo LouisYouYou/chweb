@@ -6,6 +6,7 @@
     "sermons": "講道媒體",
     "events": "活動行事曆",
     "daily_scripture": "每日經文",
+    "weekly_bulletin": "教會週報",
     "contact": "聯絡我們"
   },
   "scripture": {
@@ -99,6 +100,11 @@
       "success": "報名成功！我們將以電子郵件確認您的報名。",
       "cancel": "取消"
     }
+  },
+  "bulletin": {
+    "title": "教會週報",
+    "subtitle": "每週主日週報，點擊下載閱讀",
+    "empty": "尚無週報，請稍後再來。"
   },
   "contact": {
     "title": "聯絡我們",

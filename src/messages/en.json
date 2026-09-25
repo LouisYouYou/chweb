@@ -6,6 +6,7 @@
     "sermons": "Sermons",
     "events": "Events",
     "daily_scripture": "Daily Scripture",
+    "weekly_bulletin": "Bulletin",
     "contact": "Contact"
   },
   "scripture": {
@@ -99,6 +100,11 @@
       "success": "Registration successful! We will confirm via email.",
       "cancel": "Cancel"
     }
+  },
+  "bulletin": {
+    "title": "Church Bulletin",
+    "subtitle": "Weekly Sunday bulletins — click to download and read",
+    "empty": "No bulletins posted yet. Check back soon."
   },
   "contact": {
     "title": "Contact Us",
