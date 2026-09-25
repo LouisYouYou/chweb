@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   description: '行道會南勢角榮耀堂講道媒體庫。收聽主日講道、聖經研讀、青年講道影片，在家也能靈命成長。',
 }
 
-export const revalidate = 3600
-
 export default async function SermonsPage() {
   const t = await getTranslations('sermons');
   const locale = await getLocale();
