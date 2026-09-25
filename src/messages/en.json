@@ -50,7 +50,12 @@
       { "icon": "globe", "title": "Mission", "text": "Bringing the Gospel to the ends of the earth" }
     ],
     "history_title": "Our History",
-    "history_text": "Glory Church Of Nanshijiao is part of Glory Church Taipei (行道會台北榮耀堂) and is rooted in the Nanshijiao community of Zhonghe District, New Taipei City. Over the years, our congregation has continued to grow into a vibrant community of faith. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling."
+    "history_text": "Glory Church Of Nanshijiao is part of Glory Church Taipei (行道會台北榮耀堂) and is rooted in the Nanshijiao community of Zhonghe District, New Taipei City. Over the years, our congregation has continued to grow into a vibrant community of faith. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling.",
+    "team_title": "Pastoral Team",
+    "team": [
+      { "role": "Senior Pastor", "name": "Pastor Chen Wen-Bin" },
+      { "role": "Minister", "name": "Minister Lo Shu-Hua" }
+    ]
   },
   "services": {
     "title": "Service Times",

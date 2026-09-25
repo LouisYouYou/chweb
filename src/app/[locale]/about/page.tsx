@@ -67,8 +67,29 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* History */}
+      {/* Pastoral Team */}
       <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-900 mb-2">{t('team_title')}</h2>
+            <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full mt-4" />
+          </div>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            {[0, 1].map((i) => (
+              <div key={i} className="flex-1 max-w-xs mx-auto sm:mx-0 bg-white rounded-2xl border border-wine-100 hover:shadow-lg transition-shadow p-8 text-center">
+                <div className="w-16 h-16 church-gradient rounded-full flex items-center justify-center mx-auto mb-5">
+                  <span className="text-white text-2xl">✝</span>
+                </div>
+                <p className="text-sm font-medium text-wine-500 mb-2">{t(`team.${i}.role`)}</p>
+                <h3 className="text-xl font-bold text-wine-900">{t(`team.${i}.name`)}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* History */}
+      <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-wine-900 mb-6">{t('history_title')}</h2>
           <p className="text-gray-600 leading-relaxed text-lg">{t('history_text')}</p>
