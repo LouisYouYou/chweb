@@ -78,8 +78,8 @@ export default function Hero() {
         <div className="mt-16 flex justify-center gap-8 sm:gap-16">
           {[
             { num: '7', label: locale === 'zh-TW' ? '週年' : 'Years' },
-            { num: '3', label: locale === 'zh-TW' ? '週間聚會' : 'Weekly Meetings' },
             { num: '∞', label: locale === 'zh-TW' ? '神的恩典' : "God's Grace" },
+            { num: '3', label: locale === 'zh-TW' ? '週間聚會' : 'Weekly Meetings' },
           ].map(({ num, label }) => (
             <div key={label} className="text-center">
               <p className="text-2xl sm:text-3xl font-bold gradient-text-gold">{num}</p>
