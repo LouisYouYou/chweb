@@ -34,6 +34,7 @@ export default function Footer() {
     { href: `/${locale}/events`, label: nav('events') },
     { href: `/${locale}/daily-scripture`, label: nav('daily_scripture') },
     { href: `/${locale}/weekly-bulletin`, label: nav('weekly_bulletin') },
+    { href: `/${locale}/gallery`, label: nav('gallery') },
     { href: `/${locale}/contact`, label: nav('contact') },
   ];
 

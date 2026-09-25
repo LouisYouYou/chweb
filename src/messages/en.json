@@ -7,6 +7,7 @@
     "events": "Events",
     "daily_scripture": "Daily Scripture",
     "weekly_bulletin": "Bulletin",
+    "gallery": "Gallery",
     "contact": "Contact"
   },
   "scripture": {
@@ -100,6 +101,11 @@
       "success": "Registration successful! We will confirm via email.",
       "cancel": "Cancel"
     }
+  },
+  "gallery": {
+    "title": "Photo Gallery",
+    "subtitle": "Capturing every moment of grace",
+    "empty": "No photos yet. Check back soon."
   },
   "bulletin": {
     "title": "Church Bulletin",

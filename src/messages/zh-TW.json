@@ -7,6 +7,7 @@
     "events": "活動行事曆",
     "daily_scripture": "每日經文",
     "weekly_bulletin": "教會週報",
+    "gallery": "相片集",
     "contact": "聯絡我們"
   },
   "scripture": {
@@ -100,6 +101,11 @@
       "success": "報名成功！我們將以電子郵件確認您的報名。",
       "cancel": "取消"
     }
+  },
+  "gallery": {
+    "title": "教會相片集",
+    "subtitle": "記錄每個蒙恩的時刻",
+    "empty": "尚無相片，請稍後再來。"
   },
   "bulletin": {
     "title": "教會週報",

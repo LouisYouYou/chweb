@@ -42,6 +42,22 @@ export async function getAllScriptures(): Promise<DailyScripture[]> {
   )
 }
 
+export interface GalleryPhoto {
+  _id: string
+  date: string
+  caption?: string
+  image: {
+    asset: { _ref: string }
+    hotspot?: { x: number; y: number }
+  }
+}
+
+export async function getAllGalleryPhotos(): Promise<GalleryPhoto[]> {
+  return client.fetch(
+    groq`*[_type == "galleryPhoto"] | order(date desc) { _id, date, caption, image { asset, hotspot } }`
+  )
+}
+
 export async function getAllBulletins(): Promise<WeeklyBulletin[]> {
   return client.fetch(
     groq`*[_type == "weeklyBulletin"] | order(date desc) { _id, date, file { asset->{ url } } }`
