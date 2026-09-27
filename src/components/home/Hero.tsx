@@ -3,18 +3,23 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
+import { useEffect, useState } from 'react';
 import { ChevronDown, FileText, Radio } from 'lucide-react';
 
-function isSundayInTaiwan(): boolean {
-  const tw = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei' }));
-  return tw.getDay() === 0;
-}
+type LiveStatus = 'loading' | 'live' | 'offline'
 
 export default function Hero() {
   const t = useTranslations('home.hero');
   const locale = useLocale();
-  const isSunday = isSundayInTaiwan();
   const zh = locale === 'zh-TW';
+  const [liveStatus, setLiveStatus] = useState<LiveStatus>('loading');
+
+  useEffect(() => {
+    fetch('/api/youtube-live')
+      .then((r) => r.json())
+      .then((d) => setLiveStatus(d.isLive ? 'live' : 'offline'))
+      .catch(() => setLiveStatus('offline'));
+  }, []);
 
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
@@ -86,27 +91,35 @@ export default function Hero() {
             <FileText size={15} />
             {zh ? '教會週報' : 'Bulletin'}
           </Link>
-          <a
-            href="https://www.youtube.com/@winson651202/live"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-8 py-3.5 border border-red-400/60 text-red-300 font-semibold rounded-full hover:bg-red-400/10 hover:border-red-400 transition-all text-sm backdrop-blur-sm"
-          >
-            {isSunday ? (
-              <>
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
-                </span>
-                {zh ? '直播中' : 'Live Now'}
-              </>
-            ) : (
-              <>
-                <Radio size={15} />
-                {zh ? '主日直播' : 'Live Stream'}
-              </>
-            )}
-          </a>
+          {liveStatus === 'live' ? (
+            <a
+              href="https://www.youtube.com/@winson651202/live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-8 py-3.5 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 transition-all text-sm backdrop-blur-sm"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+              </span>
+              {zh ? '直播中' : 'Live Now'}
+            </a>
+          ) : liveStatus === 'offline' ? (
+            <a
+              href="https://www.youtube.com/@winson651202"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 transition-all text-sm backdrop-blur-sm cursor-default"
+            >
+              <Radio size={15} className="opacity-50" />
+              {zh ? '現在沒有線上直播' : 'No Live Stream Now'}
+            </a>
+          ) : (
+            <span className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white/30 font-semibold rounded-full text-sm backdrop-blur-sm">
+              <Radio size={15} className="opacity-30" />
+              {zh ? '主日直播' : 'Live Stream'}
+            </span>
+          )}
         </div>
 
         {/* Stats */}
