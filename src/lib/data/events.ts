@@ -25,6 +25,19 @@ export interface ChurchEvent {
 
 export const events: ChurchEvent[] = [
   {
+    id: '2',
+    titleZh: '家庭團契',
+    titleEn: 'Family Fellowship',
+    descriptionZh: '讓愛重新在家庭中連結，邀請已婚的夫妻一同參加，一起經歷神在家庭中的恩典與更新。',
+    descriptionEn: 'Rekindling love within families — all married couples are warmly invited to experience God\'s grace and renewal together.',
+    date: '2026-10-17',
+    time: '15:00 - 17:00',
+    locationZh: '教會主堂',
+    locationEn: 'Main Sanctuary',
+    category: 'retreat',
+    fee: 0,
+  },
+  {
     id: '1',
     titleZh: '致福益人學院課程',
     titleEn: 'Fu-Yi Community Learning Program',
