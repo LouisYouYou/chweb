@@ -43,7 +43,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
             <PlayCircle size={48} className="mx-auto mb-4 opacity-30" />
             <p className="text-lg mb-2">{zh ? '尚無影片資料' : 'No videos found'}</p>
             <p className="text-sm text-gray-300">
-              {zh ? '請確認 YOUTUBE_API_KEY 已設定於 Vercel 環境變數' : 'Please set YOUTUBE_API_KEY in Vercel env vars'}
+              {zh ? '無法載入影片，請稍後再試' : 'Unable to load videos, please try again later'}
             </p>
           </div>
         )}

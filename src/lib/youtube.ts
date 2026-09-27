@@ -11,7 +11,10 @@ export interface YouTubeVideo {
 
 export async function getChannelVideos(maxResults = 24): Promise<YouTubeVideo[]> {
   try {
-    const res = await fetch(RSS_URL, { next: { revalidate: 1800 } })
+    const res = await fetch(RSS_URL, {
+      next: { revalidate: 1800 },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ChurchWebsite/1.0)' },
+    })
     if (!res.ok) return []
     const xml = await res.text()
 
