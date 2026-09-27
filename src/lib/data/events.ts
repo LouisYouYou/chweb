@@ -25,6 +25,19 @@ export interface ChurchEvent {
 
 export const events: ChurchEvent[] = [
   {
+    id: '3',
+    titleZh: '聖經講座 — 歷代志上',
+    titleEn: 'Bible Seminar — 1 Chronicles',
+    descriptionZh: '邀請黃正人老師／博士主講歷代志上，深入認識神的話語，歡迎弟兄姊妹踴躍參加。',
+    descriptionEn: 'Dr. Huang Zheng-Ren leads an in-depth seminar on 1 Chronicles. All are welcome.',
+    date: '2026-10-03',
+    time: '09:00',
+    locationZh: '教會主堂',
+    locationEn: 'Main Sanctuary',
+    category: 'training',
+    fee: 0,
+  },
+  {
     id: '2',
     titleZh: '家庭團契',
     titleEn: 'Family Fellowship',

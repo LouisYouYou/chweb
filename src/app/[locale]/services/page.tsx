@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: '聚會資訊',
   description: '行道會南勢角榮耀堂聚會時間：主日崇拜每週日10:00-11:30、小組聚會每週二19:30、青年聚會每週六19:00。地址：新北市中和區忠孝街39-15號，捷運南勢角站4號出口。',
 }
-import { Clock, MapPin, Car, Train, ExternalLink } from 'lucide-react';
+import { Clock, MapPin, Car, Train, ExternalLink, CreditCard } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 
 export default async function ServicesPage() {
@@ -106,6 +106,43 @@ export default async function ServicesPage() {
                   <h3 className="font-bold text-wine-900">{t('parking_title')}</h3>
                 </div>
                 <p className="text-gray-600 text-sm">{t('parking_text')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 奉獻匯款 */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-wine-900 mb-8 text-center">
+            {locale === 'zh-TW' ? '奉獻匯款' : 'Offering & Donation'}
+          </h2>
+          <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-wine-100 p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-wine-100 rounded-xl flex items-center justify-center">
+                <CreditCard size={18} className="text-wine-600" />
+              </div>
+              <h3 className="font-bold text-wine-900">
+                {locale === 'zh-TW' ? '銀行匯款帳號' : 'Bank Transfer Details'}
+              </h3>
+            </div>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between border-b border-gray-100 pb-3">
+                <span className="text-gray-500">{locale === 'zh-TW' ? '銀行' : 'Bank'}</span>
+                <span className="font-medium text-wine-900">{locale === 'zh-TW' ? '華南銀行南勢角分行（008）' : 'Hua Nan Bank Nanshijiao Branch (008)'}</span>
+              </div>
+              <div className="flex justify-between border-b border-gray-100 pb-3">
+                <span className="text-gray-500">{locale === 'zh-TW' ? '戶名' : 'Account Name'}</span>
+                <span className="font-medium text-wine-900 text-right">{locale === 'zh-TW' ? '財團法人中華基督教行道會南勢角榮耀堂' : 'Glory Church of Nanshijiao'}</span>
+              </div>
+              <div className="flex justify-between border-b border-gray-100 pb-3">
+                <span className="text-gray-500">{locale === 'zh-TW' ? '帳號' : 'Account No.'}</span>
+                <span className="font-mono font-bold text-wine-700 tracking-wider">183-10-0034556</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">{locale === 'zh-TW' ? '備註' : 'Note'}</span>
+                <span className="font-medium text-wine-900">{locale === 'zh-TW' ? '請註明姓名及奉獻用途' : 'Please include your name and purpose'}</span>
               </div>
             </div>
           </div>
