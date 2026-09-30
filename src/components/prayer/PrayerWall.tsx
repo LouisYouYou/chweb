@@ -130,13 +130,18 @@ export default function PrayerWall({ initialPrayers, currentUserId, locale }: Pr
             </form>
           )
         ) : (
-          <div className="text-center py-5 bg-wine-50 rounded-2xl border border-wine-100">
-            <p className="text-wine-700 text-sm">
-              {zh ? '請' : 'Please '}
-              <a href={`/${locale}/login`} className="font-semibold underline">{zh ? '登入' : 'sign in'}</a>
-              {zh ? '後才可以新增代禱事項' : ' to add a prayer request'}
-            </p>
-          </div>
+          <a
+            href={`/${locale}/login`}
+            className="w-full py-4 border-2 border-dashed border-wine-300 text-wine-600 rounded-2xl hover:border-wine-500 hover:bg-wine-50 transition-all text-sm font-medium flex items-center justify-center gap-2"
+          >
+            <Send size={16} />
+            <span>
+              {zh ? '新增代禱事項' : 'Add Prayer Request'}
+              <span className="ml-1.5 text-xs font-normal opacity-75">
+                {zh ? '（帳號登入才能使用）' : '(Sign in required)'}
+              </span>
+            </span>
+          </a>
         )}
       </div>
 
