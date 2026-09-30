@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, LogIn, User } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 interface HeaderProps {
   locale: string;
@@ -13,9 +14,21 @@ interface HeaderProps {
 
 export default function Header({ locale }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ email?: string | null } | null>(null);
   const t = useTranslations('nav');
   const pathname = usePathname();
   const router = useRouter();
+  const supabase = createClient();
+  const zh = locale === 'zh-TW';
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const navLinks = [
     { href: `/${locale}`, label: t('home') },
@@ -91,6 +104,23 @@ export default function Header({ locale }: HeaderProps) {
               <Globe size={14} />
               <span>{locale === 'zh-TW' ? 'EN' : '中文'}</span>
             </button>
+            {user ? (
+              <Link
+                href={`/${locale}/profile`}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-wine-700 border border-wine-200 hover:bg-wine-50 rounded-full transition-colors"
+              >
+                <User size={14} />
+                <span className="hidden sm:inline">{zh ? '我的帳號' : 'Profile'}</span>
+              </Link>
+            ) : (
+              <Link
+                href={`/${locale}/login`}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white church-gradient hover:opacity-90 rounded-full transition-opacity"
+              >
+                <LogIn size={14} />
+                <span className="hidden sm:inline">{zh ? '登入' : 'Sign In'}</span>
+              </Link>
+            )}
             <button
               className="lg:hidden p-2 rounded-md text-gray-600 hover:text-wine-700 hover:bg-wine-50"
               onClick={() => setMenuOpen(!menuOpen)}
