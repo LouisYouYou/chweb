@@ -39,6 +39,7 @@ export default function Header({ locale }: HeaderProps) {
     { href: `/${locale}/daily-scripture`, label: t('daily_scripture') },
     { href: `/${locale}/weekly-bulletin`, label: t('weekly_bulletin') },
     { href: `/${locale}/gallery`, label: t('gallery') },
+    { href: `/${locale}/prayer-wall`, label: t('prayer_wall') },
     { href: `/${locale}/contact`, label: t('contact') },
   ];
 
