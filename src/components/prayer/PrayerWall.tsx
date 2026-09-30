@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Heart, Send, Lock, Globe, Trash2 } from 'lucide-react'
+import { Heart, Send, Lock, Globe, Trash2, EyeOff, Eye } from 'lucide-react'
 
 interface Prayer {
   id: string
@@ -28,6 +28,7 @@ export default function PrayerWall({ initialPrayers, currentUserId, locale }: Pr
   const [prayedIds, setPrayedIds] = useState<Set<string>>(new Set())
   const [content, setContent] = useState('')
   const [isPublic, setIsPublic] = useState(true)
+  const [showName, setShowName] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [showForm, setShowForm] = useState(false)
 
@@ -37,7 +38,9 @@ export default function PrayerWall({ initialPrayers, currentUserId, locale }: Pr
     setSubmitting(true)
 
     const { data: { user } } = await supabase.auth.getUser()
-    const displayName = user?.user_metadata?.display_name ?? zh ? '匿名弟兄姊妹' : 'Anonymous'
+    const displayName = showName
+      ? (user?.user_metadata?.display_name ?? (zh ? '匿名弟兄姊妹' : 'Anonymous'))
+      : null
 
     const { data, error } = await supabase
       .from('prayer_requests')
@@ -107,19 +110,33 @@ export default function PrayerWall({ initialPrayers, currentUserId, locale }: Pr
                 placeholder={zh ? '請分享您的代禱需求…（最多 500 字）' : 'Share your prayer request… (max 500 chars)'}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-wine-300"
               />
-              <div className="flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => setIsPublic(!isPublic)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
-                    isPublic
-                      ? 'border-green-300 text-green-700 bg-green-50'
-                      : 'border-gray-300 text-gray-500 bg-gray-50'
-                  }`}
-                >
-                  {isPublic ? <Globe size={14} /> : <Lock size={14} />}
-                  {isPublic ? (zh ? '公開' : 'Public') : (zh ? '僅自己' : 'Private')}
-                </button>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsPublic(!isPublic)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                      isPublic
+                        ? 'border-green-300 text-green-700 bg-green-50'
+                        : 'border-gray-300 text-gray-500 bg-gray-50'
+                    }`}
+                  >
+                    {isPublic ? <Globe size={13} /> : <Lock size={13} />}
+                    {isPublic ? (zh ? '公開代禱' : 'Public') : (zh ? '僅自己' : 'Private')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowName(!showName)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                      showName
+                        ? 'border-blue-300 text-blue-700 bg-blue-50'
+                        : 'border-gray-300 text-gray-500 bg-gray-50'
+                    }`}
+                  >
+                    {showName ? <Eye size={13} /> : <EyeOff size={13} />}
+                    {showName ? (zh ? '顯示姓名' : 'Show Name') : (zh ? '匿名' : 'Anonymous')}
+                  </button>
+                </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
