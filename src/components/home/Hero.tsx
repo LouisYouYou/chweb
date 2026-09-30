@@ -73,34 +73,38 @@ export default function Hero() {
           {t('description')}
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href={`/${locale}/services`} className="px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm">
+        {/* CTAs — 2×2 grid on mobile, single row on sm+ */}
+        <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-3 justify-center max-w-xs sm:max-w-none mx-auto">
+          <Link
+            href={`/${locale}/services`}
+            className="flex items-center justify-center px-4 sm:px-7 py-3 sm:py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 active:bg-amber-400/10 transition-all text-xs sm:text-sm backdrop-blur-sm"
+          >
             {t('cta_primary')}
           </Link>
           <Link
             href={`/${locale}/about`}
-            className="px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
+            className="flex items-center justify-center px-4 sm:px-7 py-3 sm:py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 active:bg-amber-400/10 transition-all text-xs sm:text-sm backdrop-blur-sm"
           >
             {t('cta_secondary')}
           </Link>
           <Link
             href={`/${locale}/weekly-bulletin`}
-            className="flex items-center justify-center gap-2 px-8 py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 transition-all text-sm backdrop-blur-sm"
+            className="flex items-center justify-center gap-1.5 px-4 sm:px-7 py-3 sm:py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 active:bg-amber-400/10 transition-all text-xs sm:text-sm backdrop-blur-sm"
           >
-            <FileText size={15} />
+            <FileText size={13} />
             {zh ? '教會週報' : 'Bulletin'}
           </Link>
+
           {liveStatus === 'live' ? (
             <a
               href="https://www.youtube.com/@winson651202/live"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-8 py-3.5 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 transition-all text-sm backdrop-blur-sm"
+              className="flex items-center justify-center gap-1.5 px-4 sm:px-7 py-3 sm:py-3.5 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 transition-all text-xs sm:text-sm backdrop-blur-sm"
             >
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+                <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-red-500" />
               </span>
               {zh ? '直播中' : 'Live Now'}
             </a>
@@ -109,21 +113,22 @@ export default function Hero() {
               href="https://www.youtube.com/@winson651202"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 transition-all text-sm backdrop-blur-sm cursor-default"
+              className="flex items-center justify-center gap-1.5 px-4 sm:px-7 py-3 sm:py-3.5 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 transition-all text-xs sm:text-sm backdrop-blur-sm"
             >
-              <Radio size={15} className="opacity-50" />
-              {zh ? '現在沒有線上直播' : 'No Live Stream Now'}
+              <Radio size={13} className="opacity-50" />
+              <span className="sm:hidden">{zh ? '主日直播' : 'Live'}</span>
+              <span className="hidden sm:inline">{zh ? '現在沒有線上直播' : 'No Live Stream'}</span>
             </a>
           ) : (
-            <span className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white/30 font-semibold rounded-full text-sm backdrop-blur-sm">
-              <Radio size={15} className="opacity-30" />
-              {zh ? '主日直播' : 'Live Stream'}
+            <span className="flex items-center justify-center gap-1.5 px-4 sm:px-7 py-3 sm:py-3.5 border border-white/20 text-white/30 font-semibold rounded-full text-xs sm:text-sm backdrop-blur-sm">
+              <Radio size={13} className="opacity-30" />
+              {zh ? '主日直播' : 'Live'}
             </span>
           )}
         </div>
 
         {/* Stats */}
-        <div className="mt-16 flex justify-center gap-8 sm:gap-16">
+        <div className="mt-10 sm:mt-16 flex justify-center gap-5 sm:gap-16">
           {[
             { num: '7', label: locale === 'zh-TW' ? '週年' : 'Years' },
             { num: '∞', label: locale === 'zh-TW' ? '神的恩典' : "God's Grace" },
