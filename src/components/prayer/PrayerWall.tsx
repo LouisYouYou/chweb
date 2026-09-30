@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Heart, Send, Lock, Globe, EyeOff, Eye, User } from 'lucide-react'
+import { Heart, Send, Lock, Globe, EyeOff, Eye, User, X } from 'lucide-react'
 
 interface Prayer {
   id: string
@@ -18,6 +18,64 @@ interface PrayerWallProps {
   initialPrayers: Prayer[]
   currentUserId: string | null
   locale: string
+}
+
+function PrayerModal({ prayer, index, hasPrayed, zh, onClose, onPray }: {
+  prayer: Prayer; index: number; hasPrayed: boolean; zh: boolean
+  onClose: () => void; onPray: () => void
+}) {
+  const { s } = noteStyle(index >= 0 ? index : 0)
+  const date = new Date(prayer.created_at).toLocaleDateString(
+    zh ? 'zh-TW' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }
+  )
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
+        style={{
+          background: s.bg,
+          backgroundImage: `repeating-linear-gradient(transparent,transparent 27px,${s.line} 27px,${s.line} 28px)`,
+          backgroundPositionY: '32px',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="h-2 w-full" style={{ background: s.pin }} />
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors"
+        >
+          <X size={16} />
+        </button>
+        <div className="p-6 pt-5">
+          <div className="mb-4">
+            <p className="text-sm font-bold" style={{ color: s.pin }}>
+              {prayer.display_name || (zh ? '匿名弟兄姊妹' : 'Anonymous')}
+            </p>
+            <p className="text-xs text-gray-400 mt-0.5">{date}</p>
+          </div>
+          <p className="text-sm leading-[28px] text-gray-800 whitespace-pre-wrap break-words mb-6">
+            {prayer.content}
+          </p>
+          <button
+            onClick={onPray}
+            disabled={hasPrayed}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${
+              hasPrayed
+                ? 'border-rose-300 text-rose-600 bg-rose-50'
+                : 'border-gray-300 text-gray-600 hover:border-rose-300 hover:text-rose-600 hover:bg-rose-50 disabled:cursor-default'
+            }`}
+          >
+            <Heart size={15} className={hasPrayed ? 'fill-rose-500 text-rose-500' : ''} />
+            {zh ? '我在禱告' : 'Praying'}
+            {prayer.prayer_count > 0 && <span className="ml-0.5 text-xs">{prayer.prayer_count}</span>}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 const NOTE_STYLES = [
@@ -45,6 +103,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
 
   const [prayers, setPrayers] = useState<Prayer[]>(initialPrayers)
   const [prayedIds, setPrayedIds] = useState<Set<string>>(new Set())
+  const [selected, setSelected] = useState<Prayer | null>(null)
   const [content, setContent] = useState('')
   const [name, setName] = useState('')
   const [isPublic, setIsPublic] = useState(true)
@@ -103,6 +162,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
   }
 
   return (
+    <>
     <div>
       {/* Form area */}
       <div className="max-w-2xl mx-auto px-4 pt-10 pb-6">
@@ -192,10 +252,11 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
               return (
                 <div
                   key={prayer.id}
-                  className="group relative"
+                  className="group relative cursor-pointer"
                   style={{ transform: `rotate(${deg}deg)`, transition: 'transform 0.25s ease' }}
                   onMouseEnter={e => (e.currentTarget.style.transform = 'rotate(0deg) scale(1.04)')}
                   onMouseLeave={e => (e.currentTarget.style.transform = `rotate(${deg}deg) scale(1)`)}
+                  onClick={() => setSelected(prayer)}
                 >
                   {/* Pin */}
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
@@ -228,7 +289,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
                         <p className="text-[10px] text-gray-400">{date}</p>
                       </div>
                       <button
-                        onClick={() => handlePray(prayer.id)}
+                        onClick={(e) => { e.stopPropagation(); handlePray(prayer.id) }}
                         disabled={hasPrayed}
                         className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all ${
                           hasPrayed
@@ -249,5 +310,16 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
         )}
       </div>
     </div>
+
+    {/* Detail Modal */}
+    {selected && <PrayerModal
+      prayer={prayers.find(p => p.id === selected.id) ?? selected}
+      index={prayers.findIndex(p => p.id === selected.id)}
+      hasPrayed={prayedIds.has(selected.id)}
+      zh={zh}
+      onClose={() => setSelected(null)}
+      onPray={() => handlePray(selected.id)}
+    />}
+    </>
   )
 }
