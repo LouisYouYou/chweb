@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server'
-import Image from 'next/image'
 import { Camera } from 'lucide-react'
 import { getAllGalleryPhotos } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
+import GalleryClient from '@/components/gallery/GalleryClient'
 
 export const metadata: Metadata = {
   title: '教會相片集',
@@ -16,10 +16,19 @@ export default async function GalleryPage() {
   const t = await getTranslations('gallery')
   const locale = await getLocale()
   const zh = locale === 'zh-TW'
-  const photos = await getAllGalleryPhotos()
+  const raw = await getAllGalleryPhotos()
+
+  const photos = raw.map(p => ({
+    _id: p._id,
+    date: p.date,
+    caption: p.caption,
+    src: urlFor(p.image).width(600).height(450).auto('format').url(),
+    srcFull: urlFor(p.image).width(1600).auto('format').url(),
+  }))
 
   return (
     <div>
+      {/* Hero */}
       <section className="church-gradient py-20 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
@@ -33,51 +42,15 @@ export default async function GalleryPage() {
         </div>
       </section>
 
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          {photos.length === 0 ? (
-            <div className="text-center py-24 text-gray-400">
-              <Camera size={48} className="mx-auto mb-4 opacity-30" />
-              <p className="text-lg">{t('empty')}</p>
-            </div>
-          ) : (
-            <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-              {photos.map((photo) => {
-                const src = urlFor(photo.image).width(800).auto('format').url()
-                const formatted = new Date(photo.date + 'T00:00:00').toLocaleDateString(
-                  zh ? 'zh-TW' : 'en-US',
-                  { year: 'numeric', month: 'long', day: 'numeric' }
-                )
-                return (
-                  <div
-                    key={photo._id}
-                    className="break-inside-avoid group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 bg-gray-100"
-                  >
-                    <Image
-                      src={src}
-                      alt={photo.caption || formatted}
-                      width={800}
-                      height={600}
-                      className="w-full h-auto object-cover"
-                      unoptimized
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-wine-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <div>
-                        {photo.caption && (
-                          <p className="text-white font-semibold text-sm leading-tight mb-1">
-                            {photo.caption}
-                          </p>
-                        )}
-                        <p className="text-wine-300 text-xs">{formatted}</p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
+      {/* Gallery */}
+      {photos.length === 0 ? (
+        <div className="text-center py-32 text-gray-400">
+          <Camera size={52} className="mx-auto mb-4 opacity-25" />
+          <p className="text-lg">{t('empty')}</p>
         </div>
-      </section>
+      ) : (
+        <GalleryClient photos={photos} locale={locale} />
+      )}
     </div>
   )
 }
