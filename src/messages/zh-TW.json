@@ -9,7 +9,22 @@
     "weekly_bulletin": "教會週報",
     "gallery": "相片集",
     "contact": "聯絡我們",
-    "prayer_wall": "代禱牆"
+    "prayer_wall": "代禱牆",
+    "resources": "資源中心"
+  },
+  "welcome": {
+    "badge": "初次來訪？",
+    "title": "歡迎你來到榮耀堂",
+    "subtitle": "無論你是否有信仰背景，這裡都有你的位置。讓我們陪你踏出第一步。",
+    "step1_title": "主日崇拜",
+    "step1_text": "每週日上午 10:00，輕鬆自在地加入我們的敬拜聚會。",
+    "step2_title": "認識我們",
+    "step2_text": "了解教會的使命、異象與牧者團隊，找到屬於你的家。",
+    "step3_title": "如何抵達",
+    "step3_text": "捷運南勢角站 4 號出口步行約 10 分鐘，歡迎你親自來訪。",
+    "step4_title": "聯絡我們",
+    "step4_text": "有任何問題都可以來信或來電，我們很樂意與你聊聊。",
+    "cta": "了解更多 →"
   },
   "scripture": {
     "title": "每日經文",
@@ -41,6 +56,7 @@
   },
   "about": {
     "title": "關於我們",
+    "subtitle": "認識行道會南勢角榮耀堂——我們的使命、信仰與服事群體",
     "mission_title": "我們的使命",
     "mission_text": "透過耶穌基督的愛，建立一個彼此關懷、共同成長的信仰群體，並將福音帶給每一個人。",
     "vision_title": "我們的異象",
@@ -67,6 +83,7 @@
     "location_address": "新北市中和區忠孝街 39-15 號",
     "location_hint": "捷運南勢角站 4 號出口步行約 10 分鐘",
     "transport_title": "交通方式",
+    "transport_text": "捷運環狀線 南勢角站 4 號出口，步行約 10 分鐘。公車：可搭乘多線公車至南勢角站下車。",
     "parking_title": "停車資訊",
     "parking_text": "教會附近無自有停車場，建議搭乘大眾運輸前來（捷運南勢角站 4 號出口步行約 10 分鐘）。"
   },

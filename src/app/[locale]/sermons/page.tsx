@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import SermonLibrary from '@/components/sermons/SermonLibrary';
+import SermonsJsonLd from '@/components/seo/SermonsJsonLd';
 import { getChannelVideos } from '@/lib/youtube';
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default async function SermonsPage() {
 
   return (
     <div>
+      <SermonsJsonLd videos={videos} />
       <section className="church-gradient py-20 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>

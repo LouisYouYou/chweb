@@ -100,11 +100,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="shrink-0 text-wine-400" />
-                <span>(02) 8668-5515</span>
+                <a href="tel:+886286685515" className="hover:text-white transition-colors">(02) 8668-5515</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="shrink-0 text-wine-400" />
-                <span>winson651202@gmail.com</span>
+                <a href="mailto:winson651202@gmail.com" className="hover:text-white transition-colors">winson651202@gmail.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-wine-400" />

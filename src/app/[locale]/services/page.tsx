@@ -95,7 +95,7 @@ export default async function ServicesPage() {
                   </div>
                   <h3 className="font-bold text-wine-900">{t('transport_title')}</h3>
                 </div>
-                <p className="text-gray-600 text-sm">{t('location_hint')}</p>
+                <p className="text-gray-600 text-sm">{t('transport_text')}</p>
               </div>
 
               <div className="bg-white rounded-2xl p-6 shadow-sm">
@@ -134,7 +134,7 @@ export default async function ServicesPage() {
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-3">
                 <span className="text-gray-500">{locale === 'zh-TW' ? '戶名' : 'Account Name'}</span>
-                <span className="font-medium text-wine-900 text-right">{locale === 'zh-TW' ? '財團法人中華基督教行道會南勢角榮耀堂' : 'Glory Church of Nanshijiao'}</span>
+                <span className="font-medium text-wine-900 text-right break-all">{locale === 'zh-TW' ? '財團法人中華基督教行道會南勢角榮耀堂' : 'Glory Church of Nanshijiao'}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-3">
                 <span className="text-gray-500">{locale === 'zh-TW' ? '帳號' : 'Account No.'}</span>

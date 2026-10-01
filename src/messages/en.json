@@ -9,7 +9,22 @@
     "weekly_bulletin": "Bulletin",
     "gallery": "Gallery",
     "contact": "Contact",
-    "prayer_wall": "Prayer Wall"
+    "prayer_wall": "Prayer Wall",
+    "resources": "Resources"
+  },
+  "welcome": {
+    "badge": "First time here?",
+    "title": "Welcome to Glory Church",
+    "subtitle": "Whether or not you have a faith background, there is a place for you here. Let us walk alongside you.",
+    "step1_title": "Sunday Worship",
+    "step1_text": "Join us every Sunday at 10:00 AM for an uplifting and welcoming service.",
+    "step2_title": "Get to Know Us",
+    "step2_text": "Learn about our mission, vision, and pastoral team — and find your home here.",
+    "step3_title": "Getting Here",
+    "step3_text": "Approx. 10-minute walk from MRT Nanshijiao Station Exit 4. We'd love to see you.",
+    "step4_title": "Get in Touch",
+    "step4_text": "Have questions? Send us a message or give us a call — we'd love to chat.",
+    "cta": "Learn More →"
   },
   "scripture": {
     "title": "Daily Scripture",
@@ -41,6 +56,7 @@
   },
   "about": {
     "title": "About Us",
+    "subtitle": "Discover Glory Church Of Nanshijiao — our mission, faith, and community",
     "mission_title": "Our Mission",
     "mission_text": "Through the love of Jesus Christ, to build a faith community that cares for one another, grows together, and brings the Gospel to everyone.",
     "vision_title": "Our Vision",
@@ -67,6 +83,7 @@
     "location_address": "No. 39-15, Zhongxiao St., Zhonghe Dist., New Taipei City",
     "location_hint": "Approx. 10-minute walk from MRT Nanshijiao Station Exit 4",
     "transport_title": "Getting Here",
+    "transport_text": "MRT Circular Line — Nanshijiao Station Exit 4, approx. 10-minute walk. Multiple bus routes stop at Nanshijiao Station.",
     "parking_title": "Parking",
     "parking_text": "No on-site parking is available. We recommend taking public transportation — approx. 10-minute walk from MRT Nanshijiao Station Exit 4."
   },

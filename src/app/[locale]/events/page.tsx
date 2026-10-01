@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import EventsCalendar from '@/components/events/EventsCalendar';
+import EventsJsonLd from '@/components/seo/EventsJsonLd';
+import { events } from '@/lib/data/events';
 
 export const metadata: Metadata = {
   title: '活動行事曆',
@@ -13,6 +15,7 @@ export default async function EventsPage() {
 
   return (
     <div>
+      <EventsJsonLd events={events} />
       {/* Hero */}
       <section className="church-gradient py-20 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">

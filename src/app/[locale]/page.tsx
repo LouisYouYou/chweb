@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/home/Hero';
+import WelcomeSection from '@/components/home/WelcomeSection';
 import ServiceTimesSection from '@/components/home/ServiceTimesSection';
 import LatestSermons from '@/components/home/LatestSermons';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
@@ -16,6 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <WelcomeSection />
       <ServiceTimesSection />
       <LatestSermons videos={videos} />
       <UpcomingEvents />

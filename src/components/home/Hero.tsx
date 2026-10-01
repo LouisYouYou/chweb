@@ -77,7 +77,7 @@ export default function Hero() {
         <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-3 justify-center max-w-xs sm:max-w-none mx-auto">
           <Link
             href={`/${locale}/services`}
-            className="flex items-center justify-center px-4 sm:px-7 py-3 sm:py-3.5 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 active:bg-amber-400/10 transition-all text-xs sm:text-sm backdrop-blur-sm"
+            className="flex items-center justify-center px-4 sm:px-7 py-3 sm:py-3.5 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 active:bg-amber-300 transition-all text-xs sm:text-sm shadow-lg shadow-amber-400/30"
           >
             {t('cta_primary')}
           </Link>
@@ -128,15 +128,15 @@ export default function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="mt-10 sm:mt-16 flex justify-center gap-5 sm:gap-16">
+        <div className="mt-10 sm:mt-16 grid grid-cols-2 sm:flex sm:justify-center gap-5 sm:gap-16">
           {[
             { num: '7', label: locale === 'zh-TW' ? '週年' : 'Years' },
-            { num: '∞', label: locale === 'zh-TW' ? '神的恩典' : "God's Grace" },
+            { num: '∞', label: locale === 'zh-TW' ? '神的恩典' : "God's Grace", decorative: true },
             { num: '3', label: locale === 'zh-TW' ? '週間聚會' : 'Weekly Meetings' },
-            { num: '✦', label: locale === 'zh-TW' ? '課後輔導教育' : 'After-School Tutoring' },
-          ].map(({ num, label }) => (
+            { num: '✦', label: locale === 'zh-TW' ? '課後輔導教育' : 'After-School Tutoring', decorative: true },
+          ].map(({ num, label, decorative }) => (
             <div key={label} className="text-center">
-              <p className="text-2xl sm:text-3xl font-bold gradient-text-gold">{num}</p>
+              <p className="text-2xl sm:text-3xl font-bold gradient-text-gold" aria-hidden={decorative ? 'true' : undefined}>{num}</p>
               <p className="text-xs text-wine-300 mt-1 tracking-wide">{label}</p>
             </div>
           ))}
