@@ -58,7 +58,7 @@ export default function Hero() {
         </div>
 
         {/* Main title */}
-        <h1 className="text-3xl sm:text-6xl md:text-7xl font-bold text-white mb-4 leading-tight whitespace-nowrap"
+        <h1 className="text-3xl sm:text-6xl md:text-7xl font-bold text-white mb-4 leading-tight break-words"
           style={{ textShadow: '0 4px 32px rgba(56,10,20,0.8)' }}>
           {t('title')}
         </h1>

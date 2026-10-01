@@ -21,7 +21,7 @@ export default function WelcomeSection() {
           <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full tracking-wide mb-4">
             {t('badge')}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-wine-900 mb-4">{t('title')}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-wine-900 mb-4">{t('title')}</h2>
           <p className="text-gray-500 text-base max-w-2xl mx-auto leading-relaxed">{t('subtitle')}</p>
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-6" />
         </div>
