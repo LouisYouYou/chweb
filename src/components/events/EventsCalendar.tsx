@@ -78,23 +78,23 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                 key={event.id}
                 className={`rounded-2xl border-l-4 border border-l-[inherit] border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
               >
-                {/* Poster image — click to open lightbox */}
+                {/* Poster image — full natural size, click to open lightbox */}
                 {event.image && (
                   <button
                     type="button"
                     onClick={() => setLightboxSrc(event.image!)}
                     className="relative w-full block group focus:outline-none"
-                    style={{ aspectRatio: '2 / 1' }}
                     aria-label={zh ? '查看完整海報' : 'View full poster'}
                   >
                     <Image
                       src={event.image}
                       alt={zh ? event.titleZh : event.titleEn}
-                      fill
-                      className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                      width={800}
+                      height={1200}
+                      className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]"
                       sizes="(max-width: 896px) 100vw, 896px"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-wine-900 shadow-lg">
                         <ZoomIn size={15} />
                         {zh ? '查看完整海報' : 'View full poster'}
