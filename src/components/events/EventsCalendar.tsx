@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { MapPin, Clock } from 'lucide-react';
 import { events } from '@/lib/data/events';
@@ -75,6 +76,19 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                 key={event.id}
                 className={`rounded-2xl border-l-4 border border-l-[inherit] border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
               >
+                {/* Poster image — full width banner when present */}
+                {event.image && (
+                  <div className="relative w-full" style={{ aspectRatio: '2 / 1' }}>
+                    <Image
+                      src={event.image}
+                      alt={zh ? event.titleZh : event.titleEn}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 896px) 100vw, 896px"
+                    />
+                  </div>
+                )}
+
                 {/* Main content */}
                 <div className="p-6">
                   <div className="flex flex-col sm:flex-row gap-5">
