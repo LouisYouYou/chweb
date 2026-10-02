@@ -44,6 +44,7 @@ export default async function UpcomingEvents() {
     locationEn: ev.locationEn,
     category: ev.category,
     fee: ev.fee,
+    seats: ev.seats,
     seatsLeft: ev.seatsLeft,
     registrationUrl: ev.registrationUrl,
     imageUrl: ev.image ? urlFor(ev.image).width(400).auto('format').url() : undefined,
@@ -113,11 +114,12 @@ export default async function UpcomingEvents() {
                       {(zh ? event.locationZh : event.locationEn) && (
                         <span className="flex items-center gap-1.5"><MapPin size={12} className="text-wine-400" />{zh ? event.locationZh : event.locationEn}</span>
                       )}
-                      {event.seatsLeft != null && (
-                        <span className="flex items-center gap-1.5">
-                          <Users size={12} className="text-wine-400" />
-                          <span className={event.seatsLeft < 10 ? 'text-red-500 font-semibold' : 'text-emerald-600 font-semibold'}>{event.seatsLeft}</span>
-                          <span>{et('seats_left')}</span>
+                      {event.seats != null && (
+                        <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft != null && event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
+                          <Users size={12} />
+                          {event.seatsLeft != null && event.seatsLeft < 5
+                            ? (zh ? '名額即將額滿' : 'Almost full')
+                            : (zh ? '尚有名額' : 'Spots available')}
                         </span>
                       )}
                     </div>

@@ -152,10 +152,12 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                           <MapPin size={12} className="text-wine-400" />
                           {zh ? event.locationZh : event.locationEn}
                         </span>
-                        {event.seatsLeft != null && (
-                          <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
+                        {event.seats != null && (
+                          <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft != null && event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
                             <Users size={12} />
-                            {zh ? `剩餘 ${event.seatsLeft} 個名額` : `${event.seatsLeft} spots left`}
+                            {event.seatsLeft != null && event.seatsLeft < 5
+                              ? (zh ? '名額即將額滿' : 'Almost full')
+                              : (zh ? '尚有名額' : 'Spots available')}
                           </span>
                         )}
                       </div>
