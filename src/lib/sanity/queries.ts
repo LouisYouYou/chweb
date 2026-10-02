@@ -1,6 +1,34 @@
 import { client } from './client'
 import { groq } from 'next-sanity'
 
+export interface Announcement {
+  _id: string
+  titleZh: string
+  titleEn: string
+  contentZh?: string
+  contentEn?: string
+  type: 'event' | 'notice' | 'urgent'
+  link?: string
+  isPinned: boolean
+  publishedAt: string
+  expiresAt?: string
+}
+
+export async function getAnnouncements(): Promise<Announcement[]> {
+  const now = new Date().toISOString()
+  return client.fetch(
+    groq`*[
+      _type == "announcement" &&
+      publishedAt <= $now &&
+      (expiresAt == null || expiresAt > $now)
+    ] | order(isPinned desc, publishedAt desc) [0...5] {
+      _id, titleZh, titleEn, contentZh, contentEn,
+      type, link, isPinned, publishedAt, expiresAt
+    }`,
+    { now }
+  )
+}
+
 export interface WeeklyBulletin {
   _id: string
   date: string
