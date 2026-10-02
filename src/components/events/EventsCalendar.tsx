@@ -97,7 +97,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                           </span>
                         ) : event.fee != null && (
                           <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 font-semibold">
-                            ${event.fee.toLocaleString()}
+                            NT${event.fee.toLocaleString()}
                           </span>
                         )}
                       </div>

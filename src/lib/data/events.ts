@@ -25,6 +25,20 @@ export interface ChurchEvent {
 
 export const events: ChurchEvent[] = [
   {
+    id: '4',
+    titleZh: '🎨 蒙式藝術手作課 — 搖滾大象',
+    titleEn: '🎨 Montessori Art Workshop — The Rocking Elephant',
+    descriptionZh: '讓孩子透過藝術與創作，享受一段自在探索、動手實作的美好時光！剪貼工作 × 創意彩繪，運用不同素材與色彩，讓孩子自由發揮想像力，創作屬於自己的「搖滾大象」。在操作中培養專注力、在創作中發現美感、在陪伴中珍藏親子時光。適合 3 歲以上，親子同樂，一起動手玩藝術！',
+    descriptionEn: 'Let children freely explore and create with their hands through art! Paper cutting × creative painting — using different materials and colors for children to unleash their imagination and craft their very own Rocking Elephant. Builds focus through hands-on activity, nurtures aesthetic sense through creation, and treasures precious parent-child time. Suitable for ages 3+.',
+    date: '2026-10-21',
+    time: '13:30 - 15:00',
+    locationZh: '教會主堂',
+    locationEn: 'Main Sanctuary',
+    category: 'community',
+    fee: 200,
+    seats: 20,
+  },
+  {
     id: '3',
     titleZh: '聖經講座 — 歷代志上',
     titleEn: 'Bible Seminar — 1 Chronicles',
