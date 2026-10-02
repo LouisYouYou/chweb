@@ -129,6 +129,12 @@ html {
   border: 1px solid rgba(255,255,255,0.12);
 }
 
+/* ── News ticker ── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #fdf3f4; }

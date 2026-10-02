@@ -43,10 +43,11 @@ export default function TickerTrack({ items, sectionLabel }: Props) {
       {/* Scrolling track */}
       <div className="flex-1 overflow-hidden relative">
         <div
-          className="flex items-center gap-0 whitespace-nowrap will-change-transform"
+          className="flex items-center gap-0 whitespace-nowrap"
           style={{
             animation: `ticker-scroll ${speed}s linear infinite`,
             animationPlayState: paused ? 'paused' : 'running',
+            willChange: 'transform',
           }}
         >
           {doubled.map((item, i) => {
@@ -70,12 +71,6 @@ export default function TickerTrack({ items, sectionLabel }: Props) {
         </div>
       </div>
 
-      <style>{`
-        @keyframes ticker-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }
