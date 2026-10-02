@@ -5,6 +5,7 @@ import { Noto_Sans_Myanmar } from 'next/font/google';
 import { routing } from '@/lib/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import NewsTicker from '@/components/layout/NewsTicker';
 import ChurchJsonLd from '@/components/seo/ChurchJsonLd';
 
 const notoMyanmar = Noto_Sans_Myanmar({
@@ -39,6 +40,7 @@ export default async function LocaleLayout({
         </head>
         <body className="min-h-full flex flex-col">
           <Header locale={locale} />
+          <NewsTicker />
           <main className="flex-1">{children}</main>
           <Footer />
         </body>
