@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { MapPin, Clock, X, ZoomIn } from 'lucide-react';
+import { MapPin, Clock, X, ZoomIn, ClipboardList, Users } from 'lucide-react';
 import type { DisplayEvent } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
@@ -147,12 +147,32 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                         {zh ? event.descriptionZh : event.descriptionEn}
                       </p>
 
-                      <div className="flex flex-wrap gap-4 text-xs text-gray-500">
+                      <div className="flex flex-wrap gap-4 text-xs text-gray-500 mb-4">
                         <span className="flex items-center gap-1.5">
                           <MapPin size={12} className="text-wine-400" />
                           {zh ? event.locationZh : event.locationEn}
                         </span>
+                        {event.seatsLeft !== undefined && (
+                          <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
+                            <Users size={12} />
+                            {zh ? `剩餘 ${event.seatsLeft} 個名額` : `${event.seatsLeft} spots left`}
+                          </span>
+                        )}
                       </div>
+
+                      {/* Registration button */}
+                      {event.registrationUrl && (
+                        <a
+                          href={event.registrationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white church-gradient shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
+                        >
+                          <ClipboardList size={15} />
+                          {zh ? '立即報名' : locale === 'my' ? 'မှတ်ပုံတင်' : 'Register Now'}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

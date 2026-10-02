@@ -90,6 +90,12 @@ export default defineType({
       type: 'number',
     }),
     defineField({
+      name: 'registrationUrl',
+      title: '📝 報名連結（Google 表單）',
+      type: 'url',
+      description: '貼上 Google 表單分享連結，有填才顯示「立即報名」按鈕',
+    }),
+    defineField({
       name: 'image',
       title: '🖼️ 活動海報（選填）',
       type: 'image',

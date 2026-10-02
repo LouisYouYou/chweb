@@ -106,6 +106,7 @@ export interface SanityEvent {
   fee?: number
   seats?: number
   seatsLeft?: number
+  registrationUrl?: string
   image?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
   courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
 }
@@ -124,6 +125,7 @@ export interface DisplayEvent {
   fee?: number
   seats?: number
   seatsLeft?: number
+  registrationUrl?: string
   imageUrl?: string
   courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
 }
@@ -131,7 +133,7 @@ export interface DisplayEvent {
 const eventFields = groq`
   _id, titleZh, titleEn, descriptionZh, descriptionEn,
   date, time, locationZh, locationEn, category,
-  fee, seats, seatsLeft,
+  fee, seats, seatsLeft, registrationUrl,
   image { asset, hotspot },
   courseItems[] { nameZh, nameEn, day, time }
 `

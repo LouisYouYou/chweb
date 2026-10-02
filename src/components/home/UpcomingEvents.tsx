@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations, getLocale } from 'next-intl/server';
-import { Calendar, MapPin, ArrowRight, Users, Tag } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, Users, Tag, ClipboardList } from 'lucide-react';
 import { getUpcomingEvents } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/client';
 
@@ -45,6 +45,7 @@ export default async function UpcomingEvents() {
     category: ev.category,
     fee: ev.fee,
     seatsLeft: ev.seatsLeft,
+    registrationUrl: ev.registrationUrl,
     imageUrl: ev.image ? urlFor(ev.image).width(400).auto('format').url() : undefined,
   }));
 
@@ -123,12 +124,24 @@ export default async function UpcomingEvents() {
                   </div>
 
                   {/* CTA */}
-                  <Link
-                    href={`/${locale}/events`}
-                    className="shrink-0 px-5 py-2.5 church-gradient text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    {zh ? '查看詳情' : 'Details'}
-                  </Link>
+                  {event.registrationUrl ? (
+                    <a
+                      href={event.registrationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
+                    >
+                      <ClipboardList size={14} />
+                      {zh ? '立即報名' : 'Register'}
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/${locale}/events`}
+                      className="shrink-0 px-5 py-2.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-full hover:bg-wine-50 hover:text-wine-700 transition-colors"
+                    >
+                      {zh ? '查看詳情' : 'Details'}
+                    </Link>
+                  )}
                 </div>
               </div>
             );
