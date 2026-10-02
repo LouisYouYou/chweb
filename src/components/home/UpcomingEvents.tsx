@@ -113,7 +113,7 @@ export default async function UpcomingEvents() {
                       {(zh ? event.locationZh : event.locationEn) && (
                         <span className="flex items-center gap-1.5"><MapPin size={12} className="text-wine-400" />{zh ? event.locationZh : event.locationEn}</span>
                       )}
-                      {event.seatsLeft !== undefined && (
+                      {event.seatsLeft != null && (
                         <span className="flex items-center gap-1.5">
                           <Users size={12} className="text-wine-400" />
                           <span className={event.seatsLeft < 10 ? 'text-red-500 font-semibold' : 'text-emerald-600 font-semibold'}>{event.seatsLeft}</span>
