@@ -1,9 +1,9 @@
-import { ChurchEvent } from '@/lib/data/events'
+import type { DisplayEvent } from '@/lib/sanity/queries'
 
 const BASE = 'https://nanshijiaoglory.vercel.app'
 
 interface Props {
-  events: ChurchEvent[]
+  events: DisplayEvent[]
 }
 
 export default function EventsJsonLd({ events }: Props) {
@@ -22,7 +22,9 @@ export default function EventsJsonLd({ events }: Props) {
         name: ev.titleZh,
         alternateName: ev.titleEn,
         description: ev.descriptionZh,
-        startDate: `${ev.date}T${ev.time.split(' ')[0]}:00+08:00`,
+        startDate: ev.time
+          ? `${ev.date}T${ev.time.split(' ')[0]}:00+08:00`
+          : `${ev.date}T00:00:00+08:00`,
         eventStatus: 'https://schema.org/EventScheduled',
         eventAttendanceMode:
           ev.locationZh === '線上'
@@ -51,7 +53,7 @@ export default function EventsJsonLd({ events }: Props) {
         offers:
           ev.fee === 0
             ? { '@type': 'Offer', price: '0', priceCurrency: 'TWD', availability: 'https://schema.org/InStock' }
-            : ev.fee
+            : ev.fee != null
             ? { '@type': 'Offer', price: String(ev.fee), priceCurrency: 'TWD', availability: 'https://schema.org/InStock' }
             : undefined,
         inLanguage: 'zh-TW',

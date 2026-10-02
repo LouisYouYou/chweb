@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { MapPin, Clock, X, ZoomIn } from 'lucide-react';
-import { events } from '@/lib/data/events';
+import type { DisplayEvent } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
   worship:   'border-l-wine-500 bg-wine-50/60',
@@ -32,18 +32,27 @@ const categoryLabels: Record<string, { zh: string; en: string }> = {
 
 interface EventsCalendarProps {
   locale: string;
+  events: DisplayEvent[];
 }
 
-export default function EventsCalendar({ locale }: EventsCalendarProps) {
+export default function EventsCalendar({ locale, events }: EventsCalendarProps) {
   const t = useTranslations('events');
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-  const zh = locale === 'zh-TW';
+  const zh = locale !== 'en' && locale !== 'my';
 
   const filters = ['all', ...Object.keys(categoryLabels)];
   const filtered = activeFilter === 'all'
     ? events
     : events.filter((e) => e.category === activeFilter);
+
+  if (!events.length) {
+    return (
+      <section className="py-24 px-4 text-center text-gray-400">
+        {zh ? '目前沒有即將到來的活動，請稍後回來查看。' : 'No upcoming events at the moment. Please check back later.'}
+      </section>
+    );
+  }
 
   return (
     <>
@@ -78,16 +87,16 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                 key={event.id}
                 className={`rounded-2xl border-l-4 border border-l-[inherit] border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
               >
-                {/* Poster image — full natural size, click to open lightbox */}
-                {event.image && (
+                {/* Poster image */}
+                {event.imageUrl && (
                   <button
                     type="button"
-                    onClick={() => setLightboxSrc(event.image!)}
+                    onClick={() => setLightboxSrc(event.imageUrl!)}
                     className="relative w-full block group focus:outline-none"
                     aria-label={zh ? '查看完整海報' : 'View full poster'}
                   >
                     <Image
-                      src={event.image}
+                      src={event.imageUrl}
                       alt={zh ? event.titleZh : event.titleEn}
                       width={800}
                       height={1200}

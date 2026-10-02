@@ -91,3 +91,63 @@ export async function getAllBulletins(): Promise<WeeklyBulletin[]> {
     groq`*[_type == "weeklyBulletin"] | order(date desc) { _id, date, file { asset->{ url } } }`
   )
 }
+
+export interface SanityEvent {
+  _id: string
+  titleZh: string
+  titleEn: string
+  descriptionZh?: string
+  descriptionEn?: string
+  date: string
+  time?: string
+  locationZh?: string
+  locationEn?: string
+  category: 'worship' | 'youth' | 'community' | 'retreat' | 'training'
+  fee?: number
+  seats?: number
+  seatsLeft?: number
+  image?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
+  courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
+}
+
+export interface DisplayEvent {
+  id: string
+  titleZh: string
+  titleEn: string
+  descriptionZh?: string
+  descriptionEn?: string
+  date: string
+  time?: string
+  locationZh?: string
+  locationEn?: string
+  category: 'worship' | 'youth' | 'community' | 'retreat' | 'training'
+  fee?: number
+  seats?: number
+  seatsLeft?: number
+  imageUrl?: string
+  courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
+}
+
+const eventFields = groq`
+  _id, titleZh, titleEn, descriptionZh, descriptionEn,
+  date, time, locationZh, locationEn, category,
+  fee, seats, seatsLeft,
+  image { asset, hotspot },
+  courseItems[] { nameZh, nameEn, day, time }
+`
+
+export async function getUpcomingEvents(limit = 3): Promise<SanityEvent[]> {
+  const today = new Date().toISOString().slice(0, 10)
+  return client.fetch(
+    groq`*[_type == "churchEvent" && date >= $today] | order(date asc) [0...$limit] { ${eventFields} }`,
+    { today, limit }
+  )
+}
+
+export async function getAllEvents(): Promise<SanityEvent[]> {
+  const today = new Date().toISOString().slice(0, 10)
+  return client.fetch(
+    groq`*[_type == "churchEvent" && date >= $today] | order(date asc) { ${eventFields} }`,
+    { today }
+  )
+}
