@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: '行道會南勢角榮耀堂近期活動與特會資訊，包含退修會、青年特會、社區服務、聖經研讀課程等。',
 }
 
-export const revalidate = 1800
+export const dynamic = 'force-dynamic'
 
 export default async function EventsPage() {
   const t = await getTranslations('events');
