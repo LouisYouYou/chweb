@@ -37,7 +37,7 @@ export const events: ChurchEvent[] = [
     category: 'community',
     fee: 200,
     seats: 20,
-    image: '/images/events/montessori-elephant-2026-10-21.png',
+    image: '/images/events/montessori-elephant-2026-10-21.jpg',
   },
   {
     id: '3',

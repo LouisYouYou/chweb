@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { MapPin, Clock } from 'lucide-react';
+import { MapPin, Clock, X, ZoomIn } from 'lucide-react';
 import { events } from '@/lib/data/events';
 
 const categoryColors: Record<string, string> = {
@@ -37,6 +37,7 @@ interface EventsCalendarProps {
 export default function EventsCalendar({ locale }: EventsCalendarProps) {
   const t = useTranslations('events');
   const [activeFilter, setActiveFilter] = useState('all');
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const zh = locale === 'zh-TW';
 
   const filters = ['all', ...Object.keys(categoryLabels)];
@@ -45,6 +46,7 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
     : events.filter((e) => e.category === activeFilter);
 
   return (
+    <>
     <section className="py-12 px-4">
       <div className="max-w-4xl mx-auto">
 
@@ -76,17 +78,29 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
                 key={event.id}
                 className={`rounded-2xl border-l-4 border border-l-[inherit] border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
               >
-                {/* Poster image — full width banner when present */}
+                {/* Poster image — click to open lightbox */}
                 {event.image && (
-                  <div className="relative w-full" style={{ aspectRatio: '2 / 1' }}>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxSrc(event.image!)}
+                    className="relative w-full block group focus:outline-none"
+                    style={{ aspectRatio: '2 / 1' }}
+                    aria-label={zh ? '查看完整海報' : 'View full poster'}
+                  >
                     <Image
                       src={event.image}
                       alt={zh ? event.titleZh : event.titleEn}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                       sizes="(max-width: 896px) 100vw, 896px"
                     />
-                  </div>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-wine-900 shadow-lg">
+                        <ZoomIn size={15} />
+                        {zh ? '查看完整海報' : 'View full poster'}
+                      </div>
+                    </div>
+                  </button>
                 )}
 
                 {/* Main content */}
@@ -169,5 +183,35 @@ export default function EventsCalendar({ locale }: EventsCalendarProps) {
         </div>
       </div>
     </section>
+
+    {/* Poster lightbox */}
+    {lightboxSrc && (
+      <div
+        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+        onClick={() => setLightboxSrc(null)}
+      >
+        <button
+          onClick={() => setLightboxSrc(null)}
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+          aria-label="Close"
+        >
+          <X size={20} />
+        </button>
+        <div
+          className="relative max-w-lg w-full max-h-[90vh]"
+          onClick={e => e.stopPropagation()}
+        >
+          <Image
+            src={lightboxSrc}
+            alt="Event poster"
+            width={600}
+            height={900}
+            className="w-full h-auto max-h-[90vh] object-contain rounded-xl shadow-2xl"
+            unoptimized
+          />
+        </div>
+      </div>
+    )}
+    </>
   );
 }
