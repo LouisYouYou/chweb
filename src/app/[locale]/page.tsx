@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { getLocale } from 'next-intl/server';
 import Hero from '@/components/home/Hero';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import WelcomeSection from '@/components/home/WelcomeSection';
@@ -7,7 +6,6 @@ import ServiceTimesSection from '@/components/home/ServiceTimesSection';
 import LatestSermons from '@/components/home/LatestSermons';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
 import { getChannelVideos } from '@/lib/youtube';
-import { getAnnouncements } from '@/lib/sanity/queries';
 
 export const metadata: Metadata = {
   title: '行道會南勢角榮耀堂 | Glory Church Of Nanshijiao',
@@ -15,16 +13,12 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [videos, announcements, locale] = await Promise.all([
-    getChannelVideos(3),
-    getAnnouncements(),
-    getLocale(),
-  ]);
+  const videos = await getChannelVideos(3);
 
   return (
     <>
       <Hero />
-      <AnnouncementBanner announcements={announcements} locale={locale} />
+      <AnnouncementBanner />
       <WelcomeSection />
       <ServiceTimesSection />
       <LatestSermons videos={videos} />
