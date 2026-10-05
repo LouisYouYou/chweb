@@ -16,7 +16,7 @@ export default function DailyScriptureList({ scriptures }: Props) {
         const imageUrl = s.image?.asset
           ? urlFor(s.image).width(1200).url()
           : null
-        const isToday = s.date === new Date().toISOString().slice(0, 10)
+        const isToday = s.date === new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' })
 
         return (
           <div key={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
