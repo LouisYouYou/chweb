@@ -3,25 +3,29 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { Calendar, MapPin, ArrowRight, Users, Tag, ClipboardList } from 'lucide-react';
 import { getUpcomingEvents } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/client';
+import FadeIn from '@/components/ui/FadeIn';
 
 const categoryColors: Record<string, string> = {
   worship:   'bg-wine-100 text-wine-700 border-wine-200',
+  family:    'bg-rose-100 text-rose-700 border-rose-200',
   youth:     'bg-purple-100 text-purple-700 border-purple-200',
   community: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  retreat:   'bg-amber-100 text-amber-700 border-amber-200',
+  retreat:   'bg-amber-400 text-amber-950 border-amber-500 font-bold',
   training:  'bg-teal-100 text-teal-700 border-teal-200',
 };
 
-const categoryLabels: Record<string, { zh: string; en: string }> = {
-  worship:   { zh: '崇拜', en: 'Worship' },
-  youth:     { zh: '青年', en: 'Youth' },
-  community: { zh: '社區', en: 'Community' },
-  retreat:   { zh: '退修', en: 'Retreat' },
-  training:  { zh: '訓練', en: 'Training' },
+const categoryLabels: Record<string, { zh: string; en: string; my: string; ja: string }> = {
+  worship:   { zh: '崇拜', en: 'Worship',   my: 'ဝတ်ပြုကိုးကွယ်ခြင်း', ja: '礼拝' },
+  family:    { zh: '家庭', en: 'Family',    my: 'မိသားစု',               ja: 'ファミリー' },
+  youth:     { zh: '青年', en: 'Youth',     my: 'လူငယ်',                 ja: '青年' },
+  community: { zh: '社區', en: 'Community', my: 'လူ့အဖွဲ့',              ja: 'コミュニティ' },
+  retreat:   { zh: '退修', en: 'Retreat',   my: 'နုတ်ပယ်ခြင်း',          ja: 'リトリート' },
+  training:  { zh: '訓練', en: 'Training',  my: 'သင်တန်း',               ja: '訓練' },
 };
 
 const categoryAccent: Record<string, string> = {
   worship:   'border-l-wine-500',
+  family:    'border-l-rose-400',
   youth:     'border-l-purple-500',
   community: 'border-l-emerald-500',
   retreat:   'border-l-amber-500',
@@ -52,18 +56,23 @@ export default async function UpcomingEvents() {
 
   if (!upcoming.length) return null;
 
-  const zh = locale !== 'en' && locale !== 'my';
+  const zh = locale === 'zh-TW';
+  const t4 = (zhStr: string, myStr: string, jaStr: string, enStr: string) =>
+    zh ? zhStr : locale === 'my' ? myStr : locale === 'ja' ? jaStr : enStr;
+  const catLabel = (cat: string) =>
+    zh ? (categoryLabels[cat]?.zh ?? cat) : locale === 'my' ? (categoryLabels[cat]?.my ?? cat) : locale === 'ja' ? (categoryLabels[cat]?.ja ?? cat) : (categoryLabels[cat]?.en ?? cat);
 
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-[#fdfaf5] to-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-wine-50 opacity-50 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
+        <FadeIn>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-4">
           <div>
-            <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3">
-              {zh ? 'EVENTS' : '活動'}
+            <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
+              {zh ? 'EVENTS' : locale === 'ja' ? 'EVENTS' : '活動'}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-3">{t('title')}</h2>
             <p className="text-gray-400 text-sm">{t('subtitle')}</p>
@@ -77,14 +86,15 @@ export default async function UpcomingEvents() {
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
+        </FadeIn>
 
         <div className="space-y-4">
-          {upcoming.map((event) => {
+          {upcoming.map((event, i) => {
             const [year, month, day] = event.date.split('-');
             return (
+              <FadeIn key={event.id} delay={i * 100}>
               <div
-                key={event.id}
-                className={`group bg-white rounded-2xl border-l-4 ${categoryAccent[event.category]} border border-l-[inherit] border-t-gray-100 border-r-gray-100 border-b-gray-100 p-6 card-lift`}
+                className={`group bg-white rounded-2xl border-l-4 ${categoryAccent[event.category]} border border-l-[inherit] border-t-gray-100 border-r-gray-100 border-b-gray-100 p-6 card-lift${event.category === 'retreat' ? ' ring-1 ring-amber-300/70 shadow-amber-50' : ''}`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-5">
                   {/* Date badge */}
@@ -99,7 +109,7 @@ export default async function UpcomingEvents() {
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold border ${categoryColors[event.category]}`}>
                         <Tag size={9} className="inline mr-1 -mt-0.5" />
-                        {zh ? categoryLabels[event.category].zh : categoryLabels[event.category].en}
+                        {catLabel(event.category)}
                       </span>
                       {event.fee === 0
                         ? <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 font-semibold">{et('free')}</span>
@@ -118,8 +128,8 @@ export default async function UpcomingEvents() {
                         <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft != null && event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
                           <Users size={12} />
                           {event.seatsLeft != null && event.seatsLeft < 5
-                            ? (zh ? '名額即將額滿' : 'Almost full')
-                            : (zh ? '尚有名額' : 'Spots available')}
+                            ? t4('名額即將額滿', 'နေရာနီးပါး ပြည့်နေသည်', '残りわずか', 'Almost full')
+                            : t4('尚有名額', 'နေရာရှိသေးသည်', '残席あり', 'Spots available')}
                         </span>
                       )}
                     </div>
@@ -134,18 +144,19 @@ export default async function UpcomingEvents() {
                       className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
                     >
                       <ClipboardList size={14} />
-                      {zh ? '立即報名' : 'Register'}
+                      {t4('立即報名', 'မှတ်ပုံတင်ရန်', '今すぐ登録', 'Register')}
                     </a>
                   ) : (
                     <Link
                       href={`/${locale}/events`}
                       className="shrink-0 px-5 py-2.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-full hover:bg-wine-50 hover:text-wine-700 transition-colors"
                     >
-                      {zh ? '查看詳情' : 'Details'}
+                      {t4('查看詳情', 'အသေးစိတ် ကြည့်ရန်', '詳細を見る', 'Details')}
                     </Link>
                   )}
                 </div>
               </div>
+              </FadeIn>
             );
           })}
         </div>
