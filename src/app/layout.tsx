@@ -70,6 +70,9 @@ export const metadata: Metadata = {
     description: "行道會南勢角榮耀堂，位於新北市中和區忠孝街39-15號。主日崇拜每週日10:00-11:30。",
     images: ["/church.jpg"],
   },
+  verification: {
+    google: 'KhRrzPkvjjL8c-taSNX18PGtspxcUbSeuCHRt-XqBfc',
+  },
   robots: {
     index: true,
     follow: true,
