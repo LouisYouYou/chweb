@@ -15,6 +15,7 @@ const LOCALE_LABELS: Record<string, string> = {
   'zh-TW': '中文',
   'en': 'EN',
   'my': 'မြန်မာ',
+  'ja': '日本語',
 };
 
 export default function Header({ locale }: HeaderProps) {
@@ -68,7 +69,7 @@ export default function Header({ locale }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/97 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/97 backdrop-blur-md shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
       {/* Amber accent top line */}
       <div className="h-0.5 bg-gradient-to-r from-wine-700 via-amber-400 to-wine-700" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

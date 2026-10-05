@@ -25,7 +25,8 @@ export default function TickerTrack({ items, sectionLabel }: Props) {
 
   return (
     <div
-      className="bg-wine-900 border-b border-wine-800 h-9 flex items-center overflow-hidden select-none"
+      className="sticky z-40 bg-wine-900 border-b border-wine-800 h-9 flex items-center overflow-hidden select-none"
+      style={{ top: 'calc(66px + env(safe-area-inset-top))' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -43,7 +44,7 @@ export default function TickerTrack({ items, sectionLabel }: Props) {
       {/* Scrolling track */}
       <div className="flex-1 overflow-hidden relative">
         <div
-          className="flex items-center gap-0 whitespace-nowrap"
+          className="flex items-center gap-0 whitespace-nowrap w-max"
           style={{
             animation: `ticker-scroll ${speed}s linear infinite`,
             animationPlayState: paused ? 'paused' : 'running',

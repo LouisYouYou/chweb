@@ -68,10 +68,30 @@ export default function GalleryClient({ photos, locale }: GalleryClientProps) {
     return () => window.removeEventListener('keydown', handler)
   }, [lightbox, close, prev, next])
 
-  // Lock body scroll when lightbox open
+  // Lock body scroll when lightbox open — iOS Safari requires position:fixed
   useEffect(() => {
-    document.body.style.overflow = lightbox !== null ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (lightbox !== null) {
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflowY = 'scroll'
+    } else {
+      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10))
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflowY = ''
+      if (scrollY) window.scrollTo(0, scrollY)
+    }
+    return () => {
+      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10))
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflowY = ''
+      if (scrollY) window.scrollTo(0, scrollY)
+    }
   }, [lightbox])
 
   const current = lightbox !== null ? photos[lightbox] : null

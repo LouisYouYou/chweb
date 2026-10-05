@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Search, Play, X, Calendar, PlayCircle, ExternalLink } from 'lucide-react';
@@ -20,6 +20,32 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
   const filtered = videos.filter((v) =>
     search === '' || v.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Lock body scroll when modal open — iOS Safari requires position:fixed
+  useEffect(() => {
+    if (playing) {
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflowY = 'scroll'
+    } else {
+      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10))
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflowY = ''
+      if (scrollY) window.scrollTo(0, scrollY)
+    }
+    return () => {
+      const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10))
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflowY = ''
+      if (scrollY) window.scrollTo(0, scrollY)
+    }
+  }, [playing])
 
   return (
     <section className="py-12 px-4">
