@@ -70,7 +70,7 @@ export default async function AnnouncementBanner() {
                   </div>
                   <p className="font-bold text-wine-900 text-base leading-snug">{title}</p>
                   {content && (
-                    <p className="text-sm text-gray-500 mt-1 leading-relaxed line-clamp-2">{content}</p>
+                    <p className="text-sm text-gray-500 mt-1 leading-relaxed whitespace-pre-line line-clamp-4">{content}</p>
                   )}
                 </div>
 
