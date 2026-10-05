@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 const BASE = 'https://nanshijiaoglory.vercel.app'
-const LOCALES = ['zh-TW', 'en', 'my'] as const
+const LOCALES = ['zh-TW', 'en', 'my', 'ja'] as const
 
 const routes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
   { path: '',                  priority: 1.0, changeFrequency: 'weekly'  },
@@ -25,9 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority,
       alternates: {
         languages: {
-          'zh-TW':    `${BASE}/zh-TW${path}`,
-          'en':       `${BASE}/en${path}`,
-          'my':       `${BASE}/my${path}`,
+          'zh-TW':     `${BASE}/zh-TW${path}`,
+          'en':        `${BASE}/en${path}`,
+          'my':        `${BASE}/my${path}`,
+          'ja':        `${BASE}/ja${path}`,
           'x-default': `${BASE}/zh-TW${path}`,
         },
       },
