@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/sunday-live-check",
+      "schedule": "30 1 * * 0"
+    }
+  ]
+}
