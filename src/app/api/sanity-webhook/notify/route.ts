@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
-import nodemailer from 'nodemailer'
+import nodemailer, { type Transporter } from 'nodemailer'
 import { createAdminClient } from '@/lib/supabase/admin'
 import {
   dailyScriptureHtml, dailyScriptureSubject,
@@ -41,20 +41,20 @@ async function fetchSubscribers(): Promise<Subscriber[]> {
 
 // ── 批量寄信（串行，避免 Gmail 速率限制）────────────────────────────────
 async function sendBulk(
-  transporter: nodemailer.Transporter,
+  transporter: Transporter,
   recipients: Subscriber[],
   buildEmail: (locale: string) => { subject: string; html: string }
 ) {
   const fromAddress = `"行道會南勢角榮耀堂" <${process.env.GMAIL_USER}>`
-  const results = { ok: 0, failed: 0 }
+  const results = { sent: 0, failed: 0 }
 
   for (const r of recipients) {
     const { subject, html } = buildEmail(r.locale)
     try {
       await transporter.sendMail({ from: fromAddress, to: r.email, subject, html })
-      results.ok++
-    } catch (e) {
-      console.error(`寄信失敗 ${r.email}:`, e)
+      results.sent++
+    } catch (err) {
+      console.error(`寄信失敗 ${r.email}:`, err)
       results.failed++
     }
   }
@@ -117,16 +117,16 @@ export async function POST(req: NextRequest) {
   }
 
   // 4. 建立 Transporter
-  let transporter: nodemailer.Transporter
+  let transporter: Transporter
   try {
     transporter = buildTransporter()
-  } catch (e) {
-    console.error(e)
+  } catch (err) {
+    console.error(err)
     return NextResponse.json({ error: 'Email service not configured' }, { status: 503 })
   }
 
   // 5. 依內容類型寄信
-  let results = { ok: 0, failed: 0 }
+  let results = { sent: 0, failed: 0 }
 
   if (type === 'dailyScripture') {
     const date = (payload.date ?? payload._updatedAt ?? new Date().toISOString().slice(0, 10)) as string
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
     <tr><td style="padding:8px 0;color:#666;">操作</td><td>${operation}</td></tr>
     <tr><td style="padding:8px 0;color:#666;">訂閱人數</td><td>${subscribers.length}</td></tr>
     <tr><td style="padding:8px 0;color:#666;">管理者人數</td><td>${adminRecipients.length}</td></tr>
-    <tr><td style="padding:8px 0;color:#666;">成功寄出</td><td style="color:#166534;font-weight:700;">${results.ok} 封</td></tr>
+    <tr><td style="padding:8px 0;color:#666;">成功寄出</td><td style="color:#166534;font-weight:700;">${results.sent} 封</td></tr>
     <tr><td style="padding:8px 0;color:#666;">失敗</td><td style="color:${results.failed > 0 ? '#dc2626' : '#aaa'};font-weight:700;">${results.failed} 封</td></tr>
     <tr><td style="padding:8px 0;color:#666;">時間</td><td>${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}</td></tr>
   </table>
@@ -189,7 +189,7 @@ export async function POST(req: NextRequest) {
       to:      ADMIN_EMAILS.join(','),
       subject: reportSubject,
       html:    reportHtml,
-    }).catch(e => console.error('作業報告寄送失敗:', e))
+    }).catch((e: unknown) => console.error('作業報告寄送失敗:', e))
   }
 
   return NextResponse.json({
@@ -198,6 +198,7 @@ export async function POST(req: NextRequest) {
     operation,
     subscribers: subscribers.length,
     admins: adminRecipients.length,
-    ...results,
+    sent: results.sent,
+    failed: results.failed,
   })
 }
