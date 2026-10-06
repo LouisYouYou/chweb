@@ -98,9 +98,20 @@ export default function ChurchJsonLd() {
           'https://www.facebook.com/p/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82-100071633452675/',
           'https://www.youtube.com/@winson651202',
         ],
+        keywords: [
+          '中和教會', '中永和教會', '南勢角教會', '中和基督教', '台北榮耀堂',
+          '行道會台北榮耀堂', '行道會南勢角榮耀堂', '行道會教會', '榮耀堂',
+        ].join(', '),
         memberOf: {
           '@type': 'Organization',
           name: '行道會台北榮耀堂',
+          url: 'https://www.facebook.com/gloryoftaipei',
+          description: '行道會南勢角榮耀堂為行道會台北榮耀堂旗下的地區教會，服務新北市中永和地區。',
+        },
+        parentOrganization: {
+          '@type': 'Organization',
+          name: '行道會台北榮耀堂',
+          description: '台北榮耀堂（行道會台北榮耀堂）旗下教會，涵蓋台北及新北市各地區會眾。',
         },
       },
       {
