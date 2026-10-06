@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
+    "@next/third-parties": "^16.3.8",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^6.15.0",
     "@supabase/ssr": "^0.12.7",
@@ -19,6 +21,7 @@
     "next-intl": "^4.14.5",
     "next-sanity": "^13.3.4",
     "nodemailer": "^10.0.10",
+    "qrcode.react": "^4.2.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "sanity": "^6.15.0"
