@@ -1,13 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { rateLimit, getClientIp } from '@/lib/rateLimit'
+
+function escHtml(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req)
+    if (!rateLimit(ip, 5, 60 * 60 * 1000)) {
+      return NextResponse.json({ error: '請求次數過多，請一小時後再試' }, { status: 429 })
+    }
+
     const { name, email, subject, message } = await req.json()
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: '欄位不完整' }, { status: 400 })
     }
+
+    const safeName = escHtml(String(name).slice(0, 200))
+    const safeEmail = escHtml(String(email).slice(0, 320))
+    const safeSubject = escHtml(String(subject).slice(0, 300))
+    const safeMessage = escHtml(String(message).slice(0, 5000))
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -50,7 +65,7 @@ export async function POST(req: NextRequest) {
                   👤 姓名
                 </td>
                 <td style="padding:18px 24px;font-size:14px;color:#1a1a1a;">
-                  ${name}
+                  ${safeName}
                 </td>
               </tr>
 
@@ -60,7 +75,7 @@ export async function POST(req: NextRequest) {
                   ✉️ 電子郵件
                 </td>
                 <td style="padding:18px 24px;font-size:14px;color:#1a1a1a;">
-                  <a href="mailto:${email}" style="color:#92202f;text-decoration:none;font-weight:600;">${email}</a>
+                  <a href="mailto:${safeEmail}" style="color:#92202f;text-decoration:none;font-weight:600;">${safeEmail}</a>
                   <br><span style="font-size:12px;color:#999;">（直接回覆此郵件即可回覆對方）</span>
                 </td>
               </tr>
@@ -71,7 +86,7 @@ export async function POST(req: NextRequest) {
                   📌 主旨
                 </td>
                 <td style="padding:18px 24px;font-size:14px;color:#1a1a1a;font-weight:600;">
-                  ${subject}
+                  ${safeSubject}
                 </td>
               </tr>
 
@@ -81,7 +96,7 @@ export async function POST(req: NextRequest) {
                   💬 訊息內容
                 </td>
                 <td style="padding:18px 24px;font-size:14px;color:#1a1a1a;line-height:1.8;white-space:pre-wrap;">
-                  ${message}
+                  ${safeMessage}
                 </td>
               </tr>
 
@@ -108,8 +123,8 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `"榮耀堂官網" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
-      replyTo: `"${name}" <${email}>`,
-      subject: `【榮耀堂官網訊息】${subject}`,
+      replyTo: `"${String(name).replace(/["\r\n]/g, '')}" <${email}>`,
+      subject: `【榮耀堂官網訊息】${safeSubject}`,
       html,
     })
 
