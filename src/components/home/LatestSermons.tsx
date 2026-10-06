@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Play, ArrowRight, Calendar, PlayCircle } from 'lucide-react';
 import type { YouTubeVideo } from '@/lib/youtube';
+import FadeIn from '@/components/ui/FadeIn';
 
 interface LatestSermonsProps {
   videos: YouTubeVideo[];
@@ -15,17 +16,29 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
   const recent = videos.slice(0, 3);
 
   return (
-    <section className="py-24 dark-section relative overflow-hidden">
+    <section className="pt-32 pb-32 dark-section relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)', backgroundSize: '32px 32px' }}
       />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
+      {/* Wave: ServiceTimesSection (warm cream) dips into dark top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block h-14">
+          <path d="M0,0 L1440,0 C1080,56 360,56 0,0 Z" fill="#fdfaf5"/>
+        </svg>
+      </div>
+      {/* Wave: warm cream rises from dark bottom into UpcomingEvents */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block h-14">
+          <path d="M0,56 L1440,56 C1080,0 360,0 0,56 Z" fill="#fdfaf5"/>
+        </svg>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <FadeIn>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-4">
           <div>
-            <p className="text-amber-400 text-xs font-bold tracking-[0.3em] uppercase mb-3">
-              {locale === 'zh-TW' ? 'SERMONS' : '講道媒體'}
+            <p className="text-amber-400 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-400 pl-3">
+              {locale === 'my' ? 'တရားဟောချက်မှတ်တမ်း' : 'SERMONS'}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{t('title')}</h2>
             <p className="text-wine-300 text-sm">{t('subtitle')}</p>
@@ -39,19 +52,20 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
+        </FadeIn>
 
         {recent.length === 0 ? (
           <div className="text-center py-12 text-wine-400">
             <PlayCircle size={40} className="mx-auto mb-3 opacity-40" />
-            <p className="text-sm">{locale === 'zh-TW' ? '尚無影片，請稍後再來' : 'No videos yet'}</p>
+            <p className="text-sm">{locale === 'zh-TW' ? '尚無影片，請稍後再來' : locale === 'my' ? 'ဗီဒီယို မရှိသေးပါ' : 'No videos yet'}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {recent.map((video) => (
+            {recent.map((video, i) => (
+              <FadeIn key={video.id} delay={i * 120} className="flex flex-col">
               <Link
-                key={video.id}
                 href={`/${locale}/sermons`}
-                className="group glass-card rounded-2xl overflow-hidden card-glow transition-all duration-300"
+                className="group glass-card rounded-2xl overflow-hidden card-glow transition-all duration-300 flex-1"
               >
                 <div className="relative h-44 bg-wine-950 overflow-hidden">
                   {video.thumbnail && (
@@ -73,7 +87,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
                   </div>
                   <span className="absolute top-3 left-3 text-xs bg-wine-700/90 text-wine-100 px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
                     <PlayCircle size={10} />
-                    {locale === 'zh-TW' ? '主日講道' : 'Sermon'}
+                    {locale === 'zh-TW' ? '主日講道' : locale === 'my' ? 'တနင်္ဂနွေ တရားဟောချက်' : 'Sermon'}
                   </span>
                 </div>
 
@@ -91,6 +105,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
                   </div>
                 </div>
               </Link>
+              </FadeIn>
             ))}
           </div>
         )}

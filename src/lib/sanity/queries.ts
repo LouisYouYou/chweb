@@ -102,7 +102,7 @@ export interface SanityEvent {
   time?: string
   locationZh?: string
   locationEn?: string
-  category: 'worship' | 'youth' | 'community' | 'retreat' | 'training'
+  category: 'worship' | 'family' | 'youth' | 'community' | 'retreat' | 'training'
   fee?: number
   seats?: number
   seatsLeft?: number
@@ -121,7 +121,7 @@ export interface DisplayEvent {
   time?: string
   locationZh?: string
   locationEn?: string
-  category: 'worship' | 'youth' | 'community' | 'retreat' | 'training'
+  category: 'worship' | 'family' | 'youth' | 'community' | 'retreat' | 'training'
   fee?: number
   seats?: number
   seatsLeft?: number
@@ -151,5 +151,32 @@ export async function getAllEvents(): Promise<SanityEvent[]> {
   return client.fetch(
     groq`*[_type == "churchEvent" && date >= $today] | order(date asc) { ${eventFields} }`,
     { today }
+  )
+}
+
+export interface SundayMessage {
+  _id: string
+  date: string
+  title: string
+  preacher: string
+  scripture?: string
+  summary?: string
+  youtubeUrl?: string
+  image?: {
+    asset: {
+      _ref: string
+      url: string
+      metadata: { dimensions: { width: number; height: number } }
+    }
+    hotspot?: { x: number; y: number }
+  }
+}
+
+export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
+  return client.fetch(
+    groq`*[_type == "sundayMessage"] | order(date desc) [0] {
+      _id, date, title, preacher, scripture, summary, youtubeUrl,
+      image { asset->{ _ref, url, metadata { dimensions { width, height } } }, hotspot }
+    }`
   )
 }

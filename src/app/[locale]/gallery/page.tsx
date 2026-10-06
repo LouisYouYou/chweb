@@ -5,9 +5,10 @@ import { getAllGalleryPhotos } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import GalleryClient from '@/components/gallery/GalleryClient'
 
-export const metadata: Metadata = {
-  title: '教會相片集',
-  description: '行道會南勢角榮耀堂活動相片集，記錄主日崇拜、特別聚會與社區活動的美好時刻。',
+import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  return buildMetadata(locale, pageSEO.gallery)
 }
 
 export const revalidate = 3600
@@ -36,7 +37,7 @@ export default async function GalleryPage() {
           <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-6" />
           {photos.length > 0 && (
             <p className="text-wine-300 text-sm mt-4">
-              {zh ? `共 ${photos.length} 張照片` : `${photos.length} photos`}
+              {zh ? `共 ${photos.length} 張照片` : locale === 'ja' ? `合計 ${photos.length} 枚` : `${photos.length} photos`}
             </p>
           )}
         </div>

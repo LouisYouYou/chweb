@@ -8,26 +8,29 @@ import type { DisplayEvent } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
   worship:   'border-l-wine-500 bg-wine-50/60',
+  family:    'border-l-rose-400 bg-rose-50/60',
   youth:     'border-l-purple-500 bg-purple-50/60',
   community: 'border-l-emerald-500 bg-emerald-50/60',
-  retreat:   'border-l-amber-500 bg-amber-50/60',
+  retreat:   'border-l-amber-400 bg-amber-50/80 ring-1 ring-amber-200',
   training:  'border-l-teal-500 bg-teal-50/60',
 };
 
 const categoryBadge: Record<string, string> = {
   worship:   'bg-wine-100 text-wine-700 border-wine-200',
+  family:    'bg-rose-100 text-rose-700 border-rose-200',
   youth:     'bg-purple-100 text-purple-700 border-purple-200',
   community: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  retreat:   'bg-amber-100 text-amber-700 border-amber-200',
+  retreat:   'bg-amber-400 text-amber-950 border-amber-500 font-bold',
   training:  'bg-teal-100 text-teal-700 border-teal-200',
 };
 
-const categoryLabels: Record<string, { zh: string; en: string }> = {
-  worship:   { zh: '崇拜', en: 'Worship' },
-  youth:     { zh: '青年', en: 'Youth' },
-  community: { zh: '社區', en: 'Community' },
-  retreat:   { zh: '退修', en: 'Retreat' },
-  training:  { zh: '訓練', en: 'Training' },
+const categoryLabels: Record<string, { zh: string; en: string; my: string; ja: string }> = {
+  worship:   { zh: '崇拜', en: 'Worship',   my: 'ဝတ်ပြုကိုးကွယ်ခြင်း', ja: '礼拝' },
+  family:    { zh: '家庭', en: 'Family',    my: 'မိသားစု',               ja: 'ファミリー' },
+  youth:     { zh: '青年', en: 'Youth',     my: 'လူငယ်',                 ja: '青年' },
+  community: { zh: '社區', en: 'Community', my: 'လူ့အဖွဲ့',              ja: 'コミュニティ' },
+  retreat:   { zh: '退修', en: 'Retreat',   my: 'နုတ်ပယ်ခြင်း',          ja: 'リトリート' },
+  training:  { zh: '訓練', en: 'Training',  my: 'သင်တန်း',               ja: '訓練' },
 };
 
 interface EventsCalendarProps {
@@ -39,7 +42,11 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
   const t = useTranslations('events');
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-  const zh = locale !== 'en' && locale !== 'my';
+  const zh = locale === 'zh-TW';
+  const t4 = (zhStr: string, myStr: string, jaStr: string, enStr: string) =>
+    zh ? zhStr : locale === 'my' ? myStr : locale === 'ja' ? jaStr : enStr;
+  const catLabel = (cat: string) =>
+    zh ? categoryLabels[cat].zh : locale === 'my' ? categoryLabels[cat].my : locale === 'ja' ? categoryLabels[cat].ja : categoryLabels[cat].en;
 
   const filters = ['all', ...Object.keys(categoryLabels)];
   const filtered = activeFilter === 'all'
@@ -49,7 +56,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
   if (!events.length) {
     return (
       <section className="py-24 px-4 text-center text-gray-400">
-        {zh ? '目前沒有即將到來的活動，請稍後回來查看。' : 'No upcoming events at the moment. Please check back later.'}
+        {t4('目前沒有即將到來的活動，請稍後回來查看。', 'ကျင်းပမည့် ပွဲများ မရှိသေးပါ။ နောက်မှ ပြန်ကြည့်ပါ။', '現在、予定されているイベントはありません。後でご確認ください。', 'No upcoming events at the moment. Please check back later.')}
       </section>
     );
   }
@@ -72,8 +79,8 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
               }`}
             >
               {f === 'all'
-                ? (zh ? '全部' : 'All')
-                : (zh ? categoryLabels[f].zh : categoryLabels[f].en)}
+                ? t4('全部', 'အားလုံး', 'すべて', 'All')
+                : catLabel(f)}
             </button>
           ))}
         </div>
@@ -93,7 +100,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                     type="button"
                     onClick={() => setLightboxSrc(event.imageUrl!)}
                     className="relative w-full block group focus:outline-none"
-                    aria-label={zh ? '查看完整海報' : 'View full poster'}
+                    aria-label={t4('查看完整海報', 'ပိုစတာ အပြည့်ကြည့်ရန်', 'ポスターを見る', 'View full poster')}
                   >
                     <Image
                       src={event.imageUrl}
@@ -106,7 +113,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-wine-900 shadow-lg">
                         <ZoomIn size={15} />
-                        {zh ? '查看完整海報' : 'View full poster'}
+                        {t4('查看完整海報', 'ပိုစတာ အပြည့်ကြည့်ရန်', 'ポスターを見る', 'View full poster')}
                       </div>
                     </div>
                   </button>
@@ -126,7 +133,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-2 mb-3">
                         <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold border ${categoryBadge[event.category]}`}>
-                          {zh ? categoryLabels[event.category].zh : categoryLabels[event.category].en}
+                          {catLabel(event.category)}
                         </span>
                         {event.fee === 0 ? (
                           <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold">
@@ -156,8 +163,8 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                           <span className={`flex items-center gap-1.5 font-semibold ${event.seatsLeft != null && event.seatsLeft < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
                             <Users size={12} />
                             {event.seatsLeft != null && event.seatsLeft < 5
-                              ? (zh ? '名額即將額滿' : 'Almost full')
-                              : (zh ? '尚有名額' : 'Spots available')}
+                              ? t4('名額即將額滿', 'နေရာနီးပါး ပြည့်နေသည်', '残りわずか', 'Almost full')
+                              : t4('尚有名額', 'နေရာရှိသေးသည်', '残席あり', 'Spots available')}
                           </span>
                         )}
                       </div>
@@ -172,7 +179,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white church-gradient shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
                         >
                           <ClipboardList size={15} />
-                          {zh ? '立即報名' : locale === 'my' ? 'မှတ်ပုံတင်' : 'Register Now'}
+                          {t4('立即報名', 'မှတ်ပုံတင်ရန်', '今すぐ登録', 'Register Now')}
                         </a>
                       )}
                     </div>
@@ -184,7 +191,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                   <div className="border-t border-gray-100 bg-white/70 px-6 py-5">
                     <p className="text-xs font-bold text-wine-700 tracking-wider uppercase mb-3 flex items-center gap-2">
                       <Clock size={12} />
-                      {zh ? '課程時間表' : 'Course Schedule'}
+                      {t4('課程時間表', 'သင်တန်းဇယား', 'スケジュール', 'Course Schedule')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {event.courseItems.map((item) => (

@@ -2,6 +2,7 @@ import { defineType, defineField } from 'sanity'
 
 const categoryList = [
   { title: '⛪ 崇拜 Worship',     value: 'worship' },
+  { title: '👪 家庭 Family',       value: 'family' },
   { title: '👥 青年 Youth',        value: 'youth' },
   { title: '🌱 社區 Community',   value: 'community' },
   { title: '🏕️ 退修 Retreat',     value: 'retreat' },
@@ -9,7 +10,7 @@ const categoryList = [
 ]
 
 const catLabel: Record<string, string> = {
-  worship: '崇拜', youth: '青年', community: '社區', retreat: '退修', training: '訓練',
+  worship: '崇拜', family: '家庭', youth: '青年', community: '社區', retreat: '退修', training: '訓練',
 }
 
 export default defineType({

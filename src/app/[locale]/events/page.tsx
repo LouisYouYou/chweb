@@ -5,9 +5,10 @@ import EventsJsonLd from '@/components/seo/EventsJsonLd';
 import { getAllEvents, type DisplayEvent } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/client';
 
-export const metadata: Metadata = {
-  title: '活動行事曆',
-  description: '行道會南勢角榮耀堂近期活動與特會資訊，包含退修會、青年特會、社區服務、聖經研讀課程等。',
+import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  return buildMetadata(locale, pageSEO.events)
 }
 
 export const dynamic = 'force-dynamic'

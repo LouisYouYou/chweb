@@ -14,7 +14,7 @@ export default function WelcomeSection() {
   const locale = useLocale();
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-white to-wine-50/40">
+    <section className="py-20 px-4 bg-gradient-to-b from-white to-[#fdfaf5]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

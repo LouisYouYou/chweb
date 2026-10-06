@@ -63,17 +63,41 @@
     "vision_text": "To build an apostolic and prophetic church — pastoral in care, missional in strategy — that glorifies God and benefits people. Through discipleship training, we cultivate a healthy, joyful, passionate, and influential church.",
     "values_title": "Core Values",
     "values": [
-      { "icon": "heart", "title": "Love", "text": "To love one another with God's love, welcoming all people" },
-      { "icon": "book", "title": "Truth", "text": "The Bible as the standard and guide for life" },
-      { "icon": "users", "title": "Community", "text": "Building authentic fellowship in Christ" },
-      { "icon": "globe", "title": "Mission", "text": "Bringing the Gospel to the ends of the earth" }
+      {
+        "icon": "heart",
+        "title": "Love",
+        "text": "To love one another with God's love, welcoming all people"
+      },
+      {
+        "icon": "book",
+        "title": "Truth",
+        "text": "The Bible as the standard and guide for life"
+      },
+      {
+        "icon": "users",
+        "title": "Community",
+        "text": "Building authentic fellowship in Christ"
+      },
+      {
+        "icon": "globe",
+        "title": "Mission",
+        "text": "Bringing the Gospel to the ends of the earth"
+      }
     ],
     "history_title": "Our History",
     "history_text": "Glory Church Of Nanshijiao is part of Glory Church Taipei (行道會台北榮耀堂) and is rooted in the Nanshijiao community of Zhonghe District, New Taipei City. Over the years, our congregation has continued to grow into a vibrant community of faith. We believe every person has unique gifts from God and are committed to helping each member discover and live out God's calling.",
     "team_title": "Pastoral Team",
     "team": [
-      { "role": "Senior Pastor", "name": "Pastor Chen Wen-Bin" },
-      { "role": "Minister", "name": "Minister Lo Shu-Hua" }
+      {
+        "role": "Senior Pastor",
+        "name": "Pastor Chen Wen-Bin",
+        "desc": "Leads Glory Church of Nanshijiao with a heart for the community, equipping disciples and building a healthy, vibrant faith family where everyone can grow in God's grace."
+      },
+      {
+        "role": "Minister",
+        "name": "Minister Lo Shu-Hua",
+        "desc": "Oversees congregation care and cell group ministry, walking alongside each member with gentleness and compassion, and serving as a bridge across cultures for the Myanmar community."
+      }
     ]
   },
   "services": {

@@ -11,6 +11,7 @@ export default function LoginPage() {
   const locale = useLocale()
   const router = useRouter()
   const zh = locale === 'zh-TW'
+  const ja = locale === 'ja'
   const supabase = createClient()
 
   const [email, setEmail] = useState('')
@@ -26,7 +27,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
-      setError(zh ? '帳號或密碼錯誤，請再試一次。' : 'Invalid email or password.')
+      setError(zh ? '帳號或密碼錯誤，請再試一次。' : ja ? 'メールアドレスまたはパスワードが正しくありません。' : 'Invalid email or password.')
       setLoading(false)
       return
     }
@@ -44,17 +45,17 @@ export default function LoginPage() {
               <LogIn size={24} className="text-white" />
             </div>
             <h1 className="text-2xl font-bold text-wine-900">
-              {zh ? '會員登入' : 'Sign In'}
+              {zh ? '會員登入' : ja ? '会員ログイン' : 'Sign In'}
             </h1>
             <p className="text-gray-400 text-sm mt-1">
-              {zh ? '歡迎回到榮耀堂' : 'Welcome back to Glory Church'}
+              {zh ? '歡迎回到榮耀堂' : ja ? '榮耀堂へようこそ' : 'Welcome back to Glory Church'}
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-wine-900 mb-1.5">
-                {zh ? '電子郵件' : 'Email'}
+                {zh ? '電子郵件' : ja ? 'メールアドレス' : 'Email'}
               </label>
               <div className="relative">
                 <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -71,7 +72,7 @@ export default function LoginPage() {
 
             <div>
               <label className="block text-sm font-medium text-wine-900 mb-1.5">
-                {zh ? '密碼' : 'Password'}
+                {zh ? '密碼' : ja ? 'パスワード' : 'Password'}
               </label>
               <div className="relative">
                 <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -95,14 +96,14 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3 church-gradient text-white font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 text-sm mt-2"
             >
-              {loading ? (zh ? '登入中…' : 'Signing in…') : (zh ? '登入' : 'Sign In')}
+              {loading ? (zh ? '登入中…' : ja ? 'ログイン中…' : 'Signing in…') : (zh ? '登入' : ja ? 'ログイン' : 'Sign In')}
             </button>
           </form>
 
           <p className="text-center text-sm text-gray-400 mt-6">
-            {zh ? '還沒有帳號？' : "Don't have an account?"}{' '}
+            {zh ? '還沒有帳號？' : ja ? 'アカウントをお持ちでない方は？' : "Don't have an account?"}{' '}
             <Link href={`/${locale}/register`} className="text-wine-600 font-medium hover:underline">
-              {zh ? '立即申請' : 'Register'}
+              {zh ? '立即申請' : ja ? '登録する' : 'Register'}
             </Link>
           </p>
         </div>

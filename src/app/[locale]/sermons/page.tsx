@@ -4,9 +4,10 @@ import SermonLibrary from '@/components/sermons/SermonLibrary';
 import SermonsJsonLd from '@/components/seo/SermonsJsonLd';
 import { getChannelVideos } from '@/lib/youtube';
 
-export const metadata: Metadata = {
-  title: '講道媒體庫',
-  description: '行道會南勢角榮耀堂講道媒體庫。收聽主日講道、聖經研讀、青年講道影片，在家也能靈命成長。',
+import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  return buildMetadata(locale, pageSEO.sermons)
 }
 
 export default async function SermonsPage() {

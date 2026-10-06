@@ -3,9 +3,10 @@ import { getTranslations, getLocale } from 'next-intl/server'
 import { FileText, Download, Calendar } from 'lucide-react'
 import { getAllBulletins } from '@/lib/sanity/queries'
 
-export const metadata: Metadata = {
-  title: '教會週報',
-  description: '行道會南勢角榮耀堂每週週報，依主日日期排序，點擊即可下載閱讀。',
+import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  return buildMetadata(locale, pageSEO.weeklyBulletin)
 }
 
 export const revalidate = 3600
@@ -39,7 +40,7 @@ export default async function WeeklyBulletinPage() {
               {bulletins.map((bulletin) => {
                 const [year, month, day] = bulletin.date.split('-')
                 const formatted = new Date(bulletin.date + 'T00:00:00').toLocaleDateString(
-                  zh ? 'zh-TW' : 'en-US',
+                  zh ? 'zh-TW' : locale === 'ja' ? 'ja-JP' : 'en-US',
                   { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' }
                 )
                 return (
@@ -59,12 +60,12 @@ export default async function WeeklyBulletinPage() {
                       <div className="flex items-center gap-2 mb-1">
                         <FileText size={14} className="text-wine-400 shrink-0" />
                         <p className="text-sm font-semibold text-wine-900 truncate">
-                          {zh ? '教會週報' : 'Church Bulletin'} · {formatted}
+                          {zh ? '教會週報' : locale === 'ja' ? '教会週報' : 'Church Bulletin'} · {formatted}
                         </p>
                       </div>
                       <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         <Calendar size={11} />
-                        <span>{zh ? '主日週報' : 'Sunday Bulletin'}</span>
+                        <span>{zh ? '主日週報' : locale === 'ja' ? '主日週報' : 'Sunday Bulletin'}</span>
                       </div>
                     </div>
 
@@ -78,7 +79,7 @@ export default async function WeeklyBulletinPage() {
                         className="flex items-center gap-2 btn-amber shrink-0 text-sm"
                       >
                         <Download size={14} />
-                        {zh ? '下載' : 'Download'}
+                        {zh ? '下載' : locale === 'ja' ? 'ダウンロード' : 'Download'}
                       </a>
                     )}
                   </div>

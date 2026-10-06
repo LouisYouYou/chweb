@@ -1,15 +1,23 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Noto_Sans_Myanmar } from 'next/font/google';
+import { Noto_Sans_Myanmar, Noto_Sans_JP } from 'next/font/google';
 import { routing } from '@/lib/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import NewsTicker from '@/components/layout/NewsTicker';
 import ChurchJsonLd from '@/components/seo/ChurchJsonLd';
+import NewsletterSection from '@/components/home/NewsletterSection';
+import LineFloatButton from '@/components/layout/LineFloatButton';
 
 const notoMyanmar = Noto_Sans_Myanmar({
   subsets: ['myanmar'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
+
+const notoJapanese = Noto_Sans_JP({
+  subsets: ['latin'],
   weight: ['400', '700'],
   display: 'swap',
 });
@@ -26,7 +34,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as 'zh-TW' | 'en' | 'my')) {
+  if (!routing.locales.includes(locale as 'zh-TW' | 'en' | 'my' | 'ja')) {
     notFound();
   }
 
@@ -34,7 +42,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <html lang={locale} className={locale === 'my' ? notoMyanmar.className : undefined}>
+      <html lang={locale} className={locale === 'my' ? notoMyanmar.className : locale === 'ja' ? notoJapanese.className : undefined}>
         <head>
           <ChurchJsonLd />
         </head>
@@ -42,7 +50,9 @@ export default async function LocaleLayout({
           <Header locale={locale} />
           <NewsTicker />
           <main className="flex-1">{children}</main>
+          <NewsletterSection />
           <Footer />
+          <LineFloatButton />
         </body>
       </html>
     </NextIntlClientProvider>
