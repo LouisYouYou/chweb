@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
-import { Menu, X, Globe, ChevronDown, BookOpen, Newspaper, Camera, Heart, HelpCircle } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, BookOpen, Newspaper, Camera, Heart } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface HeaderProps {
@@ -44,7 +44,6 @@ export default function Header({ locale }: HeaderProps) {
     { href: `/${locale}/weekly-bulletin`, label: t('weekly_bulletin'), icon: Newspaper },
     { href: `/${locale}/gallery`, label: t('gallery'), icon: Camera },
     { href: `/${locale}/prayer-wall`, label: t('prayer_wall'), icon: Heart },
-    { href: `/${locale}/faq`, label: t('faq'), icon: HelpCircle },
   ];
 
   const switchLocale = (newLocale: string) => {
