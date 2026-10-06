@@ -169,7 +169,7 @@ export async function POST(req: NextRequest) {
 
   // 6. 寄送管理員作業報告（彙整，只寄一封給 ADMIN_EMAILS）
   if (ADMIN_EMAILS.length > 0) {
-    const reportSubject = `【寄信報告】${type} — 成功 ${results.ok} 封，失敗 ${results.failed} 封`
+    const reportSubject = `【寄信報告】${type} — 成功 ${results.sent} 封，失敗 ${results.failed} 封`
     const reportHtml = `
 <div style="font-family:Arial,sans-serif;max-width:540px;margin:auto;padding:24px;background:#f9f4f5;border-radius:12px;">
   <h2 style="color:#380a14;margin:0 0 16px;">📬 訂閱通知寄送報告</h2>
