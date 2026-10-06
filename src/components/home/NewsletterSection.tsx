@@ -7,7 +7,7 @@ import { Mail, CheckCircle, Loader2 } from 'lucide-react';
 const copy = {
   'zh-TW': {
     eyebrow: '每週聚會通知',
-    heading: '訂閱榮耀堂消息',
+    heading: '訂閱南勢角榮耀堂消息',
     sub: '每週主日公告、活動預告、教會最新消息，直接送到您的信箱。',
     placeholder: '請輸入您的 Email',
     cta: '立即訂閱',
