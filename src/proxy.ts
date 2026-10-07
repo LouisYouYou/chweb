@@ -31,6 +31,16 @@ export default async function proxy(request: NextRequest) {
   // Run next-intl locale routing
   const i18nResponse = handleI18nRouting(request)
 
+  // next-intl emits 307 for locale redirects; upgrade to 301 for SEO canonical signals
+  if (i18nResponse.status === 307) {
+    const location = i18nResponse.headers.get('location')
+    if (location) {
+      const permanent = NextResponse.redirect(new URL(location, request.url), { status: 301 })
+      supabaseResponse.cookies.getAll().forEach((c) => permanent.cookies.set(c.name, c.value))
+      return permanent
+    }
+  }
+
   // Copy Supabase session cookies to i18n response
   supabaseResponse.cookies.getAll().forEach((cookie) => {
     i18nResponse.cookies.set(cookie.name, cookie.value)
