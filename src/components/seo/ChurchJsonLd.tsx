@@ -1,6 +1,23 @@
 const BASE = 'https://nanshijiaoglory.vercel.app'
 
+// Returns the date string (Asia/Taipei, UTC+8) of the next occurrence of a weekday.
+// dayOfWeek: 0=Sun, 1=Mon, 2=Tue, 6=Sat
+function nextDate(dayOfWeek: number): string {
+  const now = new Date()
+  // Offset to Taiwan time (UTC+8)
+  const twNow = new Date(now.getTime() + 8 * 60 * 60 * 1000)
+  const daysUntil = (dayOfWeek - twNow.getUTCDay() + 7) % 7 || 7
+  const target = new Date(twNow.getTime() + daysUntil * 24 * 60 * 60 * 1000)
+  const y = target.getUTCFullYear()
+  const m = String(target.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(target.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
 export default function ChurchJsonLd() {
+  const nextSunday   = nextDate(0)
+  const nextTuesday  = nextDate(2)
+  const nextSaturday = nextDate(6)
   const data = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -195,6 +212,8 @@ export default function ChurchJsonLd() {
         '@id': `${BASE}/#event-sunday-worship`,
         name: '主日崇拜',
         description: '行道會南勢角榮耀堂每週主日崇拜，提供華語、英語、緬甸語三語服事，時間為每週日上午10:00至11:30，共90分鐘。',
+        startDate: `${nextSunday}T10:00:00+08:00`,
+        endDate:   `${nextSunday}T11:30:00+08:00`,
         eventSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'P1W',
@@ -225,6 +244,8 @@ export default function ChurchJsonLd() {
         '@id': `${BASE}/#event-small-group`,
         name: '小組聚會',
         description: '行道會南勢角榮耀堂每週二小組聚會，時間19:30至21:00，在教會地址進行。',
+        startDate: `${nextTuesday}T19:30:00+08:00`,
+        endDate:   `${nextTuesday}T21:00:00+08:00`,
         eventSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'P1W',
@@ -246,6 +267,8 @@ export default function ChurchJsonLd() {
         '@id': `${BASE}/#event-youth`,
         name: '青年聚會',
         description: '行道會南勢角榮耀堂每週六青年聚會，時間19:00至21:30，在教會地址進行。',
+        startDate: `${nextSaturday}T19:00:00+08:00`,
+        endDate:   `${nextSaturday}T21:30:00+08:00`,
         eventSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'P1W',
@@ -286,17 +309,6 @@ export default function ChurchJsonLd() {
           },
           'query-input': 'required name=search_term_string',
         },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        '@id': `${BASE}/#breadcrumb`,
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: '首頁', item: `${BASE}/zh-TW` },
-          { '@type': 'ListItem', position: 2, name: '聚會資訊', item: `${BASE}/zh-TW/services` },
-          { '@type': 'ListItem', position: 3, name: '講道媒體', item: `${BASE}/zh-TW/sermons` },
-          { '@type': 'ListItem', position: 4, name: '活動行事曆', item: `${BASE}/zh-TW/events` },
-          { '@type': 'ListItem', position: 5, name: '聯絡我們', item: `${BASE}/zh-TW/contact` },
-        ],
       },
     ],
   }
