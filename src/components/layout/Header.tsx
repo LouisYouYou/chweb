@@ -4,18 +4,18 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
-import { Menu, X, Globe, ChevronDown, BookOpen, Newspaper, Camera, Heart } from 'lucide-react';
+import { Menu, X, ChevronDown, BookOpen, Newspaper, Camera, Heart } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface HeaderProps {
   locale: string;
 }
 
-const LOCALE_LABELS: Record<string, string> = {
-  'zh-TW': '中文',
-  'en': 'EN',
-  'my': 'မြန်မာ',
-  'ja': '日本語',
+const LOCALE_DATA: Record<string, { flag: string; label: string }> = {
+  'zh-TW': { flag: '🇹🇼', label: '繁體中文' },
+  'en':    { flag: '🇺🇸', label: 'English' },
+  'my':    { flag: '🇲🇲', label: 'မြန်မာ' },
+  'ja':    { flag: '🇯🇵', label: '日本語' },
 };
 
 export default function Header({ locale }: HeaderProps) {
@@ -179,8 +179,8 @@ export default function Header({ locale }: HeaderProps) {
                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
                 onClick={() => setLangOpen(v => !v)}
               >
-                <Globe size={14} />
-                <span>{LOCALE_LABELS[locale] ?? locale}</span>
+                <span className="text-base leading-none">{LOCALE_DATA[locale]?.flag ?? '🌐'}</span>
+                <span className="hidden sm:inline">{LOCALE_DATA[locale]?.label ?? locale}</span>
                 <ChevronDown size={12} className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
               {langOpen && (
@@ -189,18 +189,19 @@ export default function Header({ locale }: HeaderProps) {
                   onMouseEnter={() => { if (langHoverTimeout.current) clearTimeout(langHoverTimeout.current); }}
                   onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
                 >
-                  <div className="bg-white rounded-xl shadow-lg border border-wine-100 py-1.5 w-32 overflow-hidden">
-                    {Object.entries(LOCALE_LABELS).map(([code, label]) => (
+                  <div className="bg-white rounded-xl shadow-lg border border-wine-100 py-1.5 w-44 overflow-hidden">
+                    {Object.entries(LOCALE_DATA).map(([code, { flag, label }]) => (
                       <button
                         key={code}
                         onClick={() => switchLocale(code)}
-                        className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
                           locale === code
                             ? 'text-wine-700 bg-wine-50 font-medium'
                             : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
                         }`}
                       >
-                        {label}
+                        <span className="text-base leading-none">{flag}</span>
+                        <span>{label}</span>
                       </button>
                     ))}
                   </div>
