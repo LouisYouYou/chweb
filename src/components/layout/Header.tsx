@@ -11,11 +11,11 @@ interface HeaderProps {
   locale: string;
 }
 
-const LOCALE_DATA: Record<string, { flag: string; label: string }> = {
-  'zh-TW': { flag: '🇹🇼', label: '繁體中文' },
-  'en':    { flag: '🇺🇸', label: 'English' },
-  'my':    { flag: '🇲🇲', label: 'မြန်မာ' },
-  'ja':    { flag: '🇯🇵', label: '日本語' },
+const LOCALE_DATA: Record<string, { code: string; label: string }> = {
+  'zh-TW': { code: 'tw', label: '繁體中文' },
+  'en':    { code: 'us', label: 'English' },
+  'my':    { code: 'mm', label: 'မြန်မာ' },
+  'ja':    { code: 'jp', label: '日本語' },
 };
 
 export default function Header({ locale }: HeaderProps) {
@@ -176,10 +176,13 @@ export default function Header({ locale }: HeaderProps) {
               onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
             >
               <button
-                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
                 onClick={() => setLangOpen(v => !v)}
               >
-                <span className="text-base leading-none">{LOCALE_DATA[locale]?.flag ?? '🌐'}</span>
+                <span
+                  className={`fi fi-${LOCALE_DATA[locale]?.code ?? 'tw'} fis rounded-full shrink-0`}
+                  style={{ width: 18, height: 18 }}
+                />
                 <span className="hidden sm:inline">{LOCALE_DATA[locale]?.label ?? locale}</span>
                 <ChevronDown size={12} className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -190,17 +193,20 @@ export default function Header({ locale }: HeaderProps) {
                   onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
                 >
                   <div className="bg-white rounded-xl shadow-lg border border-wine-100 py-1.5 w-44 overflow-hidden">
-                    {Object.entries(LOCALE_DATA).map(([code, { flag, label }]) => (
+                    {Object.entries(LOCALE_DATA).map(([localeCode, { code, label }]) => (
                       <button
-                        key={code}
-                        onClick={() => switchLocale(code)}
+                        key={localeCode}
+                        onClick={() => switchLocale(localeCode)}
                         className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
-                          locale === code
+                          locale === localeCode
                             ? 'text-wine-700 bg-wine-50 font-medium'
                             : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
                         }`}
                       >
-                        <span className="text-base leading-none">{flag}</span>
+                        <span
+                          className={`fi fi-${code} fis rounded-full shrink-0`}
+                          style={{ width: 18, height: 18 }}
+                        />
                         <span>{label}</span>
                       </button>
                     ))}
