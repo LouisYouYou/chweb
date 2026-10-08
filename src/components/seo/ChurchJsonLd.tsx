@@ -1,12 +1,18 @@
 const BASE = 'https://nanshijiaoglory.vercel.app'
 
 // Returns the date string (Asia/Taipei, UTC+8) of the next occurrence of a weekday.
+// Advances to the following week only after the meeting ends (endHour:endMinute TW time).
 // dayOfWeek: 0=Sun, 1=Mon, 2=Tue, 6=Sat
-function nextDate(dayOfWeek: number): string {
+function nextDate(dayOfWeek: number, endHour: number, endMinute: number): string {
   const now = new Date()
   // Offset to Taiwan time (UTC+8)
   const twNow = new Date(now.getTime() + 8 * 60 * 60 * 1000)
-  const daysUntil = (dayOfWeek - twNow.getUTCDay() + 7) % 7 || 7
+  let daysUntil = (dayOfWeek - twNow.getUTCDay() + 7) % 7
+  if (daysUntil === 0) {
+    // Today is meeting day; only skip to next week after the meeting has ended
+    const nowMinutes = twNow.getUTCHours() * 60 + twNow.getUTCMinutes()
+    if (nowMinutes >= endHour * 60 + endMinute) daysUntil = 7
+  }
   const target = new Date(twNow.getTime() + daysUntil * 24 * 60 * 60 * 1000)
   const y = target.getUTCFullYear()
   const m = String(target.getUTCMonth() + 1).padStart(2, '0')
@@ -15,9 +21,9 @@ function nextDate(dayOfWeek: number): string {
 }
 
 export default function ChurchJsonLd() {
-  const nextSunday   = nextDate(0)
-  const nextTuesday  = nextDate(2)
-  const nextSaturday = nextDate(6)
+  const nextSunday   = nextDate(0, 11, 30)  // worship ends 11:30
+  const nextTuesday  = nextDate(2, 21,  0)  // small group ends 21:00
+  const nextSaturday = nextDate(6, 21, 30)  // youth meeting ends 21:30
   const data = {
     '@context': 'https://schema.org',
     '@graph': [

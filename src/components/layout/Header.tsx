@@ -176,10 +176,13 @@ export default function Header({ locale }: HeaderProps) {
               onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
             >
               <button
+                aria-label={LOCALE_DATA[locale]?.label ?? locale}
+                aria-expanded={langOpen}
                 className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
                 onClick={() => setLangOpen(v => !v)}
               >
                 <span
+                  aria-hidden="true"
                   className={`fi fi-${LOCALE_DATA[locale]?.code ?? 'tw'} fis rounded-full shrink-0`}
                   style={{ width: 18, height: 18 }}
                 />
