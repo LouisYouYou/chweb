@@ -180,6 +180,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-expanded={langOpen}
                 className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors"
                 onClick={() => setLangOpen(v => !v)}
+                onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
               >
                 <span
                   aria-hidden="true"
