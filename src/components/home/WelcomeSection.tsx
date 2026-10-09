@@ -32,16 +32,18 @@ export default function WelcomeSection() {
             <Link
               key={key}
               href={`/${locale}/${href}`}
-              className="group bg-white rounded-2xl p-6 border border-wine-100 hover:border-wine-200 card-lift transition-all duration-300 flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+              className="bezel-card group"
             >
-              <div aria-hidden="true" className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${color} group-hover:scale-110 transition-transform duration-300`}>
-                <Icon size={20} aria-hidden="true" />
+              <div className="bezel-card-inner flex flex-col p-6 h-full">
+                <div aria-hidden="true" className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${color} group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon size={20} aria-hidden="true" />
+                </div>
+                <h3 className="font-bold text-wine-900 mb-2 text-base">{t(`${key}_title` as Parameters<typeof t>[0])}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed flex-1">{t(`${key}_text` as Parameters<typeof t>[0])}</p>
+                <span className="mt-4 text-xs font-semibold text-wine-500 group-hover:text-wine-700 transition-colors" aria-hidden="true">
+                  {t('cta')}
+                </span>
               </div>
-              <h3 className="font-bold text-wine-900 mb-2 text-base">{t(`${key}_title` as Parameters<typeof t>[0])}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed flex-1">{t(`${key}_text` as Parameters<typeof t>[0])}</p>
-              <span className="mt-4 text-xs font-semibold text-wine-500 group-hover:text-wine-700 transition-colors" aria-hidden="true">
-                {t('cta')}
-              </span>
             </Link>
           ))}
         </div>
