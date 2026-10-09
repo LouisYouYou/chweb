@@ -1,11 +1,15 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next'
 import Hero from '@/components/home/Hero';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import WelcomeSection from '@/components/home/WelcomeSection';
 import ServiceTimesSection from '@/components/home/ServiceTimesSection';
 import SundayMessageSection from '@/components/home/SundayMessageSection';
+import SundayMessageSkeleton from '@/components/home/SundayMessageSkeleton';
 import LatestSermons from '@/components/home/LatestSermons';
+import SermonsSkeleton from '@/components/home/SermonsSkeleton';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
+import EventsSkeleton from '@/components/home/EventsSkeleton';
 import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata';
 
@@ -115,9 +119,12 @@ const faqSchema = {
   ],
 }
 
-export default async function HomePage() {
+async function LatestSermonsLoader() {
   const videos = await getChannelVideos(3);
+  return <LatestSermons videos={videos} />;
+}
 
+export default async function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(churchSchema) }} />
@@ -127,9 +134,15 @@ export default async function HomePage() {
       <AnnouncementBanner />
       <WelcomeSection />
       <ServiceTimesSection />
-      <SundayMessageSection />
-      <LatestSermons videos={videos} />
-      <UpcomingEvents />
+      <Suspense fallback={<SundayMessageSkeleton />}>
+        <SundayMessageSection />
+      </Suspense>
+      <Suspense fallback={<SermonsSkeleton />}>
+        <LatestSermonsLoader />
+      </Suspense>
+      <Suspense fallback={<EventsSkeleton />}>
+        <UpcomingEvents />
+      </Suspense>
     </>
   );
 }

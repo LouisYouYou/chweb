@@ -10,10 +10,10 @@ export default function ServiceTimesSection() {
   const locale = useLocale();
 
   return (
-    <section className="py-24 bg-[#fdfaf5] relative overflow-hidden">
+    <section className="py-20 bg-[#fdfaf5] relative overflow-hidden">
       {/* Decorative background circle */}
-      <div className="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-wine-50 opacity-60 pointer-events-none" />
-      <div className="absolute -left-24 -bottom-24 w-72 h-72 rounded-full bg-amber-50 opacity-50 pointer-events-none" />
+      <div aria-hidden="true" className="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-wine-50 opacity-60 pointer-events-none" />
+      <div aria-hidden="true" className="absolute -left-24 -bottom-24 w-72 h-72 rounded-full bg-amber-50 opacity-50 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section header */}
@@ -37,13 +37,13 @@ export default function ServiceTimesSection() {
               className="group relative bg-white rounded-2xl border border-gray-100 p-7 card-lift overflow-hidden h-full"
             >
               {/* Number accent */}
-              <span className="absolute top-5 right-5 text-6xl font-black text-wine-50 select-none pointer-events-none leading-none">
+              <span aria-hidden="true" className="absolute top-5 right-5 text-6xl font-black text-wine-50 select-none pointer-events-none leading-none">
                 {String(idx + 1).padStart(2, '0')}
               </span>
 
               {/* Icon */}
-              <div className="w-14 h-14 church-gradient rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-wine-200 group-hover:scale-110 transition-transform">
-                <Clock size={22} className="text-white" />
+              <div aria-hidden="true" className="w-14 h-14 church-gradient rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-wine-200 group-hover:scale-110 transition-transform">
+                <Clock size={22} aria-hidden="true" className="text-white" />
               </div>
 
               {/* Name */}
@@ -64,12 +64,12 @@ export default function ServiceTimesSection() {
 
               {/* Location */}
               <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <MapPin size={12} className="text-wine-400" />
+                <MapPin size={12} aria-hidden="true" className="text-wine-400" />
                 <span>{locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn}</span>
               </div>
 
               {/* Bottom accent on hover */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 church-gradient scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl" />
+              <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 h-1 church-gradient scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl" />
             </div>
             </FadeIn>
           ))}
