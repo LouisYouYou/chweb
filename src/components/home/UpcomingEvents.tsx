@@ -101,7 +101,7 @@ export default async function UpcomingEvents() {
               return (
                 <FadeIn key={event.id} delay={i * 100}>
                 <div
-                  className={`group bg-white rounded-2xl border-l-4 ${categoryAccent[event.category]} border border-l-[inherit] border-t-gray-100 border-r-gray-100 border-b-gray-100 p-6 card-lift${event.category === 'retreat' ? ' ring-1 ring-amber-300/70 shadow-amber-50' : ''}`}
+                  className={`group bg-white rounded-2xl border-l-4 ${categoryAccent[event.category]} border border-l-[inherit] border-t-gray-100 border-r-gray-100 border-b-gray-100 p-6 haptic-event-card${event.category === 'retreat' ? ' ring-1 ring-amber-300/70' : ''}`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center gap-5">
                     {/* Date badge */}

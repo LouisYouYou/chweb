@@ -295,6 +295,22 @@ a, button, [role="button"] {
   box-shadow: var(--shadow-pressed);
 }
 
+/* H4 UpcomingEvents Haptic pilot: material elevation on non-interactive card container.
+   No base box-shadow — retreat cards use Tailwind ring-1 (box-shadow); setting a base
+   shadow here would override the amber ring via globals.css cascade priority.
+   No Double-Bezel — category border-l-4 accent takes structural priority over bezel border.
+   -2px lift signals material depth only, intentionally restrained for a non-interactive div. */
+.haptic-event-card {
+  transition:
+    box-shadow var(--duration-base) var(--ease-premium),
+    transform  var(--duration-base) var(--ease-premium);
+}
+
+.haptic-event-card:hover {
+  transform:  translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
 .cta-depth {
   box-shadow: var(--cta-inset-highlight), var(--shadow-card);
   transition:
@@ -364,6 +380,9 @@ a, button, [role="button"] {
     box-shadow: var(--shadow-card);
   }
   .welcome-haptic-cta:active {
+    transform: none;
+  }
+  .haptic-event-card:hover {
     transform: none;
   }
   .cta-depth:active {
