@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import Hero from '@/components/home/Hero';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import WelcomeSection from '@/components/home/WelcomeSection';
@@ -13,10 +14,11 @@ import EventsSkeleton from '@/components/home/EventsSkeleton';
 import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata';
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  setRequestLocale(locale)
   return buildMetadata(locale, pageSEO.home)
 }
 
@@ -124,7 +126,9 @@ async function LatestSermonsLoader() {
   return <LatestSermons videos={videos} />;
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setRequestLocale(locale)
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(churchSchema) }} />
