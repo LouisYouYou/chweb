@@ -288,6 +288,13 @@ a, button, [role="button"] {
   height:        100%;
 }
 
+/* H3 WelcomeSection pilot: pressed feedback scoped to this CTA class only.
+   Intentionally separate from .bezel-card to avoid affecting future bezel-card adopters. */
+.welcome-haptic-cta:active {
+  transform:  translateY(var(--cta-pressed-y));
+  box-shadow: var(--shadow-pressed);
+}
+
 .cta-depth {
   box-shadow: var(--cta-inset-highlight), var(--shadow-card);
   transition:
@@ -355,6 +362,9 @@ a, button, [role="button"] {
   .bezel-card:hover {
     transform:  none;
     box-shadow: var(--shadow-card);
+  }
+  .welcome-haptic-cta:active {
+    transform: none;
   }
   .cta-depth:active {
     transform: none;

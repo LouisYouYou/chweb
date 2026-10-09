@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { Clock, Users, MapPin, Mail } from 'lucide-react';
+import { Clock, Users, MapPin, Mail, ArrowRight } from 'lucide-react';
 
 const steps = [
   { key: 'step1', icon: Clock, color: 'bg-wine-50 text-wine-600', href: 'services' },
@@ -32,7 +32,7 @@ export default function WelcomeSection() {
             <Link
               key={key}
               href={`/${locale}/${href}`}
-              className="bezel-card group"
+              className="bezel-card welcome-haptic-cta group"
             >
               <div className="bezel-card-inner flex flex-col p-6 h-full">
                 <div aria-hidden="true" className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${color} group-hover:scale-110 transition-transform duration-300`}>
@@ -40,9 +40,14 @@ export default function WelcomeSection() {
                 </div>
                 <h3 className="font-bold text-wine-900 mb-2 text-base">{t(`${key}_title` as Parameters<typeof t>[0])}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed flex-1">{t(`${key}_text` as Parameters<typeof t>[0])}</p>
-                <span className="mt-4 text-xs font-semibold text-wine-500 group-hover:text-wine-700 transition-colors" aria-hidden="true">
-                  {t('cta')}
-                </span>
+                <div className="mt-4 flex items-center justify-between gap-2" aria-hidden="true">
+                  <span className="text-xs font-semibold text-wine-500 group-hover:text-wine-700 transition-colors">
+                    {t('cta')}
+                  </span>
+                  <span className="cta-icon-island">
+                    <ArrowRight size={12} aria-hidden="true" />
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
