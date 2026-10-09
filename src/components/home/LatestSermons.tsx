@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Play, ArrowRight, Calendar, PlayCircle } from 'lucide-react';
 import type { YouTubeVideo } from '@/lib/youtube';
 import FadeIn from '@/components/ui/FadeIn';
+import { SermonThumbnail } from '@/components/home/SermonThumbnail';
 
 interface LatestSermonsProps {
   videos: YouTubeVideo[];
@@ -68,15 +68,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
                 className="group glass-card rounded-2xl overflow-hidden card-glow transition-all duration-300 flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
               >
                 <div className="relative h-44 bg-wine-950 overflow-hidden">
-                  {video.thumbnail && (
-                    <Image
-                      src={video.thumbnail}
-                      alt={video.title}
-                      fill
-                      className="object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
-                      unoptimized
-                    />
-                  )}
+                  <SermonThumbnail src={video.thumbnail} alt={video.title} />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div
                       aria-hidden="true"
