@@ -1,13 +1,11 @@
-'use client';
-
-import { useTranslations, useLocale } from 'next-intl';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Clock, MapPin } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 import FadeIn from '@/components/ui/FadeIn';
 
-export default function ServiceTimesSection() {
-  const t = useTranslations('home.service_times');
-  const locale = useLocale();
+export default async function ServiceTimesSection() {
+  const t = await getTranslations('home.service_times');
+  const locale = await getLocale();
 
   return (
     <section className="py-20 bg-[#fdfaf5] relative overflow-hidden">
