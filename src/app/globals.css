@@ -96,6 +96,15 @@ a, button, [role="button"] {
   background-clip: text;
 }
 
+/* ── Typography utilities ── */
+.type-eyebrow {
+  font-size: 0.75rem;    /* 12px = text-xs */
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
 /* ── Section accent bar ── */
 .accent-bar {
   display: flex;
@@ -113,6 +122,10 @@ a, button, [role="button"] {
 }
 
 /* ── Card styles ── */
+.card-glow {
+  transition: box-shadow 0.25s ease;
+}
+
 .card-glow:hover {
   box-shadow: 0 0 0 1px #92202f40, 0 8px 32px #92202f1a, 0 24px 48px #0006;
 }
@@ -164,6 +177,23 @@ a, button, [role="button"] {
 @keyframes ticker-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+/* ── Motion: prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .card-lift:hover {
+    transform: none;
+  }
 }
 
 /* ── Scrollbar ── */
