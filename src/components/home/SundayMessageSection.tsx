@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { BookOpen, Mic2, CalendarDays, Play } from 'lucide-react'
-import { getLocale } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { getLatestSundayMessage } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import FadeIn from '@/components/ui/FadeIn'
@@ -8,22 +8,15 @@ import FadeIn from '@/components/ui/FadeIn'
 const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
 export default async function SundayMessageSection() {
-  const [msg, locale] = await Promise.all([
+  const [msg, locale, st] = await Promise.all([
     getLatestSundayMessage(),
     getLocale(),
+    getTranslations('sundayMessage'),
   ])
 
   const zh = locale === 'zh-TW'
   const my = locale === 'my'
   const ja = locale === 'ja'
-
-  const copy = {
-    eyebrow:  my ? 'တနင်္ဂနွေ တရားဟောချက်' : ja ? '主日メッセージ' : 'SUNDAY MESSAGE',
-    heading:  zh ? '本週主日信息' : my ? 'ဤပတ် တနင်္ဂနွေ တရားဟောချက်' : ja ? '今週の主日メッセージ' : "This Week's Message",
-    noImage:  zh ? '尚未上傳信息主圖' : my ? 'ဓာတ်ပုံ မတင်ရသေးပါ' : ja ? 'メイン画像未アップロード' : 'No image uploaded yet',
-    watchCta: zh ? '觀看完整講道' : my ? 'တရားဟောချက် ကြည့်ရန်' : ja ? '説教全体を見る' : 'Watch Full Sermon',
-    pending:  zh ? '本週信息尚未更新，請稍後再來' : my ? 'တနင်္ဂနွေ တရားဟောချက် မတင်ရသေးပါ' : ja ? '今週のメッセージはまだ更新されていません' : 'This week\'s message has not been posted yet',
-  }
 
   if (!msg) {
     return (
@@ -33,13 +26,13 @@ export default async function SundayMessageSection() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
-                {copy.eyebrow}
+                {st('eyebrow')}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{copy.heading}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
             </div>
             <div className="text-center py-16">
               <BookOpen aria-hidden="true" size={40} className="mx-auto text-wine-300" />
-              <p className="text-wine-600 text-base mt-4">{copy.pending}</p>
+              <p className="text-wine-600 text-base mt-4">{st('pending')}</p>
             </div>
           </FadeIn>
         </div>
@@ -73,9 +66,9 @@ export default async function SundayMessageSection() {
         <FadeIn>
           <div className="mb-10">
             <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
-              {copy.eyebrow}
+              {st('eyebrow')}
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{copy.heading}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
             <div className="divider-gold" style={{ margin: '14px 0 0' }} />
           </div>
         </FadeIn>
@@ -98,7 +91,7 @@ export default async function SundayMessageSection() {
               ) : (
                 <div className="flex flex-col items-center justify-center gap-3 py-16 opacity-20">
                   <BookOpen aria-hidden="true" size={48} className="text-white" />
-                  <span className="text-white text-sm font-medium">{copy.noImage}</span>
+                  <span className="text-white text-sm font-medium">{st('no_image')}</span>
                 </div>
               )}
             </div>
@@ -142,7 +135,7 @@ export default async function SundayMessageSection() {
                     className="inline-flex items-center gap-2 min-h-[44px] px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
                   >
                     <Play aria-hidden="true" size={15} fill="currentColor" />
-                    {copy.watchCta}
+                    {st('watch_cta')}
                   </a>
                 </div>
               )}

@@ -137,6 +137,20 @@
     "seats_left": "Seats Left",
     "free": "Free",
     "view_detail": "View Details",
+    "empty_title": "No upcoming events",
+    "empty_body": "Check the full events calendar for more information",
+    "view_all": "View all events",
+    "almost_full": "Almost full",
+    "spots_available": "Spots available",
+    "eyebrow": "EVENTS",
+    "categories": {
+      "worship": "Worship",
+      "family": "Family",
+      "youth": "Youth",
+      "community": "Community",
+      "retreat": "Retreat",
+      "training": "Training"
+    },
     "registration": {
       "title": "Event Registration",
       "name": "Name",
@@ -182,6 +196,13 @@
     "follow_us": "Follow Us",
     "copyright": "© 2026 Glory Church Of Nanshijiao. All rights reserved.",
     "live_stream": "Live Stream"
+  },
+  "sundayMessage": {
+    "eyebrow": "SUNDAY MESSAGE",
+    "heading": "This Week's Message",
+    "no_image": "No image uploaded yet",
+    "watch_cta": "Watch Full Sermon",
+    "pending": "This week's message hasn't been posted yet. Check back soon."
   },
   "common": {
     "read_more": "Read More",

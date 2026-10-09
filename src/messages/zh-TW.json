@@ -137,6 +137,20 @@
     "seats_left": "剩餘名額",
     "free": "免費",
     "view_detail": "查看詳情",
+    "empty_title": "目前沒有近期活動",
+    "empty_body": "請查看完整活動行事曆以取得更多資訊",
+    "view_all": "查看所有活動",
+    "almost_full": "名額即將額滿",
+    "spots_available": "尚有名額",
+    "eyebrow": "EVENTS",
+    "categories": {
+      "worship": "崇拜",
+      "family": "家庭",
+      "youth": "青年",
+      "community": "社區",
+      "retreat": "退修",
+      "training": "訓練"
+    },
     "registration": {
       "title": "活動報名",
       "name": "姓名",
@@ -182,6 +196,13 @@
     "follow_us": "關注我們",
     "copyright": "© 2026 行道會南勢角榮耀堂. 版權所有。",
     "live_stream": "線上直播"
+  },
+  "sundayMessage": {
+    "eyebrow": "SUNDAY MESSAGE",
+    "heading": "本週主日信息",
+    "no_image": "尚未上傳信息主圖",
+    "watch_cta": "觀看完整講道",
+    "pending": "本週信息準備中，請稍後回來查看"
   },
   "common": {
     "read_more": "閱讀更多",

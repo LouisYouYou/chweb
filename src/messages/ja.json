@@ -112,6 +112,20 @@
     "seats_left": "残席",
     "free": "無料",
     "view_detail": "詳細を見る",
+    "empty_title": "近日中のイベントはありません",
+    "empty_body": "イベントカレンダーで最新情報をご確認ください",
+    "view_all": "すべてのイベントを見る",
+    "almost_full": "残りわずか",
+    "spots_available": "残席あり",
+    "eyebrow": "EVENTS",
+    "categories": {
+      "worship": "礼拝",
+      "family": "ファミリー",
+      "youth": "青年",
+      "community": "コミュニティ",
+      "retreat": "リトリート",
+      "training": "訓練"
+    },
     "registration": {
       "title": "イベント登録",
       "name": "お名前",
@@ -157,6 +171,13 @@
     "follow_us": "フォローする",
     "copyright": "© 2026 行道会南勢角栄光教会. All rights reserved.",
     "live_stream": "ライブ配信"
+  },
+  "sundayMessage": {
+    "eyebrow": "主日メッセージ",
+    "heading": "今週の主日メッセージ",
+    "no_image": "メイン画像未アップロード",
+    "watch_cta": "説教全体を見る",
+    "pending": "今週のメッセージはまだ更新されていません"
   },
   "common": {
     "read_more": "続きを読む",
