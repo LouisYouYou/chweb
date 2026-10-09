@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "git push origin main",
+    "deploy:cli": "git push origin main && vercel --prod"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
