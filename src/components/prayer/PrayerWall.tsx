@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Heart, Send, Lock, Globe, EyeOff, Eye, User, X } from 'lucide-react'
 
@@ -81,9 +81,36 @@ function PrayerModal({ prayer, index, hasPrayed, zh, my, ja, onClose, onPray }: 
   onClose: () => void; onPray: () => void
 }) {
   const { s } = noteStyle(index >= 0 ? index : 0)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const titleId = 'prayer-modal-title'
   const date = new Date(prayer.created_at).toLocaleDateString(
     zh ? 'zh-TW' : my ? 'my-MM' : ja ? 'ja-JP' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }
   )
+
+  // Focus trap + Escape dismissal
+  useEffect(() => {
+    const modal = modalRef.current
+    if (!modal) return
+    const sel = 'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    const focusable = Array.from(modal.querySelectorAll<HTMLElement>(sel))
+    focusable[0]?.focus()
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') { onClose(); return }
+      if (e.key !== 'Tab') return
+      const first = focusable[0]
+      const last  = focusable[focusable.length - 1]
+      if (!first || !last) return
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
 
   return (
     <div
@@ -91,6 +118,10 @@ function PrayerModal({ prayer, index, hasPrayed, zh, my, ja, onClose, onPray }: 
       onClick={onClose}
     >
       <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
         className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-[3px] overflow-hidden max-h-[88vh] overflow-y-auto"
         style={{
           background: s.bg,
@@ -101,12 +132,12 @@ function PrayerModal({ prayer, index, hasPrayed, zh, my, ja, onClose, onPray }: 
         onClick={e => e.stopPropagation()}
       >
         {/* Mobile drag handle */}
-        <div className="flex justify-center pt-3 pb-0.5 sm:hidden">
+        <div aria-hidden="true" className="flex justify-center pt-3 pb-0.5 sm:hidden">
           <div className="w-10 h-1 rounded-full bg-black/20" />
         </div>
 
         {/* Adhesive strip */}
-        <div style={{
+        <div aria-hidden="true" style={{
           height: `${ADHESIVE_H}px`,
           background: `linear-gradient(to bottom, ${s.adhLight}, ${s.adhesive})`,
           backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(255,255,255,0.09) 5px, rgba(255,255,255,0.09) 6px)`,
@@ -114,18 +145,19 @@ function PrayerModal({ prayer, index, hasPrayed, zh, my, ja, onClose, onPray }: 
 
         <button
           onClick={onClose}
-          className="absolute right-4 w-9 h-9 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors z-10"
+          aria-label={zh ? '關閉' : my ? 'ပိတ်ရန်' : ja ? '閉じる' : 'Close'}
+          className="absolute right-4 w-11 h-11 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-700"
           style={{ top: `${ADHESIVE_H + 8}px` }}
         >
-          <X size={18} />
+          <X size={18} aria-hidden="true" />
         </button>
 
         {/* Red margin line */}
-        <div className="absolute pointer-events-none"
+        <div aria-hidden="true" className="absolute pointer-events-none"
           style={{ left: '38px', top: `${ADHESIVE_H}px`, bottom: '80px', width: '1px', background: 'rgba(210,45,45,0.22)' }} />
 
         <div className="pl-12 pr-6 pt-4 pb-8">
-          <p className="text-base font-bold mb-0.5" style={{ color: s.pin }}>
+          <p id={titleId} className="text-base font-bold mb-0.5" style={{ color: s.pin }}>
             {prayer.display_name || (zh ? '匿名弟兄姊妹' : my ? 'အမည်မသိ ညီအကိုမောင်နှမ' : ja ? '匿名の兄弟姉妹' : 'Anonymous')}
           </p>
           <p className="text-xs text-gray-400 mb-5">{date}</p>
@@ -143,7 +175,7 @@ function PrayerModal({ prayer, index, hasPrayed, zh, my, ja, onClose, onPray }: 
                 : 'border-gray-300 text-gray-600 hover:border-rose-300 hover:text-rose-600 hover:bg-rose-50 active:scale-95 disabled:cursor-default'
             }`}
           >
-            <Heart size={16} className={hasPrayed ? 'fill-rose-500 text-rose-500' : ''} />
+            <Heart size={16} aria-hidden="true" className={hasPrayed ? 'fill-rose-500 text-rose-500' : ''} />
             {zh ? '我在禱告' : my ? 'ဆုတောင်းနေသည်' : ja ? 'お祈りしています' : 'Praying'}
             {prayer.prayer_count > 0 && (
               <span className="ml-0.5 text-xs bg-rose-100 text-rose-500 px-1.5 py-0.5 rounded-full">
@@ -163,7 +195,7 @@ const NOTE_BODY_SHADOW = '4px 7px 18px rgba(0,0,0,0.22), -2px 3px 10px rgba(0,0,
 
 function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
   prayer: Prayer; index: number; hasPrayed: boolean; zh: boolean; my: boolean; ja: boolean
-  onClick: () => void; onPray: (e: React.MouseEvent) => void
+  onClick: () => void; onPray: () => void
 }) {
   // Only enable hover-flip on pointer devices (not touch) to avoid double-tap on iOS
   const [hovered, setHovered] = useState(false)
@@ -177,15 +209,25 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
     zh ? 'zh-TW' : my ? 'my-MM' : ja ? 'ja-JP' : 'en-US', { month: 'short', day: 'numeric' }
   )
 
+  const authorName  = prayer.display_name || (zh ? '匿名弟兄姊妹' : my ? 'အမည်မသိ ညီအကိုမောင်နှမ' : ja ? '匿名の兄弟姉妹' : 'Anonymous')
+  const detailLabel = `${authorName} — ${prayer.content.slice(0, 80)}${prayer.content.length > 80 ? '…' : ''}`
+  const prayLabel   = zh ? `代禱 (${prayer.prayer_count})` : my ? `ဆုတောင်းရန် (${prayer.prayer_count})` : ja ? `お祈り (${prayer.prayer_count})` : `Pray (${prayer.prayer_count})`
+
   return (
-    /* ── Perspective wrapper ── */
-    <div
-      className="relative cursor-pointer"
-      style={{ perspective: '900px', zIndex: hovered ? 20 : undefined }}
-      onMouseEnter={() => isPointer && setHovered(true)}
-      onMouseLeave={() => isPointer && setHovered(false)}
-      onClick={onClick}
-    >
+    /* ── Card container — non-interactive ── */
+    <article style={{ zIndex: hovered ? 20 : undefined }} className="relative">
+      {/* ── Detail opener — div with role="button" may contain block content ── */}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={detailLabel}
+        className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2 rounded-[2px]"
+        style={{ perspective: '900px' }}
+        onMouseEnter={() => isPointer && setHovered(true)}
+        onMouseLeave={() => isPointer && setHovered(false)}
+        onClick={onClick}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }}
+      >
       {/* ── Tilt + lift ── */}
       <div
         style={{
@@ -243,23 +285,9 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
             {/* Footer */}
             <div className="px-2.5 sm:px-3 pb-2.5 pt-1.5" style={{ borderTop: `1px solid ${s.pin}30` }}>
               <p className="text-[10px] sm:text-[10.5px] font-bold truncate leading-tight" style={{ color: s.pin }}>
-                {prayer.display_name || (zh ? '匿名弟兄姊妹' : my ? 'အမည်မသိ ညီအကိုမောင်နှမ' : ja ? '匿名の兄弟姉妹' : 'Anonymous')}
+                {authorName}
               </p>
-              <div className="flex items-center justify-between mt-1">
-                <p className="text-[9px] sm:text-[9.5px] text-gray-400">{date}</p>
-                <button
-                  onClick={onPray}
-                  disabled={hasPrayed}
-                  className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] border font-medium transition-all active:scale-95 ${
-                    hasPrayed
-                      ? 'border-rose-300 text-rose-500 bg-rose-50'
-                      : 'border-gray-300 text-gray-500 hover:border-rose-300 hover:text-rose-500 hover:bg-rose-50 disabled:cursor-default'
-                  }`}
-                >
-                  <Heart size={8} className={`mr-0.5 ${hasPrayed ? 'fill-rose-500 text-rose-500' : ''}`} />
-                  {prayer.prayer_count > 0 ? prayer.prayer_count : ''}
-                </button>
-              </div>
+              <p className="text-[9px] sm:text-[9.5px] text-gray-400 mt-1">{date}</p>
             </div>
 
             {/* Corner fold shadow */}
@@ -315,7 +343,7 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
 
               {/* Author */}
               <p className="text-[10px] sm:text-[11px] font-bold text-center max-w-full truncate" style={{ color: s.pin }}>
-                {prayer.display_name || (zh ? '匿名弟兄姊妹' : my ? 'အမည်မသိ ညီအကိုမောင်နှမ' : ja ? '匿名の兄弟姉妹' : 'Anonymous')}
+                {authorName}
               </p>
 
               {/* Hint */}
@@ -327,7 +355,26 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
 
         </div>{/* /flip container */}
       </div>{/* /tilt wrapper */}
-    </div>
+      </div>{/* /role="button" detail opener */}
+
+      {/* ── Quick pray — sibling to detail opener, never nested ── */}
+      <button
+        type="button"
+        onClick={onPray}
+        disabled={hasPrayed}
+        aria-label={prayLabel}
+        className={`absolute bottom-0 right-0 z-30 flex items-end justify-end p-2.5 min-h-[44px] min-w-[44px] rounded-[2px] bg-transparent disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2`}
+      >
+        <span aria-hidden="true" className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] border font-medium transition-colors ${
+          hasPrayed
+            ? 'border-rose-300 text-rose-500 bg-rose-50'
+            : 'border-gray-300 text-gray-500 hover:border-rose-300 hover:text-rose-500 hover:bg-rose-50'
+        }`}>
+          <Heart size={8} aria-hidden="true" className={`mr-0.5 ${hasPrayed ? 'fill-rose-500 text-rose-500' : ''}`} />
+          {prayer.prayer_count > 0 ? prayer.prayer_count : ''}
+        </span>
+      </button>
+    </article>
   )
 }
 
@@ -340,6 +387,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
   const my = locale === 'my'
   const ja = locale === 'ja'
   const supabase = createClient()
+  const lastFocusRef = useRef<HTMLElement | null>(null)
 
   const [prayers, setPrayers] = useState<Prayer[]>(initialPrayers)
   const [prayedIds, setPrayedIds] = useState<Set<string>>(() => {
@@ -384,6 +432,11 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
       if (scrollY) window.scrollTo(0, scrollY)
     }
   }, [selected])
+
+  const handleCloseModal = useCallback(() => {
+    setSelected(null)
+    setTimeout(() => { lastFocusRef.current?.focus() }, 0)
+  }, [])
 
   function savePrayed(ids: Set<string>) {
     setPrayedIds(ids)
@@ -505,8 +558,11 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
                 zh={zh}
                 my={my}
                 ja={ja}
-                onClick={() => setSelected(prayer)}
-                onPray={e => { e.stopPropagation(); handlePray(prayer.id) }}
+                onClick={() => {
+                  lastFocusRef.current = document.activeElement as HTMLElement
+                  setSelected(prayer)
+                }}
+                onPray={() => handlePray(prayer.id)}
               />
             ))}
           </div>
@@ -522,7 +578,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
           zh={zh}
           my={my}
           ja={ja}
-          onClose={() => setSelected(null)}
+          onClose={handleCloseModal}
           onPray={() => handlePray(selected.id)}
         />
       )}

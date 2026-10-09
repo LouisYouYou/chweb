@@ -117,16 +117,18 @@ export default function Header({ locale }: HeaderProps) {
 
   const handleResourcesMenuKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, idx: number) => {
     const items = resourcesMenuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]');
+    const count = items?.length ?? 0;
     if (e.key === 'Escape') {
       setDesktopDropdownOpen(false);
       resourcesTriggerRef.current?.focus();
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      items?.[idx + 1]?.focus();
+      items?.[(idx + 1) % count]?.focus();
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      if (idx === 0) { setDesktopDropdownOpen(false); resourcesTriggerRef.current?.focus(); }
-      else items?.[idx - 1]?.focus();
+      items?.[(idx - 1 + count) % count]?.focus();
+    } else if (e.key === 'Tab') {
+      setDesktopDropdownOpen(false);
     }
   };
 
@@ -169,7 +171,7 @@ export default function Header({ locale }: HeaderProps) {
           </Link>
 
           {/* ── Desktop nav ── */}
-          <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-1">
+          <nav aria-label={t('main_nav')} className="hidden lg:flex items-center gap-1">
             {mainLinks.map(({ href, label }) => (
               <Link
                 key={href}
@@ -272,7 +274,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="lang-menu"
                 onClick={() => setLangOpen(v => !v)}
                 onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1"
+                className="flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1"
               >
                 <span
                   aria-hidden="true"
@@ -341,7 +343,7 @@ export default function Header({ locale }: HeaderProps) {
           onKeyDown={handleMobileMenuKeyDown}
           className="lg:hidden border-t border-wine-100 bg-white"
         >
-          <nav aria-label="Mobile navigation" className="px-4 py-3 flex flex-col gap-1">
+          <nav aria-label={t('main_nav')} className="px-4 py-3 flex flex-col gap-1">
             {mainLinks.map(({ href, label }) => (
               <Link
                 key={href}

@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Noto_Sans_Myanmar, Noto_Sans_JP } from 'next/font/google';
 import { routing } from '@/lib/i18n/routing';
@@ -9,6 +9,7 @@ import NewsTicker from '@/components/layout/NewsTicker';
 import ChurchJsonLd from '@/components/seo/ChurchJsonLd';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import LineFloatButton from '@/components/layout/LineFloatButton';
+import SkipToContent from '@/components/layout/SkipToContent';
 
 const notoMyanmar = Noto_Sans_Myanmar({
   subsets: ['myanmar'],
@@ -38,6 +39,8 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  setRequestLocale(locale);
+
   const messages = await getMessages();
 
   return (
@@ -47,9 +50,10 @@ export default async function LocaleLayout({
           <ChurchJsonLd />
         </head>
         <body className="min-h-full flex flex-col">
+          <SkipToContent />
           <Header locale={locale} />
           <NewsTicker />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-inset">{children}</main>
           <NewsletterSection />
           <Footer />
           <LineFloatButton />
