@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Worktree generated files should never be linted
+    ".claude/worktrees/**",
   ]),
 ]);
 

@@ -167,10 +167,11 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
 }) {
   // Only enable hover-flip on pointer devices (not touch) to avoid double-tap on iOS
   const [hovered, setHovered] = useState(false)
-  const [isPointer, setIsPointer] = useState(false)
-  useEffect(() => {
-    setIsPointer(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
-  }, [])
+  const [isPointer] = useState(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia('(hover: hover) and (pointer: fine)').matches
+      : false
+  )
   const { s, deg } = noteStyle(index)
   const date = new Date(prayer.created_at).toLocaleDateString(
     zh ? 'zh-TW' : my ? 'my-MM' : ja ? 'ja-JP' : 'en-US', { month: 'short', day: 'numeric' }
@@ -341,7 +342,15 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
   const supabase = createClient()
 
   const [prayers, setPrayers] = useState<Prayer[]>(initialPrayers)
-  const [prayedIds, setPrayedIds] = useState<Set<string>>(new Set())
+  const [prayedIds, setPrayedIds] = useState<Set<string>>(() => {
+    try {
+      if (typeof window === 'undefined') return new Set()
+      const stored = localStorage.getItem(STORAGE_KEY)
+      return stored ? new Set<string>(JSON.parse(stored)) : new Set()
+    } catch {
+      return new Set()
+    }
+  })
   const [selected, setSelected] = useState<Prayer | null>(null)
   const [content, setContent] = useState('')
   const [name, setName] = useState('')
@@ -349,13 +358,6 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
   const [showName, setShowName] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [showForm, setShowForm] = useState(false)
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY)
-      if (stored) setPrayedIds(new Set(JSON.parse(stored)))
-    } catch { /* ignore */ }
-  }, [])
 
   // Lock body scroll for modal — iOS Safari requires position:fixed
   useEffect(() => {
