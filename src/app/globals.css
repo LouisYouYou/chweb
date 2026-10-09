@@ -7,6 +7,66 @@
   --primary: #7b1a2d;
   --primary-dark: #380a14;
   --accent: #c9a84c;
+
+  /* ── H1 Haptic Depth: Surface Hierarchy ── */
+  --surface-page:            #ffffff;
+  --surface-tray:            #f9f4ef;
+  --surface-card:            #ffffff;
+  --surface-elevated:        #ffffff;
+  --surface-highlight:       rgba(255, 255, 255, 0.90);
+
+  /* ── H1 Haptic Depth: Border System ── */
+  --border-hairline-warm:    rgba(246, 200, 205, 0.35);
+  --border-inner-glow:       inset 0 0 0 1px rgba(98, 20, 34, 0.07);
+  --border-interactive:      #f6c8cd;
+  --border-focus:            #e2707d;
+  --border-glass:            rgba(255, 255, 255, 0.12);
+
+  /* ── H1 Haptic Depth: Shadow System ── */
+  --shadow-soft:
+    0 1px 2px  rgba(98, 20, 34, 0.04),
+    0 2px 4px  rgba(0, 0, 0, 0.03);
+  --shadow-card:
+    0 2px 8px  rgba(98, 20, 34, 0.06),
+    0 4px 16px rgba(98, 20, 34, 0.04),
+    0 1px 3px  rgba(0, 0, 0, 0.04);
+  --shadow-elevated:
+    0 4px  12px rgba(98, 20, 34, 0.09),
+    0 12px 40px rgba(98, 20, 34, 0.07),
+    0 2px  6px  rgba(0, 0, 0, 0.05);
+  --shadow-pressed:
+    0 1px 2px rgba(98, 20, 34, 0.10),
+    inset 0 2px 4px rgba(56, 10, 20, 0.14);
+
+  /* ── H1 Haptic Depth: Radius System ── */
+  --bezel-outer-radius:      1.625rem;
+  --bezel-gap:               5px;
+  --bezel-inner-radius:      1.3125rem;
+
+  /* ── H1 Haptic Depth: Bezel + CTA ── */
+  --bezel-tray-bg:           rgba(253, 243, 244, 0.55);
+  --bezel-hover-lift:        4px;
+  --cta-inset-highlight:     inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  --cta-island-bg:           rgba(0, 0, 0, 0.12);
+  --cta-island-bg-hover:     rgba(0, 0, 0, 0.18);
+  --cta-island-size:         2rem;
+  --cta-pressed-y:           1px;
+
+  /* ── H1 Haptic Depth: Motion Duration Scale ── */
+  --duration-micro:          120ms;
+  --duration-fast:           200ms;
+  --duration-base:           300ms;
+  --duration-slow:           500ms;
+  --duration-enter:          700ms;
+
+  /* ── H1 Haptic Depth: Motion Easing ── */
+  --ease-premium:            cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring:             cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-soft-out:           cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ── H1 Haptic Depth: Focus Tokens ── */
+  --focus:         #ce4a58;   /* wine-500 — 4.4:1 vs white, 4.1:1 vs surface-tray */
+  --focus-on-dark: #f0c96e;   /* amber gold — 10.7:1 vs wine-950 */
 }
 
 @theme inline {
@@ -173,6 +233,104 @@ a, button, [role="button"] {
   border: 1px solid rgba(255,255,255,0.12);
 }
 
+/* ── H1 Haptic Depth: Utility Classes ── */
+
+.shadow-soft     { box-shadow: var(--shadow-soft); }
+.shadow-card     { box-shadow: var(--shadow-card); }
+.shadow-elevated { box-shadow: var(--shadow-elevated); }
+.shadow-pressed  { box-shadow: var(--shadow-pressed); }
+
+.border-hairline      { box-shadow: var(--border-inner-glow); }
+.border-warm-hairline { border: 1px solid var(--border-hairline-warm); }
+
+/* Focus architecture: all generic Haptic shadow/border utilities that set box-shadow
+   get an independent outline-based :focus-visible. This decouples keyboard focus
+   from box-shadow so Tailwind ring-* and Haptic shadows coexist without conflict.
+   Safe on non-focusable containers — :focus-visible never fires on them. */
+:is(
+  .shadow-soft,
+  .shadow-card,
+  .shadow-elevated,
+  .shadow-pressed,
+  .border-hairline
+):focus-visible {
+  outline:        2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.bezel-card {
+  background:    var(--bezel-tray-bg);
+  border:        1px solid var(--border-hairline-warm);
+  border-radius: var(--bezel-outer-radius);
+  padding:       var(--bezel-gap);
+  box-shadow:    var(--shadow-card);
+  transition:
+    box-shadow var(--duration-base) var(--ease-premium),
+    transform  var(--duration-base) var(--ease-premium);
+}
+
+.bezel-card:hover {
+  transform:  translateY(calc(-1 * var(--bezel-hover-lift)));
+  box-shadow: var(--shadow-elevated);
+}
+
+/* outline-based focus: decoupled from box-shadow, visible under any hover/active state */
+.bezel-card:focus-visible {
+  outline:        2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.bezel-card-inner {
+  background:    var(--surface-card);
+  border-radius: var(--bezel-inner-radius);
+  box-shadow:    inset 0 1px 0 var(--surface-highlight);
+  overflow:      hidden;
+  height:        100%;
+}
+
+.cta-depth {
+  box-shadow: var(--cta-inset-highlight), var(--shadow-card);
+  transition:
+    box-shadow var(--duration-fast)  var(--ease-soft-out),
+    transform  var(--duration-micro) var(--ease-soft-out);
+}
+
+.cta-depth:hover {
+  box-shadow: var(--cta-inset-highlight), var(--shadow-elevated);
+}
+
+.cta-depth:active {
+  transform:  translateY(var(--cta-pressed-y)) scale(0.99);
+  box-shadow: var(--shadow-pressed);
+}
+
+/* outline-based focus: independent of box-shadow — survives hover and active states */
+.cta-depth:focus-visible {
+  outline:        2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.cta-icon-island {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--cta-island-size);
+  height:          var(--cta-island-size);
+  border-radius:   9999px;
+  background:      var(--cta-island-bg);
+  pointer-events:  none;
+  user-select:     none;
+  flex-shrink:     0;
+  transition:
+    background var(--duration-fast) var(--ease-soft-out),
+    transform  var(--duration-fast) var(--ease-spring);
+}
+
+.group:hover .cta-icon-island {
+  background: var(--cta-island-bg-hover);
+  transform:  translateX(2px) translateY(-1px);
+}
+
 /* ── News ticker ── */
 @keyframes ticker-scroll {
   from { transform: translateX(0); }
@@ -192,6 +350,16 @@ a, button, [role="button"] {
     scroll-behavior: auto;
   }
   .card-lift:hover {
+    transform: none;
+  }
+  .bezel-card:hover {
+    transform:  none;
+    box-shadow: var(--shadow-card);
+  }
+  .cta-depth:active {
+    transform: none;
+  }
+  .group:hover .cta-icon-island {
     transform: none;
   }
 }
