@@ -11,7 +11,9 @@
     "contact": "Contact",
     "prayer_wall": "Prayer Wall",
     "faq": "FAQ",
-    "resources": "Resources"
+    "resources": "Resources",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
   },
   "welcome": {
     "badge": "First time here?",

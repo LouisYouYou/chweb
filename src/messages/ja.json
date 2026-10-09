@@ -10,7 +10,9 @@
     "gallery": "フォトギャラリー",
     "contact": "お問い合わせ",
     "prayer_wall": "祈りの壁",
-    "resources": "リソースセンター"
+    "resources": "リソースセンター",
+    "open_menu": "メニューを開く",
+    "close_menu": "メニューを閉じる"
   },
   "welcome": {
     "badge": "初めての方へ",
