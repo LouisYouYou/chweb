@@ -10,6 +10,7 @@ interface Photo {
   caption?: string
   src: string
   srcFull: string
+  lqip?: string
 }
 
 interface GalleryClientProps {
@@ -138,6 +139,8 @@ export default function GalleryClient({ photos, locale }: GalleryClientProps) {
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                           unoptimized
+                          placeholder={photo.lqip ? 'blur' : 'empty'}
+                          blurDataURL={photo.lqip}
                         />
                       </div>
 

@@ -25,6 +25,7 @@ export default async function GalleryPage() {
     caption: p.caption,
     src: urlFor(p.image).width(600).height(450).auto('format').url(),
     srcFull: urlFor(p.image).width(1600).auto('format').url(),
+    lqip: p.image.asset.metadata?.lqip,
   }))
 
   return (

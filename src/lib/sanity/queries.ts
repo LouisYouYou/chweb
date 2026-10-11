@@ -75,14 +75,14 @@ export interface GalleryPhoto {
   date: string
   caption?: string
   image: {
-    asset: { _ref: string }
+    asset: { _ref: string; metadata?: { lqip?: string } }
     hotspot?: { x: number; y: number }
   }
 }
 
 export async function getAllGalleryPhotos(): Promise<GalleryPhoto[]> {
   return client.fetch(
-    groq`*[_type == "galleryPhoto"] | order(date desc) { _id, date, caption, image { asset, hotspot } }`
+    groq`*[_type == "galleryPhoto"] | order(date desc) { _id, date, caption, image { asset->{ _ref, metadata { lqip } }, hotspot } }`
   )
 }
 
@@ -107,7 +107,7 @@ export interface SanityEvent {
   seats?: number
   seatsLeft?: number
   registrationUrl?: string
-  image?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
+  image?: { asset: { _ref: string; metadata?: { lqip?: string } }; hotspot?: { x: number; y: number } }
   courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
 }
 
@@ -127,6 +127,7 @@ export interface DisplayEvent {
   seatsLeft?: number
   registrationUrl?: string
   imageUrl?: string
+  imageBlurData?: string
   courseItems?: Array<{ nameZh: string; nameEn: string; day: string; time: string }>
 }
 
@@ -134,7 +135,7 @@ const eventFields = groq`
   _id, titleZh, titleEn, descriptionZh, descriptionEn,
   date, time, locationZh, locationEn, category,
   fee, seats, seatsLeft, registrationUrl,
-  image { asset, hotspot },
+  image { asset->{ _ref, metadata { lqip } }, hotspot },
   courseItems[] { nameZh, nameEn, day, time }
 `
 
@@ -166,7 +167,7 @@ export interface SundayMessage {
     asset: {
       _ref: string
       url: string
-      metadata: { dimensions: { width: number; height: number } }
+      metadata: { dimensions: { width: number; height: number }; lqip?: string }
     }
     hotspot?: { x: number; y: number }
   }
@@ -176,7 +177,7 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
   return client.fetch(
     groq`*[_type == "sundayMessage"] | order(date desc) [0] {
       _id, date, title, preacher, scripture, summary, youtubeUrl,
-      image { asset->{ _ref, url, metadata { dimensions { width, height } } }, hotspot }
+      image { asset->{ _ref, url, metadata { dimensions { width, height }, lqip } }, hotspot }
     }`
   )
 }

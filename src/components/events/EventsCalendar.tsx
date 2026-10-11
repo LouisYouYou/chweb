@@ -109,6 +109,8 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                       height={1200}
                       className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]"
                       sizes="(max-width: 896px) 100vw, 896px"
+                      placeholder={event.imageBlurData ? 'blur' : 'empty'}
+                      blurDataURL={event.imageBlurData}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-wine-900 shadow-lg">

@@ -56,6 +56,7 @@ export default async function SundayMessageSection() {
   const imageUrl = msg.image
     ? urlFor(msg.image).width(1200).auto('format').url()
     : null
+  const imageLqip = msg.image?.asset?.metadata?.lqip
 
   return (
     <section className="py-24 bg-[#fdfaf5] relative overflow-hidden">
@@ -87,6 +88,8 @@ export default async function SundayMessageSection() {
                   className="w-full h-auto block"
                   sizes="(max-width: 1024px) 100vw, 52vw"
                   priority
+                  placeholder={imageLqip ? 'blur' : 'empty'}
+                  blurDataURL={imageLqip}
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center gap-3 py-16 opacity-20">

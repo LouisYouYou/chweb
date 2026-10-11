@@ -33,6 +33,7 @@ export default async function EventsPage() {
     seats: ev.seats,
     seatsLeft: ev.seatsLeft,
     imageUrl: ev.image ? urlFor(ev.image).width(800).auto('format').url() : undefined,
+    imageBlurData: ev.image?.asset?.metadata?.lqip,
     registrationUrl: ev.registrationUrl,
     courseItems: ev.courseItems,
   }));
