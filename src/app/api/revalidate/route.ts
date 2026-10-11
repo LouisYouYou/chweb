@@ -8,7 +8,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Invalid secret' }, { status: 401 })
   }
 
+  revalidatePath('/[locale]', 'page')
   revalidatePath('/[locale]/daily-scripture', 'page')
+  revalidatePath('/[locale]/events', 'page')
   revalidatePath('/', 'layout')
 
   return NextResponse.json({ revalidated: true, now: Date.now() })
