@@ -77,7 +77,7 @@ export default async function SundayMessageSection() {
           <div className="bg-white rounded-3xl overflow-hidden shadow-lg shadow-wine-100/60 border border-gray-100 flex flex-col lg:flex-row">
 
             {/* Image side — natural aspect ratio, no crop */}
-            <div className="lg:w-[52%] bg-wine-950 shrink-0 flex items-center justify-center">
+            <div className="lg:w-[52%] bg-[#fdfaf5] shrink-0 flex items-center justify-center">
               {imageUrl ? (
                 <Image
                   src={imageUrl}
