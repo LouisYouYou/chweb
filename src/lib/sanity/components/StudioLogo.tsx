@@ -1,10 +1,14 @@
+import Image from 'next/image';
+
 export function StudioLogo() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 4px' }}>
-      <img
+      <Image
         src="/logo.png"
         alt="榮耀堂"
-        style={{ width: 38, height: 38, borderRadius: '50%', border: '2px solid #e2707d', objectFit: 'cover' }}
+        width={38}
+        height={38}
+        style={{ borderRadius: '50%', border: '2px solid #e2707d', objectFit: 'cover' }}
       />
       <div>
         <div style={{ fontWeight: 800, fontSize: 13, color: '#380a14', lineHeight: 1.3 }}>
