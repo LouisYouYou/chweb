@@ -121,7 +121,7 @@ export default async function SundayMessageSection() {
               </div>
 
               {msg.summary && (
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
                   {msg.summary}
                 </p>
               )}
