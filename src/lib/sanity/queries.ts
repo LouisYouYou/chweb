@@ -82,7 +82,7 @@ export interface GalleryPhoto {
 
 export async function getAllGalleryPhotos(): Promise<GalleryPhoto[]> {
   return client.fetch(
-    groq`*[_type == "galleryPhoto"] | order(date desc) { _id, date, caption, image { asset->{ _ref, metadata { lqip } }, hotspot } }`
+    groq`*[_type == "galleryPhoto"] | order(date desc) { _id, date, caption, image { asset->{ "_ref": _id, metadata { lqip } }, hotspot } }`
   )
 }
 
@@ -135,7 +135,7 @@ const eventFields = groq`
   _id, titleZh, titleEn, descriptionZh, descriptionEn,
   date, time, locationZh, locationEn, category,
   fee, seats, seatsLeft, registrationUrl,
-  image { asset->{ _ref, metadata { lqip } }, hotspot },
+  image { asset->{ "_ref": _id, metadata { lqip } }, hotspot },
   courseItems[] { nameZh, nameEn, day, time }
 `
 
@@ -177,7 +177,7 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
   return client.fetch(
     groq`*[_type == "sundayMessage"] | order(date desc) [0] {
       _id, date, title, preacher, scripture, summary, youtubeUrl,
-      image { asset->{ _ref, url, metadata { dimensions { width, height }, lqip } }, hotspot }
+      image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
     }`
   )
 }
