@@ -151,7 +151,7 @@ export default function Header({ locale }: HeaderProps) {
           {/* ── Logo ── */}
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+            className="flex items-center gap-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
           >
             <Image
               src="/logo.png"
@@ -176,7 +176,7 @@ export default function Header({ locale }: HeaderProps) {
               <Link
                 key={href}
                 href={href}
-                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                   isActive(href)
                     ? 'text-wine-700 bg-wine-50'
                     : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
@@ -199,7 +199,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="resources-menu"
                 onClick={() => setDesktopDropdownOpen(v => !v)}
                 onKeyDown={handleResourcesTriggerKeyDown}
-                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                   isResourcesActive
                     ? 'text-wine-700 bg-wine-50'
                     : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
@@ -248,7 +248,7 @@ export default function Header({ locale }: HeaderProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                 isActive(`/${locale}/contact`)
                   ? 'text-wine-700 bg-wine-50'
                   : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
@@ -274,7 +274,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="lang-menu"
                 onClick={() => setLangOpen(v => !v)}
                 onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
-                className="flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1"
+                className="flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1"
               >
                 <span
                   aria-hidden="true"
@@ -324,7 +324,7 @@ export default function Header({ locale }: HeaderProps) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen(v => !v)}
-              className="lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md text-gray-600 hover:text-wine-700 hover:bg-wine-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1"
+              className="lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md text-gray-600 hover:text-wine-700 hover:bg-wine-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1"
             >
               {menuOpen
                 ? <X    size={20} aria-hidden="true" />
@@ -349,7 +349,7 @@ export default function Header({ locale }: HeaderProps) {
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+                className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                   isActive(href)
                     ? 'text-wine-700 bg-wine-50'
                     : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
@@ -365,7 +365,7 @@ export default function Header({ locale }: HeaderProps) {
                 aria-expanded={resourcesMobileOpen}
                 aria-controls="mobile-resources-menu"
                 onClick={() => setResourcesMobileOpen(v => !v)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                   isResourcesActive
                     ? 'text-wine-700 bg-wine-50'
                     : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
@@ -389,7 +389,7 @@ export default function Header({ locale }: HeaderProps) {
                       key={href}
                       href={href}
                       onClick={() => setMenuOpen(false)}
-                      className={`flex items-center gap-2 px-3 py-2.5 min-h-[44px] rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+                      className={`flex items-center gap-2 px-3 py-2.5 min-h-[44px] rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                         isActive(href)
                           ? 'text-wine-700 font-medium'
                           : 'text-gray-600 hover:text-wine-700'
@@ -406,7 +406,7 @@ export default function Header({ locale }: HeaderProps) {
             <Link
               href={`/${locale}/contact`}
               onClick={() => setMenuOpen(false)}
-              className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-1 ${
+              className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
                 isActive(`/${locale}/contact`)
                   ? 'text-wine-700 bg-wine-50'
                   : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'

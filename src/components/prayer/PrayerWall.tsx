@@ -221,7 +221,7 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
         role="button"
         tabIndex={0}
         aria-label={detailLabel}
-        className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2 rounded-[2px]"
+        className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2 rounded-[2px]"
         style={{ perspective: '900px' }}
         onMouseEnter={() => isPointer && setHovered(true)}
         onMouseLeave={() => isPointer && setHovered(false)}
@@ -363,7 +363,7 @@ function NoteCard({ prayer, index, hasPrayed, zh, my, ja, onClick, onPray }: {
         onClick={onPray}
         disabled={hasPrayed}
         aria-label={prayLabel}
-        className={`absolute bottom-0 right-0 z-30 flex items-end justify-end p-2.5 min-h-[44px] min-w-[44px] rounded-[2px] bg-transparent disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2`}
+        className={`absolute bottom-0 right-0 z-30 flex items-end justify-end p-2.5 min-h-[44px] min-w-[44px] rounded-[2px] bg-transparent disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2`}
       >
         <span aria-hidden="true" className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] border font-medium transition-colors ${
           hasPrayed

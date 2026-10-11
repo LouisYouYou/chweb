@@ -66,7 +66,7 @@ export default async function UpcomingEvents() {
           </div>
           <Link
             href={`/${locale}/events`}
-            className="inline-flex items-center gap-2 text-wine-700 hover:text-wine-900 border border-wine-200 hover:border-wine-400 px-4 py-2 min-h-[44px] rounded-full text-sm font-semibold transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 text-wine-700 hover:text-wine-900 border border-wine-200 hover:border-wine-400 px-4 py-2 min-h-[44px] rounded-full text-sm font-semibold transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
           >
             {t('view_all')}
             <ArrowRight aria-hidden="true" size={15} className="group-hover:translate-x-1 transition-transform" />
@@ -85,7 +85,7 @@ export default async function UpcomingEvents() {
             </p>
             <Link
               href={`/${locale}/events`}
-              className="mt-6 inline-flex items-center gap-2 min-h-[44px] church-gradient text-white px-6 py-2.5 text-sm font-semibold rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+              className="mt-6 inline-flex items-center gap-2 min-h-[44px] church-gradient text-white px-6 py-2.5 text-sm font-semibold rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
             >
               {et('view_all')}
             </Link>
@@ -152,7 +152,7 @@ export default async function UpcomingEvents() {
                         href={event.registrationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+                        className="shrink-0 inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
                       >
                         <ClipboardList aria-hidden="true" size={14} />
                         {et('register')}
@@ -160,7 +160,7 @@ export default async function UpcomingEvents() {
                     ) : (
                       <Link
                         href={`/${locale}/events`}
-                        className="shrink-0 inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-full hover:bg-wine-50 hover:text-wine-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+                        className="shrink-0 inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-full hover:bg-wine-50 hover:text-wine-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
                       >
                         {et('view_detail')}
                       </Link>
