@@ -37,7 +37,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
         <FadeIn>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-4">
           <div>
-            <p className="text-amber-400 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-400 pl-3">
+            <p className="type-eyebrow-dark mb-3">
               {locale === 'my' ? 'တရားဟောချက်မှတ်တမ်း' : 'SERMONS'}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{t('title')}</h2>

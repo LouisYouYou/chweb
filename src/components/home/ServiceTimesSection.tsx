@@ -18,12 +18,12 @@ export default async function ServiceTimesSection() {
         <FadeIn>
         <div className="text-center mb-14">
           <div className="flex justify-center mb-3">
-            <span className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase border-l-2 border-amber-500 pl-3">
+            <span className="type-eyebrow-light">
               {locale === 'my' ? 'ဝတ်ပြုကိုးကွယ်ချိန်' : 'SERVICE TIMES'}
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-3">{t('title')}</h2>
-          <p className="text-gray-400 text-sm">{t('subtitle')}</p>
+          <p className="type-meta">{t('subtitle')}</p>
           <div className="divider-gold" />
         </div>
         </FadeIn>

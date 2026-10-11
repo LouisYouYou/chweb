@@ -156,13 +156,43 @@ a, button, [role="button"] {
   background-clip: text;
 }
 
-/* ── Typography utilities ── */
-.type-eyebrow {
-  font-size: 0.75rem;    /* 12px = text-xs */
-  font-weight: 600;
+/* ── C1 Typography Tokens ── */
+
+/* Section eyebrow — light (cream/white) sections */
+.type-eyebrow-light {
+  font-size:      0.75rem;
+  font-weight:    700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  line-height: 1.5;
+  line-height:    1.5;
+  color:          #d97706;           /* amber-600 */
+  border-left:    2px solid #f59e0b; /* amber-500 */
+  padding-left:   0.75rem;
+}
+
+/* Section eyebrow — dark sections */
+.type-eyebrow-dark {
+  font-size:      0.75rem;
+  font-weight:    700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height:    1.5;
+  color:          #fbbf24;           /* amber-400 */
+  border-left:    2px solid #fbbf24; /* amber-400 */
+  padding-left:   0.75rem;
+}
+
+/* Body copy — secondary descriptive text */
+.type-body {
+  font-size:   0.875rem; /* text-sm */
+  line-height: 1.625;    /* leading-relaxed */
+  color:       #4b5563;  /* gray-600 */
+}
+
+/* Section subtitle / meta — muted supporting text */
+.type-meta {
+  font-size: 0.875rem; /* text-sm */
+  color:     #9ca3af;  /* gray-400 */
 }
 
 /* ── Section accent bar ── */

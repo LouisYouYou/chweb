@@ -25,7 +25,7 @@ export default async function SundayMessageSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <FadeIn>
             <div className="mb-10">
-              <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
+              <p className="type-eyebrow-light mb-3">
                 {st('eyebrow')}
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
@@ -66,7 +66,7 @@ export default async function SundayMessageSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <FadeIn>
           <div className="mb-10">
-            <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
+            <p className="type-eyebrow-light mb-3">
               {st('eyebrow')}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
@@ -124,7 +124,7 @@ export default async function SundayMessageSection() {
               </div>
 
               {msg.summary && (
-                <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
+                <p className="type-body whitespace-pre-wrap">
                   {msg.summary}
                 </p>
               )}

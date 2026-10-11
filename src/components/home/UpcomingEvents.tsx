@@ -57,11 +57,11 @@ export default async function UpcomingEvents() {
         <FadeIn>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-4">
           <div>
-            <p className="text-amber-600 text-xs font-bold tracking-[0.3em] uppercase mb-3 border-l-2 border-amber-500 pl-3">
+            <p className="type-eyebrow-light mb-3">
               {et('eyebrow')}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-3">{t('title')}</h2>
-            <p className="text-gray-400 text-sm">{t('subtitle')}</p>
+            <p className="type-meta">{t('subtitle')}</p>
             <div className="divider-gold" style={{ margin: '16px 0 0' }} />
           </div>
           <Link
