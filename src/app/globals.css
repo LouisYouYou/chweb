@@ -164,9 +164,9 @@ a, button, [role="button"] {
   font-weight:    700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  line-height:    1.5;
-  color:          #d97706;           /* amber-600 */
-  border-left:    2px solid #f59e0b; /* amber-500 */
+  line-height:    var(--text-xs--line-height);        /* = calc(1/0.75), matches text-xs */
+  color:          var(--color-amber-600);
+  border-left:    2px solid var(--color-amber-500);
   padding-left:   0.75rem;
 }
 
@@ -176,23 +176,24 @@ a, button, [role="button"] {
   font-weight:    700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  line-height:    1.5;
-  color:          #fbbf24;           /* amber-400 */
-  border-left:    2px solid #fbbf24; /* amber-400 */
+  line-height:    var(--text-xs--line-height);        /* = calc(1/0.75), matches text-xs */
+  color:          var(--color-amber-400);
+  border-left:    2px solid var(--color-amber-400);
   padding-left:   0.75rem;
 }
 
 /* Body copy — secondary descriptive text */
 .type-body {
-  font-size:   0.875rem; /* text-sm */
-  line-height: 1.625;    /* leading-relaxed */
-  color:       #4b5563;  /* gray-600 */
+  font-size:   0.875rem;
+  line-height: 1.625;                                 /* leading-relaxed, unchanged */
+  color:       var(--color-gray-600);
 }
 
 /* Section subtitle / meta — muted supporting text */
 .type-meta {
-  font-size: 0.875rem; /* text-sm */
-  color:     #9ca3af;  /* gray-400 */
+  font-size:   0.875rem;
+  line-height: var(--text-sm--line-height);           /* = calc(1.25/0.875), matches text-sm */
+  color:       var(--color-gray-400);
 }
 
 /* ── Section accent bar ── */
