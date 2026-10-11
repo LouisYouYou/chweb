@@ -65,7 +65,7 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
               <FadeIn key={video.id} delay={i * 120} className="flex flex-col">
               <Link
                 href={`/${locale}/sermons`}
-                className="group glass-card rounded-2xl overflow-hidden card-glow transition-all duration-300 flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+                className="group glass-card rounded-2xl overflow-hidden haptic-sermon-card flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
               >
                 <div className="relative h-44 bg-wine-950 overflow-hidden">
                   <SermonThumbnail src={video.thumbnail} alt={video.title} />

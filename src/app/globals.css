@@ -326,6 +326,25 @@ a, button, [role="button"] {
   box-shadow: var(--shadow-elevated);
 }
 
+/* B3 LatestSermons Haptic: dark-section interactive card elevation.
+   No base box-shadow — glass-card already establishes surface with backdrop-filter + white/12 border.
+   card-glow replaced: upgrade to premium cubic-bezier + transform lift.
+   Dark-appropriate glow replaces wine-light --shadow-elevated (invisible on dark bg).
+   Focus handled by Link's Tailwind ring-amber-400/60 on wine-950 offset — no scoped :focus-visible. */
+.haptic-sermon-card {
+  transition:
+    box-shadow var(--duration-base) var(--ease-premium),
+    transform  var(--duration-base) var(--ease-premium);
+}
+
+.haptic-sermon-card:hover {
+  transform:  translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(146, 32, 47, 0.25),
+    0 8px 32px rgba(146, 32, 47, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.40);
+}
+
 .cta-depth {
   box-shadow: var(--cta-inset-highlight), var(--shadow-card);
   transition:
@@ -403,6 +422,9 @@ a, button, [role="button"] {
   .haptic-service-card:hover {
     transform:  none;
     box-shadow: var(--shadow-soft);
+  }
+  .haptic-sermon-card:hover {
+    transform: none;
   }
   .cta-depth:active {
     transform: none;
