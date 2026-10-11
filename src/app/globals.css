@@ -311,6 +311,21 @@ a, button, [role="button"] {
   box-shadow: var(--shadow-elevated);
 }
 
+/* H5 ServiceTimesSection Haptic pilot: material depth on non-interactive info card.
+   Base shadow-soft is safe here — no Tailwind ring conflict (unlike retreat event cards).
+   -2px lift consistent with haptic-event-card non-interactive container principle. */
+.haptic-service-card {
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow var(--duration-base) var(--ease-premium),
+    transform  var(--duration-base) var(--ease-premium);
+}
+
+.haptic-service-card:hover {
+  transform:  translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
 .cta-depth {
   box-shadow: var(--cta-inset-highlight), var(--shadow-card);
   transition:
@@ -384,6 +399,10 @@ a, button, [role="button"] {
   }
   .haptic-event-card:hover {
     transform: none;
+  }
+  .haptic-service-card:hover {
+    transform:  none;
+    box-shadow: var(--shadow-soft);
   }
   .cta-depth:active {
     transform: none;

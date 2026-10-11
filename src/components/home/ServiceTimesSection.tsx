@@ -32,7 +32,7 @@ export default async function ServiceTimesSection() {
           {serviceTimes.map((s, idx) => (
             <FadeIn key={s.id} delay={idx * 100}>
             <div
-              className="group relative bg-white rounded-2xl border border-gray-100 p-7 card-lift overflow-hidden h-full"
+              className="group relative bg-white rounded-2xl border border-gray-100 p-7 haptic-service-card overflow-hidden h-full"
             >
               {/* Number accent */}
               <span aria-hidden="true" className="absolute top-5 right-5 text-6xl font-black text-wine-50 select-none pointer-events-none leading-none">
