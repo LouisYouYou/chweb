@@ -9,10 +9,12 @@ const typeConfig: Record<string, {
   bar: string;
   labelZh: string;
   labelEn: string;
+  labelMy: string;
+  labelJa: string;
 }> = {
-  event:  { icon: Calendar,      badge: 'bg-amber-100 text-amber-700 border-amber-200',   bar: 'bg-amber-400',  labelZh: '活動', labelEn: 'Event' },
-  notice: { icon: Bell,          badge: 'bg-sky-100 text-sky-700 border-sky-200',          bar: 'bg-sky-400',    labelZh: '通知', labelEn: 'Notice' },
-  urgent: { icon: AlertCircle,   badge: 'bg-red-100 text-red-700 border-red-200',          bar: 'bg-red-500',    labelZh: '緊急', labelEn: 'Urgent' },
+  event:  { icon: Calendar,    badge: 'bg-amber-100 text-amber-700 border-amber-200', bar: 'bg-amber-400', labelZh: '活動', labelEn: 'Event',  labelMy: 'အစီအစဉ်',               labelJa: 'イベント' },
+  notice: { icon: Bell,        badge: 'bg-sky-100 text-sky-700 border-sky-200',       bar: 'bg-sky-400',   labelZh: '通知', labelEn: 'Notice', labelMy: 'အကြောင်းကြားချက်',      labelJa: 'お知らせ' },
+  urgent: { icon: AlertCircle, badge: 'bg-red-100 text-red-700 border-red-200',       bar: 'bg-red-500',   labelZh: '緊急', labelEn: 'Urgent', labelMy: 'အရေးပေါ်',               labelJa: '緊急' },
 };
 
 export default async function AnnouncementBanner() {
@@ -21,7 +23,13 @@ export default async function AnnouncementBanner() {
 
   if (!announcements.length) return null;
 
-  const zh = locale !== 'en' && locale !== 'my';
+  const zh = locale === 'zh-TW';
+  const badgeLabel = (cfg: typeof typeConfig[string]) =>
+    zh ? cfg.labelZh : locale === 'my' ? cfg.labelMy : locale === 'ja' ? cfg.labelJa : cfg.labelEn;
+  const headerText =
+    zh ? '最新公告' : locale === 'my' ? 'ကြေငြာချက်' : locale === 'ja' ? 'お知らせ' : 'Announcements';
+  const pinnedText =
+    zh ? '置頂' : locale === 'ja' ? '固定' : 'Pinned';
 
   return (
     <section className="py-10 px-4 bg-white border-b border-gray-100">
@@ -30,10 +38,10 @@ export default async function AnnouncementBanner() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <span className="flex items-center gap-2 text-sm font-bold text-wine-700 tracking-wide">
-            <Bell size={14} className="text-amber-500" />
-            {zh ? '最新公告' : locale === 'my' ? 'ကြေငြာချက်' : 'Announcements'}
+            <Bell aria-hidden="true" size={14} className="text-amber-500" />
+            {headerText}
           </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-amber-300/50 to-transparent" />
+          <div aria-hidden="true" className="flex-1 h-px bg-gradient-to-r from-amber-300/50 to-transparent" />
         </div>
 
         {/* Announcement cards */}
@@ -48,23 +56,23 @@ export default async function AnnouncementBanner() {
               <div className={`relative flex items-start gap-4 bg-white rounded-2xl border border-gray-100 p-5 shadow-sm overflow-hidden
                 ${item.link ? 'hover:border-wine-200 hover:shadow-md transition-all group' : ''}`}>
                 {/* Left colour bar */}
-                <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl ${cfg.bar}`} />
+                <div aria-hidden="true" className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl ${cfg.bar}`} />
 
                 {/* Icon */}
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${cfg.badge}`}>
-                  <Icon size={16} />
+                <div aria-hidden="true" className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${cfg.badge}`}>
+                  <Icon aria-hidden="true" size={16} />
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${cfg.badge}`}>
-                      {zh ? cfg.labelZh : cfg.labelEn}
+                      {badgeLabel(cfg)}
                     </span>
                     {item.isPinned && (
                       <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                        <Pin size={10} />
-                        {zh ? '置頂' : 'Pinned'}
+                        <Pin aria-hidden="true" size={10} />
+                        {pinnedText}
                       </span>
                     )}
                   </div>
@@ -75,7 +83,7 @@ export default async function AnnouncementBanner() {
                 </div>
 
                 {item.link && (
-                  <ExternalLink size={15} className="shrink-0 text-gray-300 group-hover:text-wine-500 transition-colors mt-1" />
+                  <ExternalLink aria-hidden="true" size={15} className="shrink-0 text-gray-300 group-hover:text-wine-500 transition-colors mt-1" />
                 )}
               </div>
             );
@@ -84,11 +92,21 @@ export default async function AnnouncementBanner() {
 
             const isExternal = item.link.startsWith('http');
             return isExternal ? (
-              <a key={item._id} href={item.link} target="_blank" rel="noopener noreferrer" className="block">
+              <a
+                key={item._id}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+              >
                 {inner}
               </a>
             ) : (
-              <Link key={item._id} href={item.link} className="block">
+              <Link
+                key={item._id}
+                href={item.link}
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+              >
                 {inner}
               </Link>
             );

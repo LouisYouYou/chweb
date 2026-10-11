@@ -77,7 +77,7 @@ export default function Footer() {
           {/* Quick links */}
           <div>
             <h3 className="font-semibold text-white mb-4">{t('quick_links')}</h3>
-            <ul className="space-y-2">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
               {navLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
