@@ -78,21 +78,21 @@ export default function Hero() {
           {/* Primary CTA */}
           <Link
             href={`/${locale}/services`}
-            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 active:bg-amber-300 active:scale-[0.98] transition-all text-xs sm:text-sm shadow-lg shadow-amber-400/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 text-xs sm:text-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
           >
             {t('cta_primary')}
           </Link>
           {/* Secondary CTA */}
           <Link
             href={`/${locale}/about`}
-            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 active:bg-amber-400/10 active:scale-[0.98] transition-all text-xs sm:text-sm backdrop-blur-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
           >
             {t('cta_secondary')}
           </Link>
           {/* Tertiary CTA — Bulletin */}
           <Link
             href={`/${locale}/weekly-bulletin`}
-            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/25 text-white/60 font-semibold rounded-full hover:bg-white/5 hover:border-white/40 hover:text-white/80 active:bg-white/10 active:scale-[0.98] transition-all text-xs sm:text-sm backdrop-blur-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/25 text-white/60 font-semibold rounded-full hover:bg-white/5 hover:border-white/40 hover:text-white/80 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
           >
             <FileText size={13} aria-hidden="true" />
             {zh ? '教會週報' : 'Bulletin'}
@@ -104,7 +104,7 @@ export default function Hero() {
               href="https://www.youtube.com/@winson651202/live"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 active:scale-[0.98] transition-all text-xs sm:text-sm backdrop-blur-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
             >
               <span aria-hidden="true" className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
@@ -117,7 +117,7 @@ export default function Hero() {
               href="https://www.youtube.com/@winson651202"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 active:scale-[0.98] transition-all text-xs sm:text-sm backdrop-blur-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
             >
               <Radio size={13} aria-hidden="true" className="opacity-50" />
               <span className="sm:hidden">{zh ? '主日直播' : 'Live'}</span>

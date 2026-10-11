@@ -348,8 +348,11 @@ a, button, [role="button"] {
 .cta-depth {
   box-shadow: var(--cta-inset-highlight), var(--shadow-card);
   transition:
-    box-shadow var(--duration-fast)  var(--ease-soft-out),
-    transform  var(--duration-micro) var(--ease-soft-out);
+    box-shadow       var(--duration-fast)  var(--ease-soft-out),
+    transform        var(--duration-micro) var(--ease-soft-out),
+    background-color var(--duration-fast)  var(--ease-soft-out),
+    border-color     var(--duration-fast)  var(--ease-soft-out),
+    color            var(--duration-fast)  var(--ease-soft-out);
 }
 
 .cta-depth:hover {
