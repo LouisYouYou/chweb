@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { MapPin, Phone, Mail, Clock, Navigation } from 'lucide-react';
 
-const MAPS_URL = 'https://www.google.com/maps/place/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82/@24.9846438,121.5119889,17z';
+const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=行道會南勢角榮耀堂+新北市中和區忠孝街39-15號';
 
 const ctaLabels: Record<string, { phone: string; map: string }> = {
   'zh-TW': { phone: '立即來電  (02) 8668-5515', map: '查看地圖' },
