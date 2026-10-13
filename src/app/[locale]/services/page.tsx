@@ -8,6 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 import { Clock, MapPin, Car, Train, ExternalLink, CreditCard } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
+import PageHero from '@/components/layout/PageHero';
 
 export default async function ServicesPage() {
   const t = await getTranslations('services');
@@ -15,14 +16,7 @@ export default async function ServicesPage() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="church-gradient py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
-          <p className="text-wine-200 text-lg">{t('subtitle')}</p>
-          <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-6" />
-        </div>
-      </section>
+      <PageHero title={t('title')} subtitle={t('subtitle')} />
 
       {/* Service Times */}
       <section className="py-20 px-4">

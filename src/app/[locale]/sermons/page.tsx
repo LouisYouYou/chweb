@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import SermonLibrary from '@/components/sermons/SermonLibrary';
+import PageHero from '@/components/layout/PageHero';
 import SermonsJsonLd from '@/components/seo/SermonsJsonLd';
 import { getChannelVideos } from '@/lib/youtube';
 
@@ -18,13 +19,7 @@ export default async function SermonsPage() {
   return (
     <div>
       <SermonsJsonLd videos={videos} />
-      <section className="church-gradient py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
-          <p className="text-wine-200 text-lg">{t('subtitle')}</p>
-          <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-6" />
-        </div>
-      </section>
+      <PageHero title={t('title')} subtitle={t('subtitle')} />
 
       <SermonLibrary locale={locale} videos={videos} />
     </div>

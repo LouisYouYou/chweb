@@ -4,6 +4,7 @@ import { Camera } from 'lucide-react'
 import { getAllGalleryPhotos } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import GalleryClient from '@/components/gallery/GalleryClient'
+import PageHero from '@/components/layout/PageHero'
 
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -30,19 +31,7 @@ export default async function GalleryPage() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="church-gradient py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">{t('title')}</h1>
-          <p className="text-wine-200 text-lg">{t('subtitle')}</p>
-          <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full mt-6" />
-          {photos.length > 0 && (
-            <p className="text-wine-300 text-sm mt-4">
-              {zh ? `共 ${photos.length} 張照片` : locale === 'ja' ? `合計 ${photos.length} 枚` : `${photos.length} photos`}
-            </p>
-          )}
-        </div>
-      </section>
+      <PageHero title={t('title')} subtitle={t('subtitle')} />
 
       {/* Gallery */}
       {photos.length === 0 ? (

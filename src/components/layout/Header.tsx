@@ -38,8 +38,9 @@ export default function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const router   = useRouter();
 
-  const isHome    = pathname === `/${locale}` || pathname === `/${locale}/`;
-  const transparent = isHome && !scrolled;
+  const noHeroPaths = [`/${locale}/login`, `/${locale}/register`, `/${locale}/profile`];
+  const hasHero = !noHeroPaths.some(p => pathname.startsWith(p));
+  const transparent = hasHero && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
