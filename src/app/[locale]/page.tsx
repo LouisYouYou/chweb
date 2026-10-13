@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import Hero from '@/components/home/Hero';
+import StatsBar from '@/components/home/StatsBar';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import WelcomeSection from '@/components/home/WelcomeSection';
 import ServiceTimesSection from '@/components/home/ServiceTimesSection';
@@ -34,7 +35,7 @@ const churchSchema = {
     'Glory Church Of Nanshijiao',
     'Nanshijiao Glory Church',
   ],
-  description: '行道會南勢角榮耀堂是大台北地區的基督教會，歡迎台北、新北各地的朋友來聚會。主日崇拜每週日10:00–11:30，設有中文及緬甸語聚會。',
+  description: '行道會南勢角榮耀堂是大台北地區的基督教會，歡迎台北、新北各地的朋友來聚會。主日崇拜每週日10:00–11:30，以中文進行。',
   url: 'https://nanshijiaoglory.vercel.app',
   logo: 'https://nanshijiaoglory.vercel.app/logo.png',
   image: 'https://nanshijiaoglory.vercel.app/church.jpg',
@@ -111,7 +112,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: '教會提供哪些語言的崇拜？',
-      acceptedAnswer: { '@type': 'Answer', text: '目前以中文及緬甸語崇拜為主，歡迎說任何語言的朋友前來。' },
+      acceptedAnswer: { '@type': 'Answer', text: '主日崇拜以中文進行，歡迎說任何語言的朋友前來。' },
     },
     {
       '@type': 'Question',
@@ -135,6 +136,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Hero />
+      <StatsBar />
       <AnnouncementBanner />
       <WelcomeSection />
       <ServiceTimesSection />
