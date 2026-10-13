@@ -3,7 +3,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Navigation } from 'lucide-react';
+
+const MAPS_URL = 'https://www.google.com/maps/place/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82/@24.9846438,121.5119889,17z';
+
+const ctaLabels: Record<string, { phone: string; map: string }> = {
+  'zh-TW': { phone: '立即來電  (02) 8668-5515', map: '查看地圖' },
+  en:      { phone: 'Call Us  (02) 8668-5515',   map: 'Get Directions' },
+  my:      { phone: 'ဖုန်းဆက်ရန်  (02) 8668-5515', map: 'တည်နေရာကြည့်ရန်' },
+  ja:      { phone: 'お電話  (02) 8668-5515',      map: '地図を見る' },
+};
 
 const YoutubeIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width={16} height={16}>
@@ -38,10 +47,35 @@ export default function Footer() {
     { href: `/${locale}/contact`, label: nav('contact') },
   ];
 
+  const cta = ctaLabels[locale] ?? ctaLabels['zh-TW'];
+
   return (
     <footer className="bg-wine-950 text-wine-100">
       {/* Amber accent top line */}
       <div className="h-0.5 bg-gradient-to-r from-transparent via-amber-400/60 to-transparent" />
+
+      {/* ── CTA Strip ── */}
+      <div className="border-b border-wine-900/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="tel:+886286685515"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-lg hover:opacity-90 hover:shadow-xl transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+          >
+            <Phone size={16} />
+            {cta.phone}
+          </a>
+          <a
+            href={MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 border border-wine-600 hover:border-amber-400 text-wine-300 hover:text-amber-300 text-sm font-bold rounded-full transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+          >
+            <Navigation size={16} />
+            {cta.map}
+          </a>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
