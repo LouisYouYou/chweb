@@ -53,11 +53,11 @@ export const pageSEO = {
     path: '',
     'zh-TW': {
       title: '行道會南勢角榮耀堂 | 新北市中和區基督教教會・主日禮拜',
-      description: '歡迎來到行道會南勢角榮耀堂，新北市中和區在地基督教教會（中和教會）。主日禮拜每週日 10:00–11:30，地址：忠孝街 39-15 號，捷運南勢角站 4 號出口步行 10 分鐘。設有緬甸語敬拜，歡迎各族群朋友。',
+      description: '歡迎來到行道會南勢角榮耀堂，新北市中和區在地基督教教會（中和教會）。主日禮拜每週日 10:00–11:30，地址：忠孝街 39-15 號，捷運南勢角站 4 號出口步行 10 分鐘。歡迎各族群朋友！',
     },
     en: {
       title: 'Glory Church Of Nanshijiao | Christian Church in Zhonghe, New Taipei',
-      description: 'Glory Church Of Nanshijiao — Sunday worship 10:00–11:30 at No.39-15 Zhongxiao St., Zhonghe, New Taipei. 10-min walk from MRT Nanshijiao Exit 4. Burmese-language worship available.',
+      description: 'Glory Church Of Nanshijiao — Chinese-language Sunday worship 10:00–11:30 at No.39-15 Zhongxiao St., Zhonghe, New Taipei. 10-min walk from MRT Nanshijiao Exit 4.',
     },
     my: {
       title: 'နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း | နယူးတိုင်းပေ',
@@ -73,11 +73,11 @@ export const pageSEO = {
     path: '/about',
     'zh-TW': {
       title: '關於我們 | 行道會南勢角榮耀堂・中和基督教教會',
-      description: '認識行道會南勢角榮耀堂——中和區在地基督教教會（中和教會）。使命、異象與教會歷史。以耶穌基督的愛建立信仰群體，服事中和緬甸族群與在地社區，歡迎加入南勢角主日禮拜大家庭。',
+      description: '認識行道會南勢角榮耀堂——中和區在地基督教教會（中和教會）。使命、異象與教會歷史。以耶穌基督的愛建立信仰群體，服事中永和在地社區，歡迎加入南勢角主日禮拜大家庭。',
     },
     en: {
       title: 'About Us | Glory Church Of Nanshijiao – Zhonghe Christian Community',
-      description: 'Discover Glory Church Of Nanshijiao — mission, vision, core values and history. Building a faith community in Zhonghe, New Taipei City, serving Myanmar diaspora and local community.',
+      description: 'Discover Glory Church Of Nanshijiao — mission, vision, core values and history. Building a faith community in Zhonghe, New Taipei City, serving the local community in Zhongyonghe.',
     },
     my: {
       title: 'ကျွန်ုပ်တို့အကြောင်း | နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း',
@@ -85,7 +85,7 @@ export const pageSEO = {
     },
     ja: {
       title: '私たちについて | 行道会南勢角栄光教会',
-      description: '行道会南勢角栄光教会について — 使命、ビジョン、歴史。新北市中和区のキリスト教会。主日礼拝と共に、ミャンマーコミュニティも歓迎します。',
+      description: '行道会南勢角栄光教会について — 使命、ビジョン、歴史。新北市中和区のキリスト教会。どなたでも歓迎します。',
     },
   } satisfies PageSEO,
 

@@ -114,7 +114,7 @@ export default function ChurchJsonLd() {
           telephone: '+886-2-8668-5515',
           email: 'winson651202@gmail.com',
           contactType: 'customer support',
-          availableLanguage: ['Chinese', 'English', 'Burmese'],
+          availableLanguage: ['Chinese'],
           areaServed: 'TW',
         },
         sameAs: [
@@ -164,7 +164,7 @@ export default function ChurchJsonLd() {
           {
             '@type': 'Question',
             name: '中永和地區有沒有說華語的教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，同時提供緬甸語及英語服務，服務多元文化背景的信徒。' },
+            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，歡迎多元文化背景的信徒前來參加主日崇拜。' },
           },
           {
             '@type': 'Question',
@@ -180,11 +180,6 @@ export default function ChurchJsonLd() {
             '@type': 'Question',
             name: '行道會南勢角榮耀堂有網路直播嗎？',
             acceptedAnswer: { '@type': 'Answer', text: '是的，行道會南勢角榮耀堂的主日崇拜提供 YouTube 線上直播，可至 YouTube 頻道 @winson651202 收看。直播通常於每週日主日崇拜（10:00）時段進行。' },
-          },
-          {
-            '@type': 'Question',
-            name: '新北市中和區有沒有提供緬甸語崇拜的教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂提供緬甸語（Burmese）崇拜與小組服務，是中永和地區少數同時提供華語、英語、緬甸語三種語言服事的教會，地址為新北市中和區忠孝街39-15號。' },
           },
           {
             '@type': 'Question',
@@ -217,7 +212,7 @@ export default function ChurchJsonLd() {
         '@type': 'Event',
         '@id': `${BASE}/#event-sunday-worship`,
         name: '主日崇拜',
-        description: '行道會南勢角榮耀堂每週主日崇拜，提供華語、英語、緬甸語三語服事，時間為每週日上午10:00至11:30，共90分鐘。',
+        description: '行道會南勢角榮耀堂每週主日崇拜，以華語進行，時間為每週日上午10:00至11:30，共90分鐘。',
         startDate: `${nextSunday}T10:00:00+08:00`,
         endDate:   `${nextSunday}T11:30:00+08:00`,
         eventSchedule: {
@@ -240,7 +235,7 @@ export default function ChurchJsonLd() {
           },
         },
         organizer: { '@id': `${BASE}/#church` },
-        inLanguage: ['zh-TW', 'en', 'my'],
+        inLanguage: ['zh-TW'],
         isAccessibleForFree: true,
         eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
         url: `${BASE}/zh-TW/services`,
