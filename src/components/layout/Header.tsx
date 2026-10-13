@@ -32,9 +32,21 @@ export default function Header({ locale }: HeaderProps) {
   const resourcesMenuRef  = useRef<HTMLDivElement>(null);
   const langTriggerRef    = useRef<HTMLButtonElement>(null);
 
+  const [scrolled, setScrolled] = useState(false);
+
   const t        = useTranslations('nav');
   const pathname = usePathname();
   const router   = useRouter();
+
+  const isHome    = pathname === `/${locale}` || pathname === `/${locale}/`;
+  const transparent = isHome && !scrolled;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const mainLinks = [
     { href: `/${locale}`,          label: t('home') },
@@ -139,11 +151,18 @@ export default function Header({ locale }: HeaderProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 bg-white/[.97] backdrop-blur-md shadow-sm"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        transparent
+          ? 'bg-transparent shadow-none'
+          : 'bg-white/[.97] backdrop-blur-md shadow-sm'
+      }`}
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
-      {/* Brand accent bar */}
-      <div aria-hidden="true" className="h-0.5 bg-gradient-to-r from-wine-700 via-amber-400 to-wine-700" />
+      {/* Brand accent bar — hidden when transparent */}
+      <div
+        aria-hidden="true"
+        className={`h-0.5 bg-gradient-to-r from-wine-700 via-amber-400 to-wine-700 transition-opacity duration-300 ${transparent ? 'opacity-0' : 'opacity-100'}`}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -161,10 +180,10 @@ export default function Header({ locale }: HeaderProps) {
               className="rounded-full shadow-md group-hover:shadow-lg transition-shadow"
             />
             <div className="hidden sm:block">
-              <p className="font-bold text-wine-900 text-sm leading-tight">
+              <p className={`font-bold text-sm leading-tight transition-colors duration-300 ${transparent ? 'text-white' : 'text-wine-900'}`}>
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Of Nanshijiao'}
               </p>
-              <p className="text-xs text-wine-500 leading-tight">
+              <p className={`text-xs leading-tight transition-colors duration-300 ${transparent ? 'text-white/70' : 'text-wine-500'}`}>
                 {locale === 'zh-TW' ? 'Glory Church Of Nanshijiao' : '行道會南勢角榮耀堂'}
               </p>
             </div>
@@ -176,10 +195,10 @@ export default function Header({ locale }: HeaderProps) {
               <Link
                 key={href}
                 href={href}
-                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
-                  isActive(href)
-                    ? 'text-wine-700 bg-wine-50'
-                    : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                  transparent
+                    ? isActive(href) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
+                    : isActive(href) ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
                 }`}
               >
                 {label}
@@ -199,10 +218,10 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="resources-menu"
                 onClick={() => setDesktopDropdownOpen(v => !v)}
                 onKeyDown={handleResourcesTriggerKeyDown}
-                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
-                  isResourcesActive
-                    ? 'text-wine-700 bg-wine-50'
-                    : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                  transparent
+                    ? isResourcesActive ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
+                    : isResourcesActive ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
                 }`}
               >
                 {t('resources')}
@@ -248,10 +267,10 @@ export default function Header({ locale }: HeaderProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
-                isActive(`/${locale}/contact`)
-                  ? 'text-wine-700 bg-wine-50'
-                  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                transparent
+                  ? isActive(`/${locale}/contact`) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
+                  : isActive(`/${locale}/contact`) ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
               }`}
             >
               {t('contact')}
@@ -274,7 +293,11 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="lang-menu"
                 onClick={() => setLangOpen(v => !v)}
                 onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
-                className="flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1"
+                className={`flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                  transparent
+                    ? 'text-white/90 hover:text-white border border-white/40 hover:border-white/70'
+                    : 'text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300'
+                }`}
               >
                 <span
                   aria-hidden="true"
@@ -324,7 +347,11 @@ export default function Header({ locale }: HeaderProps) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen(v => !v)}
-              className="lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md text-gray-600 hover:text-wine-700 hover:bg-wine-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1"
+              className={`lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                transparent
+                  ? 'text-white hover:bg-white/10'
+                  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+              }`}
             >
               {menuOpen
                 ? <X    size={20} aria-hidden="true" />
