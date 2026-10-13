@@ -22,7 +22,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: 'calc(max(92svh, 92vh) + 4rem)', marginTop: '-4rem', paddingTop: '4rem' }}>
+    <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: 'calc(max(92svh, 92vh) + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}>
       {/* Background photo */}
       <Image
         src="/church.jpg"
