@@ -178,6 +178,8 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
     groq`*[_type == "sundayMessage"] | order(date desc) [0] {
       _id, date, title, preacher, scripture, summary, youtubeUrl,
       image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
-    }`
+    }`,
+    {},
+    { next: { tags: ['sunday-message'], revalidate: 60 } }
   )
 }

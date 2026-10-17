@@ -165,6 +165,14 @@ export async function POST(req: NextRequest) {
       subject: sundayMessageSubject(locale, title),
       html:    sundayMessageHtml(locale, title, preacher, date, scripture, summary, youtubeUrl),
     }))
+
+    // 上傳新主日信息後立即清除前端快取
+    const revalidateSecret = process.env.SANITY_REVALIDATE_SECRET
+    if (revalidateSecret) {
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nanshijiaoglory.vercel.app'
+      fetch(`${baseUrl}/api/revalidate?secret=${revalidateSecret}`, { method: 'POST' })
+        .catch((e: unknown) => console.error('revalidate 呼叫失敗:', e))
+    }
   }
 
   // 6. 寄送管理員作業報告（彙整，只寄一封給 ADMIN_EMAILS）
