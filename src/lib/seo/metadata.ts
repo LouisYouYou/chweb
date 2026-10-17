@@ -14,9 +14,9 @@ interface PageSEO {
   ja: LocaleMeta
 }
 
-function hreflang(path: string) {
+function hreflang(locale: string, path: string) {
   return {
-    canonical: `${BASE_URL}/zh-TW${path}`,
+    canonical: `${BASE_URL}/${locale}${path}`,
     languages: {
       'zh-TW':     `${BASE_URL}/zh-TW${path}`,
       'en':        `${BASE_URL}/en${path}`,
@@ -35,13 +35,15 @@ export function buildMetadata(locale: string, page: PageSEO): Metadata {
   return {
     title: { absolute: title },
     description,
-    alternates: hreflang(page.path),
+    alternates: hreflang(locale, page.path),
     openGraph: {
+      type: 'website',
+      siteName: '行道會南勢角榮耀堂',
       title,
       description,
       url: `${BASE_URL}/${locale}${page.path}`,
       locale: ogLocale,
-      images: [{ url: `${BASE_URL}/church-og.jpg`, width: 1200, height: 630, alt: title }],
+      images: [{ url: `${BASE_URL}/church.jpg`, width: 1281, height: 719, alt: title }],
     },
   }
 }

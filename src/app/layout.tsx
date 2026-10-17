@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     siteName: "行道會南勢角榮耀堂",
     images: [
       {
-        url: "/church.jpg",
+        url: "https://nanshijiaoglory.vercel.app/church.jpg",
         width: 1281,
         height: 719,
         alt: "行道會南勢角榮耀堂教會外觀",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "行道會南勢角榮耀堂 | Glory Church Of Nanshijiao",
     description: "行道會南勢角榮耀堂，位於新北市中和區忠孝街39-15號。主日崇拜每週日10:00-11:30。",
-    images: ["/church.jpg"],
+    images: ["https://nanshijiaoglory.vercel.app/church.jpg"],
   },
   verification: {
     google: 'KhRrzPkvjjL8c-taSNX18PGtspxcUbSeuCHRt-XqBfc',

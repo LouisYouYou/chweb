@@ -9,17 +9,22 @@ const META: Record<string, { title: string; description: string }> = {
   'zh-TW': {
     title: '常見問題 | 行道會南勢角榮耀堂',
     description:
-      '行道會南勢角榮耀堂常見問題：主日崇拜時間、交通方式、緬甸語崇拜、YouTube直播、聯絡電話、奉獻方式等完整解答。',
+      '行道會南勢角榮耀堂常見問題完整解答：主日崇拜時間、交通方式、YouTube直播、聯絡電話、奉獻方式、兒童主日學等。中和教會一切資訊在這裡。',
   },
   en: {
-    title: 'FAQ | NJC Glory Church (Nanshijiao Glory Church)',
+    title: 'FAQ | Glory Church Of Nanshijiao – Zhonghe Christian Church',
     description:
-      'Frequently asked questions about NJC Glory Church: service times, directions, Burmese worship, YouTube livestream, contact, and giving.',
+      'Frequently asked questions about Glory Church Of Nanshijiao: service times, directions, YouTube livestream, contact info, giving, and more.',
   },
   my: {
-    title: 'မေးလေ့ရှိသောမေးခွန်းများ | NJC Glory Church',
+    title: 'မေးလေ့ရှိသောမေးခွန်းများ | နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း',
     description:
-      'NJC Glory Church အကြောင်း မေးလေ့ရှိသောမေးခွန်းများ — ဝတ်ပြုကိုးကွယ်ချိန်၊ တည်နေရာ၊ မြန်မာဘာသာ ဝန်ဆောင်မှု။',
+      'နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း အကြောင်း မေးလေ့ရှိသောမေးခွန်းများ — ဝတ်ပြုကိုးကွယ်ချိန်၊ တည်နေရာ၊ ဆက်သွယ်ရန်။',
+  },
+  ja: {
+    title: 'よくある質問 | 行道会南勢角栄光教会',
+    description:
+      '行道会南勢角栄光教会についてよくある質問：礼拝時間、アクセス、YouTube配信、連絡先、献金方法など。',
   },
 }
 
@@ -34,17 +39,21 @@ export async function generateMetadata({
     title: m.title,
     description: m.description,
     openGraph: {
+      type: 'website',
+      siteName: '行道會南勢角榮耀堂',
       title: m.title,
       description: m.description,
       url: `${BASE}/${locale}/faq`,
-      type: 'website',
+      images: [{ url: `${BASE}/church.jpg`, width: 1281, height: 719, alt: m.title }],
     },
     alternates: {
       canonical: `${BASE}/${locale}/faq`,
       languages: {
-        'zh-TW': `${BASE}/zh-TW/faq`,
-        en: `${BASE}/en/faq`,
-        my: `${BASE}/my/faq`,
+        'zh-TW':     `${BASE}/zh-TW/faq`,
+        'en':        `${BASE}/en/faq`,
+        'my':        `${BASE}/my/faq`,
+        'ja':        `${BASE}/ja/faq`,
+        'x-default': `${BASE}/zh-TW/faq`,
       },
     },
   }
