@@ -21,11 +21,6 @@ const META: Record<string, { title: string; description: string }> = {
     description:
       'နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း အကြောင်း မေးလေ့ရှိသောမေးခွန်းများ — ဝတ်ပြုကိုးကွယ်ချိန်၊ တည်နေရာ၊ ဆက်သွယ်ရန်။',
   },
-  ja: {
-    title: 'よくある質問 | 行道会南勢角栄光教会',
-    description:
-      '行道会南勢角栄光教会についてよくある質問：礼拝時間、アクセス、YouTube配信、連絡先、献金方法など。',
-  },
 }
 
 export async function generateMetadata({
@@ -52,7 +47,6 @@ export async function generateMetadata({
         'zh-TW':     `${BASE}/zh-TW/faq`,
         'en':        `${BASE}/en/faq`,
         'my':        `${BASE}/my/faq`,
-        'ja':        `${BASE}/ja/faq`,
         'x-default': `${BASE}/zh-TW/faq`,
       },
     },
