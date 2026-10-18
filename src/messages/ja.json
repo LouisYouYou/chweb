@@ -103,7 +103,8 @@
     "date": "日付",
     "speaker": "スピーカー",
     "series": "シリーズ",
-    "scripture": "聖書箇所"
+    "scripture": "聖書箇所",
+    "back_to_sermons": "メッセージライブラリに戻る"
   },
   "events": {
     "title": "イベントカレンダー",

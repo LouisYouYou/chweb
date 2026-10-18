@@ -128,7 +128,8 @@
     "date": "日期",
     "speaker": "講員",
     "series": "系列",
-    "scripture": "經文"
+    "scripture": "經文",
+    "back_to_sermons": "返回講道媒體庫"
   },
   "events": {
     "title": "活動行事曆",

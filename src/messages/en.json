@@ -128,7 +128,8 @@
     "date": "Date",
     "speaker": "Speaker",
     "series": "Series",
-    "scripture": "Scripture"
+    "scripture": "Scripture",
+    "back_to_sermons": "Back to Sermon Library"
   },
   "events": {
     "title": "Events Calendar",

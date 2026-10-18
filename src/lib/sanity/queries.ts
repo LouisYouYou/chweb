@@ -186,3 +186,20 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
     { next: { tags: ['sunday-message'], revalidate: 60 } }
   )
 }
+
+export async function getSundayMessageById(id: string): Promise<SundayMessage | null> {
+  return client.fetch(
+    groq`*[_type == "sundayMessage" && _id == $id][0] {
+      _id, date, title, preacher, scripture, summary, youtubeUrl,
+      image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
+    }`,
+    { id },
+    { next: { tags: [`sunday-message-${id}`], revalidate: 3600 } }
+  )
+}
+
+export async function getAllSundayMessageIds(): Promise<{ _id: string }[]> {
+  return client.fetch(
+    groq`*[_type == "sundayMessage"] | order(date desc) { _id }`
+  )
+}
