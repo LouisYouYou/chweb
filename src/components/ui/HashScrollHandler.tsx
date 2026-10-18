@@ -2,42 +2,48 @@
 
 import { useEffect } from 'react'
 
-// After hydration + Suspense resolution, scroll to the hash target.
-// Needed because SundayMessageSection is in a Suspense boundary — the element
-// doesn't exist when the browser first processes the hash from the URL.
+// Sticky header (navbar 64px + ticker 38px) = ~102px, add buffer → 112px
+const HEADER_OFFSET = 112
+
+// Scroll to element with explicit Y calculation.
+// Using window.scrollTo instead of scrollIntoView for better webview compat.
+function scrollToId(id: string): boolean {
+  const el = document.getElementById(id)
+  if (!el) return false
+  const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
+  window.scrollTo({ top: Math.max(0, top), behavior: 'instant' })
+  return true
+}
+
+// HashScrollHandler — needed because SundayMessageSection is in a <Suspense>:
+// the browser fires hash scroll before the element exists. We retry after
+// hydration + Suspense resolution, and watch DOM in case it arrives later.
 export default function HashScrollHandler() {
   useEffect(() => {
     const hash = window.location.hash
     if (!hash) return
-
     const id = hash.slice(1)
 
-    const scrollToTarget = (el: HTMLElement) => {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    // Attempt 1 — right after hydration (element may already exist via SSR)
+    const t1 = setTimeout(() => {
+      if (scrollToId(id)) return
 
-    const el = document.getElementById(id)
-    if (el) {
-      scrollToTarget(el)
-      return
-    }
+      // Attempt 2 — after Suspense + FadeIn settle (mobile webviews are slower)
+      const t2 = setTimeout(() => {
+        if (scrollToId(id)) return
 
-    // Watch for the element to appear after Suspense resolves
-    const observer = new MutationObserver(() => {
-      const target = document.getElementById(id)
-      if (target) {
-        observer.disconnect()
-        scrollToTarget(target)
-      }
-    })
+        // Fallback — watch DOM until element appears
+        const observer = new MutationObserver(() => {
+          if (scrollToId(id)) observer.disconnect()
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+        setTimeout(() => observer.disconnect(), 8000)
+      }, 600)
 
-    observer.observe(document.body, { childList: true, subtree: true })
-    const cleanup = setTimeout(() => observer.disconnect(), 8000)
+      return () => clearTimeout(t2)
+    }, 150)
 
-    return () => {
-      observer.disconnect()
-      clearTimeout(cleanup)
-    }
+    return () => clearTimeout(t1)
   }, [])
 
   return null
