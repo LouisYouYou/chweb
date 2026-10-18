@@ -1,16 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}
 
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.searchParams.get('id')
   if (!id) return NextResponse.json({ views: 0, likes: 0 })
 
-  const { data } = await supabase
+  const { data } = await getSupabase()
     .from('sunday_message_stats')
     .select('views, likes')
     .eq('sanity_id', id)
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest) {
   const viewsDelta = action === 'view' ? 1 : 0
   const likesDelta = action === 'like' ? 1 : action === 'unlike' ? -1 : 0
 
-  const { data, error } = await supabase.rpc('upsert_sunday_stat', {
+  const { data, error } = await getSupabase().rpc('upsert_sunday_stat', {
     p_id: id,
     p_views_delta: viewsDelta,
     p_likes_delta: likesDelta,
