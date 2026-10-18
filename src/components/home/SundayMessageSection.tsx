@@ -177,6 +177,7 @@ export default async function SundayMessageSection() {
                 sanityId={msg._id}
                 title={msg.title}
                 shareUrl={`${BASE_URL}/${locale}#sunday-message`}
+                socialUrl={`${BASE_URL}/${locale}?goto=sunday-message`}
               />
             </div>
 

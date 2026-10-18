@@ -5,8 +5,6 @@ import { useEffect } from 'react'
 // Sticky header (navbar 64px + ticker 38px) = ~102px, add buffer → 112px
 const HEADER_OFFSET = 112
 
-// Scroll to element with explicit Y calculation.
-// Using window.scrollTo instead of scrollIntoView for better webview compat.
 function scrollToId(id: string): boolean {
   const el = document.getElementById(id)
   if (!el) return false
@@ -15,20 +13,37 @@ function scrollToId(id: string): boolean {
   return true
 }
 
-// HashScrollHandler — needed because SundayMessageSection is in a <Suspense>:
-// the browser fires hash scroll before the element exists. We retry after
-// hydration + Suspense resolution, and watch DOM in case it arrives later.
+// Supports two scroll triggers:
+// 1. ?goto=sunday-message  — query param used by social share links.
+//    Survives all server-side redirects (Facebook l.php, Twitter t.co, etc.)
+//    Hash fragments get stripped by these redirect chains; query params don't.
+// 2. #sunday-message       — hash used by internal anchor links (copy link btn).
+//
+// After scrolling via ?goto=, we clean the URL so it doesn't linger.
 export default function HashScrollHandler() {
   useEffect(() => {
-    const hash = window.location.hash
-    if (!hash) return
-    const id = hash.slice(1)
+    const params = new URLSearchParams(window.location.search)
+    const gotoId = params.get('goto')
+    const hashId = window.location.hash ? window.location.hash.slice(1) : null
+    const id = gotoId ?? hashId
+    if (!id) return
 
-    // Attempt 1 — right after hydration (element may already exist via SSR)
+    // Clean up ?goto= from URL immediately (before scroll)
+    if (gotoId) {
+      params.delete('goto')
+      const newSearch = params.toString()
+      const cleanUrl =
+        window.location.pathname +
+        (newSearch ? `?${newSearch}` : '') +
+        (window.location.hash || '')
+      history.replaceState(null, '', cleanUrl)
+    }
+
+    // Attempt 1 — right after hydration
     const t1 = setTimeout(() => {
       if (scrollToId(id)) return
 
-      // Attempt 2 — after Suspense + FadeIn settle (mobile webviews are slower)
+      // Attempt 2 — after Suspense + FadeIn settle
       const t2 = setTimeout(() => {
         if (scrollToId(id)) return
 

@@ -38,12 +38,13 @@ function XIcon() {
 interface Props {
   sanityId: string
   title: string
-  shareUrl: string
+  shareUrl: string   // with #sunday-message — used for copy link (internal)
+  socialUrl: string  // with ?goto=sunday-message — used for social platforms (survives server redirects)
 }
 
 const LIKE_KEY = (id: string) => `msg_liked_${id}`
 
-export default function SundayMessageInteractions({ sanityId, title, shareUrl }: Props) {
+export default function SundayMessageInteractions({ sanityId, title, shareUrl, socialUrl }: Props) {
   const [views, setViews] = useState<number | null>(null)
   const [likes, setLikes] = useState<number | null>(null)
   const [liked, setLiked] = useState(false)
@@ -108,23 +109,24 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl }:
   async function handleInstagram() {
     if (typeof navigator.share === 'function') {
       try {
-        await navigator.share({ title, url: shareUrl })
+        await navigator.share({ title, url: socialUrl })
       } catch {
         // 用戶取消或不支援，靜默忽略
       }
     } else {
       // 桌機：複製連結，提示貼至 IG
-      navigator.clipboard.writeText(shareUrl).then(() => {
+      navigator.clipboard.writeText(socialUrl).then(() => {
         setIgCopied(true)
         setTimeout(() => setIgCopied(false), 2500)
       })
     }
   }
 
-  const encodedUrl = encodeURIComponent(shareUrl)
+  // Social platforms: use ?goto= URL (survives server-side redirects)
+  const encodedSocialUrl = encodeURIComponent(socialUrl)
   const encodedTitle = encodeURIComponent(title)
-  // LINE 正確格式：文字＋換行＋URL，這樣群組可以看到信息標題
-  const lineText = encodeURIComponent(`${title}\n${shareUrl}`)
+  // LINE: title + newline + URL embedded as plain text in message
+  const lineText = encodeURIComponent(`${title}\n${socialUrl}`)
 
   return (
     <div className="pt-4 border-t border-gray-100 space-y-4">
@@ -179,7 +181,7 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl }:
 
         {/* Facebook */}
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedSocialUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-[#1877F2] hover:bg-[#1565c0] text-white text-xs font-semibold rounded-full transition-colors duration-200"
@@ -191,7 +193,7 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl }:
 
         {/* X (Twitter) */}
         <a
-          href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+          href={`https://twitter.com/intent/tweet?url=${encodedSocialUrl}&text=${encodedTitle}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-black hover:bg-gray-800 text-white text-xs font-semibold rounded-full transition-colors duration-200"
