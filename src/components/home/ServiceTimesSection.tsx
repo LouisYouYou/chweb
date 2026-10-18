@@ -55,7 +55,9 @@ export default async function ServiceTimesSection() {
               </p>
 
               {/* Time */}
-              <p className="text-2xl font-black text-wine-700 mb-4 tracking-tight">{s.time}</p>
+              {s.time && (
+                <p className="text-2xl font-black text-wine-700 mb-4 tracking-tight">{s.time}</p>
+              )}
 
               {/* Divider */}
               <div className="h-px bg-gradient-to-r from-wine-100 via-amber-200 to-transparent mb-4" />

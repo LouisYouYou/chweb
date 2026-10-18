@@ -95,11 +95,11 @@ export const pageSEO = {
     path: '/services',
     'zh-TW': {
       title: '主日禮拜時間地點 | 行道會南勢角榮耀堂・中和教會',
-      description: '中和教會聚會時間：主日禮拜每週日 10:00–11:30、小組聚會週二 19:30、青年聚會週六 19:00。地址：新北市中和區忠孝街 39-15 號，捷運南勢角站 4 號出口。歡迎初次來訪的朋友！',
+      description: '中和教會聚會時間：主日禮拜每週日 10:00–11:30、小組聚會週二 19:30、青年聚會每週六固定聚會。地址：新北市中和區忠孝街 39-15 號，捷運南勢角站 4 號出口。歡迎初次來訪的朋友！',
     },
     en: {
       title: 'Sunday Worship Times & Location | Glory Church Of Nanshijiao',
-      description: 'Sunday worship 10:00–11:30, cell group Tue 19:30, youth Sat 19:00. Address: No.39-15 Zhongxiao St., Zhonghe, New Taipei. MRT Nanshijiao Station Exit 4. All are welcome.',
+      description: 'Sunday worship 10:00–11:30, cell group Tue 19:30, youth gathering every Saturday. Address: No.39-15 Zhongxiao St., Zhonghe, New Taipei. MRT Nanshijiao Station Exit 4. All are welcome.',
     },
     my: {
       title: 'ဝတ်ပြုကိုးကွယ်မှု အချက်အလက် | နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း',
@@ -107,7 +107,7 @@ export const pageSEO = {
     },
     ja: {
       title: '礼拝案内 | 行道会南勢角栄光教会',
-      description: '礼拝時間：主日礼拝 毎週日曜日10:00〜11:30、セルグループ 火曜日19:30、青年礼拝 土曜日19:00。新北市中和区忠孝街39-15号。MRT南勢角駅4番出口。',
+      description: '礼拝時間：主日礼拝 毎週日曜日10:00〜11:30、セルグループ 火曜日19:30、青年礼拝 毎週土曜日。新北市中和区忠孝街39-15号。MRT南勢角駅4番出口。',
     },
   } satisfies PageSEO,
 

@@ -23,7 +23,7 @@ function nextDate(dayOfWeek: number, endHour: number, endMinute: number): string
 export default function ChurchJsonLd() {
   const nextSunday   = nextDate(0, 11, 30)  // worship ends 11:30
   const nextTuesday  = nextDate(2, 21,  0)  // small group ends 21:00
-  const nextSaturday = nextDate(6, 21, 30)  // youth meeting ends 21:30
+  const nextSaturday = nextDate(6, 23, 59)  // youth meeting — time not fixed, use end of day
   const data = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -104,9 +104,7 @@ export default function ChurchJsonLd() {
           {
             '@type': 'OpeningHoursSpecification',
             dayOfWeek: 'Saturday',
-            opens: '19:00',
-            closes: '21:30',
-            name: '青年聚會',
+            name: '青年聚會（每週六固定聚會）',
           },
         ],
         contactPoint: {
@@ -154,7 +152,7 @@ export default function ChurchJsonLd() {
           {
             '@type': 'Question',
             name: '中和教會的主日崇拜幾點開始？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂（中和教會）的主日崇拜每週日上午10:00開始，至11:30結束，共90分鐘。另有週二19:30-21:00小組聚會及週六19:00-21:30青年聚會。' },
+            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂（中和教會）的主日崇拜每週日上午10:00開始，至11:30結束，共90分鐘。另有週二19:30-21:00小組聚會及每週六固定青年聚會。' },
           },
           {
             '@type': 'Question',
@@ -267,15 +265,12 @@ export default function ChurchJsonLd() {
         '@type': 'Event',
         '@id': `${BASE}/#event-youth`,
         name: '青年聚會',
-        description: '行道會南勢角榮耀堂每週六青年聚會，時間19:00至21:30，在教會地址進行。',
-        startDate: `${nextSaturday}T19:00:00+08:00`,
-        endDate:   `${nextSaturday}T21:30:00+08:00`,
+        description: '行道會南勢角榮耀堂每週六固定青年聚會，在教會地址進行。',
+        startDate: `${nextSaturday}`,
         eventSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'P1W',
           byDay: 'https://schema.org/Saturday',
-          startTime: '19:00',
-          endTime: '21:30',
         },
         location: {
           '@type': 'Place',
