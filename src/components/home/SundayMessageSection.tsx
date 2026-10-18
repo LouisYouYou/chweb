@@ -6,6 +6,9 @@ import type { PortableTextBlock } from '@portabletext/types'
 import { getLatestSundayMessage } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import FadeIn from '@/components/ui/FadeIn'
+import SundayMessageInteractions from './SundayMessageInteractions'
+
+const BASE_URL = 'https://nanshijiaoglory.vercel.app'
 
 const summaryComponents: PortableTextComponents = {
   block: {
@@ -169,6 +172,12 @@ export default async function SundayMessageSection() {
                   </a>
                 </div>
               )}
+
+              <SundayMessageInteractions
+                sanityId={msg._id}
+                title={msg.title}
+                shareUrl={`${BASE_URL}/${locale}`}
+              />
             </div>
 
           </div>
