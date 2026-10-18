@@ -58,7 +58,7 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-5',
             q: '如何前往行道會南勢角榮耀堂？',
-            a: '搭乘台北捷運環狀線至「南勢角站」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。也可開車前往，教會附近有付費停車場可使用。',
+            a: '搭乘台北捷運環狀線至「南勢角站」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。亦可搭乘 249、670、242 路線公車前往。也可開車前往，教會附近有付費停車場可使用。',
           },
           {
             id: 'faq-6',
@@ -161,7 +161,7 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-5',
             q: 'How do I get to NJC Glory Church?',
-            a: 'Take the MRT Circular Line to Nanshijiao Station and exit from Exit 4. Walk approximately 10 minutes (700 m) to 39-15 Zhongxiao St., Zhonghe District, New Taipei City (Postal Code 235). Paid parking is also available nearby.',
+            a: 'Take the MRT Circular Line to Nanshijiao Station and exit from Exit 4. Walk approximately 10 minutes (700 m) to 39-15 Zhongxiao St., Zhonghe District, New Taipei City (Postal Code 235). Bus routes 249, 670, and 242 also serve the area. Paid parking is also available nearby.',
           },
           {
             id: 'faq-6',
