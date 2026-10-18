@@ -39,9 +39,10 @@
     "hero": {
       "subtitle": "Welcome to",
       "title": "Glory Church Of Nanshijiao",
-      "description": "Here you will find love, hope, and community. Wherever you go, grace walks with you.",
-      "cta_primary": "Service Times",
-      "cta_secondary": "About Us"
+      "description": "In Zhonghe Nanshijiao, find a community to live, share, and grow together.",
+      "description2": "Sunday service 10:00–11:30 AM. First-time visitors are warmly welcome.",
+      "cta_primary": "First-Time Visitor",
+      "cta_secondary": "Service Times & Directions"
     },
     "service_times": {
       "title": "Service Times",

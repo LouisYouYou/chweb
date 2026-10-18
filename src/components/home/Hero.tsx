@@ -69,32 +69,40 @@ export default function Hero() {
         </div>
 
         {/* Description */}
-        <p className="text-base sm:text-xl text-wine-100/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl text-wine-100/90 mb-2 max-w-2xl mx-auto leading-relaxed">
           {t('description')}
         </p>
+        <p className="text-sm sm:text-base text-amber-300/90 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+          {t('description2')}
+        </p>
 
-        {/* CTAs — 2×2 grid on mobile, single row on sm+ */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 justify-center max-w-xs sm:max-w-none mx-auto">
-          {/* Primary CTA */}
-          <Link
-            href={`/${locale}/services`}
-            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 text-xs sm:text-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
-          >
-            {t('cta_primary')}
-          </Link>
-          {/* Secondary CTA */}
-          <Link
-            href={`/${locale}/about`}
-            className="inline-flex items-center justify-center min-h-[44px] px-4 sm:px-7 py-3 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
-          >
-            {t('cta_secondary')}
-          </Link>
+        {/* CTAs — primary row + secondary row */}
+        <div className="flex flex-col items-center gap-3">
+          {/* Primary row — new visitor + service times */}
+          <div className="flex flex-row gap-3 justify-center">
+            {/* Primary CTA — first-time visitor → /about */}
+            <Link
+              href={`/${locale}/about`}
+              className="inline-flex items-center justify-center min-h-[44px] px-5 sm:px-7 py-3 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 text-xs sm:text-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            >
+              {t('cta_primary')}
+            </Link>
+            {/* Secondary CTA — service times → /services */}
+            <Link
+              href={`/${locale}/services`}
+              className="inline-flex items-center justify-center min-h-[44px] px-5 sm:px-7 py-3 border border-amber-400/60 text-amber-300 font-semibold rounded-full hover:bg-amber-400/10 hover:border-amber-400 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            >
+              {t('cta_secondary')}
+            </Link>
+          </div>
+          {/* Tertiary row — Bulletin + Live (lower visual weight) */}
+          <div className="flex flex-row gap-3 justify-center">
           {/* Tertiary CTA — Bulletin */}
           <Link
             href={`/${locale}/weekly-bulletin`}
-            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/25 text-white/60 font-semibold rounded-full hover:bg-white/5 hover:border-white/40 hover:text-white/80 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-5 py-2.5 border border-white/20 text-white/45 font-medium rounded-full hover:bg-white/5 hover:border-white/35 hover:text-white/65 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
           >
-            <FileText size={13} aria-hidden="true" />
+            <FileText size={12} aria-hidden="true" />
             {zh ? '教會週報' : 'Bulletin'}
           </Link>
 
@@ -104,11 +112,11 @@ export default function Hero() {
               href="https://www.youtube.com/@winson651202/live"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-red-400 text-red-300 font-semibold rounded-full bg-red-400/10 hover:bg-red-400/20 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-5 py-2.5 border border-red-400/70 text-red-300/80 font-medium rounded-full bg-red-400/10 hover:bg-red-400/20 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
             >
-              <span aria-hidden="true" className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
+              <span aria-hidden="true" className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-red-500" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
               </span>
               {zh ? '直播中' : 'Live Now'}
             </a>
@@ -117,18 +125,18 @@ export default function Hero() {
               href="https://www.youtube.com/@winson651202"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/20 text-white/40 font-semibold rounded-full hover:bg-white/5 text-xs sm:text-sm backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-5 py-2.5 border border-white/20 text-white/40 font-medium rounded-full hover:bg-white/5 hover:text-white/55 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
             >
-              <Radio size={13} aria-hidden="true" className="opacity-50" />
-              <span className="sm:hidden">{zh ? '主日直播' : 'Live'}</span>
-              <span className="hidden sm:inline">{zh ? '現在沒有線上直播' : 'No Live Stream'}</span>
+              <Radio size={12} aria-hidden="true" className="opacity-45" />
+              {zh ? '主日直播' : 'Live'}
             </a>
           ) : (
-            <span className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-7 py-3 border border-white/20 text-white/30 font-semibold rounded-full text-xs sm:text-sm backdrop-blur-sm cursor-default">
-              <Radio size={13} aria-hidden="true" className="opacity-30" />
+            <span className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 sm:px-5 py-2.5 border border-white/15 text-white/25 font-medium rounded-full text-xs backdrop-blur-sm cursor-default">
+              <Radio size={12} aria-hidden="true" className="opacity-25" />
               {zh ? '主日直播' : 'Live'}
             </span>
           )}
+          </div>
         </div>
 
         {/* Stats */}

@@ -39,9 +39,10 @@
     "hero": {
       "subtitle": "歡迎來到",
       "title": "行道會南勢角榮耀堂",
-      "description": "在這裡，你將找到愛、盼望與群體。無論你走到哪裡，恩典都與你同行。",
-      "cta_primary": "了解聚會時間",
-      "cta_secondary": "認識我們"
+      "description": "在中和南勢角，找到可以一起生活、分享與成長的群體。",
+      "description2": "每週日 10:00–11:30，歡迎第一次走進教會的你。",
+      "cta_primary": "第一次來，先看這裡",
+      "cta_secondary": "聚會時間與交通"
     },
     "service_times": {
       "title": "聚會時間",

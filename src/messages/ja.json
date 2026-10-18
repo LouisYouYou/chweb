@@ -38,9 +38,10 @@
     "hero": {
       "subtitle": "ようこそ",
       "title": "行道会南勢角栄光教会",
-      "description": "ここには愛、希望、そして仲間があります。どこへ行っても、恵みはあなたとともにあります。",
-      "cta_primary": "礼拝案内",
-      "cta_secondary": "私たちについて"
+      "description": "中和南勢角で、共に生き、分かち合い、成長できる仲間を見つけましょう。",
+      "description2": "毎週日曜日10:00〜11:30、初めて教会に来られる方も歓迎です。",
+      "cta_primary": "初めての方はこちら",
+      "cta_secondary": "礼拝案内・アクセス"
     },
     "service_times": {
       "title": "礼拝時間",
