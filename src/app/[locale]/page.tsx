@@ -19,6 +19,8 @@ import HashScrollHandler from '@/components/ui/HashScrollHandler';
 
 export const revalidate = 300
 
+const SITE_URL = 'https://nanshijiaoglory.vercel.app'
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   setRequestLocale(locale)
@@ -28,14 +30,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     getLatestSundayMessage(),
   ])
 
-  // opengraph-image.tsx generates the dynamic OG image — strip the static church.jpg
-  const ogNoImages = base.openGraph
-    ? { ...(base.openGraph as object), images: [] }
-    : undefined
-
-  if (!msg) {
-    return { ...base, openGraph: ogNoImages as Metadata['openGraph'] }
-  }
+  // No Sunday message: keep default layout metadata (church.jpg)
+  if (!msg) return base
 
   const [y, m, d] = msg.date.split('-')
 
@@ -57,15 +53,26 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     } as Record<string, string>)[locale]
     ?? `${y} 年 ${parseInt(m)} 月 ${parseInt(d)} 日 主日信息：${msg.title}，講員 ${msg.preacher}。`
 
+  // Explicit dynamic OG image URL — overrides layout's church.jpg for both og: and twitter:
+  const ogImageUrl = `${SITE_URL}/${locale}/opengraph-image`
+  const ogImage = { url: ogImageUrl, width: 1200, height: 630, alt: dynamicTitle }
+
   return {
     ...base,
     title: { absolute: dynamicTitle },
     description: dynamicDesc,
     openGraph: {
-      ...(ogNoImages as object),
+      ...(base.openGraph as object),
       title: dynamicTitle,
       description: dynamicDesc,
+      images: [ogImage],
     } as Metadata['openGraph'],
+    twitter: {
+      card: 'summary_large_image',
+      title: dynamicTitle,
+      description: dynamicDesc,
+      images: [ogImageUrl],
+    },
   }
 }
 
