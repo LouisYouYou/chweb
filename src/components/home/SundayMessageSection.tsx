@@ -82,7 +82,7 @@ export default async function SundayMessageSection() {
   const imageLqip = msg.image?.asset?.metadata?.lqip
 
   return (
-    <section id="sunday-message" className="py-24 bg-[#fdfaf5] relative overflow-hidden">
+    <section id="sunday-message" className="py-24 bg-[#fdfaf5] relative overflow-hidden scroll-mt-28">
       <div aria-hidden="true" className="absolute -left-24 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-wine-50 opacity-60 pointer-events-none" />
       <div aria-hidden="true" className="absolute -right-16 bottom-0 w-56 h-56 rounded-full bg-amber-50 opacity-50 pointer-events-none" />
 

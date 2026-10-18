@@ -13,7 +13,8 @@ import SermonsSkeleton from '@/components/home/SermonsSkeleton';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
 import EventsSkeleton from '@/components/home/EventsSkeleton';
 import { getChannelVideos } from '@/lib/youtube';
-import { buildMetadata, pageSEO } from '@/lib/seo/metadata';
+import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
+import HashScrollHandler from '@/components/ui/HashScrollHandler';
 
 export const revalidate = 300
 
@@ -34,6 +35,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale)
   return (
     <>
+      <HashScrollHandler />
       <Hero />
       <StatsBar />
       <AnnouncementBanner />
