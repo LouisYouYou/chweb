@@ -157,7 +157,7 @@ export default function ChurchJsonLd() {
           {
             '@type': 'Question',
             name: '如何前往南勢角教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '搭乘台北捷運環狀線至「南勢角站」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。也可開車前往，附近有付費停車場。' },
+            acceptedAnswer: { '@type': 'Answer', text: '搭乘台北捷運中和新蘆線至「南勢角站（O01）」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。也可開車前往，附近有付費停車場。' },
           },
           {
             '@type': 'Question',
@@ -196,8 +196,8 @@ export default function ChurchJsonLd() {
           },
           {
             '@type': 'Question',
-            name: '捷運環狀線南勢角站附近有教會嗎？',
-            acceptedAnswer: { '@type': 'Answer', text: '有，行道會南勢角榮耀堂就位於捷運環狀線南勢角站步行10分鐘處（新北市中和區忠孝街39-15號）。是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30。' },
+            name: '捷運中和新蘆線南勢角站附近有教會嗎？',
+            acceptedAnswer: { '@type': 'Answer', text: '有，行道會南勢角榮耀堂就位於捷運中和新蘆線南勢角站（O01）步行10分鐘處（新北市中和區忠孝街39-15號）。是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30。' },
           },
           {
             '@type': 'Question',

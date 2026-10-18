@@ -58,12 +58,12 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-5',
             q: '如何前往行道會南勢角榮耀堂？',
-            a: '搭乘台北捷運環狀線至「南勢角站」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。亦可搭乘 249、670、242 路線公車前往。也可開車前往，教會附近有付費停車場可使用。',
+            a: '搭乘台北捷運中和新蘆線至「南勢角站（O01）」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。亦可搭乘 249、670、242 路線公車前往。也可開車前往，教會附近有付費停車場可使用。',
           },
           {
             id: 'faq-6',
-            q: '捷運環狀線南勢角站附近有教會嗎？',
-            a: '有，行道會南勢角榮耀堂就位於捷運環狀線南勢角站步行10分鐘處（新北市中和區忠孝街39-15號），是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30，歡迎蒞臨。',
+            q: '捷運中和新蘆線南勢角站附近有教會嗎？',
+            a: '有，行道會南勢角榮耀堂就位於捷運中和新蘆線南勢角站（O01）步行10分鐘處（新北市中和區忠孝街39-15號），是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30，歡迎蒞臨。',
           },
           {
             id: 'faq-7',
@@ -89,12 +89,12 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-10',
             q: '中永和地區有沒有說華語的教會？',
-            a: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，同時提供緬甸語及英語服務，服務多元文化背景的信徒。無論你是本地人或新住民，都歡迎前來。',
+            a: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，歡迎各族群朋友前來。教會網站提供中文、英文、緬甸語及日文版本，方便各國朋友查詢資訊。',
           },
           {
             id: 'faq-11',
-            q: '新北市中和區有沒有提供緬甸語崇拜的教會？',
-            a: '行道會南勢角榮耀堂提供緬甸語（Burmese）崇拜與小組服務，是中永和地區少數同時提供華語、英語、緬甸語三種語言服事的教會，地址為新北市中和區忠孝街39-15號。',
+            q: '網站有提供緬甸語嗎？',
+            a: '是的，行道會南勢角榮耀堂官方網站提供繁體中文、英文、緬甸語及日文版本，方便各族群朋友查詢聚會資訊。教會主要以華語進行聚會，歡迎緬甸裔朋友前來參加。',
           },
           {
             id: 'faq-12',
@@ -161,12 +161,12 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-5',
             q: 'How do I get to NJC Glory Church?',
-            a: 'Take the MRT Circular Line to Nanshijiao Station and exit from Exit 4. Walk approximately 10 minutes (700 m) to 39-15 Zhongxiao St., Zhonghe District, New Taipei City (Postal Code 235). Bus routes 249, 670, and 242 also serve the area. Paid parking is also available nearby.',
+            a: 'Take the MRT Zhonghe-Xinlu Line to Nanshijiao Station (O01) and exit from Exit 4. Walk approximately 10 minutes (700 m) to 39-15 Zhongxiao St., Zhonghe District, New Taipei City (Postal Code 235). Bus routes 249, 670, and 242 also serve the area. Paid parking is also available nearby.',
           },
           {
             id: 'faq-6',
-            q: 'Is there a church near MRT Nanshijiao Station (Circular Line)?',
-            a: 'Yes, NJC Glory Church is a 10-minute walk from MRT Circular Line Nanshijiao Station (Exit 4), at 39-15 Zhongxiao St., Zhonghe. Sunday worship is every Sunday 10:00–11:30 AM.',
+            q: 'Is there a church near MRT Nanshijiao Station (Zhonghe-Xinlu Line)?',
+            a: 'Yes, NJC Glory Church is a 10-minute walk from MRT Zhonghe-Xinlu Line Nanshijiao Station (O01, Exit 4), at 39-15 Zhongxiao St., Zhonghe. Sunday worship is every Sunday 10:00–11:30 AM.',
           },
           {
             id: 'faq-7',
@@ -192,12 +192,12 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-10',
             q: 'Is there a Mandarin-speaking church in Zhongyonghe (中永和)?',
-            a: 'NJC Glory Church is located in Nanshijiao on the Zhongyonghe border and conducts services primarily in Mandarin, while also offering Burmese and English ministry — welcoming people of diverse cultural backgrounds.',
+            a: 'NJC Glory Church is located in Nanshijiao on the Zhongyonghe border and conducts services primarily in Mandarin. All are welcome regardless of background. Our website is available in Traditional Chinese, English, Burmese, and Japanese.',
           },
           {
             id: 'faq-11',
-            q: 'Is there a Burmese-language church in Zhonghe, New Taipei City?',
-            a: 'Yes, NJC Glory Church provides Burmese (Myanmar) worship services and small groups. It is one of the few churches in the Zhongyonghe area offering ministry in Mandarin, English, and Burmese. Address: 39-15 Zhongxiao St., Zhonghe, New Taipei City.',
+            q: 'Is the website available in Burmese?',
+            a: 'Yes, the NJC Glory Church website is available in Traditional Chinese, English, Burmese (Myanmar), and Japanese. Services are conducted in Mandarin. Myanmar-background visitors are warmly welcome. Address: 39-15 Zhongxiao St., Zhonghe, New Taipei City.',
           },
           {
             id: 'faq-12',
@@ -264,12 +264,12 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-5',
             q: 'ဘုရားကျောင်းသို့ ဘယ်လိုသွားရမည်နည်း?',
-            a: 'MRT Circular Line ဖြင့် Nanshijiao Station သို့ ရောက်ပြီး Exit 4 မှ ထွက်ကာ ၁၀ မိနစ်ခန့် (700 မီတာ) လျှောက်ပါ။ လိပ်စာ: Zhongxiao St. 39-15, Zhonghe District, New Taipei City (235)။',
+            a: 'MRT Zhonghe-Xinlu Line ဖြင့် Nanshijiao Station (O01) သို့ ရောက်ပြီး Exit 4 မှ ထွက်ကာ ၁၀ မိနစ်ခန့် (700 မီတာ) လျှောက်ပါ။ လိပ်စာ: Zhongxiao St. 39-15, Zhonghe District, New Taipei City (235)။',
           },
           {
             id: 'faq-6',
             q: 'MRT Nanshijiao Station နားမှာ ဘုရားကျောင်း ရှိသလား?',
-            a: 'ဟုတ်ကဲ့၊ NJC Glory Church သည် MRT Circular Line Nanshijiao Station Exit 4 မှ ၁၀ မိနစ်ခန့်လျှောက်ရသောနေရာတွင် ရှိသည်။ တနင်္ဂနွေ ဝတ်ပြုကိုးကွယ်ချိန်မှာ 10:00-11:30 ဖြစ်သည်။',
+            a: 'ဟုတ်ကဲ့၊ NJC Glory Church သည် MRT Zhonghe-Xinlu Line Nanshijiao Station (O01) Exit 4 မှ ၁၀ မိနစ်ခန့်လျှောက်ရသောနေရာတွင် ရှိသည်။ တနင်္ဂနွေ ဝတ်ပြုကိုးကွယ်ချိန်မှာ 10:00-11:30 ဖြစ်သည်။',
           },
           {
             id: 'faq-7',
@@ -289,8 +289,8 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           },
           {
             id: 'faq-9',
-            q: 'မြန်မာဘာသာဖြင့် ဝတ်ပြုကိုးကွယ်မှုပြုလုပ်သော ဘုရားကျောင်း ရှိသလား?',
-            a: 'ဟုတ်ကဲ့၊ NJC Glory Church တွင် မြန်မာဘာသာ (Burmese) ဖြင့် ဝတ်ပြုကိုးကွယ်မှုနှင့် Small Group ဝန်ဆောင်မှုများ ရှိပါသည်။ ရုံတိုင်းပြည်ဘာသာ၊ အင်္ဂလိပ်ဘာသာ နှင့် မြန်မာဘာသာ သုံးမျိုးဖြင့် ဝန်ဆောင်မှုပေးသောကျောင်းတော်တစ်ခုဖြစ်သည်။',
+            q: 'ဝဘ်ဆိုက်တွင် မြန်မာဘာသာ ပါရှိသလား?',
+            a: 'ဟုတ်ကဲ့၊ NJC Glory Church ဝဘ်ဆိုက်ကို တရုတ်ဘာသာ၊ အင်္ဂလိပ်ဘာသာ၊ မြန်မာဘာသာ နှင့် ဂျပန်ဘာသာဖြင့် ဖတ်ရှုနိုင်သည်။ ကျောင်းတော်ဝတ်ပြုကိုးကွယ်မှုများကို တရုတ်ဘာသာဖြင့် ပြုလုပ်သည်။ မြန်မာ နောက်ခံရှိသောညီအကိုမောင်နှမများကို ဖိတ်ကြားပါသည်။',
           },
           {
             id: 'faq-10',
