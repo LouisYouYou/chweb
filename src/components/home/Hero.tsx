@@ -80,9 +80,9 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-3">
           {/* Primary row — new visitor + service times */}
           <div className="flex flex-row gap-3 justify-center">
-            {/* Primary CTA — first-time visitor → /about */}
+            {/* Primary CTA — first-time visitor → /first-visit */}
             <Link
-              href={`/${locale}/about`}
+              href={`/${locale}/first-visit`}
               className="inline-flex items-center justify-center min-h-[44px] px-5 sm:px-7 py-3 bg-amber-400 text-wine-900 font-bold rounded-full hover:bg-amber-300 text-xs sm:text-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-wine-950"
             >
               {t('cta_primary')}

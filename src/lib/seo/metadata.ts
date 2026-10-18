@@ -91,6 +91,26 @@ export const pageSEO = {
     },
   } satisfies PageSEO,
 
+  first_visit: {
+    path: '/first-visit',
+    'zh-TW': {
+      title: '第一次來教會 | 行道會南勢角榮耀堂・新朋友指南',
+      description: '第一次來行道會南勢角榮耀堂，你需要知道的事：不需信仰背景、不需報名、聚會流程介紹、帶小孩、交通入口、無障礙設施。每週日 10:00，歡迎你直接來。',
+    },
+    en: {
+      title: 'First-Time Visitor Guide | Glory Church Of Nanshijiao',
+      description: 'Everything you need to know before your first visit to NJC Glory Church: no faith required, no RSVP, what to expect, bringing kids, finding the entrance. Sundays 10:00 AM.',
+    },
+    my: {
+      title: 'ပထမဆုံးလာသောသူများအတွက် | နန်ရှိချောင် ဂလိုရီဘုရားကျောင်း',
+      description: 'ကျောင်းတော်သို့ ပထမဆုံးလာသောသူများအတွက် လမ်းညွှန်ချက်။ တနင်္ဂနွေ 10:00 တွင် တိုက်ရိုက်လာနိုင်ပါသည်။',
+    },
+    ja: {
+      title: '初めての方へ | 行道会南勢角栄光教会',
+      description: '初めて行道会南勢角栄光教会を訪れる方へ。信仰不問、予約不要。礼拝の流れ、お子様連れ、アクセス方法など。毎週日曜10:00にお越しください。',
+    },
+  } satisfies PageSEO,
+
   services: {
     path: '/services',
     'zh-TW': {

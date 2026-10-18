@@ -210,5 +210,29 @@
     "back": "Back",
     "loading": "Loading...",
     "no_results": "No results found"
+  },
+  "first_visit": {
+    "page_title": "Visiting for the First Time",
+    "page_subtitle": "No faith background required. No RSVP needed. You're already on your way.",
+    "intro": "Maybe a friend invited you, or you're just curious. Either way, we're glad you're here. Here are the questions we hear most often from first-time visitors.",
+    "q1_q": "Do I need to be a Christian to come?",
+    "q1_a": "Not at all. Everyone is welcome, regardless of faith background. Many first-time visitors come just to see what church is like, or to accompany a friend. That's completely fine.",
+    "q2_q": "Do I need to register in advance?",
+    "q2_a": "No. Just show up on Sunday at 10:00 AM. If you'd like to let us know ahead of time, you're welcome to reach out by phone or contact form — we'll have someone at the door to greet you.",
+    "q3_q": "What will happen during the service?",
+    "q3_a": "The service lasts about 90 minutes: worship songs (~20 min), announcements, and a sermon (~40 min). It's conducted in Mandarin Chinese. You don't need to do anything — sitting quietly is completely fine. There's usually a light refreshment time after, but you're welcome to leave at any point.",
+    "q4_q": "Will it be awkward to come alone?",
+    "q4_a": "We have greeters at the entrance specifically to welcome first-time visitors. No one will ask you to stand up or introduce yourself. A greeter will help you find a seat, and you're welcome to ask them anything. You can be as low-key as you like.",
+    "q5_q": "Can I bring children?",
+    "q5_a": "Yes. Sunday school runs at the same time as the main service and is suitable for preschool to elementary-age children. Parents worship in the main hall while children are cared for by dedicated staff. We recommend arriving 10 minutes early so children can settle in.",
+    "q6_q": "How do I find the entrance?",
+    "q6_a": "The church is at No. 39-15, Zhongxiao St., Zhonghe District, New Taipei City — ground floor entrance with clear signage. From MRT Zhonghe-Xinlu Line Nanshijiao Station (O01), take Exit 4 and walk about 10 minutes (700 m). If you get lost, call (02) 8668-5515.",
+    "q7_q": "Is the church accessible for people with mobility needs?",
+    "q7_a": "The main hall is on the ground floor — no stairs required to enter. If you have specific needs or would like assistance, please call (02) 8668-5515 in advance and we'll arrange a greeter to meet you at the door.",
+    "cta_heading": "Still have questions?",
+    "cta_sub": "Feel free to reach out, or check our service times.",
+    "cta_contact": "Contact Us",
+    "cta_services": "Service Times & Directions",
+    "cta_faq": "FAQ"
   }
 }
