@@ -4,7 +4,7 @@ import { Clock, Users, MapPin, Mail, ArrowRight } from 'lucide-react';
 
 const steps = [
   { key: 'step1', icon: Clock, color: 'bg-wine-50 text-wine-600', href: 'services' },
-  { key: 'step2', icon: Users, color: 'bg-amber-50 text-amber-600', href: 'about' },
+  { key: 'step2', icon: Users, color: 'bg-amber-50 text-amber-600', href: 'first-visit' },
   { key: 'step3', icon: MapPin, color: 'bg-green-50 text-green-600', href: 'services' },
   { key: 'step4', icon: Mail, color: 'bg-purple-50 text-purple-600', href: 'contact' },
 ] as const;
