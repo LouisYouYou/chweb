@@ -158,6 +158,14 @@ export async function getAllEvents(): Promise<SanityEvent[]> {
   )
 }
 
+export async function getEventById(id: string): Promise<SanityEvent | null> {
+  return client.fetch(
+    groq`*[_type == "churchEvent" && _id == $id][0] { ${eventFields} }`,
+    { id },
+    { next: { tags: [`event-${id}`], revalidate: 3600 } }
+  )
+}
+
 export interface SundayMessage {
   _id: string
   date: string

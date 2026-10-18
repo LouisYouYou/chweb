@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import { MapPin, Clock, X, ZoomIn, ClipboardList, Users } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { MapPin, Clock, X, ZoomIn, ClipboardList, Users, ExternalLink } from 'lucide-react';
 import type { DisplayEvent } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
@@ -40,6 +41,7 @@ interface EventsCalendarProps {
 
 export default function EventsCalendar({ locale, events }: EventsCalendarProps) {
   const t = useTranslations('events');
+  const currentLocale = useLocale();
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const zh = locale === 'zh-TW';
@@ -171,19 +173,28 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                         )}
                       </div>
 
-                      {/* Registration button */}
-                      {event.registrationUrl && (
-                        <a
-                          href={event.registrationUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white church-gradient shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
+                      {/* Buttons row */}
+                      <div className="flex flex-wrap gap-3">
+                        <Link
+                          href={`/${currentLocale}/events/${event.id}`}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-wine-700 border border-wine-200 bg-white hover:bg-wine-50 hover:border-wine-400 transition-all duration-200"
                         >
-                          <ClipboardList size={15} />
-                          {t4('立即報名', 'မှတ်ပုံတင်ရန်', '今すぐ登録', 'Register Now')}
-                        </a>
-                      )}
+                          <ExternalLink size={13} aria-hidden="true" />
+                          {t('view_detail')}
+                        </Link>
+                        {event.registrationUrl && (
+                          <a
+                            href={event.registrationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white church-gradient shadow-md hover:shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200"
+                          >
+                            <ClipboardList size={15} />
+                            {t4('立即報名', 'မှတ်ပုံတင်ရန်', '今すぐ登録', 'Register Now')}
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
