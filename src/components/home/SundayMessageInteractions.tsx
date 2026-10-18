@@ -123,6 +123,8 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl }:
 
   const encodedUrl = encodeURIComponent(shareUrl)
   const encodedTitle = encodeURIComponent(title)
+  // LINE 正確格式：文字＋換行＋URL，這樣群組可以看到信息標題
+  const lineText = encodeURIComponent(`${title}\n${shareUrl}`)
 
   return (
     <div className="pt-4 border-t border-gray-100 space-y-4">
@@ -163,9 +165,9 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl }:
           分享
         </span>
 
-        {/* LINE */}
+        {/* LINE — 使用 msg/text 格式才能帶入標題文字 */}
         <a
-          href={`https://social-plugins.line.me/lineit/share?url=${encodedUrl}`}
+          href={`https://line.me/R/msg/text/?${lineText}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-[#06C755] hover:bg-[#05b04c] text-white text-xs font-semibold rounded-full transition-colors duration-200"
