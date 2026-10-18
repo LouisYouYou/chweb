@@ -110,7 +110,7 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-13',
             q: '行道會南勢角榮耀堂的聯絡電話是多少？',
-            a: '行道會南勢角榮耀堂的聯絡電話為 02-8668-5515，電子郵件為 winson651202@gmail.com，辦公時間為週一至週五 9:00-17:00。也歡迎透過官網聯絡表單留言，我們將盡快回覆。',
+            a: '行道會南勢角榮耀堂的聯絡電話為 02-8668-5515，電子郵件為 winson651202@gmail.com，辦公時間為週二至週日 9:00-17:00。也歡迎透過官網聯絡表單留言，我們將盡快回覆。',
           },
           {
             id: 'faq-14',
@@ -213,7 +213,7 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           {
             id: 'faq-13',
             q: 'What is the phone number for NJC Glory Church?',
-            a: 'Phone: 02-8668-5515. Email: winson651202@gmail.com. Office hours: Monday–Friday, 9:00 AM–5:00 PM. You are also welcome to reach us via the contact form on this website.',
+            a: 'Phone: 02-8668-5515. Email: winson651202@gmail.com. Office hours: Tuesday–Sunday, 9:00 AM–5:00 PM. You are also welcome to reach us via the contact form on this website.',
           },
           {
             id: 'faq-14',

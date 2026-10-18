@@ -152,7 +152,7 @@ export default function Footer() {
               <li className="flex items-center gap-2">
                 <Clock size={14} className="shrink-0 text-wine-400" />
                 <span>
-                  {locale === 'zh-TW' ? '週一至週五 9:00 - 17:00' : locale === 'my' ? 'တနင်္လာ – သောကြာ ၉:၀၀ – ၁၇:၀၀' : locale === 'ja' ? '月〜金 9:00 – 17:00' : 'Mon–Fri 9:00 AM – 5:00 PM'}
+                  {locale === 'zh-TW' ? '週二至週日 9:00 - 17:00' : locale === 'my' ? 'အင်္ဂါ – တနင်္ဂနွေ ၉:၀၀ – ၁၇:၀၀' : locale === 'ja' ? '火〜日 9:00 – 17:00' : 'Tue–Sun 9:00 AM – 5:00 PM'}
                 </span>
               </li>
             </ul>

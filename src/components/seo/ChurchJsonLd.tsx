@@ -172,7 +172,7 @@ export default function ChurchJsonLd() {
           {
             '@type': 'Question',
             name: '行道會南勢角榮耀堂的聯絡電話是多少？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂的聯絡電話為 02-8668-5515，電子郵件為 winson651202@gmail.com，辦公時間為週一至週五 9:00-17:00。' },
+            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂的聯絡電話為 02-8668-5515，電子郵件為 winson651202@gmail.com，辦公時間為週二至週日 9:00-17:00。' },
           },
           {
             '@type': 'Question',
