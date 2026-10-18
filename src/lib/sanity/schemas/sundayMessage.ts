@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, defineArrayMember } from 'sanity'
 
 export default defineType({
   name: 'sundayMessage',
@@ -41,9 +41,28 @@ export default defineType({
     defineField({
       name: 'summary',
       title: '📝 信息摘要（選填）',
-      type: 'text',
-      rows: 4,
-      description: '2–4 句話描述本週信息重點，顯示於首頁預覽',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [
+            { title: '正文', value: 'normal' },
+            { title: '大標題', value: 'h3' },
+            { title: '小標題', value: 'h4' },
+            { title: '引用語句', value: 'blockquote' },
+          ],
+          lists: [],
+          marks: {
+            decorators: [
+              { title: '粗體 Bold', value: 'strong' },
+              { title: '斜體 Italic', value: 'em' },
+              { title: '底線 Underline', value: 'underline' },
+            ],
+            annotations: [],
+          },
+        }),
+      ],
+      description: '可設定文字樣式（大標題、小標題、引用語句）與粗體、斜體、底線，顯示於首頁信息預覽',
     }),
     defineField({
       name: 'youtubeUrl',

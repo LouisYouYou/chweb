@@ -1,5 +1,8 @@
 import { client } from './client'
 import { groq } from 'next-sanity'
+import type { PortableTextBlock } from '@portabletext/types'
+
+export type SanityBlock = PortableTextBlock
 
 export interface Announcement {
   _id: string
@@ -161,7 +164,7 @@ export interface SundayMessage {
   title: string
   preacher: string
   scripture?: string
-  summary?: string
+  summary?: string | SanityBlock[]
   youtubeUrl?: string
   image?: {
     asset: {

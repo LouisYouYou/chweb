@@ -1,9 +1,29 @@
 import Image from 'next/image'
 import { BookOpen, Mic2, CalendarDays, Play } from 'lucide-react'
 import { getTranslations, getLocale } from 'next-intl/server'
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import type { PortableTextBlock } from '@portabletext/types'
 import { getLatestSundayMessage } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import FadeIn from '@/components/ui/FadeIn'
+
+const summaryComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+    h3: ({ children }) => <h3 className="text-xl font-bold text-wine-900 mb-2 mt-3 first:mt-0">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-base font-semibold text-wine-800 mb-1 mt-2 first:mt-0">{children}</h4>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-amber-400 pl-4 italic text-gray-500 my-2">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold text-wine-900">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+    underline: ({ children }) => <span className="underline">{children}</span>,
+  },
+}
 
 const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
@@ -124,9 +144,16 @@ export default async function SundayMessageSection() {
               </div>
 
               {msg.summary && (
-                <p className="type-body whitespace-pre-wrap">
-                  {msg.summary}
-                </p>
+                Array.isArray(msg.summary) ? (
+                  <div className="type-body">
+                    <PortableText
+                      value={msg.summary as PortableTextBlock[]}
+                      components={summaryComponents}
+                    />
+                  </div>
+                ) : (
+                  <p className="type-body whitespace-pre-wrap">{msg.summary}</p>
+                )
               )}
 
               {msg.youtubeUrl && (
