@@ -46,23 +46,53 @@ export default defineType({
         defineArrayMember({
           type: 'block',
           styles: [
-            { title: '正文', value: 'normal' },
-            { title: '大標題', value: 'h3' },
-            { title: '小標題', value: 'h4' },
-            { title: '引用語句', value: 'blockquote' },
+            { title: '▪ 正文（16px）', value: 'normal' },
+            { title: '✦ 特大字（24px）', value: 'textXxl' },
+            { title: '◆ 大字（20px）', value: 'textXl' },
+            { title: '● 中大字（18px）', value: 'textLg' },
+            { title: '▫ 小字（14px）', value: 'textSm' },
+            { title: '＝ 標題一（H2）', value: 'h2' },
+            { title: '─ 標題二（H3）', value: 'h3' },
+            { title: '· 標題三（H4）', value: 'h4' },
+            { title: '❝ 引用語句', value: 'blockquote' },
           ],
-          lists: [],
+          lists: [
+            { title: '• 無序列表', value: 'bullet' },
+            { title: '1. 有序列表', value: 'number' },
+          ],
           marks: {
             decorators: [
               { title: '粗體 Bold', value: 'strong' },
               { title: '斜體 Italic', value: 'em' },
               { title: '底線 Underline', value: 'underline' },
+              { title: '刪除線 Strike', value: 'strike-through' },
+              { title: '程式碼 Code', value: 'code' },
             ],
-            annotations: [],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: '🔗 超連結',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    type: 'url',
+                    title: '網址',
+                    validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https', 'mailto', 'tel'] }),
+                  }),
+                  defineField({
+                    name: 'blank',
+                    type: 'boolean',
+                    title: '在新視窗開啟',
+                    initialValue: true,
+                  }),
+                ],
+              },
+            ],
           },
         }),
       ],
-      description: '可設定文字樣式（大標題、小標題、引用語句）與粗體、斜體、底線，顯示於首頁信息預覽',
+      description: '支援字體大小、H2-H4 標題、無序/有序列表、粗體、斜體、底線、刪除線、程式碼、超連結',
     }),
     defineField({
       name: 'youtubeUrl',

@@ -12,19 +12,44 @@ const BASE_URL = 'https://nanshijiaoglory.vercel.app'
 
 const summaryComponents: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-    h3: ({ children }) => <h3 className="text-xl font-bold text-wine-900 mb-2 mt-3 first:mt-0">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-base font-semibold text-wine-800 mb-1 mt-2 first:mt-0">{children}</h4>,
+    normal:     ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+    textXxl:    ({ children }) => <p className="text-2xl leading-relaxed mb-2 last:mb-0">{children}</p>,
+    textXl:     ({ children }) => <p className="text-xl leading-relaxed mb-2 last:mb-0">{children}</p>,
+    textLg:     ({ children }) => <p className="text-lg leading-relaxed mb-2 last:mb-0">{children}</p>,
+    textSm:     ({ children }) => <p className="text-sm leading-relaxed mb-2 last:mb-0 text-gray-500">{children}</p>,
+    h2:         ({ children }) => <h2 className="text-2xl font-extrabold text-wine-900 mb-3 mt-4 first:mt-0">{children}</h2>,
+    h3:         ({ children }) => <h3 className="text-xl font-bold text-wine-900 mb-2 mt-3 first:mt-0">{children}</h3>,
+    h4:         ({ children }) => <h4 className="text-base font-semibold text-wine-800 mb-1 mt-2 first:mt-0">{children}</h4>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-amber-400 pl-4 italic text-gray-500 my-2">
         {children}
       </blockquote>
     ),
   },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-0.5 text-gray-700">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-0.5 text-gray-700">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  },
   marks: {
-    strong: ({ children }) => <strong className="font-bold text-wine-900">{children}</strong>,
-    em: ({ children }) => <em className="italic">{children}</em>,
-    underline: ({ children }) => <span className="underline">{children}</span>,
+    strong:         ({ children }) => <strong className="font-bold text-wine-900">{children}</strong>,
+    em:             ({ children }) => <em className="italic">{children}</em>,
+    underline:      ({ children }) => <span className="underline">{children}</span>,
+    'strike-through': ({ children }) => <s className="line-through text-gray-400">{children}</s>,
+    code:           ({ children }) => <code className="bg-gray-100 text-wine-800 text-xs px-1.5 py-0.5 rounded font-mono">{children}</code>,
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        target={value?.blank ? '_blank' : '_self'}
+        rel={value?.blank ? 'noopener noreferrer' : undefined}
+        className="text-wine-600 underline underline-offset-2 hover:text-wine-800 transition-colors"
+      >
+        {children}
+      </a>
+    ),
   },
 }
 
