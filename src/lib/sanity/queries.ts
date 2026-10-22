@@ -11,6 +11,7 @@ export interface Announcement {
   contentZh?: string
   contentEn?: string
   type: 'event' | 'notice' | 'urgent'
+  image?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
   link?: string
   isPinned: boolean
   publishedAt: string
@@ -26,7 +27,7 @@ export async function getAnnouncements(): Promise<Announcement[]> {
       (expiresAt == null || expiresAt > $now)
     ] | order(isPinned desc, publishedAt desc) [0...5] {
       _id, titleZh, titleEn, contentZh, contentEn,
-      type, link, isPinned, publishedAt, expiresAt
+      type, image { asset, hotspot }, link, isPinned, publishedAt, expiresAt
     }`,
     { now }
   )

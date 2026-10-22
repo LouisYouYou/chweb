@@ -45,6 +45,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'image',
+      title: '🖼️ 首頁公告主圖（選填）',
+      type: 'image',
+      options: { hotspot: true },
+      description: '建議寬度 800px 以上，JPG 或 PNG。前端顯示為縮圖預覽。',
+    }),
+    defineField({
       name: 'link',
       title: '🔗 連結（選填）',
       type: 'url',

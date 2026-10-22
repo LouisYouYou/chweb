@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getLocale } from 'next-intl/server';
 import { Bell, AlertCircle, Calendar, ExternalLink, Pin } from 'lucide-react';
 import { getAnnouncements } from '@/lib/sanity/queries';
+import { urlFor } from '@/lib/sanity/client';
 
 const typeConfig: Record<string, {
   icon: typeof Bell;
@@ -79,6 +81,17 @@ export default async function AnnouncementBanner() {
                   <p className="font-bold text-wine-900 text-base leading-snug">{title}</p>
                   {content && (
                     <p className="text-sm text-gray-500 mt-1 leading-relaxed whitespace-pre-line">{content}</p>
+                  )}
+                  {item.image?.asset && (
+                    <div className="mt-3 rounded-xl overflow-hidden border border-gray-100 w-full max-w-xs">
+                      <Image
+                        src={urlFor(item.image).width(480).height(270).fit('crop').auto('format').url()}
+                        alt={title}
+                        width={480}
+                        height={270}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
                   )}
                 </div>
 
