@@ -12,7 +12,6 @@ import LatestSermons from '@/components/home/LatestSermons';
 import SermonsSkeleton from '@/components/home/SermonsSkeleton';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
 import EventsSkeleton from '@/components/home/EventsSkeleton';
-import NewsletterSection from '@/components/home/NewsletterSection';
 import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
 import { getLatestSundayMessage } from '@/lib/sanity/queries'
@@ -103,7 +102,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Suspense fallback={<EventsSkeleton />}>
         <UpcomingEvents />
       </Suspense>
-      <NewsletterSection />
     </>
   );
 }

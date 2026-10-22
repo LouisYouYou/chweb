@@ -450,6 +450,10 @@ a, button, [role="button"] {
 }
 
 /* ── Hero animated background ── */
+@keyframes hero-orb-in {
+  from { opacity: 0; transform: scale(0.35); }
+  to   { opacity: 1; transform: scale(1); }
+}
 @keyframes hero-orb-1 {
   0%, 100% { transform: translate(0, 0) scale(1);       opacity: 1; }
   33%       { transform: translate(64px, -50px) scale(1.09); opacity: 0.82; }

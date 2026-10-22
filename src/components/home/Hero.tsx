@@ -21,6 +21,11 @@ export default function Hero() {
       .catch(() => setLiveStatus('offline'));
   }, []);
 
+  const isCJK = locale === 'zh-TW' || locale === 'ja'
+  const titleText = t('title')
+  const titleChars = isCJK ? [...titleText] : null
+  const glowDelay = titleChars ? `${(titleChars.length * 0.08 + 0.7).toFixed(2)}s` : '1s'
+
   return (
     <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: 'calc(max(92svh, 92vh) + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}>
       {/* Background photo */}
@@ -53,7 +58,7 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(255,215,140,0.32) 0%, rgba(251,191,80,0.10) 45%, transparent 68%)',
         borderRadius: '50%',
         mixBlendMode: 'screen',
-        animation: 'hero-orb-1 10s ease-in-out infinite',
+        animation: 'hero-orb-in 0.75s cubic-bezier(0.22,1,0.36,1) both, hero-orb-1 10s ease-in-out 0.75s infinite',
         willChange: 'transform',
       }} />
       {/* Orb B — rose-wine, bottom-right, large medium */}
@@ -63,7 +68,7 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(210,65,85,0.65) 0%, rgba(160,35,55,0.28) 45%, transparent 68%)',
         borderRadius: '50%',
         mixBlendMode: 'screen',
-        animation: 'hero-orb-2 13s ease-in-out infinite',
+        animation: 'hero-orb-in 0.75s cubic-bezier(0.22,1,0.36,1) 0.1s both, hero-orb-2 13s ease-in-out 0.85s infinite',
         willChange: 'transform',
       }} />
       {/* Orb C — warm gold, center-top (behind title), medium */}
@@ -74,7 +79,7 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(255,220,130,0.32) 0%, rgba(255,190,80,0.12) 48%, transparent 70%)',
         borderRadius: '50%',
         mixBlendMode: 'screen',
-        animation: 'hero-orb-3 16s ease-in-out infinite',
+        animation: 'hero-orb-in 0.75s cubic-bezier(0.22,1,0.36,1) 0.2s both, hero-orb-3 16s ease-in-out 0.95s infinite',
         willChange: 'transform',
       }} />
       {/* Orb D — small accent, top-right, fast */}
@@ -84,7 +89,7 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(240,100,110,0.50) 0%, rgba(200,55,75,0.18) 48%, transparent 70%)',
         borderRadius: '50%',
         mixBlendMode: 'screen',
-        animation: 'hero-orb-4 8s ease-in-out infinite',
+        animation: 'hero-orb-in 0.75s cubic-bezier(0.22,1,0.36,1) 0.3s both, hero-orb-4 8s ease-in-out 1.05s infinite',
         willChange: 'transform',
       }} />
       {/* ── Animated background: horizontal sweep ── */}
@@ -108,22 +113,34 @@ export default function Hero() {
           <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/70" />
         </div>
 
-        {/* Main title — char stagger entry + white glow pulse */}
+        {/* Main title
+            CJK (zh-TW / ja): per-character stagger + nowrap
+            Others (en / my):  whole-block fade-up (no char split — avoids
+                               space collapse for English and combining-mark
+                               breakage for Myanmar script)                  */}
         <h1
-          className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 leading-tight break-words"
-          style={{ animation: 'hero-title-glow 3s ease-in-out 1.4s infinite' }}
+          className="font-bold text-white mb-4 leading-tight"
+          style={{
+            fontSize: 'clamp(1.6rem, 8.5vw, 4.5rem)',
+            whiteSpace: isCJK ? 'nowrap' : 'normal',
+            animation: isCJK
+              ? `hero-title-glow 3s ease-in-out ${glowDelay} infinite`
+              : `hero-title-in 0.9s cubic-bezier(0.22,1,0.36,1) both, hero-title-glow 3s ease-in-out ${glowDelay} infinite`,
+          }}
         >
-          {[...t('title')].map((char, i) => (
-            <span
-              key={i}
-              style={{
-                display: 'inline-block',
-                animation: `hero-char-in 0.65s cubic-bezier(0.22,1,0.36,1) ${i * 0.08}s both`,
-              }}
-            >
-              {char === ' ' ? ' ' : char}
-            </span>
-          ))}
+          {titleChars
+            ? titleChars.map((char, i) => (
+                <span
+                  key={i}
+                  style={{
+                    display: 'inline-block',
+                    animation: `hero-char-in 0.65s cubic-bezier(0.22,1,0.36,1) ${i * 0.08}s both`,
+                  }}
+                >
+                  {char}
+                </span>
+              ))
+            : titleText}
         </h1>
 
         {/* Gold divider */}
