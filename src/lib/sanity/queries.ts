@@ -195,6 +195,17 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
   )
 }
 
+export async function getAllSundayMessages(): Promise<Pick<SundayMessage, '_id' | 'date' | 'title' | 'preacher' | 'scripture' | 'image'>[]> {
+  return client.fetch(
+    groq`*[_type == "sundayMessage"] | order(date desc) {
+      _id, date, title, preacher, scripture,
+      image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
+    }`,
+    {},
+    { next: { tags: ['sunday-message'], revalidate: 3600 } }
+  )
+}
+
 export async function getSundayMessageById(id: string): Promise<SundayMessage | null> {
   return client.fetch(
     groq`*[_type == "sundayMessage" && _id == $id][0] {
