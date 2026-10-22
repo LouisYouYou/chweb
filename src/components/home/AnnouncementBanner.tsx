@@ -34,7 +34,7 @@ export default async function AnnouncementBanner() {
     zh ? '置頂' : locale === 'ja' ? '固定' : 'Pinned';
 
   return (
-    <section className="py-10 px-4 bg-white border-b border-gray-100">
+    <section id="announcements" className="py-10 px-4 bg-white border-b border-gray-100">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}

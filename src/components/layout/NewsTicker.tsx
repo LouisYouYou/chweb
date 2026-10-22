@@ -55,7 +55,7 @@ export default async function NewsTicker() {
       label: zh ? typeLabel[a.type]?.zh : locale === 'my' ? typeLabel[a.type]?.my : locale === 'ja' ? typeLabel[a.type]?.ja : typeLabel[a.type]?.en,
       labelColor: typeBadge[a.type] ?? typeBadge.notice,
       text: zh ? a.titleZh : (a.titleEn || a.titleZh),
-      href: a.link,
+      href: a.link ?? `/${locale}#announcements`,
     })),
     // Then upcoming events
     ...events.map((ev): TickerItem => {
