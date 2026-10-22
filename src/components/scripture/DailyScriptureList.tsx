@@ -33,8 +33,9 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
         const isToday = s.date === new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' })
 
         const shareTitle = formatShareTitle(s.date, locale)
-        const shareUrl = `${BASE_URL}/${locale}/daily-scripture#${s._id}`
-        const socialUrl = `${BASE_URL}/${locale}/daily-scripture?date=${s.date}`
+        const pageUrl   = `${BASE_URL}/${locale}/daily-scripture/${s.date}`
+        const shareUrl  = pageUrl
+        const socialUrl = pageUrl
 
         return (
           <div key={s._id} id={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">

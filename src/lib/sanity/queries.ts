@@ -68,6 +68,13 @@ export async function getLatestScripture(): Promise<DailyScripture | null> {
   )
 }
 
+export async function getScriptureByDate(date: string): Promise<DailyScripture | null> {
+  return client.fetch(
+    groq`*[_type == "dailyScripture" && date == $date][0]{ ${scriptureFields} }`,
+    { date }
+  )
+}
+
 export async function getAllScriptures(): Promise<DailyScripture[]> {
   return client.fetch(
     groq`*[_type == "dailyScripture"] | order(date desc) { ${scriptureFields} }`
