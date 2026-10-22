@@ -3,13 +3,27 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
 import type { DailyScripture } from '@/lib/sanity/queries'
+import ScriptureInteractions from './ScriptureInteractions'
+
+const BASE_URL = 'https://nanshijiaoglory.vercel.app'
+
+const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 interface Props {
   scriptures: DailyScripture[]
   locale: string
 }
 
-export default function DailyScriptureList({ scriptures }: Props) {
+function formatShareTitle(date: string, locale: string): string {
+  const [year, month, day] = date.split('-')
+  const m = parseInt(month)
+  const d = parseInt(day)
+  if (locale === 'zh-TW' || locale === 'ja') return `每日經文 ${year}年${m}月${d}日`
+  if (locale === 'my') return `နေ့စဉ် သမ္မာကျမ်း ${year}/${m}/${d}`
+  return `Daily Scripture ${MONTHS_EN[m - 1]} ${d}, ${year}`
+}
+
+export default function DailyScriptureList({ scriptures, locale }: Props) {
   return (
     <div className="space-y-10">
       {scriptures.map((s) => {
@@ -18,8 +32,12 @@ export default function DailyScriptureList({ scriptures }: Props) {
           : null
         const isToday = s.date === new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' })
 
+        const shareTitle = formatShareTitle(s.date, locale)
+        const shareUrl = `${BASE_URL}/${locale}/daily-scripture#${s._id}`
+        const socialUrl = `${BASE_URL}/${locale}/daily-scripture?date=${s.date}`
+
         return (
-          <div key={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+          <div key={s._id} id={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
             {/* Date header */}
             <div className="flex items-center gap-3 px-5 py-4 bg-wine-50 border-b border-wine-100">
               <div className="church-gradient rounded-xl p-3 text-center min-w-[56px] text-white shrink-0">
@@ -48,6 +66,14 @@ export default function DailyScriptureList({ scriptures }: Props) {
             ) : (
               <div className="p-8 text-center text-gray-300">（尚未上傳配圖）</div>
             )}
+
+            {/* Interactions */}
+            <ScriptureInteractions
+              sanityId={s._id}
+              shareTitle={shareTitle}
+              shareUrl={shareUrl}
+              socialUrl={socialUrl}
+            />
           </div>
         )
       })}
