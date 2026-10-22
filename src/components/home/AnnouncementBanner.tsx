@@ -83,13 +83,15 @@ export default async function AnnouncementBanner() {
                     <p className="text-sm text-gray-500 mt-1 leading-relaxed whitespace-pre-line">{content}</p>
                   )}
                   {item.image?.asset && (
-                    <div className="mt-3 rounded-xl overflow-hidden border border-gray-100 w-full max-w-xs">
+                    <div className="mt-3 rounded-xl overflow-hidden border border-gray-100 w-full">
                       <Image
-                        src={urlFor(item.image).width(480).height(270).fit('crop').auto('format').url()}
+                        src={urlFor(item.image).width(1200).auto('format').url()}
                         alt={title}
-                        width={480}
-                        height={270}
-                        className="w-full h-auto object-cover"
+                        width={1200}
+                        height={0}
+                        sizes="(max-width: 768px) 100vw, 800px"
+                        className="w-full h-auto"
+                        style={{ height: 'auto' }}
                       />
                     </div>
                   )}
