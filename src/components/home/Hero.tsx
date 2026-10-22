@@ -45,6 +45,57 @@ export default function Hero() {
       {/* Amber side accent */}
       <div className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-gradient-to-b from-transparent via-amber-400/60 to-transparent rounded-r" />
 
+      {/* ── Animated background: floating orbs ── */}
+      {/* Orb A — warm gold, top-left, large slow */}
+      <div aria-hidden="true" className="absolute pointer-events-none" style={{
+        top: '-5%', left: '-10%',
+        width: 'min(70vw, 860px)', height: 'min(70vw, 860px)',
+        background: 'radial-gradient(circle, rgba(255,215,140,0.32) 0%, rgba(251,191,80,0.10) 45%, transparent 68%)',
+        borderRadius: '50%',
+        mixBlendMode: 'screen',
+        animation: 'hero-orb-1 10s ease-in-out infinite',
+        willChange: 'transform',
+      }} />
+      {/* Orb B — rose-wine, bottom-right, large medium */}
+      <div aria-hidden="true" className="absolute pointer-events-none" style={{
+        bottom: '-15%', right: '-10%',
+        width: 'min(70vw, 900px)', height: 'min(70vw, 900px)',
+        background: 'radial-gradient(circle, rgba(210,65,85,0.65) 0%, rgba(160,35,55,0.28) 45%, transparent 68%)',
+        borderRadius: '50%',
+        mixBlendMode: 'screen',
+        animation: 'hero-orb-2 13s ease-in-out infinite',
+        willChange: 'transform',
+      }} />
+      {/* Orb C — warm gold, center-top (behind title), medium */}
+      <div aria-hidden="true" className="absolute pointer-events-none" style={{
+        top: '8%', left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'min(55vw, 680px)', height: 'min(55vw, 680px)',
+        background: 'radial-gradient(circle, rgba(255,220,130,0.32) 0%, rgba(255,190,80,0.12) 48%, transparent 70%)',
+        borderRadius: '50%',
+        mixBlendMode: 'screen',
+        animation: 'hero-orb-3 16s ease-in-out infinite',
+        willChange: 'transform',
+      }} />
+      {/* Orb D — small accent, top-right, fast */}
+      <div aria-hidden="true" className="absolute pointer-events-none" style={{
+        top: '15%', right: '8%',
+        width: 'min(30vw, 380px)', height: 'min(30vw, 380px)',
+        background: 'radial-gradient(circle, rgba(240,100,110,0.50) 0%, rgba(200,55,75,0.18) 48%, transparent 70%)',
+        borderRadius: '50%',
+        mixBlendMode: 'screen',
+        animation: 'hero-orb-4 8s ease-in-out infinite',
+        willChange: 'transform',
+      }} />
+      {/* ── Animated background: horizontal sweep ── */}
+      <div aria-hidden="true" className="absolute pointer-events-none" style={{
+        top: 0, bottom: 0, left: 0,
+        width: '35%',
+        background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.13) 50%, transparent 100%)',
+        mixBlendMode: 'screen',
+        animation: 'hero-sweep 11s ease-in-out infinite 1s',
+      }} />
+
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
 
@@ -57,10 +108,22 @@ export default function Hero() {
           <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/70" />
         </div>
 
-        {/* Main title */}
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 leading-tight break-words"
-          style={{ textShadow: '0 4px 32px rgba(56,10,20,0.8)' }}>
-          {t('title')}
+        {/* Main title — char stagger entry + white glow pulse */}
+        <h1
+          className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 leading-tight break-words"
+          style={{ animation: 'hero-title-glow 3s ease-in-out 1.4s infinite' }}
+        >
+          {[...t('title')].map((char, i) => (
+            <span
+              key={i}
+              style={{
+                display: 'inline-block',
+                animation: `hero-char-in 0.65s cubic-bezier(0.22,1,0.36,1) ${i * 0.08}s both`,
+              }}
+            >
+              {char === ' ' ? ' ' : char}
+            </span>
+          ))}
         </h1>
 
         {/* Gold divider */}
