@@ -2,33 +2,44 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, ArrowRight } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import Link from 'next/link';
 
 const LINE_ID = process.env.NEXT_PUBLIC_LINE_ID;
+
+const TOPICS = ['first_visit', 'child', 'other'] as const;
+type Topic = typeof TOPICS[number];
 
 export default function ContactForm() {
   const t = useTranslations('contact');
   const locale = useLocale();
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [topic, setTopic] = useState<Topic | ''>('');
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!topic) return;
     setSending(true);
     setError('');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: t(`topic_${topic}`),
+          message: form.message,
+        }),
       });
       if (res.ok) {
         setSent(true);
-        setForm({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setSent(false), 8000);
+        setForm({ name: '', email: '', message: '' });
+        setTopic('');
         if (typeof window !== 'undefined' && 'gtag' in window) {
           (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'contact_form_submit', {
             event_category: 'engagement',
@@ -50,29 +61,81 @@ export default function ContactForm() {
     <div>
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
+
           {/* Form */}
           <div>
             <h2 className="text-2xl font-bold text-wine-900 mb-6">{t('form_title')}</h2>
+
             {sent ? (
-              <div className="flex flex-col items-center justify-center py-16 text-center">
-                <CheckCircle size={48} className="text-green-500 mb-4" />
-                <p className="text-lg font-medium text-green-700">{t('success')}</p>
+              <div className="flex flex-col items-start py-10 gap-5">
+                <div className="flex items-center gap-3">
+                  <CheckCircle size={32} className="text-green-500 shrink-0" />
+                  <p className="text-lg font-semibold text-green-700">{t('success')}</p>
+                </div>
+                <p className="text-sm text-gray-500 bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 w-full">
+                  {t('reply_notice')}
+                </p>
+                <div className="flex flex-col gap-3 pt-1">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('success_next')}</p>
+                  <Link
+                    href={`/${locale}/services`}
+                    className="flex items-center gap-2 text-sm text-wine-700 hover:text-wine-900 font-medium transition-colors"
+                  >
+                    <ArrowRight size={14} />
+                    {t('success_link_services')}
+                  </Link>
+                  <Link
+                    href={`/${locale}/first-visit`}
+                    className="flex items-center gap-2 text-sm text-wine-700 hover:text-wine-900 font-medium transition-colors"
+                  >
+                    <ArrowRight size={14} />
+                    {t('success_link_first_visit')}
+                  </Link>
+                </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
+
+                {/* Topic selector */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('topic_label')}
+                  </label>
+                  <div className="flex flex-col gap-2">
+                    {TOPICS.map((key) => (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setTopic(key)}
+                        className={`w-full text-left px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all duration-150 ${
+                          topic === key
+                            ? 'border-wine-400 bg-wine-50 text-wine-900'
+                            : 'border-gray-200 bg-white text-gray-600 hover:border-wine-200 hover:bg-wine-50/40'
+                        }`}
+                      >
+                        {t(`topic_${key}`)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Name (optional) + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('name')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('name_optional')}
+                    </label>
                     <input
                       type="text"
-                      required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('email')} <span className="text-red-400">*</span>
+                    </label>
                     <input
                       type="email"
                       required
@@ -82,38 +145,39 @@ export default function ContactForm() {
                     />
                   </div>
                 </div>
+
+                {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('subject')}</label>
-                  <input
-                    type="text"
-                    required
-                    value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('message')}</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t('message')} <span className="text-red-400">*</span>
+                  </label>
                   <textarea
-                    rows={6}
+                    rows={5}
                     required
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm resize-none"
                   />
                 </div>
+
+                {/* Reply notice */}
+                <p className="text-xs text-gray-400 bg-gray-50 rounded-xl px-4 py-3 border border-gray-100">
+                  {t('reply_notice')}
+                </p>
+
                 {error && (
                   <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
                     ⚠️ {error}
                   </p>
                 )}
+
                 <button
                   type="submit"
-                  disabled={sending}
+                  disabled={sending || !topic}
                   className="w-full py-3.5 church-gradient text-white font-semibold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send size={16} className={sending ? 'animate-pulse' : ''} />
-                  {sending ? '傳送中...' : t('submit')}
+                  {sending ? t('sending') : t('submit')}
                 </button>
               </form>
             )}
@@ -160,7 +224,12 @@ export default function ContactForm() {
                   <div>
                     <p className="text-xs text-gray-400 mb-0.5">{label}</p>
                     {href ? (
-                      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="font-medium text-gray-800 hover:text-wine-700 underline underline-offset-2 decoration-wine-200 transition-colors">
+                      <a
+                        href={href}
+                        target={href.startsWith('http') ? '_blank' : undefined}
+                        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="font-medium text-gray-800 hover:text-wine-700 underline underline-offset-2 decoration-wine-200 transition-colors"
+                      >
                         {value}
                       </a>
                     ) : (
@@ -187,7 +256,6 @@ export default function ContactForm() {
                     <p className="text-xs text-gray-500">{LINE_ID}</p>
                   </div>
                 </div>
-
                 <div className="flex flex-col sm:flex-row items-center gap-5">
                   <div className="p-3 bg-white rounded-2xl shadow-sm border border-[#06C755]/20">
                     <QRCodeSVG
@@ -225,6 +293,7 @@ export default function ContactForm() {
               </div>
             )}
           </div>
+
         </div>
       </section>
     </div>

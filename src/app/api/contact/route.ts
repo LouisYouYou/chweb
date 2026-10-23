@@ -15,11 +15,11 @@ export async function POST(req: NextRequest) {
 
     const { name, email, subject, message } = await req.json()
 
-    if (!name || !email || !subject || !message) {
+    if (!email || !subject || !message) {
       return NextResponse.json({ error: '欄位不完整' }, { status: 400 })
     }
 
-    const safeName = escHtml(String(name).slice(0, 200))
+    const safeName = escHtml(String(name || '（未留名）').slice(0, 200))
     const safeEmail = escHtml(String(email).slice(0, 320))
     const safeSubject = escHtml(String(subject).slice(0, 300))
     const safeMessage = escHtml(String(message).slice(0, 5000))
