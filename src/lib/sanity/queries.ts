@@ -103,6 +103,21 @@ export interface Pastor {
   photo?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
 }
 
+export interface StoryCard {
+  _id: string
+  order: number
+  name: string
+  label?: string
+  quote: string
+  photo?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
+}
+
+export async function getStoryCards(): Promise<StoryCard[]> {
+  return client.fetch(
+    groq`*[_type == "storyCard"] | order(order asc) { _id, order, name, label, quote, photo { asset, hotspot } }`
+  )
+}
+
 export async function getPastors(): Promise<Pastor[]> {
   return client.fetch(
     groq`*[_type == "pastor"] | order(order asc) { _id, order, photo { asset, hotspot } }`

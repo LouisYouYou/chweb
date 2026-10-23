@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { Heart, BookOpen, Users, Globe } from 'lucide-react';
 import FadeIn from '@/components/ui/FadeIn';
 import PageHero from '@/components/layout/PageHero';
-import { getPastors } from '@/lib/sanity/queries'
+import { getPastors, getStoryCards } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
@@ -18,6 +18,7 @@ const iconMap = { heart: Heart, book: BookOpen, users: Users, globe: Globe };
 export default async function AboutPage() {
   const t = await getTranslations('about');
   const pastors = await getPastors();
+  const stories = await getStoryCards();
 
   const values = [
     { icon: 'heart' as const, title: t('values.0.title'), text: t('values.0.text') },
@@ -132,6 +133,66 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Story Cards — only rendered when Sanity has content */}
+      {stories.length > 0 && (
+        <section className="py-20 px-4 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="flex justify-center mb-3">
+                <span className="text-amber-600 text-xs font-semibold tracking-[0.3em] uppercase border-l-2 border-amber-400 pl-3">Our People</span>
+              </div>
+              <h2 className="text-3xl font-bold text-wine-900 mb-2">{t('stories_title')}</h2>
+              <p className="text-gray-400 text-sm mt-3">{t('stories_subtitle')}</p>
+              <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full mt-4" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {stories.map((story, i) => (
+                <FadeIn key={story._id} delay={i * 80}>
+                  <div className="bg-gray-50 rounded-2xl p-6 flex flex-col gap-4 h-full border border-gray-100 hover:border-amber-200 hover:shadow-md transition-all duration-300">
+                    {/* Quote */}
+                    <p className="text-gray-700 leading-relaxed text-sm flex-1">
+                      <span className="text-amber-400 text-2xl leading-none mr-1 select-none">"</span>
+                      {story.quote}
+                      <span className="text-amber-400 text-2xl leading-none ml-1 select-none">"</span>
+                    </p>
+
+                    {/* Person */}
+                    <div className="flex items-center gap-3 pt-3 border-t border-gray-200">
+                      <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-amber-100">
+                        {story.photo?.asset ? (
+                          <Image
+                            src={urlFor(story.photo).width(80).height(80).fit('crop').auto('format').url()}
+                            alt={story.name}
+                            width={40}
+                            height={40}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full church-gradient flex items-center justify-center">
+                            <span className="text-white text-sm font-bold select-none">
+                              {story.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-wine-900">{story.name}</p>
+                        {story.label && (
+                          <span className="text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-100">
+                            {story.label}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* History */}
       <section className="py-20 px-4 bg-gray-50">
