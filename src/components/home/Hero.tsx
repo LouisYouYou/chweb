@@ -121,7 +121,9 @@ export default function Hero() {
         <h1
           className="font-bold text-white mb-4 leading-tight"
           style={{
-            fontSize: 'clamp(1.6rem, 8.5vw, 4.5rem)',
+            fontSize: locale === 'ja'
+              ? 'clamp(1.3rem, 7.2vw, 4.5rem)'   // 10 chars — needs tighter fit on mobile
+              : 'clamp(1.6rem, 8.5vw, 4.5rem)',   // 9 chars (zh-TW) or non-CJK
             whiteSpace: isCJK ? 'nowrap' : 'normal',
             animation: isCJK
               ? `hero-title-glow 3s ease-in-out ${glowDelay} infinite`

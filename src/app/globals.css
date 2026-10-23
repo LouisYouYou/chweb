@@ -433,9 +433,17 @@ a, button, [role="button"] {
   from { opacity: 0; transform: translateY(28px); filter: blur(8px); }
   to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
 }
+/* Mobile: no blur — 10 simultaneous filter animations tank mobile GPU */
 @keyframes hero-char-in {
-  from { opacity: 0; transform: translateY(36px) scale(0.88); filter: blur(6px); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
+  from { opacity: 0; transform: translateY(36px) scale(0.88); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+/* Desktop: restore blur for cinematic feel */
+@media (min-width: 768px) {
+  @keyframes hero-char-in {
+    from { opacity: 0; transform: translateY(36px) scale(0.88); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
+  }
 }
 @keyframes hero-title-glow {
   0%, 100% {
