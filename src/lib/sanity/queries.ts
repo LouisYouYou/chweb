@@ -97,6 +97,18 @@ export async function getAllGalleryPhotos(): Promise<GalleryPhoto[]> {
   )
 }
 
+export interface Pastor {
+  _id: string
+  order: number
+  photo?: { asset: { _ref: string }; hotspot?: { x: number; y: number } }
+}
+
+export async function getPastors(): Promise<Pastor[]> {
+  return client.fetch(
+    groq`*[_type == "pastor"] | order(order asc) { _id, order, photo { asset, hotspot } }`
+  )
+}
+
 export async function getAllBulletins(): Promise<WeeklyBulletin[]> {
   return client.fetch(
     groq`*[_type == "weeklyBulletin"] | order(date desc) { _id, date, file { asset->{ url } } }`
