@@ -12,6 +12,14 @@ export const client = createClient({
   useCdn: true,
 })
 
+// 用於時效性高的查詢（主日信息），繞過 Sanity CDN 直接拿最新資料
+export const noCdnClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+})
+
 const builder = createImageUrlBuilder(client)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

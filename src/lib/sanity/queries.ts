@@ -1,4 +1,4 @@
-import { client } from './client'
+import { client, noCdnClient } from './client'
 import { groq } from 'next-sanity'
 import type { PortableTextBlock } from '@portabletext/types'
 
@@ -220,7 +220,7 @@ export interface SundayMessage {
 }
 
 export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
-  return client.fetch(
+  return noCdnClient.fetch(
     groq`*[_type == "sundayMessage"] | order(date desc) [0] {
       _id, date, title, preacher, scripture, summary, youtubeUrl,
       image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
