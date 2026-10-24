@@ -141,13 +141,18 @@ export default function ChurchJsonLd() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: '中和區有哪些基督教教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂是中和區的基督教教會，位於新北市中和區忠孝街39-15號（南勢角），服務中永和地區的基督徒社群。主日崇拜每週日上午10:00-11:30，歡迎前來。' },
+            name: '我不是基督徒，可以來嗎？',
+            acceptedAnswer: { '@type': 'Answer', text: '完全可以！行道會南勢角榮耀堂歡迎所有人，不論你有沒有信仰背景。不需要事先報名，不需要帶聖經，直接在週日早上10:00來就好。' },
           },
           {
             '@type': 'Question',
-            name: '南勢角附近有教會嗎？',
-            acceptedAnswer: { '@type': 'Answer', text: '有，行道會南勢角榮耀堂位於捷運南勢角站4號出口步行約10分鐘處（新北市中和區忠孝街39-15號），是南勢角地區的基督教教會，歡迎任何人前來參加主日崇拜。' },
+            name: '第一次來需要事先報名嗎？',
+            acceptedAnswer: { '@type': 'Answer', text: '不需要！你可以直接在週日早上10:00來到教會，不需要預約，不需要特別裝扮，也不需要帶任何東西。' },
+          },
+          {
+            '@type': 'Question',
+            name: '教會會要求我捐錢嗎？',
+            acceptedAnswer: { '@type': 'Answer', text: '不會。奉獻完全出於個人意願，我們不會在你來訪時要求或提醒你捐款。對第一次來的朋友，唯一的期望是你願意來、感受看看。' },
           },
           {
             '@type': 'Question',
@@ -156,13 +161,8 @@ export default function ChurchJsonLd() {
           },
           {
             '@type': 'Question',
-            name: '如何前往南勢角教會？',
+            name: '如何前往行道會南勢角榮耀堂？',
             acceptedAnswer: { '@type': 'Answer', text: '搭乘台北捷運中和新蘆線至「南勢角站（O01）」，由4號出口步行約10分鐘（約700公尺），即可到達新北市中和區忠孝街39-15號。也可開車前往，附近有付費停車場。' },
-          },
-          {
-            '@type': 'Question',
-            name: '中永和地區有沒有說華語的教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，歡迎多元文化背景的信徒前來參加主日崇拜。' },
           },
           {
             '@type': 'Question',
@@ -171,13 +171,8 @@ export default function ChurchJsonLd() {
           },
           {
             '@type': 'Question',
-            name: '行道會南勢角榮耀堂的聯絡電話是多少？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂的聯絡電話為 02-8668-5515，電子郵件為 winson651202@gmail.com，辦公時間為週二至週日 9:00-17:00。' },
-          },
-          {
-            '@type': 'Question',
             name: '行道會南勢角榮耀堂有網路直播嗎？',
-            acceptedAnswer: { '@type': 'Answer', text: '是的，行道會南勢角榮耀堂的主日崇拜提供 YouTube 線上直播，可至 YouTube 頻道 @winson651202 收看。直播通常於每週日主日崇拜（10:00）時段進行。' },
+            acceptedAnswer: { '@type': 'Answer', text: '是的，主日崇拜提供 YouTube 線上直播，可至頻道 @winson651202 收看，每週日10:00直播。' },
           },
           {
             '@type': 'Question',
@@ -186,23 +181,23 @@ export default function ChurchJsonLd() {
           },
           {
             '@type': 'Question',
+            name: '行道會南勢角榮耀堂的聯絡電話是多少？',
+            acceptedAnswer: { '@type': 'Answer', text: '聯絡電話：02-8668-5515，電子郵件：winson651202@gmail.com，辦公時間：週二至週日 9:00-17:00。' },
+          },
+          {
+            '@type': 'Question',
             name: '行道會南勢角榮耀堂如何奉獻？',
-            acceptedAnswer: { '@type': 'Answer', text: '可透過銀行匯款奉獻：華南銀行南勢角分行（銀行代號008），戶名：財團法人中華基督教行道會南勢角榮耀堂，帳號：183-10-0034556。匯款時請註明姓名及奉獻用途。' },
+            acceptedAnswer: { '@type': 'Answer', text: '可透過銀行匯款：華南銀行南勢角分行（代號008），戶名：財團法人中華基督教行道會南勢角榮耀堂，帳號：183-10-0034556。' },
           },
           {
             '@type': 'Question',
             name: '行道會是什麼教會？',
-            acceptedAnswer: { '@type': 'Answer', text: '行道會（Christian Fellowship Church）是源自台灣的基督教宗派，以「行道」為核心精神，強調門徒訓練與宣教。行道會南勢角榮耀堂為其台北榮耀堂體系旗下的地區教會，服事新北市中和、永和地區。' },
+            acceptedAnswer: { '@type': 'Answer', text: '行道會（Christian Fellowship Church）是源自台灣的基督教宗派，強調門徒訓練與宣教。行道會南勢角榮耀堂為台北榮耀堂體系旗下的地區教會，服事新北市中和、永和地區。' },
           },
           {
             '@type': 'Question',
-            name: '捷運中和新蘆線南勢角站附近有教會嗎？',
-            acceptedAnswer: { '@type': 'Answer', text: '有，行道會南勢角榮耀堂就位於捷運中和新蘆線南勢角站（O01）步行10分鐘處（新北市中和區忠孝街39-15號）。是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30。' },
-          },
-          {
-            '@type': 'Question',
-            name: '新北市中和忠孝街有教會嗎？',
-            acceptedAnswer: { '@type': 'Answer', text: '是的，行道會南勢角榮耀堂位於新北市中和區忠孝街39-15號（郵遞區號235），電話02-8668-5515，是忠孝街上的基督教教會，主日崇拜每週日10:00-11:30。' },
+            name: '中永和地區有沒有說華語的教會？',
+            acceptedAnswer: { '@type': 'Answer', text: '行道會南勢角榮耀堂位於中永和交界的南勢角地區，以華語為主要聚會語言，歡迎多元文化背景的朋友前來。' },
           },
         ],
       },

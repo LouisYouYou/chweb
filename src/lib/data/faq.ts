@@ -52,8 +52,8 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
         faqs: [
           {
             id: 'faq-4',
-            q: '南勢角附近有教會嗎？',
-            a: '有，行道會南勢角榮耀堂位於捷運南勢角站4號出口步行約10分鐘處（新北市中和區忠孝街39-15號），是南勢角地區的基督教教會，歡迎任何人前來參加主日崇拜。',
+            q: '我不是基督徒，可以來嗎？',
+            a: '完全可以！行道會南勢角榮耀堂歡迎所有人，不論你有沒有信仰背景。不需要事先報名，不需要帶聖經，直接在週日早上10:00來就好。我們希望你在第一次來訪時感到自在與被接納。',
           },
           {
             id: 'faq-5',
@@ -62,13 +62,13 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           },
           {
             id: 'faq-6',
-            q: '捷運中和新蘆線南勢角站附近有教會嗎？',
-            a: '有，行道會南勢角榮耀堂就位於捷運中和新蘆線南勢角站（O01）步行10分鐘處（新北市中和區忠孝街39-15號），是該站最近的基督教教會之一，主日崇拜每週日10:00-11:30，歡迎蒞臨。',
+            q: '第一次來需要事先報名嗎？',
+            a: '不需要！你可以直接在週日早上10:00來到教會，不需要預約。不需要特別裝扮，也不需要帶任何東西。如果想讓我們提前知道你要來，歡迎透過聯絡表單留言，我們很樂意在門口迎接你。',
           },
           {
             id: 'faq-7',
-            q: '新北市中和忠孝街有教會嗎？',
-            a: '是的，行道會南勢角榮耀堂位於新北市中和區忠孝街39-15號（郵遞區號235），電話02-8668-5515，是忠孝街上的基督教教會，主日崇拜每週日上午10:00-11:30。',
+            q: '教會會要求我捐錢嗎？',
+            a: '不會。奉獻完全出於個人意願，我們不會在你來訪時要求或提醒你捐款。對第一次來的朋友，唯一的期望是你願意來、感受看看。',
           },
         ],
       },
@@ -155,8 +155,8 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
         faqs: [
           {
             id: 'faq-4',
-            q: 'Is there a church near Nanshijiao (南勢角)?',
-            a: 'Yes, NJC Glory Church is located at 39-15 Zhongxiao St., Zhonghe District, New Taipei City — about a 10-minute walk from MRT Nanshijiao Station Exit 4. Everyone is welcome to attend Sunday worship.',
+            q: 'Do I need to be a Christian to attend?',
+            a: 'Not at all. Everyone is welcome at NJC Glory Church, regardless of faith background. No RSVP, no Bible, no preparation required — just show up on Sunday at 10:00 AM. We want your first visit to feel natural and comfortable.',
           },
           {
             id: 'faq-5',
@@ -165,13 +165,13 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           },
           {
             id: 'faq-6',
-            q: 'Is there a church near MRT Nanshijiao Station (Zhonghe-Xinlu Line)?',
-            a: 'Yes, NJC Glory Church is a 10-minute walk from MRT Zhonghe-Xinlu Line Nanshijiao Station (O01, Exit 4), at 39-15 Zhongxiao St., Zhonghe. Sunday worship is every Sunday 10:00–11:30 AM.',
+            q: 'Do I need to register before coming?',
+            a: 'No registration needed. You can walk in any Sunday at 10:00 AM — no appointment, no dress code, nothing to bring. If you\'d like to let us know you\'re coming, feel free to use the contact form and we\'d love to greet you at the door.',
           },
           {
             id: 'faq-7',
-            q: 'Is there a church on Zhongxiao Street in Zhonghe?',
-            a: 'Yes, NJC Glory Church is located at 39-15 Zhongxiao St., Zhonghe District, New Taipei City (Postal Code 235). Phone: 02-8668-5515. Sunday worship is every Sunday 10:00–11:30 AM.',
+            q: 'Will the church pressure me to donate?',
+            a: 'No. Giving is entirely voluntary at NJC Glory Church. We will never ask or pressure first-time visitors to contribute. Your only expectation as a first-time guest is to come and see if this community feels right for you.',
           },
         ],
       },
@@ -258,8 +258,8 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
         faqs: [
           {
             id: 'faq-4',
-            q: 'Nanshijiao (南勢角) နားမှာ ဘုရားကျောင်း ရှိသလား?',
-            a: 'ဟုတ်ကဲ့၊ NJC Glory Church သည် MRT Nanshijiao Station 4  နံပါတ်ထွက်ပေါက်မှ ခြေလျင် ၁၀ မိနစ်ခန့်ကွာသောနေရာ (Zhongxiao St. 39-15, Zhonghe, New Taipei City) တွင် တည်ရှိသည်။',
+            q: 'ခရစ်ယာန် မဟုတ်သောသူများ လာနိုင်သလား?',
+            a: 'လာနိုင်ပါသည်။ NJC Glory Church သည် ယုံကြည်မှုနောက်ခံ မည်သည့်သူကိုမဆို ကြိုဆိုပါသည်။ ကြိုတင်မှတ်ပုံတင်ရန် မလိုအပ်ပါ။ တနင်္ဂနွေ နံနက် 10:00 တွင် တိုက်ရိုက်လာနိုင်ပါသည်။',
           },
           {
             id: 'faq-5',
@@ -268,13 +268,13 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
           },
           {
             id: 'faq-6',
-            q: 'MRT Nanshijiao Station နားမှာ ဘုရားကျောင်း ရှိသလား?',
-            a: 'ဟုတ်ကဲ့၊ NJC Glory Church သည် MRT Zhonghe-Xinlu Line Nanshijiao Station (O01) Exit 4 မှ ၁၀ မိနစ်ခန့်လျှောက်ရသောနေရာတွင် ရှိသည်။ တနင်္ဂနွေ ဝတ်ပြုကိုးကွယ်ချိန်မှာ 10:00-11:30 ဖြစ်သည်။',
+            q: 'ကြိုတင်မှတ်ပုံတင်ရန် လိုအပ်သလား?',
+            a: 'မလိုအပ်ပါ။ တနင်္ဂနွေ နံနက် 10:00 တွင် တိုက်ရိုက်လာနိုင်သည်။ ဝတ်စားဆင်ယင်မှု သတ်မှတ်ချက် မရှိပါ။ ကြိုတင်အသိပေးလိုပါက ဆက်သွယ်ရေးဖောင်မှတဆင့် ဆက်သွယ်နိုင်ပါသည်။',
           },
           {
             id: 'faq-7',
-            q: 'Zhonghe Zhongxiao Street တွင် ဘုရားကျောင်း ရှိသလား?',
-            a: 'ဟုတ်ကဲ့၊ NJC Glory Church သည် Zhongxiao St. 39-15, Zhonghe District (235) တွင် တည်ရှိသည်။ ဖုန်းနံပါတ်: 02-8668-5515။',
+            q: 'လှူဒါန်းမှု မဖြစ်မနေ လိုအပ်သလား?',
+            a: 'မလိုအပ်ပါ။ လှူဒါန်းမှုသည် လုံးဝကိုယ်ပိုင်ဆန္ဒဖြင့် ပြုလုပ်သည်။ ပထမဆုံးလာသောသူများကို ငွေကြေးကိစ္စနှင့် ပတ်သက်၍ တောင်းဆိုမည် မဟုတ်ပါ။',
           },
         ],
       },
@@ -313,6 +313,109 @@ export const FAQ_DATA: Record<string, FaqPageData> = {
         id: 'contact',
         title: 'ဆက်သွယ်ရန်',
         faqs: [],
+      },
+    ],
+  },
+
+  ja: {
+    title: 'よくある質問',
+    subtitle: '行道会南勢角栄光教会に関するよくある質問',
+    backLabel: 'ホーム',
+    contactLabel: 'その他のご質問は？お問い合わせ',
+    categories: [
+      {
+        id: 'worship',
+        title: '礼拝情報',
+        faqs: [
+          {
+            id: 'faq-1',
+            q: '主日礼拝は何時に始まりますか？',
+            a: '行道会南勢角栄光教会の主日礼拝は毎週日曜日午前10:00〜11:30（90分）です。火曜日19:30〜21:00の小グループ集会、毎週土曜日の青年集会も開催しています。',
+          },
+          {
+            id: 'faq-2',
+            q: '子ども向けのプログラムはありますか？',
+            a: 'はい、主日礼拝と同時間帯に子どもの日曜学校を実施しています。お子さまと一緒にご参加いただけます。',
+          },
+          {
+            id: 'faq-3',
+            q: 'オンラインで礼拝を視聴できますか？',
+            a: 'はい、主日礼拝はYouTubeでライブ配信しています。チャンネル「@winson651202」を毎週日曜日10:00にご覧ください。',
+          },
+        ],
+      },
+      {
+        id: 'location',
+        title: 'アクセス',
+        faqs: [
+          {
+            id: 'faq-4',
+            q: 'クリスチャンでなくても参加できますか？',
+            a: 'もちろんです。行道会南勢角栄光教会は、信仰の背景に関係なくどなたでも歓迎しています。事前申し込み不要、持ち物なし。日曜日の朝10時にそのままお越しください。',
+          },
+          {
+            id: 'faq-5',
+            q: '教会へのアクセス方法を教えてください',
+            a: '台北MRT中和新蘆線「南勢角駅（O01）」4番出口から徒歩約10分（約700m）。住所：新北市中和区忠孝街39-15号（郵便番号235）。バス249・670・242番も利用可能。近隣に有料駐車場あり。',
+          },
+          {
+            id: 'faq-6',
+            q: '事前に申し込みは必要ですか？',
+            a: '不要です。毎週日曜日10:00に直接お越しください。服装の規定もなく、特別な準備も必要ありません。事前にご連絡いただける場合はお問い合わせフォームからどうぞ。入口でお迎えします。',
+          },
+          {
+            id: 'faq-7',
+            q: '献金は必須ですか？',
+            a: '献金は完全に自由意志です。初めてお越しの方に献金をお願いすることは一切ありません。まずは礼拝を体験していただくことだけをお願いしています。',
+          },
+        ],
+      },
+      {
+        id: 'about',
+        title: '教会について',
+        faqs: [
+          {
+            id: 'faq-8',
+            q: '行道会（CFC）とはどのような教会ですか？',
+            a: '行道会（Christian Fellowship Church、CFC）は台湾発祥のプロテスタント教派で、弟子訓練と宣教を中心に据えています。行道会南勢角栄光教会は台北栄光教会グループに属する地域教会として、新北市中和区・永和区を主なサービスエリアとしています。',
+          },
+          {
+            id: 'faq-9',
+            q: '礼拝はどの言語で行われますか？',
+            a: '礼拝は主に中国語（普通話）で行われます。日本語での礼拝は行っていませんが、ウェブサイトは日本語に対応しており、日本語でのお問い合わせも受け付けています。',
+          },
+          {
+            id: 'faq-10',
+            q: '中和区・永和区に日本語対応の教会はありますか？',
+            a: '行道会南勢角栄光教会は新北市中和区・永和区エリアに位置しています。礼拝は中国語で行われますが、ウェブサイトは日本語対応しており、日本語話者の方のご参加を歓迎しています。',
+          },
+          {
+            id: 'faq-11',
+            q: 'ウェブサイトは日本語に対応していますか？',
+            a: 'はい、公式ウェブサイトは繁体字中国語・英語・ミャンマー語・日本語の4言語に対応しています。礼拝は中国語で行われますが、日本語でのお問い合わせも歓迎しています。',
+          },
+          {
+            id: 'faq-12',
+            q: '担任牧師はどなたですか？',
+            a: '担任牧師は陳文彬（Chen Wen-bin）牧師、伝道師は羅淑樺（Luo Shu-hua）伝道師です。行道会台北栄光教会グループに所属し、長年にわたり中和・永和地区の信仰コミュニティを担っています。',
+          },
+        ],
+      },
+      {
+        id: 'contact',
+        title: 'お問い合わせ・献金',
+        faqs: [
+          {
+            id: 'faq-13',
+            q: '教会の連絡先を教えてください',
+            a: '電話：02-8668-5515 / メール：winson651202@gmail.com / 受付時間：火〜日 9:00〜17:00。ウェブサイトのお問い合わせフォームからもご連絡いただけます。',
+          },
+          {
+            id: 'faq-14',
+            q: '献金・寄付はどのようにすればできますか？',
+            a: '銀行振込でご支援いただけます。華南銀行 南勢角支店（銀行コード008）、口座名義：財團法人中華基督教行道會南勢角榮耀堂、口座番号：183-10-0034556。振込の際はお名前と用途をご記入ください。',
+          },
+        ],
       },
     ],
   },
