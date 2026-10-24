@@ -16,7 +16,7 @@ import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
 import HashScrollHandler from '@/components/ui/HashScrollHandler';
 
-export const revalidate = 300
+export const revalidate = 60
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
