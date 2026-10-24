@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    revalidateTag('sunday-message')
+    revalidateTag('sunday-message', 'max')
     revalidatePath('/[locale]', 'page')
     revalidatePath('/[locale]/sermons', 'page')
 
