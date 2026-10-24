@@ -226,7 +226,7 @@ export async function getLatestSundayMessage(): Promise<SundayMessage | null> {
       image { asset->{ "_ref": _id, url, metadata { dimensions { width, height }, lqip } }, hotspot }
     }`,
     {},
-    { next: { tags: ['sunday-message'], revalidate: 60 } }
+    { cache: 'no-store' }
   )
 }
 
