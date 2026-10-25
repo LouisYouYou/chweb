@@ -159,16 +159,9 @@ export async function POST(req: NextRequest) {
     const date       = (payload.date ?? new Date().toISOString().slice(0, 10)) as string
     const scripture  = payload.scripture as string | undefined
     const summaryRaw = payload.summary
-    // summary 是 PortableText Block 陣列，需萃取純文字
+    // summary 是 PortableText Block 陣列，轉成保留格式的 HTML
     const summary: string | undefined = Array.isArray(summaryRaw)
-      ? summaryRaw
-          .flatMap((block: Record<string, unknown>) =>
-            Array.isArray(block.children)
-              ? (block.children as Array<{ text?: string }>).map(s => s.text ?? '')
-              : []
-          )
-          .join('')
-          .trim() || undefined
+      ? portableTextToEmailHtml(summaryRaw as Array<Record<string, unknown>>) || undefined
       : typeof summaryRaw === 'string' ? summaryRaw : undefined
     const youtubeUrl = payload.youtubeUrl as string | undefined
 
@@ -220,4 +213,45 @@ export async function POST(req: NextRequest) {
     sent: results.sent,
     failed: results.failed,
   })
+}
+
+// ── PortableText → Email-safe HTML ──────────────────────────────────────────
+type PTSpan = { _type?: string; text?: string; marks?: string[] }
+type PTBlock = { _type?: string; style?: string; children?: PTSpan[]; listItem?: string; level?: number }
+
+function escHtml(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+function portableTextToEmailHtml(blocks: Array<Record<string, unknown>>): string {
+  return blocks.map((raw) => {
+    const block = raw as PTBlock
+    if (block._type !== 'block') return ''
+
+    const spans = (block.children ?? []).map((span) => {
+      let t = escHtml(span.text ?? '')
+      const marks = span.marks ?? []
+      if (marks.includes('strong'))    t = `<strong>${t}</strong>`
+      if (marks.includes('em'))        t = `<em>${t}</em>`
+      if (marks.includes('underline')) t = `<span style="text-decoration:underline;">${t}</span>`
+      return t
+    }).join('')
+
+    if (!spans.trim()) return '<br style="line-height:1.8;">'
+
+    const pStyle = 'margin:0 0 10px;color:#555;font-size:14px;line-height:1.8;'
+
+    switch (block.style) {
+      case 'h1':
+        return `<h2 style="margin:16px 0 8px;color:#380a14;font-size:17px;font-weight:700;line-height:1.4;">${spans}</h2>`
+      case 'h2':
+        return `<h3 style="margin:14px 0 6px;color:#380a14;font-size:15px;font-weight:700;line-height:1.4;">${spans}</h3>`
+      case 'blockquote':
+        return `<blockquote style="margin:12px 0;padding:10px 16px;border-left:3px solid #92202f;color:#666;font-style:italic;font-size:14px;line-height:1.8;">${spans}</blockquote>`
+      default:
+        return block.listItem === 'bullet'
+          ? `<li style="${pStyle}">${spans}</li>`
+          : `<p style="${pStyle}">${spans}</p>`
+    }
+  }).join('')
 }

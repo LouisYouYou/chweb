@@ -6,7 +6,8 @@ const BODY_STYLE   = `background:#fff;padding:28px 32px;border:1px solid #f0e0e3
 
 function shell(inner: string, unsubNote: string) {
   return `<!DOCTYPE html>
-<html>
+<html lang="zh-TW">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,'Noto Sans TC',sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px;">
 <tr><td align="center">
@@ -143,7 +144,7 @@ export function sundayMessageHtml(
       <td style="padding:8px 0;font-size:14px;color:#555;">${scripture}</td>
     </tr>` : ''}
   </table>
-  ${summary ? `<p style="color:#555;font-size:14px;line-height:1.8;margin:0 0 24px;padding:16px;background:#fdf8f8;border-left:3px solid #92202f;border-radius:0 8px 8px 0;">${summary}</p>` : ''}
+  ${summary ? `<div style="margin:0 0 24px;padding:16px;background:#fdf8f8;border-left:3px solid #92202f;border-radius:0 8px 8px 0;">${summary}</div>` : ''}
   <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
     ${youtubeUrl ? `<a href="${youtubeUrl}" style="display:inline-block;background:#ff0000;color:#fff;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:700;font-size:13px;">▶ ${t.watch}</a>` : ''}
     <a href="${pageUrl}" style="display:inline-block;background:linear-gradient(135deg,#380a14,#92202f);color:#fff;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:700;font-size:13px;">${t.more}</a>
