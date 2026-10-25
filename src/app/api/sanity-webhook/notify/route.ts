@@ -158,7 +158,18 @@ export async function POST(req: NextRequest) {
     const preacher   = (payload.preacher ?? '') as string
     const date       = (payload.date ?? new Date().toISOString().slice(0, 10)) as string
     const scripture  = payload.scripture as string | undefined
-    const summary    = payload.summary as string | undefined
+    const summaryRaw = payload.summary
+    // summary 是 PortableText Block 陣列，需萃取純文字
+    const summary: string | undefined = Array.isArray(summaryRaw)
+      ? summaryRaw
+          .flatMap((block: Record<string, unknown>) =>
+            Array.isArray(block.children)
+              ? (block.children as Array<{ text?: string }>).map(s => s.text ?? '')
+              : []
+          )
+          .join('')
+          .trim() || undefined
+      : typeof summaryRaw === 'string' ? summaryRaw : undefined
     const youtubeUrl = payload.youtubeUrl as string | undefined
 
     results = await sendBulk(transporter, allRecipients, (locale) => ({
