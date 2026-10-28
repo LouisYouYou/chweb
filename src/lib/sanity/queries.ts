@@ -137,6 +137,7 @@ export interface SanityEvent {
   descriptionZh?: string
   descriptionEn?: string
   date: string
+  expiresAt?: string
   time?: string
   locationZh?: string
   locationEn?: string
@@ -156,6 +157,7 @@ export interface DisplayEvent {
   descriptionZh?: string
   descriptionEn?: string
   date: string
+  expiresAt?: string
   time?: string
   locationZh?: string
   locationEn?: string
@@ -171,7 +173,7 @@ export interface DisplayEvent {
 
 const eventFields = groq`
   _id, titleZh, titleEn, descriptionZh, descriptionEn,
-  date, time, locationZh, locationEn, category,
+  date, expiresAt, time, locationZh, locationEn, category,
   fee, seats, seatsLeft, registrationUrl,
   image { asset->{ "_ref": _id, metadata { lqip } }, hotspot },
   courseItems[] { nameZh, nameEn, day, time }
@@ -179,8 +181,12 @@ const eventFields = groq`
 
 export async function getUpcomingEvents(limit = 3): Promise<SanityEvent[]> {
   const today = new Date().toISOString().slice(0, 10)
+  // Show event if: expiresAt is set and not yet passed, OR expiresAt is null and date is today or future
   return client.fetch(
-    groq`*[_type == "churchEvent" && date >= $today] | order(date asc) [0...$limit] { ${eventFields} }`,
+    groq`*[_type == "churchEvent" && (
+      (expiresAt != null && expiresAt >= $today) ||
+      (expiresAt == null && date >= $today)
+    )] | order(date asc) [0...$limit] { ${eventFields} }`,
     { today, limit }
   )
 }
@@ -188,7 +194,10 @@ export async function getUpcomingEvents(limit = 3): Promise<SanityEvent[]> {
 export async function getAllEvents(): Promise<SanityEvent[]> {
   const today = new Date().toISOString().slice(0, 10)
   return client.fetch(
-    groq`*[_type == "churchEvent" && date >= $today] | order(date asc) { ${eventFields} }`,
+    groq`*[_type == "churchEvent" && (
+      (expiresAt != null && expiresAt >= $today) ||
+      (expiresAt == null && date >= $today)
+    )] | order(date asc) { ${eventFields} }`,
     { today }
   )
 }

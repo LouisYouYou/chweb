@@ -77,7 +77,51 @@ export default async function NewsTicker() {
     }),
   ];
 
-  if (!items.length) return null;
+  // Fallback: always show recurring weekly gatherings so ticker is never empty
+  if (!items.length) {
+    const fallbackItems: TickerItem[] = [
+      {
+        id: 'fallback-sunday',
+        label: zh ? '崇拜' : locale === 'my' ? 'ဝတ်ပြုကိုးကွယ်ခြင်း' : locale === 'ja' ? '礼拝' : 'Worship',
+        labelColor: categoryDot.worship,
+        text: zh
+          ? '主日崇拜 — 每週日 10:00–11:30'
+          : locale === 'ja'
+          ? '主日礼拝 — 毎週日曜日 10:00–11:30'
+          : locale === 'my'
+          ? 'မိုးနေ့ ကိုးကွယ်ဝတ်ပြုခြင်း — တနင်္ဂနွေ 10:00–11:30'
+          : 'Sunday Worship — Every Sunday 10:00–11:30',
+        href: `/${locale}/services`,
+      },
+      {
+        id: 'fallback-small-group',
+        label: zh ? '小組' : locale === 'my' ? 'အုပ်စု' : locale === 'ja' ? '小グループ' : 'Group',
+        labelColor: categoryDot.community,
+        text: zh
+          ? '小組聚會 — 每週二 19:30–21:00'
+          : locale === 'ja'
+          ? '小グループ集会 — 毎週火曜日 19:30–21:00'
+          : locale === 'my'
+          ? 'အုပ်စုကိုးကွယ်ဝတ်ပြုခြင်း — အင်္ဂါ 19:30–21:00'
+          : 'Small Group — Every Tuesday 19:30–21:00',
+        href: `/${locale}/services`,
+      },
+      {
+        id: 'fallback-youth',
+        label: zh ? '青年' : locale === 'my' ? 'လူငယ်' : locale === 'ja' ? '青年' : 'Youth',
+        labelColor: categoryDot.youth,
+        text: zh
+          ? '青年聚會 — 每週六固定聚會'
+          : locale === 'ja'
+          ? '青年集会 — 毎週土曜日'
+          : locale === 'my'
+          ? 'လူငယ်ကိုးကွယ်ဝတ်ပြုခြင်း — စနေနေ့'
+          : 'Youth Meeting — Every Saturday',
+        href: `/${locale}/services`,
+      },
+    ];
+    return <TickerTrack items={fallbackItems} sectionLabel={sectionLabels[locale] ?? sectionLabels['zh-TW']} />;
+  }
 
   return <TickerTrack items={items} sectionLabel={sectionLabels[locale] ?? sectionLabels['zh-TW']} />;
 }

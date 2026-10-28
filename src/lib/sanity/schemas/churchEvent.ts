@@ -50,6 +50,13 @@ export default defineType({
       options: { dateFormat: 'YYYY-MM-DD' },
     }),
     defineField({
+      name: 'expiresAt',
+      title: '⏰ 到期日期（選填）',
+      type: 'date',
+      options: { dateFormat: 'YYYY-MM-DD' },
+      description: '活動在首頁跑馬燈與活動列表上顯示到此日期為止。留空則以活動日期為準，活動當天過後自動隱藏。',
+    }),
+    defineField({
       name: 'time',
       title: '🕐 時間',
       type: 'string',
