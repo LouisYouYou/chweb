@@ -72,7 +72,7 @@ export default async function NewsTicker() {
           : categoryLabel[catKey]?.en ?? catKey,
         labelColor: categoryDot[catKey] ?? categoryDot.community,
         text: `${month}/${day}  ${zh ? ev.titleZh : (ev.titleEn || ev.titleZh)}`,
-        href: `/${locale}/events`,
+        href: `/${locale}/events/${ev._id}`,
       };
     }),
   ];
