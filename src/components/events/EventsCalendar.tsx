@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { MapPin, Clock, X, ZoomIn, ClipboardList, Users, ExternalLink } from 'lucide-react';
 import type { DisplayEvent } from '@/lib/sanity/queries';
+import { ptToPlainText } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
   worship:   'border-l-wine-500 bg-wine-50/60',
@@ -154,8 +155,8 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                         {zh ? event.titleZh : event.titleEn}
                       </h3>
 
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                        {zh ? event.descriptionZh : event.descriptionEn}
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                        {ptToPlainText(zh ? event.descriptionZh : event.descriptionEn)}
                       </p>
 
                       <div className="flex flex-wrap gap-4 text-xs text-gray-500 mb-4">

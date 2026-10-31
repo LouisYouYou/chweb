@@ -33,14 +33,114 @@ export default defineType({
     defineField({
       name: 'descriptionZh',
       title: '📝 說明（中文）',
-      type: 'text',
-      rows: 4,
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: '內文', value: 'normal' },
+            { title: '標題 H2', value: 'h2' },
+            { title: '標題 H3', value: 'h3' },
+            { title: '引言', value: 'blockquote' },
+          ],
+          lists: [
+            { title: '項目清單', value: 'bullet' },
+            { title: '編號清單', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: '粗體', value: 'strong' },
+              { title: '斜體', value: 'em' },
+              { title: '底線', value: 'underline' },
+            ],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: '連結',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: (Rule) =>
+                      Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }),
+                  },
+                  {
+                    name: 'blank',
+                    type: 'boolean',
+                    title: '另開新頁',
+                    initialValue: false,
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({ name: 'alt', title: '圖片說明（alt）', type: 'string' }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: 'descriptionEn',
       title: '📝 Description (English)',
-      type: 'text',
-      rows: 4,
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'Heading H2', value: 'h2' },
+            { title: 'Heading H3', value: 'h3' },
+            { title: 'Quote', value: 'blockquote' },
+          ],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Numbered', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Bold', value: 'strong' },
+              { title: 'Italic', value: 'em' },
+              { title: 'Underline', value: 'underline' },
+            ],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: (Rule) =>
+                      Rule.uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }),
+                  },
+                  {
+                    name: 'blank',
+                    type: 'boolean',
+                    title: 'Open in new tab',
+                    initialValue: false,
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: 'date',

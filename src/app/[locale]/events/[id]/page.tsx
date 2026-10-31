@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MapPin, Clock, Users, ArrowLeft, ClipboardList, CalendarDays, Tag } from 'lucide-react'
-import { getEventById } from '@/lib/sanity/queries'
+import { PortableText } from '@portabletext/react'
+import { getEventById, ptToPlainText } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 import PageHero from '@/components/layout/PageHero'
 
@@ -43,7 +44,7 @@ export async function generateMetadata({
 
   const zh = locale === 'zh-TW'
   const title = zh ? ev.titleZh : ev.titleEn
-  const description = (zh ? ev.descriptionZh : ev.descriptionEn) ?? ''
+  const description = ptToPlainText(zh ? ev.descriptionZh : ev.descriptionEn)
   const ogImageUrl = ev.image
     ? urlFor(ev.image).width(1200).height(630).fit('crop').auto('format').url()
     : undefined
@@ -90,7 +91,7 @@ export default async function EventDetailPage({
     zh ? zhStr : my ? myStr : ja ? jaStr : enStr
 
   const title = zh ? ev.titleZh : ev.titleEn
-  const description = zh ? ev.descriptionZh : ev.descriptionEn
+  const descriptionBlocks = zh ? ev.descriptionZh : ev.descriptionEn
   const location = zh ? ev.locationZh : ev.locationEn
   const catLabel = categoryLabels[ev.category]
     ? (zh ? categoryLabels[ev.category].zh : my ? categoryLabels[ev.category].my : ja ? categoryLabels[ev.category].ja : categoryLabels[ev.category].en)
@@ -194,10 +195,15 @@ export default async function EventDetailPage({
               </div>
 
               {/* Description */}
-              {description && (
-                <p className="type-body text-gray-700 leading-relaxed mb-8 whitespace-pre-wrap">
-                  {description}
-                </p>
+              {descriptionBlocks && descriptionBlocks.length > 0 && (
+                <div className="prose prose-sm prose-wine max-w-none mb-8 text-gray-700 leading-relaxed
+                  [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-wine-900 [&_h2]:mt-6 [&_h2]:mb-2
+                  [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-wine-800 [&_h3]:mt-4 [&_h3]:mb-1
+                  [&_blockquote]:border-l-4 [&_blockquote]:border-wine-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500
+                  [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5
+                  [&_li]:mb-1 [&_p]:mb-3 [&_a]:text-wine-600 [&_a]:underline [&_a:hover]:text-wine-800">
+                  <PortableText value={descriptionBlocks} />
+                </div>
               )}
 
               {/* Course schedule */}

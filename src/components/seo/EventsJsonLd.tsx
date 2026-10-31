@@ -1,4 +1,5 @@
 import type { DisplayEvent } from '@/lib/sanity/queries'
+import { ptToPlainText } from '@/lib/sanity/queries'
 
 const BASE = 'https://nanshijiaoglory.vercel.app'
 
@@ -21,7 +22,7 @@ export default function EventsJsonLd({ events }: Props) {
         '@id': `${BASE}/zh-TW/events#event-${ev.id}`,
         name: ev.titleZh,
         alternateName: ev.titleEn,
-        description: ev.descriptionZh,
+        description: ptToPlainText(ev.descriptionZh),
         startDate: ev.time
           ? `${ev.date}T${ev.time.split(' ')[0]}:00+08:00`
           : `${ev.date}T00:00:00+08:00`,

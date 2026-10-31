@@ -4,6 +4,20 @@ import type { PortableTextBlock } from '@portabletext/types'
 
 export type SanityBlock = PortableTextBlock
 
+/** Extract plain text from PortableText blocks (for SEO / meta / card previews) */
+export function ptToPlainText(blocks?: SanityBlock[]): string {
+  if (!blocks?.length) return ''
+  return blocks
+    .map((block) => {
+      if (block._type !== 'block' || !block.children) return ''
+      return (block.children as Array<{ text?: string }>)
+        .map((span) => span.text ?? '')
+        .join('')
+    })
+    .filter(Boolean)
+    .join('\n')
+}
+
 export interface Announcement {
   _id: string
   titleZh: string
@@ -134,8 +148,8 @@ export interface SanityEvent {
   _id: string
   titleZh: string
   titleEn: string
-  descriptionZh?: string
-  descriptionEn?: string
+  descriptionZh?: SanityBlock[]
+  descriptionEn?: SanityBlock[]
   date: string
   expiresAt?: string
   time?: string
@@ -154,8 +168,8 @@ export interface DisplayEvent {
   id: string
   titleZh: string
   titleEn: string
-  descriptionZh?: string
-  descriptionEn?: string
+  descriptionZh?: SanityBlock[]
+  descriptionEn?: SanityBlock[]
   date: string
   expiresAt?: string
   time?: string
