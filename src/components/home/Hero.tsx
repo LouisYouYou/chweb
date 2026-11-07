@@ -122,16 +122,16 @@ export default function Hero() {
             style={{ animation: 'hero-title-in 0.7s cubic-bezier(0.22,1,0.36,1) 0.7s both' }}
           >
             {/* Primary row */}
-            <div className="flex flex-row flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={`/${locale}/first-visit`}
-                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-wine-700 text-white font-bold rounded-full hover:bg-wine-800 text-sm whitespace-nowrap shrink-0 cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-wine-700 text-white font-bold rounded-full hover:bg-wine-800 text-sm whitespace-nowrap w-full sm:w-auto cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
               >
                 {t('cta_primary')}
               </Link>
               <Link
                 href={`/${locale}/services`}
-                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 border border-white/50 text-white/90 font-semibold rounded-full hover:bg-white/10 hover:border-white/70 text-sm whitespace-nowrap shrink-0 backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 border border-white/50 text-white/90 font-semibold rounded-full hover:bg-white/10 hover:border-white/70 text-sm whitespace-nowrap w-full sm:w-auto backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
               >
                 {t('cta_secondary')}
               </Link>
