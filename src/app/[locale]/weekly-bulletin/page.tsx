@@ -43,7 +43,7 @@ export default async function WeeklyBulletinPage() {
                     className="flex items-center gap-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5"
                   >
                     {/* Date badge */}
-                    <div className="church-gradient rounded-2xl px-4 py-3 text-center shrink-0 min-w-[60px] shadow-md">
+                    <div className="wine-gradient rounded-2xl px-4 py-3 text-center shrink-0 min-w-[60px] shadow-md">
                       <p className="text-[10px] font-bold text-wine-200 tracking-widest">{month}</p>
                       <p className="text-2xl font-black text-white leading-tight">{day}</p>
                       <p className="text-[10px] text-wine-300">{year}</p>

@@ -147,7 +147,7 @@ export default async function SermonDetailPage({
             {t('back_to_sermons')}
           </Link>
 
-          <div className="bg-white rounded-3xl overflow-hidden shadow-lg shadow-wine-100/60 border border-gray-100">
+          <div className="bg-warm-white rounded-3xl overflow-hidden shadow-lg shadow-wine-100/60 border border-warm-beige/40">
             {imageUrl && (
               <div className="w-full bg-[#fdfaf5]">
                 <Image
@@ -165,7 +165,7 @@ export default async function SermonDetailPage({
             )}
 
             <div className="px-8 py-10 lg:px-12 lg:py-12">
-              <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-6">
+              <div className="flex flex-wrap gap-4 text-sm text-ink-500 mb-6">
                 <span className="flex items-center gap-1.5">
                   <CalendarDays aria-hidden="true" size={14} className="text-amber-500" />
                   {dateLabel}
@@ -201,7 +201,7 @@ export default async function SermonDetailPage({
                     href={msg.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 min-h-[44px] px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+                    className="inline-flex items-center gap-2 min-h-[44px] px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
                   >
                     <Play aria-hidden="true" size={15} fill="currentColor" />
                     {ts('watch_cta')}

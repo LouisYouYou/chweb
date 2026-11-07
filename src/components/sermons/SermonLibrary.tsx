@@ -59,7 +59,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
             placeholder={t('search_placeholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
+            className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-300 text-sm"
           />
         </div>
 
@@ -92,7 +92,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
                 onClick={() => setPlaying(video)}
               >
                 {/* Thumbnail */}
-                <div className="relative h-44 bg-wine-950 overflow-hidden">
+                <div className="relative h-44 bg-ink-900 overflow-hidden">
                   {video.thumbnail ? (
                     <Image
                       src={video.thumbnail}
@@ -117,7 +117,7 @@ export default function SermonLibrary({ locale, videos }: SermonLibraryProps) {
 
                 {/* Info */}
                 <div className="p-4">
-                  <h4 className="font-semibold text-wine-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-wine-700 transition-colors">
+                  <h4 className="font-semibold text-ink-800 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-wine-700 transition-colors">
                     {video.title}
                   </h4>
                   <div className="flex items-center gap-1.5 text-xs text-gray-400">

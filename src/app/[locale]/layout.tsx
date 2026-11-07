@@ -45,7 +45,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <html lang={locale} className={locale === 'my' ? notoMyanmar.className : locale === 'ja' ? notoJapanese.className : undefined}>
+      <html lang={locale} className={locale === 'my' ? notoMyanmar.className : locale === 'ja' ? notoJapanese.className : 'font-sans'}>
         <head>
           <ChurchJsonLd />
         </head>
@@ -53,7 +53,7 @@ export default async function LocaleLayout({
           <SkipToContent />
           <Header locale={locale} />
           <NewsTicker />
-          <main id="main-content" tabIndex={-1} className="flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-inset">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-inset">{children}</main>
           <NewsletterSection />
           <Footer />
           <LineFloatButton />

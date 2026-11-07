@@ -41,7 +41,7 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
           <div key={s._id} id={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
             {/* Date header */}
             <div className="flex items-center gap-3 px-5 py-4 bg-wine-50 border-b border-wine-100">
-              <div className="church-gradient rounded-xl p-3 text-center min-w-[56px] text-white shrink-0">
+              <div className="wine-gradient rounded-xl p-3 text-center min-w-[56px] text-white shrink-0">
                 <p className="text-xs font-medium opacity-80">{s.date.slice(5, 7)}</p>
                 <p className="text-xl font-bold leading-tight">{s.date.slice(8, 10)}</p>
                 <p className="text-xs opacity-80">{s.date.slice(0, 4)}</p>

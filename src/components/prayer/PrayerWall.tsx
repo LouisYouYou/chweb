@@ -479,7 +479,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
           </button>
         ) : (
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-wine-100 shadow-md p-5 sm:p-6 space-y-4">
-            <h3 className="font-bold text-wine-900 text-base">{zh ? '新增代禱事項' : my ? 'ဆုတောင်းချက် ထည့်ပါ' : ja ? '祈祷リクエストを追加' : 'New Prayer Request'}</h3>
+            <h3 className="font-bold text-ink-800 text-base">{zh ? '新增代禱事項' : my ? 'ဆုတောင်းချက် ထည့်ပါ' : ja ? '祈祷リクエストを追加' : 'New Prayer Request'}</h3>
 
             {showName && (
               <div className="relative">
@@ -490,7 +490,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
                   onChange={e => setName(e.target.value)}
                   maxLength={30}
                   placeholder={zh ? '您的姓名（留空顯示匿名）' : my ? 'နာမည် (ရွေးချယ်နိုင်သည်)' : ja ? 'お名前（任意）' : 'Your name (optional)'}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-wine-300"
+                  className="w-full pl-10 pr-4 py-3 border border-warm-beige/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-300"
                 />
               </div>
             )}
@@ -502,7 +502,7 @@ export default function PrayerWall({ initialPrayers, locale }: PrayerWallProps) 
               rows={4}
               maxLength={500}
               placeholder={zh ? '請分享您的代禱需求…（最多 500 字）' : my ? 'သင်၏ ဆုတောင်းချက် မျှဝေပါ…' : ja ? '祈祷リクエストを共有…（最大500文字）' : 'Share your prayer request… (max 500 chars)'}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-wine-300"
+              className="w-full px-4 py-3 border border-warm-beige/60 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-forest-300"
             />
 
             <div className="flex flex-wrap gap-2">

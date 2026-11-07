@@ -36,22 +36,22 @@ export default async function StatsBar() {
   const stats = STATS[locale] ?? STATS['zh-TW'];
 
   return (
-    <section aria-label="教會基本資訊" className="bg-[#fdfaf5] border-b border-amber-100">
+    <section aria-label="教會基本資訊" className="bg-warm-white border-b border-warm-beige/60">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-amber-100">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-warm-beige/60">
           {stats.map(({ Icon, value, label }, i) => (
             <div
               key={i}
               className="flex items-center gap-4 py-5 sm:py-6 sm:px-8 first:sm:pl-0 last:sm:pr-0"
             >
               {/* Icon badge */}
-              <div className="shrink-0 w-11 h-11 rounded-full church-gradient flex items-center justify-center shadow-md shadow-wine-200">
+              <div className="shrink-0 w-11 h-11 rounded-full wine-gradient flex items-center justify-center shadow-md shadow-wine-200">
                 <Icon size={18} className="text-white" aria-hidden="true" />
               </div>
 
               {/* Text */}
               <div className="min-w-0">
-                <p className="font-bold text-wine-900 text-base leading-snug truncate">{value}</p>
+                <p className="font-bold text-ink-800 text-base leading-snug truncate">{value}</p>
                 <p className="text-xs text-gray-500 mt-0.5 truncate">{label}</p>
               </div>
             </div>

@@ -3,7 +3,7 @@ import TickerTrack, { type TickerItem } from './TickerTrack';
 import { getUpcomingEvents, getAnnouncements } from '@/lib/sanity/queries';
 
 const categoryDot: Record<string, string> = {
-  worship:   'bg-wine-700/80 text-wine-200',
+  worship:   'bg-forest-700/80 text-forest-200',
   family:    'bg-rose-700/80 text-rose-200',
   youth:     'bg-purple-700/80 text-purple-200',
   community: 'bg-emerald-700/80 text-emerald-200',

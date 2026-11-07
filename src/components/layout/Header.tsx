@@ -77,11 +77,9 @@ export default function Header({ locale }: HeaderProps) {
 
   const isResourcesActive = resourceLinks.some(r => pathname.startsWith(r.href));
 
-  // Desktop Resources dropdown hover
   const openDropdown  = () => { if (hoverTimeout.current) clearTimeout(hoverTimeout.current); setDesktopDropdownOpen(true); };
   const closeDropdown = () => { hoverTimeout.current = setTimeout(() => setDesktopDropdownOpen(false), 120); };
 
-  // Move focus to first item when mobile menu opens
   useEffect(() => {
     if (menuOpen && mobileMenuRef.current) {
       const first = mobileMenuRef.current.querySelector<HTMLElement>('a[href], button:not([disabled])');
@@ -89,7 +87,6 @@ export default function Header({ locale }: HeaderProps) {
     }
   }, [menuOpen]);
 
-  // ── Mobile menu: focus trap + Escape ─────────────────────────────────────
   const handleMobileMenuKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Escape') {
       setMenuOpen(false);
@@ -113,7 +110,6 @@ export default function Header({ locale }: HeaderProps) {
     }
   }, []);
 
-  // ── Desktop Resources dropdown keyboard ──────────────────────────────────
   const handleResourcesTriggerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Escape') {
       setDesktopDropdownOpen(false);
@@ -145,7 +141,6 @@ export default function Header({ locale }: HeaderProps) {
     }
   };
 
-  // ── Language dropdown keyboard ────────────────────────────────────────────
   const handleLangItemKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Escape') { setLangOpen(false); langTriggerRef.current?.focus(); }
   };
@@ -162,7 +157,8 @@ export default function Header({ locale }: HeaderProps) {
       {/* Brand accent bar — hidden when transparent */}
       <div
         aria-hidden="true"
-        className={`h-0.5 bg-gradient-to-r from-wine-700 via-amber-400 to-wine-700 transition-opacity duration-300 ${transparent ? 'opacity-0' : 'opacity-100'}`}
+        className={`h-0.5 transition-opacity duration-300 ${transparent ? 'opacity-0' : 'opacity-100'}`}
+        style={{ background: 'linear-gradient(90deg, #22302a, #AD8C60, #22302a)' }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -171,7 +167,7 @@ export default function Header({ locale }: HeaderProps) {
           {/* ── Logo ── */}
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+            className="flex items-center gap-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
           >
             <Image
               src="/logo.png"
@@ -181,10 +177,10 @@ export default function Header({ locale }: HeaderProps) {
               className="rounded-full shadow-md group-hover:shadow-lg transition-shadow"
             />
             <div className="hidden sm:block">
-              <p className={`font-bold text-sm leading-tight transition-colors duration-300 ${transparent ? 'text-white' : 'text-wine-900'}`}>
+              <p className={`font-bold text-sm leading-tight transition-colors duration-300 ${transparent ? 'text-white' : 'text-ink-800'}`}>
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Of Nanshijiao'}
               </p>
-              <p className={`text-xs leading-tight transition-colors duration-300 ${transparent ? 'text-white/70' : 'text-wine-500'}`}>
+              <p className={`text-xs leading-tight transition-colors duration-300 ${transparent ? 'text-white/70' : 'text-gold-warm-600'}`}>
                 {locale === 'zh-TW' ? 'Glory Church Of Nanshijiao' : '行道會南勢角榮耀堂'}
               </p>
             </div>
@@ -196,10 +192,10 @@ export default function Header({ locale }: HeaderProps) {
               <Link
                 key={href}
                 href={href}
-                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                   transparent
                     ? isActive(href) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                    : isActive(href) ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                    : isActive(href) ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
                 }`}
               >
                 {label}
@@ -219,10 +215,10 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="resources-menu"
                 onClick={() => setDesktopDropdownOpen(v => !v)}
                 onKeyDown={handleResourcesTriggerKeyDown}
-                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                   transparent
                     ? isResourcesActive ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                    : isResourcesActive ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                    : isResourcesActive ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
                 }`}
               >
                 {t('resources')}
@@ -243,7 +239,7 @@ export default function Header({ locale }: HeaderProps) {
                     id="resources-menu"
                     role="menu"
                     ref={resourcesMenuRef}
-                    className="bg-white rounded-2xl shadow-lg border border-wine-100 py-2 w-44 overflow-hidden"
+                    className="bg-white rounded-2xl shadow-lg border border-warm-beige py-2 w-44 overflow-hidden"
                   >
                     {resourceLinks.map(({ href, label, icon: Icon }, idx) => (
                       <Link
@@ -251,13 +247,13 @@ export default function Header({ locale }: HeaderProps) {
                         href={href}
                         role="menuitem"
                         onKeyDown={(e) => handleResourcesMenuKeyDown(e, idx)}
-                        className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors focus:outline-none focus:bg-wine-50 focus:text-wine-700 ${
+                        className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
                           isActive(href)
-                            ? 'text-wine-700 bg-wine-50 font-medium'
-                            : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                            ? 'text-forest-600 bg-forest-50 font-medium'
+                            : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
                         }`}
                       >
-                        <Icon size={14} aria-hidden="true" className="text-wine-400 shrink-0" />
+                        <Icon size={14} aria-hidden="true" className="text-forest-400 shrink-0" />
                         {label}
                       </Link>
                     ))}
@@ -268,10 +264,10 @@ export default function Header({ locale }: HeaderProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                 transparent
                   ? isActive(`/${locale}/contact`) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                  : isActive(`/${locale}/contact`) ? 'text-wine-700 bg-wine-50'  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                  : isActive(`/${locale}/contact`) ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
               }`}
             >
               {t('contact')}
@@ -294,10 +290,10 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="lang-menu"
                 onClick={() => setLangOpen(v => !v)}
                 onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
-                className={`flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                className={`flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                   transparent
                     ? 'text-white/90 hover:text-white border border-white/40 hover:border-white/70'
-                    : 'text-gray-600 hover:text-wine-700 border border-gray-200 hover:border-wine-300'
+                    : 'text-gray-600 hover:text-forest-600 border border-gray-200 hover:border-forest-300'
                 }`}
               >
                 <span
@@ -316,16 +312,16 @@ export default function Header({ locale }: HeaderProps) {
                   onMouseEnter={() => { if (langHoverTimeout.current) clearTimeout(langHoverTimeout.current); }}
                   onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
                 >
-                  <div className="bg-white rounded-xl shadow-lg border border-wine-100 py-1.5 w-44 overflow-hidden">
+                  <div className="bg-white rounded-xl shadow-lg border border-warm-beige py-1.5 w-44 overflow-hidden">
                     {Object.entries(LOCALE_DATA).map(([localeCode, { code, label }]) => (
                       <button
                         key={localeCode}
                         onClick={() => switchLocale(localeCode)}
                         onKeyDown={handleLangItemKeyDown}
-                        className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] text-sm transition-colors focus:outline-none focus:bg-wine-50 focus:text-wine-700 ${
+                        className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] text-sm transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
                           locale === localeCode
-                            ? 'text-wine-700 bg-wine-50 font-medium'
-                            : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                            ? 'text-forest-600 bg-forest-50 font-medium'
+                            : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
                         }`}
                       >
                         <span
@@ -348,10 +344,10 @@ export default function Header({ locale }: HeaderProps) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen(v => !v)}
-              className={`lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+              className={`lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                 transparent
                   ? 'text-white hover:bg-white/10'
-                  : 'text-gray-600 hover:text-wine-700 hover:bg-wine-50'
+                  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
               }`}
             >
               {menuOpen
@@ -369,7 +365,7 @@ export default function Header({ locale }: HeaderProps) {
           id="mobile-menu"
           ref={mobileMenuRef}
           onKeyDown={handleMobileMenuKeyDown}
-          className="lg:hidden border-t border-wine-100 bg-white"
+          className="lg:hidden border-t border-warm-beige bg-white"
         >
           <nav aria-label={t('main_nav')} className="px-4 py-3 flex flex-col gap-1">
             {mainLinks.map(({ href, label }) => (
@@ -377,10 +373,10 @@ export default function Header({ locale }: HeaderProps) {
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                   isActive(href)
-                    ? 'text-wine-700 bg-wine-50'
-                    : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
+                    ? 'text-forest-600 bg-forest-50'
+                    : 'text-gray-700 hover:text-forest-600 hover:bg-forest-50'
                 }`}
               >
                 {label}
@@ -393,10 +389,10 @@ export default function Header({ locale }: HeaderProps) {
                 aria-expanded={resourcesMobileOpen}
                 aria-controls="mobile-resources-menu"
                 onClick={() => setResourcesMobileOpen(v => !v)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                   isResourcesActive
-                    ? 'text-wine-700 bg-wine-50'
-                    : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
+                    ? 'text-forest-600 bg-forest-50'
+                    : 'text-gray-700 hover:text-forest-600 hover:bg-forest-50'
                 }`}
               >
                 {t('resources')}
@@ -410,20 +406,20 @@ export default function Header({ locale }: HeaderProps) {
               {resourcesMobileOpen && (
                 <div
                   id="mobile-resources-menu"
-                  className="ml-3 mt-0.5 flex flex-col gap-0.5 border-l-2 border-wine-100 pl-3"
+                  className="ml-3 mt-0.5 flex flex-col gap-0.5 border-l-2 border-warm-beige pl-3"
                 >
                   {resourceLinks.map(({ href, label, icon: Icon }) => (
                     <Link
                       key={href}
                       href={href}
                       onClick={() => setMenuOpen(false)}
-                      className={`flex items-center gap-2 px-3 py-2.5 min-h-[44px] rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+                      className={`flex items-center gap-2 px-3 py-2.5 min-h-[44px] rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                         isActive(href)
-                          ? 'text-wine-700 font-medium'
-                          : 'text-gray-600 hover:text-wine-700'
+                          ? 'text-forest-600 font-medium'
+                          : 'text-gray-600 hover:text-forest-600'
                       }`}
                     >
-                      <Icon size={13} aria-hidden="true" className="text-wine-400 shrink-0" />
+                      <Icon size={13} aria-hidden="true" className="text-forest-400 shrink-0" />
                       {label}
                     </Link>
                   ))}
@@ -434,10 +430,10 @@ export default function Header({ locale }: HeaderProps) {
             <Link
               href={`/${locale}/contact`}
               onClick={() => setMenuOpen(false)}
-              className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-1 ${
+              className={`flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                 isActive(`/${locale}/contact`)
-                  ? 'text-wine-700 bg-wine-50'
-                  : 'text-gray-700 hover:text-wine-700 hover:bg-wine-50'
+                  ? 'text-forest-600 bg-forest-50'
+                  : 'text-gray-700 hover:text-forest-600 hover:bg-forest-50'
               }`}
             >
               {t('contact')}

@@ -64,7 +64,7 @@ export default function ContactForm() {
 
           {/* Form */}
           <div>
-            <h2 className="text-2xl font-bold text-wine-900 mb-6">{t('form_title')}</h2>
+            <h2 className="text-2xl font-bold text-ink-800 mb-6">{t('form_title')}</h2>
 
             {sent ? (
               <div className="flex flex-col items-start py-10 gap-5">
@@ -72,21 +72,21 @@ export default function ContactForm() {
                   <CheckCircle size={32} className="text-green-500 shrink-0" />
                   <p className="text-lg font-semibold text-green-700">{t('success')}</p>
                 </div>
-                <p className="text-sm text-gray-500 bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 w-full">
+                <p className="text-sm text-ink-500 bg-warm-beige/20 rounded-xl px-4 py-3 border border-warm-beige/40 w-full">
                   {t('reply_notice')}
                 </p>
                 <div className="flex flex-col gap-3 pt-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('success_next')}</p>
+                  <p className="text-xs font-semibold text-ink-400 uppercase tracking-wider">{t('success_next')}</p>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-sm text-wine-700 hover:text-wine-900 font-medium transition-colors"
+                    className="flex items-center gap-2 text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors"
                   >
                     <ArrowRight size={14} />
                     {t('success_link_services')}
                   </Link>
                   <Link
                     href={`/${locale}/first-visit`}
-                    className="flex items-center gap-2 text-sm text-wine-700 hover:text-wine-900 font-medium transition-colors"
+                    className="flex items-center gap-2 text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors"
                   >
                     <ArrowRight size={14} />
                     {t('success_link_first_visit')}
@@ -98,7 +98,7 @@ export default function ContactForm() {
 
                 {/* Topic selector */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink-700 mb-2">
                     {t('topic_label')}
                   </label>
                   <div className="flex flex-col gap-2">
@@ -109,8 +109,8 @@ export default function ContactForm() {
                         onClick={() => setTopic(key)}
                         className={`w-full text-left px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all duration-150 ${
                           topic === key
-                            ? 'border-wine-400 bg-wine-50 text-wine-900'
-                            : 'border-gray-200 bg-white text-gray-600 hover:border-wine-200 hover:bg-wine-50/40'
+                            ? 'border-forest-400 bg-forest-50 text-ink-800'
+                            : 'border-warm-beige/60 bg-warm-white text-ink-600 hover:border-forest-300 hover:bg-forest-50/40'
                         }`}
                       >
                         {t(`topic_${key}`)}
@@ -122,18 +122,18 @@ export default function ContactForm() {
                 {/* Name (optional) + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-ink-700 mb-1">
                       {t('name_optional')}
                     </label>
                     <input
                       type="text"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
+                      className="w-full px-4 py-3 border border-warm-beige/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-300 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-ink-700 mb-1">
                       {t('email')} <span className="text-red-400">*</span>
                     </label>
                     <input
@@ -141,14 +141,14 @@ export default function ContactForm() {
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm"
+                      className="w-full px-4 py-3 border border-warm-beige/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-300 text-sm"
                     />
                   </div>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-ink-700 mb-1">
                     {t('message')} <span className="text-red-400">*</span>
                   </label>
                   <textarea
@@ -156,12 +156,12 @@ export default function ContactForm() {
                     required
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-wine-300 text-sm resize-none"
+                    className="w-full px-4 py-3 border border-warm-beige/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-300 text-sm resize-none"
                   />
                 </div>
 
                 {/* Reply notice */}
-                <p className="text-xs text-gray-400 bg-gray-50 rounded-xl px-4 py-3 border border-gray-100">
+                <p className="text-xs text-ink-400 bg-warm-beige/20 rounded-xl px-4 py-3 border border-warm-beige/40">
                   {t('reply_notice')}
                 </p>
 
@@ -185,7 +185,7 @@ export default function ContactForm() {
 
           {/* Info */}
           <div>
-            <h2 className="text-2xl font-bold text-wine-900 mb-6">{t('info_title')}</h2>
+            <h2 className="text-2xl font-bold text-ink-800 mb-6">{t('info_title')}</h2>
             <div className="space-y-5">
               {[
                 {
@@ -207,7 +207,7 @@ export default function ContactForm() {
                   label: t('email_label'),
                   value: 'winson651202@gmail.com',
                   href: 'mailto:winson651202@gmail.com',
-                  color: 'bg-amber-50 text-amber-600',
+                  color: 'bg-gold-warm-50 text-gold-warm-600',
                 },
                 {
                   icon: Clock,
@@ -217,23 +217,23 @@ export default function ContactForm() {
                   color: 'bg-purple-50 text-purple-600',
                 },
               ].map(({ icon: Icon, label, value, href, color }) => (
-                <div key={label} className="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl">
+                <div key={label} className="flex items-start gap-4 p-5 bg-warm-beige/20 rounded-2xl">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${color}`}>
                     <Icon size={18} />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 mb-0.5">{label}</p>
+                    <p className="text-xs text-ink-400 mb-0.5">{label}</p>
                     {href ? (
                       <a
                         href={href}
                         target={href.startsWith('http') ? '_blank' : undefined}
                         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="font-medium text-gray-800 hover:text-wine-700 underline underline-offset-2 decoration-wine-200 transition-colors"
+                        className="font-medium text-ink-800 hover:text-wine-700 underline underline-offset-2 decoration-wine-200 transition-colors"
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="font-medium text-gray-800">{value}</p>
+                      <p className="font-medium text-ink-800">{value}</p>
                     )}
                   </div>
                 </div>
@@ -250,10 +250,10 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-bold text-gray-800">
+                    <p className="font-bold text-ink-800">
                       {locale === 'zh-TW' ? '加入 LINE 官方帳號' : locale === 'my' ? 'LINE ထည့်ပါ' : locale === 'ja' ? 'LINE公式アカウントを追加' : 'Add LINE Official Account'}
                     </p>
-                    <p className="text-xs text-gray-500">{LINE_ID}</p>
+                    <p className="text-xs text-ink-500">{LINE_ID}</p>
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -267,7 +267,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="text-center sm:text-left">
-                    <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                    <p className="text-sm text-ink-600 leading-relaxed mb-3">
                       {locale === 'zh-TW'
                         ? '掃描 QR Code 或點擊下方按鈕，加入我們的 LINE 官方帳號，即時收到聚會公告與活動通知。'
                         : locale === 'my'

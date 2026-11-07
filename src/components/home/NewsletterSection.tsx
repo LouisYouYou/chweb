@@ -102,29 +102,29 @@ export default function NewsletterSection() {
   const done = status === 'success' || status === 'duplicate'
 
   return (
-    <section className="bg-wine-950 pt-24 pb-14 px-4 relative overflow-hidden">
-      {/* Wave: UpcomingEvents (gray-50) dips into newsletter top */}
+    <section className="bg-forest-900 pt-24 pb-14 px-4 relative overflow-hidden">
+      {/* Wave: UpcomingEvents (warm white) dips into newsletter top */}
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block h-14">
-          <path d="M0,0 L1440,0 C1080,56 360,56 0,0 Z" fill="#ffffff"/>
+          <path d="M0,0 L1440,0 C1080,56 360,56 0,0 Z" fill="#EDE8DF"/>
         </svg>
       </div>
       {/* Decorative background */}
       <div aria-hidden="true" className="absolute inset-0 opacity-5 pointer-events-none"
         style={{ backgroundImage: 'radial-gradient(circle at 2px 2px,#fff 1px,transparent 0)', backgroundSize: '36px 36px' }}
       />
-      <div aria-hidden="true" className="absolute -left-20 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-amber-400/5 pointer-events-none" />
-      <div aria-hidden="true" className="absolute -right-16 bottom-0 w-48 h-48 rounded-full bg-wine-800/40 pointer-events-none" />
+      <div aria-hidden="true" className="absolute -left-20 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gold-warm-500/5 pointer-events-none" />
+      <div aria-hidden="true" className="absolute -right-16 bottom-0 w-48 h-48 rounded-full bg-wine-900/40 pointer-events-none" />
 
       <div className="max-w-2xl mx-auto text-center relative">
         {/* Eyebrow */}
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold tracking-widest uppercase mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-warm-500/10 text-gold-warm-300 text-xs font-semibold tracking-widest uppercase mb-4">
           <Mail aria-hidden="true" size={12} />
           {c.eyebrow}
         </span>
 
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">{c.heading}</h2>
-        <p className="text-wine-300 text-sm sm:text-base mb-8 leading-relaxed">{c.sub}</p>
+        <p className="text-wine-200 text-sm sm:text-base mb-8 leading-relaxed">{c.sub}</p>
 
         {done ? (
           <div role="status" className="flex items-center justify-center gap-3 py-4 px-6 bg-green-900/40 border border-green-500/30 rounded-2xl text-green-300 text-sm font-medium">
@@ -141,12 +141,12 @@ export default function NewsletterSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={c.placeholder}
-              className="flex-1 px-5 py-3.5 rounded-full bg-wine-900 border border-wine-700 text-white placeholder-wine-400 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 transition-all"
+              className="flex-1 px-5 py-3.5 rounded-full bg-wine-950/80 border border-wine-800/60 text-white placeholder-wine-400/70 text-sm focus:outline-none focus:ring-2 focus:ring-gold-warm-400/50 focus:border-gold-warm-400/50 transition-all"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="min-h-[44px] px-7 py-3.5 bg-amber-400 hover:bg-amber-300 active:bg-amber-300 text-wine-900 font-bold rounded-full text-sm transition-all shadow-lg shadow-amber-400/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+              className="min-h-[44px] px-7 py-3.5 bg-gold-warm-500 hover:bg-gold-warm-400 active:bg-gold-warm-400 text-white font-bold rounded-full text-sm transition-all shadow-lg shadow-gold-warm-500/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
             >
               {status === 'loading' && <Loader2 aria-hidden="true" size={14} className="animate-spin" />}
               {status === 'loading' ? c.loading : c.cta}
@@ -158,7 +158,7 @@ export default function NewsletterSection() {
           <p role="alert" className="mt-3 text-red-400 text-xs">{c.error}</p>
         )}
 
-        <p className="mt-5 text-wine-500 text-xs">{c.privacy}</p>
+        <p className="mt-5 text-wine-300/70 text-xs">{c.privacy}</p>
       </div>
     </section>
   )

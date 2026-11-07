@@ -17,11 +17,11 @@ const summaryComponents: PortableTextComponents = {
     textXl:     ({ children }) => <p className="text-xl leading-relaxed mb-2 last:mb-0">{children}</p>,
     textLg:     ({ children }) => <p className="text-lg leading-relaxed mb-2 last:mb-0">{children}</p>,
     textSm:     ({ children }) => <p className="text-sm leading-relaxed mb-2 last:mb-0 text-gray-500">{children}</p>,
-    h2:         ({ children }) => <h2 className="text-2xl font-extrabold text-wine-900 mb-3 mt-4 first:mt-0">{children}</h2>,
-    h3:         ({ children }) => <h3 className="text-xl font-bold text-wine-900 mb-2 mt-3 first:mt-0">{children}</h3>,
-    h4:         ({ children }) => <h4 className="text-base font-semibold text-wine-800 mb-1 mt-2 first:mt-0">{children}</h4>,
+    h2:         ({ children }) => <h2 className="text-2xl font-extrabold text-ink-800 mb-3 mt-4 first:mt-0">{children}</h2>,
+    h3:         ({ children }) => <h3 className="text-xl font-bold text-ink-800 mb-2 mt-3 first:mt-0">{children}</h3>,
+    h4:         ({ children }) => <h4 className="text-base font-semibold text-ink-700 mb-1 mt-2 first:mt-0">{children}</h4>,
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-amber-400 pl-4 italic text-gray-500 my-2">
+      <blockquote className="border-l-4 border-gold-warm-400 pl-4 italic text-gray-500 my-2">
         {children}
       </blockquote>
     ),
@@ -35,17 +35,17 @@ const summaryComponents: PortableTextComponents = {
     number: ({ children }) => <li className="leading-relaxed">{children}</li>,
   },
   marks: {
-    strong:         ({ children }) => <strong className="font-bold text-wine-900">{children}</strong>,
+    strong:         ({ children }) => <strong className="font-bold text-ink-800">{children}</strong>,
     em:             ({ children }) => <em className="italic">{children}</em>,
     underline:      ({ children }) => <span className="underline">{children}</span>,
     'strike-through': ({ children }) => <s className="line-through text-gray-400">{children}</s>,
-    code:           ({ children }) => <code className="bg-gray-100 text-wine-800 text-xs px-1.5 py-0.5 rounded font-mono">{children}</code>,
+    code:           ({ children }) => <code className="bg-gray-100 text-forest-800 text-xs px-1.5 py-0.5 rounded font-mono">{children}</code>,
     link: ({ children, value }) => (
       <a
         href={value?.href}
         target={value?.blank ? '_blank' : '_self'}
         rel={value?.blank ? 'noopener noreferrer' : undefined}
-        className="text-wine-600 underline underline-offset-2 hover:text-wine-800 transition-colors"
+        className="text-wine-600 underline underline-offset-2 hover:text-forest-800 transition-colors"
       >
         {children}
       </a>
@@ -68,15 +68,15 @@ export default async function SundayMessageSection() {
 
   if (!msg) {
     return (
-      <section className="py-24 bg-[#fdfaf5] relative overflow-hidden">
-        <div aria-hidden="true" className="absolute -left-24 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-wine-50 opacity-60 pointer-events-none" />
+      <section className="py-24 bg-warm-white relative overflow-hidden">
+        <div aria-hidden="true" className="absolute -left-24 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-wine-50 opacity-40 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <FadeIn>
             <div className="mb-10">
               <p className="type-eyebrow-light mb-3">
                 {st('eyebrow')}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-ink-800 mb-1">{st('heading')}</h2>
             </div>
             <div className="text-center py-16">
               <BookOpen aria-hidden="true" size={40} className="mx-auto text-wine-300" />
@@ -107,9 +107,9 @@ export default async function SundayMessageSection() {
   const imageLqip = msg.image?.asset?.metadata?.lqip
 
   return (
-    <section id="sunday-message" className="py-24 bg-[#fdfaf5] relative overflow-hidden scroll-mt-28">
-      <div aria-hidden="true" className="absolute -left-24 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-wine-50 opacity-60 pointer-events-none" />
-      <div aria-hidden="true" className="absolute -right-16 bottom-0 w-56 h-56 rounded-full bg-amber-50 opacity-50 pointer-events-none" />
+    <section id="sunday-message" className="py-24 bg-warm-white relative overflow-hidden scroll-mt-28">
+      <div aria-hidden="true" className="absolute -left-24 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-wine-50 opacity-40 pointer-events-none" />
+      <div aria-hidden="true" className="absolute -right-16 bottom-0 w-56 h-56 rounded-full bg-gold-warm-50 opacity-50 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <FadeIn>
@@ -117,16 +117,16 @@ export default async function SundayMessageSection() {
             <p className="type-eyebrow-light mb-3">
               {st('eyebrow')}
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-wine-900 mb-1">{st('heading')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink-800 mb-1">{st('heading')}</h2>
             <div className="divider-gold" style={{ margin: '14px 0 0' }} />
           </div>
         </FadeIn>
 
         <FadeIn delay={80}>
-          <div className="bg-white rounded-3xl overflow-hidden shadow-lg shadow-wine-100/60 border border-gray-100 flex flex-col lg:flex-row">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-lg shadow-wine-100/60 border border-warm-beige/60 flex flex-col lg:flex-row">
 
             {/* Image side — natural aspect ratio, no crop */}
-            <div className="lg:w-[52%] bg-[#fdfaf5] shrink-0 flex items-center justify-center">
+            <div className="lg:w-[52%] bg-warm-white shrink-0 flex items-center justify-center">
               {imageUrl ? (
                 <Image
                   src={imageUrl}
@@ -141,20 +141,20 @@ export default async function SundayMessageSection() {
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center gap-3 py-16 opacity-20">
-                  <BookOpen aria-hidden="true" size={48} className="text-white" />
-                  <span className="text-white text-sm font-medium">{st('no_image')}</span>
+                  <BookOpen aria-hidden="true" size={48} className="text-wine-300" />
+                  <span className="text-wine-400 text-sm font-medium">{st('no_image')}</span>
                 </div>
               )}
             </div>
 
             {/* Info side */}
             <div className="flex flex-col justify-center px-8 py-10 lg:py-12 lg:px-12 gap-5">
-              <div className="flex items-center gap-2 text-xs font-semibold text-amber-600">
+              <div className="flex items-center gap-2 text-xs font-semibold text-gold-warm-600">
                 <CalendarDays aria-hidden="true" size={14} />
                 {dateLabel}
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-wine-900 leading-tight">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-ink-800 leading-tight">
                 {msg.title}
               </h3>
 
@@ -190,7 +190,7 @@ export default async function SundayMessageSection() {
                     href={msg.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 min-h-[44px] px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+                    className="inline-flex items-center gap-2 min-h-[44px] px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
                   >
                     <Play aria-hidden="true" size={15} fill="currentColor" />
                     {st('watch_cta')}
