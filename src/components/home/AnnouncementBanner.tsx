@@ -40,10 +40,10 @@ export default async function AnnouncementBanner() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <span className="flex items-center gap-2 text-sm font-bold text-wine-700 tracking-wide">
-            <Bell aria-hidden="true" size={14} className="text-amber-500" />
+            <Bell aria-hidden="true" size={14} className="text-gold-warm-500" />
             {headerText}
           </span>
-          <div aria-hidden="true" className="flex-1 h-px bg-gradient-to-r from-amber-300/50 to-transparent" />
+          <div aria-hidden="true" className="flex-1 h-px bg-gradient-to-r from-gold-warm-400/40 to-transparent" />
         </div>
 
         {/* Announcement cards */}
@@ -56,7 +56,7 @@ export default async function AnnouncementBanner() {
 
             const inner = (
               <div className={`relative flex items-start gap-4 bg-white rounded-2xl border border-gray-100 p-5 shadow-sm overflow-hidden
-                ${item.link ? 'hover:border-wine-200 hover:shadow-md transition-all group' : ''}`}>
+                ${item.link ? 'hover:border-wine-100 hover:shadow-md transition-all group' : ''}`}>
                 {/* Left colour bar */}
                 <div aria-hidden="true" className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl ${cfg.bar}`} />
 
@@ -78,7 +78,7 @@ export default async function AnnouncementBanner() {
                       </span>
                     )}
                   </div>
-                  <p className="font-bold text-wine-900 text-base leading-snug">{title}</p>
+                  <p className="font-bold text-ink-800 text-base leading-snug">{title}</p>
                   {content && (
                     <p className="text-sm text-gray-500 mt-1 leading-relaxed whitespace-pre-line">{content}</p>
                   )}
@@ -112,7 +112,7 @@ export default async function AnnouncementBanner() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
               >
                 {inner}
               </a>
@@ -120,7 +120,7 @@ export default async function AnnouncementBanner() {
               <Link
                 key={item._id}
                 href={item.link}
-                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
               >
                 {inner}
               </Link>

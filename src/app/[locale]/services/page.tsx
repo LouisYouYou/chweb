@@ -23,16 +23,16 @@ export default async function ServicesPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {serviceTimes.map((s) => (
-              <div key={s.id} className="bg-white border border-wine-100 rounded-2xl p-6 hover:shadow-lg transition-shadow hover:border-wine-300">
-                <div className="w-12 h-12 church-gradient rounded-xl flex items-center justify-center mb-4">
+              <div key={s.id} className="bg-white border border-warm-beige/60 rounded-2xl p-6 hover:shadow-lg transition-shadow hover:border-gold-warm-400">
+                <div className="w-12 h-12 wine-gradient rounded-xl flex items-center justify-center mb-4">
                   <Clock size={20} className="text-white" />
                 </div>
-                <h3 className="font-bold text-wine-900 mb-2">
+                <h3 className="font-bold text-ink-800 mb-2">
                   {locale === 'zh-TW' ? s.nameZh : locale === 'my' ? s.nameMy : locale === 'ja' ? s.nameJa : s.nameEn}
                 </h3>
-                <p className="text-sm text-gray-500">{locale === 'zh-TW' ? s.dayZh : locale === 'my' ? s.dayMy : locale === 'ja' ? s.dayJa : s.dayEn}</p>
-                <p className="text-2xl font-bold text-wine-700 my-2">{s.time}</p>
-                <div className="flex items-center gap-1.5 text-sm text-gray-400">
+                <p className="text-sm text-ink-500">{locale === 'zh-TW' ? s.dayZh : locale === 'my' ? s.dayMy : locale === 'ja' ? s.dayJa : s.dayEn}</p>
+                <p className="text-2xl font-bold text-gold-warm-600 my-2">{s.time}</p>
+                <div className="flex items-center gap-1.5 text-sm text-ink-400">
                   <MapPin size={14} />
                   {locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn}
                 </div>
@@ -43,9 +43,9 @@ export default async function ServicesPage() {
       </section>
 
       {/* Location */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 bg-warm-beige/20">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-wine-900 mb-10 text-center">{t('location_title')}</h2>
+          <h2 className="text-3xl font-bold text-ink-800 mb-10 text-center">{t('location_title')}</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Google Map */}
             <div className="rounded-2xl overflow-hidden shadow-md flex flex-col">
@@ -74,13 +74,13 @@ export default async function ServicesPage() {
             <div className="space-y-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-wine-100 rounded-xl flex items-center justify-center">
+                  <div className="w-10 h-10 bg-wine-50 rounded-xl flex items-center justify-center">
                     <MapPin size={18} className="text-wine-600" />
                   </div>
-                  <h3 className="font-bold text-wine-900">{t('location_title')}</h3>
+                  <h3 className="font-bold text-ink-800">{t('location_title')}</h3>
                 </div>
-                <p className="text-gray-600">{t('location_address')}</p>
-                <p className="text-sm text-gray-400 mt-1">{t('location_hint')}</p>
+                <p className="text-ink-600">{t('location_address')}</p>
+                <p className="text-sm text-ink-400 mt-1">{t('location_hint')}</p>
               </div>
 
               <div className="bg-white rounded-2xl p-6 shadow-sm">
@@ -88,19 +88,19 @@ export default async function ServicesPage() {
                   <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                     <Train size={18} className="text-green-600" />
                   </div>
-                  <h3 className="font-bold text-wine-900">{t('transport_title')}</h3>
+                  <h3 className="font-bold text-ink-800">{t('transport_title')}</h3>
                 </div>
-                <p className="text-gray-600 text-sm">{t('transport_text')}</p>
+                <p className="text-ink-600 text-sm">{t('transport_text')}</p>
               </div>
 
               <div className="bg-white rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
-                    <Car size={18} className="text-amber-600" />
+                  <div className="w-10 h-10 bg-gold-warm-100 rounded-xl flex items-center justify-center">
+                    <Car size={18} className="text-gold-warm-600" />
                   </div>
-                  <h3 className="font-bold text-wine-900">{t('parking_title')}</h3>
+                  <h3 className="font-bold text-ink-800">{t('parking_title')}</h3>
                 </div>
-                <p className="text-gray-600 text-sm">{t('parking_text')}</p>
+                <p className="text-ink-600 text-sm">{t('parking_text')}</p>
               </div>
             </div>
           </div>
@@ -110,34 +110,34 @@ export default async function ServicesPage() {
       {/* 奉獻匯款 */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-wine-900 mb-8 text-center">
+          <h2 className="text-3xl font-bold text-ink-800 mb-8 text-center">
             {locale === 'zh-TW' ? '奉獻匯款' : locale === 'ja' ? '献金・振込' : 'Offering & Donation'}
           </h2>
-          <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-wine-100 p-8">
+          <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-warm-beige/60 p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-wine-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-wine-50 rounded-xl flex items-center justify-center">
                 <CreditCard size={18} className="text-wine-600" />
               </div>
-              <h3 className="font-bold text-wine-900">
+              <h3 className="font-bold text-ink-800">
                 {locale === 'zh-TW' ? '銀行匯款帳號' : locale === 'ja' ? '銀行振込詳細' : 'Bank Transfer Details'}
               </h3>
             </div>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between border-b border-gray-100 pb-3">
-                <span className="text-gray-500">{locale === 'zh-TW' ? '銀行' : locale === 'ja' ? '銀行' : 'Bank'}</span>
-                <span className="font-medium text-wine-900">{locale === 'zh-TW' ? '華南銀行南勢角分行（008）' : locale === 'ja' ? '華南銀行 南勢角支店（008）' : 'Hua Nan Bank Nanshijiao Branch (008)'}</span>
+                <span className="text-ink-500">{locale === 'zh-TW' ? '銀行' : locale === 'ja' ? '銀行' : 'Bank'}</span>
+                <span className="font-medium text-ink-800">{locale === 'zh-TW' ? '華南銀行南勢角分行（008）' : locale === 'ja' ? '華南銀行 南勢角支店（008）' : 'Hua Nan Bank Nanshijiao Branch (008)'}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-3">
-                <span className="text-gray-500">{locale === 'zh-TW' ? '戶名' : locale === 'ja' ? '口座名義' : 'Account Name'}</span>
-                <span className="font-medium text-wine-900 text-right break-all">{locale === 'zh-TW' ? '財團法人中華基督教行道會南勢角榮耀堂' : locale === 'ja' ? '行道会南勢角栄光教会' : 'Glory Church of Nanshijiao'}</span>
+                <span className="text-ink-500">{locale === 'zh-TW' ? '戶名' : locale === 'ja' ? '口座名義' : 'Account Name'}</span>
+                <span className="font-medium text-ink-800 text-right break-all">{locale === 'zh-TW' ? '財團法人中華基督教行道會南勢角榮耀堂' : locale === 'ja' ? '行道会南勢角栄光教会' : 'Glory Church of Nanshijiao'}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-3">
-                <span className="text-gray-500">{locale === 'zh-TW' ? '帳號' : locale === 'ja' ? '口座番号' : 'Account No.'}</span>
-                <span className="font-mono font-bold text-wine-700 tracking-wider">183-10-0034556</span>
+                <span className="text-ink-500">{locale === 'zh-TW' ? '帳號' : locale === 'ja' ? '口座番号' : 'Account No.'}</span>
+                <span className="font-mono font-bold text-gold-warm-600 tracking-wider">183-10-0034556</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">{locale === 'zh-TW' ? '備註' : locale === 'ja' ? '備考' : 'Note'}</span>
-                <span className="font-medium text-wine-900">{locale === 'zh-TW' ? '請註明姓名及奉獻用途' : locale === 'ja' ? 'お名前と献金の用途をご記入ください' : 'Please include your name and purpose'}</span>
+                <span className="text-ink-500">{locale === 'zh-TW' ? '備註' : locale === 'ja' ? '備考' : 'Note'}</span>
+                <span className="font-medium text-ink-800">{locale === 'zh-TW' ? '請註明姓名及奉獻用途' : locale === 'ja' ? 'お名前と献金の用途をご記入ください' : 'Please include your name and purpose'}</span>
               </div>
             </div>
           </div>

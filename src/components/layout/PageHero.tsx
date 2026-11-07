@@ -22,8 +22,8 @@ export default function PageHero({ title, subtitle }: PageHeroProps) {
         className="object-cover object-center scale-105"
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-wine-950/95 via-wine-900/85 to-wine-800/75" />
-      <div className="absolute inset-0 bg-gradient-to-t from-wine-950/50 via-transparent to-wine-950/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-ink-950/90 via-wine-950/65 to-forest-800/50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-wine-950/60 via-transparent to-ink-950/15" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
@@ -34,7 +34,7 @@ export default function PageHero({ title, subtitle }: PageHeroProps) {
             {subtitle}
           </p>
         )}
-        <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-5 rounded-full" />
+        <div className="w-16 h-0.5 bg-gold-warm-400 mx-auto mt-5 rounded-full" />
       </div>
     </section>
   );

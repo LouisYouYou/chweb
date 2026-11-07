@@ -41,7 +41,7 @@ export default async function SundayMessagesList({ locale }: Props) {
         <FadeIn>
           <div className="mb-10">
             <p className="type-eyebrow-light mb-3">SUNDAY MESSAGE</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-wine-900 mb-2">{heading}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink-800 mb-2">{heading}</h2>
             <p className="text-gray-500 text-sm">{subtitle}</p>
             <div className="divider-gold mt-4" />
           </div>
@@ -61,7 +61,7 @@ export default async function SundayMessagesList({ locale }: Props) {
                   className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md hover:border-wine-200 transition-all duration-300"
                 >
                   {/* Thumbnail */}
-                  <div className="relative w-full aspect-video bg-wine-50 overflow-hidden">
+                  <div className="relative w-full aspect-video bg-wine-50/40 overflow-hidden">
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
@@ -74,7 +74,7 @@ export default async function SundayMessagesList({ locale }: Props) {
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <BookOpen size={32} className="text-wine-200" aria-hidden="true" />
+                        <BookOpen size={32} className="text-forest-200" aria-hidden="true" />
                       </div>
                     )}
                     {/* Date overlay */}
@@ -88,7 +88,7 @@ export default async function SundayMessagesList({ locale }: Props) {
 
                   {/* Content */}
                   <div className="flex flex-col gap-2 p-4 flex-1">
-                    <h3 className="font-bold text-wine-900 text-sm leading-snug group-hover:text-wine-700 transition-colors line-clamp-2">
+                    <h3 className="font-bold text-ink-800 text-sm leading-snug group-hover:text-wine-700 transition-colors line-clamp-2">
                       {msg.title}
                     </h3>
                     <div className="flex flex-wrap gap-3 text-xs text-gray-500 mt-auto pt-2 border-t border-gray-50">

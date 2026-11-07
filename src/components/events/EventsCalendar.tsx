@@ -9,12 +9,12 @@ import type { DisplayEvent } from '@/lib/sanity/queries';
 import { ptToPlainText } from '@/lib/sanity/queries';
 
 const categoryColors: Record<string, string> = {
-  worship:   'border-l-wine-500 bg-wine-50/60',
-  family:    'border-l-rose-400 bg-rose-50/60',
-  youth:     'border-l-purple-500 bg-purple-50/60',
-  community: 'border-l-emerald-500 bg-emerald-50/60',
-  retreat:   'border-l-amber-400 bg-amber-50/80 ring-1 ring-amber-200',
-  training:  'border-l-teal-500 bg-teal-50/60',
+  worship:   'bg-wine-50/40',
+  family:    'bg-rose-50/40',
+  youth:     'bg-purple-50/40',
+  community: 'bg-emerald-50/40',
+  retreat:   'bg-gold-warm-50/50',
+  training:  'bg-teal-50/40',
 };
 
 const categoryBadge: Record<string, string> = {
@@ -22,7 +22,7 @@ const categoryBadge: Record<string, string> = {
   family:    'bg-rose-100 text-rose-700 border-rose-200',
   youth:     'bg-purple-100 text-purple-700 border-purple-200',
   community: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  retreat:   'bg-amber-400 text-amber-950 border-amber-500 font-bold',
+  retreat:   'bg-gold-warm-400 text-ink-950 border-gold-warm-500 font-bold',
   training:  'bg-teal-100 text-teal-700 border-teal-200',
 };
 
@@ -78,7 +78,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeFilter === f
                   ? 'church-gradient text-white shadow-md'
-                  : 'bg-gray-100 text-gray-600 hover:bg-wine-50 hover:text-wine-700'
+                  : 'bg-warm-beige/40 text-ink-600 hover:bg-wine-50 hover:text-wine-700'
               }`}
             >
               {f === 'all'
@@ -95,7 +95,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
             return (
               <div
                 key={event.id}
-                className={`rounded-2xl border-l-4 border border-l-[inherit] border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
+                className={`rounded-2xl border border-warm-beige/60 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${categoryColors[event.category]}`}
               >
                 {/* Poster image */}
                 {event.imageUrl && (
@@ -116,7 +116,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                       blurDataURL={event.imageBlurData}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-wine-900 shadow-lg">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm font-semibold text-ink-800 shadow-lg">
                         <ZoomIn size={15} />
                         {t4('查看完整海報', 'ပိုစတာ အပြည့်ကြည့်ရန်', 'ポスターを見る', 'View full poster')}
                       </div>
@@ -129,9 +129,9 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                   <div className="flex flex-col sm:flex-row gap-5">
                     {/* Date badge */}
                     <div className="church-gradient rounded-2xl px-4 py-3 text-center shrink-0 min-w-[68px] shadow-md self-start">
-                      <p className="text-[10px] font-bold text-wine-200 tracking-widest">{month}</p>
+                      <p className="text-[10px] font-bold text-forest-200 tracking-widest">{month}</p>
                       <p className="text-3xl font-black text-white leading-tight">{day}</p>
-                      <p className="text-[10px] text-wine-300">{year}</p>
+                      <p className="text-[10px] text-forest-300">{year}</p>
                     </div>
 
                     {/* Info */}
@@ -145,21 +145,21 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                             {t('free')}
                           </span>
                         ) : event.fee != null && (
-                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 font-semibold">
+                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-gold-warm-100 text-gold-warm-700 border border-gold-warm-200 font-semibold">
                             NT${event.fee.toLocaleString()}
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-xl font-bold text-wine-900 mb-2">
+                      <h3 className="text-xl font-bold text-ink-800 mb-2">
                         {zh ? event.titleZh : event.titleEn}
                       </h3>
 
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                      <p className="text-ink-600 text-sm leading-relaxed mb-4 line-clamp-3">
                         {ptToPlainText(zh ? event.descriptionZh : event.descriptionEn)}
                       </p>
 
-                      <div className="flex flex-wrap gap-4 text-xs text-gray-500 mb-4">
+                      <div className="flex flex-wrap gap-4 text-xs text-ink-500 mb-4">
                         <span className="flex items-center gap-1.5">
                           <MapPin size={12} className="text-wine-400" />
                           {zh ? event.locationZh : event.locationEn}
@@ -202,7 +202,7 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
 
                 {/* Course schedule sub-items */}
                 {event.courseItems && event.courseItems.length > 0 && (
-                  <div className="border-t border-gray-100 bg-white/70 px-6 py-5">
+                  <div className="border-t border-warm-beige/40 bg-white/70 px-6 py-5">
                     <p className="text-xs font-bold text-wine-700 tracking-wider uppercase mb-3 flex items-center gap-2">
                       <Clock size={12} />
                       {t4('課程時間表', 'သင်တန်းဇယား', 'スケジュール', 'Course Schedule')}
@@ -211,16 +211,16 @@ export default function EventsCalendar({ locale, events }: EventsCalendarProps) 
                       {event.courseItems.map((item) => (
                         <div
                           key={item.nameZh}
-                          className="flex items-center gap-3 bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm"
+                          className="flex items-center gap-3 bg-warm-white rounded-xl border border-warm-beige/40 px-4 py-3 shadow-sm"
                         >
                           <div className="w-8 h-8 church-gradient rounded-lg flex items-center justify-center shrink-0">
                             <Clock size={14} className="text-white" />
                           </div>
                           <div>
-                            <p className="font-semibold text-wine-900 text-sm">
+                            <p className="font-semibold text-ink-800 text-sm">
                               {zh ? item.nameZh : item.nameEn}
                             </p>
-                            <p className="text-xs text-amber-600 font-medium">
+                            <p className="text-xs text-gold-warm-600 font-medium">
                               {item.day} {item.time}
                             </p>
                           </div>

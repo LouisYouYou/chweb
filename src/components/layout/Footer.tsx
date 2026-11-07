@@ -50,16 +50,16 @@ export default function Footer() {
   const cta = ctaLabels[locale] ?? ctaLabels['zh-TW'];
 
   return (
-    <footer className="bg-wine-950 text-wine-100">
-      {/* Amber accent top line */}
-      <div className="h-0.5 bg-gradient-to-r from-transparent via-amber-400/60 to-transparent" />
+    <footer className="bg-ink-900 text-white/90">
+      {/* Warm Gold accent top line */}
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-gold-warm-500/50 to-transparent" />
 
       {/* ── CTA Strip ── */}
-      <div className="border-b border-wine-900/60">
+      <div className="border-b border-wine-950/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
             href="tel:+886286685515"
-            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-lg hover:opacity-90 hover:shadow-xl transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-lg hover:opacity-90 hover:shadow-xl transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
           >
             <Phone size={16} />
             {cta.phone}
@@ -68,7 +68,7 @@ export default function Footer() {
             href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 border border-wine-600 hover:border-amber-400 text-wine-300 hover:text-amber-300 text-sm font-bold rounded-full transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 border border-wine-700/50 hover:border-gold-warm-400 text-white/60 hover:text-gold-warm-300 text-sm font-bold rounded-full transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
           >
             <Navigation size={16} />
             {cta.map}
@@ -92,12 +92,12 @@ export default function Footer() {
                 {locale === 'zh-TW' ? '行道會南勢角榮耀堂' : 'Glory Church Of Nanshijiao'}
               </p>
             </div>
-            <p className="text-sm text-wine-300 leading-relaxed mb-4">{t('description')}</p>
+            <p className="text-sm text-white/60 leading-relaxed mb-4">{t('description')}</p>
             <div className="flex gap-3">
-              <a href="https://www.facebook.com/p/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82-100071633452675/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/p/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82-100071633452675/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-wine-900 hover:bg-wine-800 transition-colors" aria-label="Facebook">
                 <FacebookIcon />
               </a>
-              <a href="https://www.youtube.com/@winson651202" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-wine-900 hover:bg-wine-700 transition-colors" aria-label="YouTube">
+              <a href="https://www.youtube.com/@winson651202" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-wine-900 hover:bg-wine-800 transition-colors" aria-label="YouTube">
                 <YoutubeIcon />
               </a>
               {process.env.NEXT_PUBLIC_LINE_ID && (
@@ -116,7 +116,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-wine-300 hover:text-white transition-colors"
+                    className="text-sm text-white/60 hover:text-white transition-colors"
                   >
                     {label}
                   </Link>
@@ -128,7 +128,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-white mb-4">{t('contact_info')}</h3>
-            <ul className="space-y-3 text-sm text-wine-300">
+            <ul className="space-y-3 text-sm text-white/60">
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-wine-400" />
                 <span>
@@ -159,7 +159,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-wine-900 mt-10 pt-6 text-center text-xs text-wine-400">
+        <div className="border-t border-wine-950/60 mt-10 pt-6 text-center text-xs text-white/40">
           {t('copyright')}
         </div>
       </div>
