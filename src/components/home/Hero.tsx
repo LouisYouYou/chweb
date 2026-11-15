@@ -40,33 +40,24 @@ export default function Hero() {
         quality={90}
       />
 
-      {/* Stained glass light beams — over photo, under overlays */}
+      {/* Stained glass light beams — natural, diffused window light */}
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
-        {/* Wine / burgundy beam */}
+        {/* Warm red beam — right edge, wide diffuse wash */}
         <div className="absolute" style={{
-          top: '-20%', right: '7%',
-          width: '170px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(146,32,47,0.55) 22%, rgba(146,32,47,0.38) 68%, transparent 100%)',
-          transform: 'skewX(-16deg)',
-          filter: 'blur(22px)',
+          top: '-20%', right: '5%',
+          width: '260px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(195,75,55,0.30) 20%, rgba(195,75,55,0.20) 65%, transparent 100%)',
+          transform: 'skewX(-14deg)',
+          filter: 'blur(42px)',
           mixBlendMode: 'screen',
         }} />
-        {/* Gold / amber beam */}
+        {/* Warm gold beam — softer inner glow */}
         <div className="absolute" style={{
-          top: '-20%', right: '21%',
-          width: '95px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(201,160,96,0.60) 26%, rgba(201,160,96,0.42) 65%, transparent 100%)',
-          transform: 'skewX(-16deg)',
-          filter: 'blur(16px)',
-          mixBlendMode: 'screen',
-        }} />
-        {/* Forest / emerald beam */}
-        <div className="absolute" style={{
-          top: '-20%', right: '34%',
-          width: '120px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(68,95,76,0.48) 30%, rgba(68,95,76,0.30) 70%, transparent 100%)',
-          transform: 'skewX(-16deg)',
-          filter: 'blur(20px)',
+          top: '-20%', right: '22%',
+          width: '160px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(225,180,90,0.32) 24%, rgba(225,180,90,0.20) 68%, transparent 100%)',
+          transform: 'skewX(-14deg)',
+          filter: 'blur(36px)',
           mixBlendMode: 'screen',
         }} />
       </div>
