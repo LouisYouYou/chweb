@@ -40,32 +40,32 @@ export default function Hero() {
         quality={90}
       />
 
-      {/* Stained glass light beams — natural, diffused window light */}
-      <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
-        {/* Warm red beam — right edge, wide diffuse wash */}
-        <div className="absolute" style={{
-          top: '-20%', right: '5%',
-          width: '260px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(195,75,55,0.30) 20%, rgba(195,75,55,0.20) 65%, transparent 100%)',
-          transform: 'skewX(-14deg)',
-          filter: 'blur(42px)',
-          mixBlendMode: 'screen',
-        }} />
-        {/* Warm gold beam — softer inner glow */}
-        <div className="absolute" style={{
-          top: '-20%', right: '22%',
-          width: '160px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(225,180,90,0.32) 24%, rgba(225,180,90,0.20) 68%, transparent 100%)',
-          transform: 'skewX(-14deg)',
-          filter: 'blur(36px)',
-          mixBlendMode: 'screen',
-        }} />
-      </div>
-
       {/* Cinematic overlay — editorial wine × ink vignette */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-900/55 to-ink-900/15" />
       <div className="absolute inset-0 bg-gradient-to-t from-wine-950/75 via-transparent to-ink-950/15" />
       <div className="absolute inset-0 bg-gradient-to-tr from-wine-950/50 via-transparent to-transparent" />
+
+      {/* Light washes — over overlays, soft-light blend for photo-natural integration */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Warm red wash — right edge */}
+        <div className="absolute" style={{
+          top: '-20%', right: '3%',
+          width: '300px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(195,75,55,0.42) 22%, rgba(195,75,55,0.28) 65%, transparent 100%)',
+          transform: 'skewX(-14deg)',
+          filter: 'blur(50px)',
+          mixBlendMode: 'soft-light',
+        }} />
+        {/* Warm gold wash — inner */}
+        <div className="absolute" style={{
+          top: '-20%', right: '21%',
+          width: '180px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(225,180,90,0.45) 25%, rgba(225,180,90,0.28) 68%, transparent 100%)',
+          transform: 'skewX(-14deg)',
+          filter: 'blur(44px)',
+          mixBlendMode: 'soft-light',
+        }} />
+      </div>
 
       {/* Warm Gold left accent bar — glowing */}
       <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 rounded-r" style={{
