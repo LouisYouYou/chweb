@@ -1,0 +1,321 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T00:00:00.000Z",
+  "title": "Design System: 行道會南勢角榮耀堂",
+  "extensions": {
+    "colorMeta": {
+      "night-crimson": {
+        "role": "primary",
+        "displayName": "深夜礦燭",
+        "canonical": "#380a14",
+        "tonalRamp": ["#1a040a", "#380a14", "#621422", "#761929", "#92202f", "#b22e3c", "#efa0a9", "#fdf3f4"]
+      },
+      "vigil-wine": {
+        "role": "primary",
+        "displayName": "守夜酒紅",
+        "canonical": "#761929",
+        "tonalRamp": ["#380a14", "#621422", "#761929", "#92202f", "#b22e3c", "#ce4a58", "#efa0a9", "#fdf3f4"]
+      },
+      "sunday-red": {
+        "role": "primary",
+        "displayName": "主日暗紅",
+        "canonical": "#92202f",
+        "tonalRamp": ["#380a14", "#621422", "#761929", "#92202f", "#b22e3c", "#ce4a58", "#efa0a9", "#fdf3f4"]
+      },
+      "faith-red": {
+        "role": "primary",
+        "displayName": "信望之紅",
+        "canonical": "#b22e3c",
+        "tonalRamp": ["#380a14", "#621422", "#761929", "#92202f", "#b22e3c", "#ce4a58", "#e2707d", "#fbe5e8"]
+      },
+      "sanctuary-rose": {
+        "role": "primary",
+        "displayName": "聖殿礦紅",
+        "canonical": "#ce4a58",
+        "tonalRamp": ["#761929", "#92202f", "#b22e3c", "#ce4a58", "#e2707d", "#efa0a9", "#f6c8cd", "#fdf3f4"]
+      },
+      "dawn-rose": {
+        "role": "primary",
+        "displayName": "晨光玫紅",
+        "canonical": "#f6c8cd",
+        "tonalRamp": ["#761929", "#92202f", "#b22e3c", "#ce4a58", "#e2707d", "#efa0a9", "#f6c8cd", "#fdf3f4"]
+      },
+      "sanctuary-warm-white": {
+        "role": "neutral",
+        "displayName": "教堂暖白",
+        "canonical": "#fdf3f4",
+        "tonalRamp": ["#761929", "#92202f", "#ce4a58", "#e2707d", "#efa0a9", "#f6c8cd", "#fbe5e8", "#fdf3f4"]
+      },
+      "morning-gold": {
+        "role": "secondary",
+        "displayName": "晨金祝福",
+        "canonical": "#c9a84c",
+        "tonalRamp": ["#78350f", "#92400e", "#b45309", "#b8860b", "#c9a84c", "#d4a843", "#f0c96e", "#fef9e7"]
+      },
+      "amber-glow": {
+        "role": "secondary",
+        "displayName": "琥珀暖光",
+        "canonical": "#d4a843",
+        "tonalRamp": ["#78350f", "#92400e", "#b45309", "#b8860b", "#c9a84c", "#d4a843", "#f0c96e", "#fef3c7"]
+      },
+      "sunrise-candle": {
+        "role": "secondary",
+        "displayName": "日出燭光",
+        "canonical": "#f0c96e",
+        "tonalRamp": ["#92400e", "#b45309", "#b8860b", "#c9a84c", "#d4a843", "#f0c96e", "#fde68a", "#fffbeb"]
+      },
+      "deep-amber": {
+        "role": "tertiary",
+        "displayName": "深琥珀",
+        "canonical": "#b8860b",
+        "tonalRamp": ["#451a03", "#78350f", "#92400e", "#b45309", "#b8860b", "#c9a84c", "#d4a843", "#fef3c7"]
+      },
+      "prayer-paper": {
+        "role": "neutral",
+        "displayName": "禱告暖紙",
+        "canonical": "#f9f4ef",
+        "tonalRamp": ["#44403c", "#78716c", "#a8a29e", "#d6d3d1", "#e7e5e4", "#f5f0eb", "#f9f4ef", "#ffffff"]
+      },
+      "page-white": {
+        "role": "neutral",
+        "displayName": "純白頁面",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#4b5563", "#9ca3af", "#d1d5db", "#e5e7eb", "#f3f4f6", "#f9fafb", "#fafafa", "#ffffff"]
+      },
+      "deep-ink": {
+        "role": "neutral",
+        "displayName": "深墨",
+        "canonical": "#171717",
+        "tonalRamp": ["#171717", "#262626", "#404040", "#525252", "#737373", "#a3a3a3", "#d4d4d4", "#fafafa"]
+      },
+      "mist-gray": {
+        "role": "neutral",
+        "displayName": "煙霧灰",
+        "canonical": "#6b7280",
+        "tonalRamp": ["#111827", "#1f2937", "#374151", "#4b5563", "#6b7280", "#9ca3af", "#d1d5db", "#f9fafb"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero 頁面主標題，每個頁面僅一次，不重複使用於 section 標題。"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section 大標，如「認識我們」「近期活動」「聚會時間」。"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "卡片標題、子 section 標題、側欄標題，出現頻率最高的強調層級。"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "正文段落、說明文字、副標。最大行長約 65ch。"
+      },
+      "label": {
+        "displayName": "Label / Eyebrow",
+        "purpose": "Eyebrow 眉框標籤，全大寫 + 0.3em 字距，唯一使用 uppercase 的情境。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-soft",
+        "value": "0 1px 2px rgba(98,20,34,0.04), 0 2px 4px rgba(0,0,0,0.03)",
+        "purpose": "靜止狀態下的 info card（服事時間等），傳達「在桌面上」的輕薄材質感。"
+      },
+      {
+        "name": "shadow-card",
+        "value": "0 2px 8px rgba(98,20,34,0.06), 0 4px 16px rgba(98,20,34,0.04), 0 1px 3px rgba(0,0,0,0.04)",
+        "purpose": "標準卡片靜止態，多層堆疊傳達真實紙張懸浮感。"
+      },
+      {
+        "name": "shadow-elevated",
+        "value": "0 4px 12px rgba(98,20,34,0.09), 0 12px 40px rgba(98,20,34,0.07), 0 2px 6px rgba(0,0,0,0.05)",
+        "purpose": "hover 後的卡片，表達「被拿起」的感覺。僅出現在 hover / active 狀態。"
+      },
+      {
+        "name": "shadow-pressed",
+        "value": "0 1px 2px rgba(98,20,34,0.10), inset 0 2px 4px rgba(56,10,20,0.14)",
+        "purpose": "按壓時的凹陷感，inset shadow 強化物理觸感。"
+      },
+      {
+        "name": "sermon-card-glow",
+        "value": "0 0 0 1px rgba(146,32,47,0.25), 0 8px 32px rgba(146,32,47,0.15), 0 24px 48px rgba(0,0,0,0.40)",
+        "purpose": "深色背景（sermon section）專用，標準 shadow-elevated 在深色底上不可見，改用酒紅光暈。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-micro",
+        "value": "120ms",
+        "purpose": "即時反饋：icon 位移、小元件 scale。"
+      },
+      {
+        "name": "duration-fast",
+        "value": "200ms",
+        "purpose": "顏色、透明度過渡，CTA depth hover。"
+      },
+      {
+        "name": "duration-base",
+        "value": "300ms",
+        "purpose": "卡片 lift/return，主要狀態轉換。"
+      },
+      {
+        "name": "duration-slow",
+        "value": "500ms",
+        "purpose": "FadeIn 進場動態，大元件顯示。"
+      },
+      {
+        "name": "duration-enter",
+        "value": "700ms",
+        "purpose": "Hero 文字字元入場（hero-char-in），每字母依序。"
+      },
+      {
+        "name": "ease-premium",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "卡片 lift 與 return 的主要 easing。快入慢出，傳達自然物理感。"
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+        "purpose": "Icon island hover 的回彈 easing，輕微過衝傳達彈性感。"
+      },
+      {
+        "name": "ease-soft-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "CTA depth 的顏色 / shadow 過渡，柔和無彈性。"
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Amber CTA)",
+      "kind": "button",
+      "refersTo": "button-amber",
+      "description": "主要行動呼籲按鈕。琥珀漸層膠囊，有重量感的黃金色，用於訂閱、報名、了解更多等主要動作。",
+      "html": "<button class=\"ds-btn-amber\">立即訂閱</button>",
+      "css": ".ds-btn-amber { background: linear-gradient(135deg, #b8860b 0%, #d4a843 100%); color: #fff; font-weight: 600; border-radius: 9999px; padding: 14px 32px; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(212,168,67,0.25); transition: opacity 0.2s ease, box-shadow 0.2s ease; display: inline-flex; align-items: center; gap: 8px; } .ds-btn-amber:hover { opacity: 0.9; box-shadow: 0 8px 28px rgba(212,168,67,0.38); } .ds-btn-amber:focus-visible { outline: 2px solid #ce4a58; outline-offset: 3px; } .ds-btn-amber:active { opacity: 0.85; transform: translateY(1px); }"
+    },
+    {
+      "name": "CTA Depth Button",
+      "kind": "button",
+      "refersTo": "button-cta-depth",
+      "description": "白底酒紅邊框按鈕，附 inset highlight 與物理按壓感。用於次要 CTA 或深色背景上的白色 CTA。",
+      "html": "<button class=\"ds-cta-depth\"><span>查看更多</span><span class=\"ds-icon-island\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg></span></button>",
+      "css": ".ds-cta-depth { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; background: #ffffff; color: #92202f; border: 1px solid #f6c8cd; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 2px 8px rgba(98,20,34,0.06), 0 4px 16px rgba(98,20,34,0.04); transition: box-shadow 0.2s cubic-bezier(0.22,1,0.36,1), transform 0.12s cubic-bezier(0.22,1,0.36,1), background-color 0.2s cubic-bezier(0.22,1,0.36,1); } .ds-cta-depth:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 12px rgba(98,20,34,0.09), 0 12px 40px rgba(98,20,34,0.07); background: #fdf3f4; } .ds-cta-depth:active { transform: translateY(1px) scale(0.99); box-shadow: 0 1px 2px rgba(98,20,34,0.10), inset 0 2px 4px rgba(56,10,20,0.14); } .ds-cta-depth:focus-visible { outline: 2px solid #ce4a58; outline-offset: 3px; } .ds-icon-island { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9999px; background: rgba(0,0,0,0.12); flex-shrink: 0; transition: background 0.2s ease, transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275); } .ds-cta-depth:hover .ds-icon-island { background: rgba(0,0,0,0.18); transform: translateX(2px) translateY(-1px); }"
+    },
+    {
+      "name": "Bezel Card",
+      "kind": "card",
+      "refersTo": "bezel-card",
+      "description": "系統視覺簽名：雙層相框卡片。外框暖米色 + warm hairline border，內層純白 + 頂部光澤 inset。用於主要互動功能卡（首頁認識教會四格等）。",
+      "html": "<a href=\"#\" class=\"ds-bezel-card\"><div class=\"ds-bezel-card-inner\"><div class=\"ds-icon-wrap\" style=\"background:#fef3c7;color:#d97706\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg></div><h3 class=\"ds-card-title\">聚會時間</h3><p class=\"ds-card-body\">每週主日上午 10:00，歡迎全家同來參與。</p></div></a>",
+      "css": ".ds-bezel-card { display: block; text-decoration: none; background: rgba(253,243,244,0.55); border: 1px solid rgba(246,200,205,0.35); border-radius: 1.625rem; padding: 5px; box-shadow: 0 2px 8px rgba(98,20,34,0.06), 0 4px 16px rgba(98,20,34,0.04), 0 1px 3px rgba(0,0,0,0.04); transition: box-shadow 0.3s cubic-bezier(0.32,0.72,0,1), transform 0.3s cubic-bezier(0.32,0.72,0,1); } .ds-bezel-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(98,20,34,0.09), 0 12px 40px rgba(98,20,34,0.07), 0 2px 6px rgba(0,0,0,0.05); } .ds-bezel-card:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(98,20,34,0.10), inset 0 2px 4px rgba(56,10,20,0.14); } .ds-bezel-card:focus-visible { outline: 2px solid #ce4a58; outline-offset: 3px; } .ds-bezel-card-inner { background: #ffffff; border-radius: 1.3125rem; box-shadow: inset 0 1px 0 rgba(255,255,255,0.90); overflow: hidden; padding: 24px; min-height: 180px; } .ds-icon-wrap { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: transform 0.3s ease; } .ds-bezel-card:hover .ds-icon-wrap { transform: scale(1.1); } .ds-card-title { font-size: 1rem; font-weight: 700; color: #621422; margin: 0 0 8px; } .ds-card-body { font-size: 0.875rem; line-height: 1.625; color: #6b7280; margin: 0; }"
+    },
+    {
+      "name": "Eyebrow Label (Light)",
+      "kind": "chip",
+      "refersTo": "button-cta-depth",
+      "description": "淺色背景上的 section 眉框標籤。全大寫、寬字距、琥珀色左邊框。是整個系統唯一使用 uppercase 的文字元素。",
+      "html": "<span class=\"ds-eyebrow-light\">SERVICE TIMES</span>",
+      "css": ".ds-eyebrow-light { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; line-height: 1.33; color: #d97706; border-left: 2px solid #f59e0b; padding-left: 0.75rem; }"
+    },
+    {
+      "name": "Eyebrow Label (Dark)",
+      "kind": "chip",
+      "refersTo": "button-cta-depth",
+      "description": "深色背景（dark-section / wine-950）上的 section 眉框標籤，使用更亮的 amber-400 保持對比度。",
+      "html": "<span class=\"ds-eyebrow-dark\">SUNDAY MESSAGE</span>",
+      "css": ".ds-eyebrow-dark { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; line-height: 1.33; color: #fbbf24; border-left: 2px solid #fbbf24; padding-left: 0.75rem; }"
+    },
+    {
+      "name": "Text Input / Email Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "表單文字與 email 欄位。white 底色，gray-200 border，rounded-xl，防 iOS 縮放的 max(16px, 1em) font-size。",
+      "html": "<div class=\"ds-field-wrap\"><label class=\"ds-label\" for=\"ds-email\">電子郵件地址</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"請輸入您的 Email\" /></div>",
+      "css": ".ds-field-wrap { display: flex; flex-direction: column; gap: 4px; } .ds-label { font-size: 0.875rem; font-weight: 500; color: #374151; } .ds-input { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 0.75rem; background: #ffffff; color: #171717; font-size: max(16px, 1em); line-height: 1.5; outline: none; transition: border-color 0.15s ease, box-shadow 0.15s ease; box-sizing: border-box; } .ds-input:focus { border-color: #e2707d; box-shadow: 0 0 0 3px rgba(206,74,88,0.15); } .ds-input::placeholder { color: #9ca3af; } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Glass Card (Dark Section)",
+      "kind": "card",
+      "refersTo": "bezel-card",
+      "description": "深色背景（sermon section / wine-950）專用的毛玻璃卡片。backdrop-filter + white/12 border 傳達層次感而不遮蔽背景。",
+      "html": "<div class=\"ds-glass-card\"><p class=\"ds-glass-title\">約翰福音 3:16</p><p class=\"ds-glass-body\">神愛世人，甚至將他的獨生子賜給他們，叫一切信他的，不至滅亡，反得永生。</p></div>",
+      "css": ".ds-glass-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 1rem; padding: 24px; transition: box-shadow 0.3s cubic-bezier(0.32,0.72,0,1), transform 0.3s cubic-bezier(0.32,0.72,0,1); } .ds-glass-card:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(146,32,47,0.25), 0 8px 32px rgba(146,32,47,0.15), 0 24px 48px rgba(0,0,0,0.40); } .ds-glass-title { font-size: 1rem; font-weight: 700; color: #fbbf24; margin: 0 0 8px; } .ds-glass-body { font-size: 0.875rem; line-height: 1.625; color: rgba(255,255,255,0.80); margin: 0; }"
+    },
+    {
+      "name": "Accent Divider",
+      "kind": "custom",
+      "refersTo": "button-amber",
+      "description": "Section 標題下方的琥珀漸層分隔線（64×3px）。每個 section 的視覺節奏錨點，傳達品牌的黃金溫度。",
+      "html": "<div class=\"ds-divider-gold\" role=\"presentation\"></div>",
+      "css": ".ds-divider-gold { width: 64px; height: 3px; background: linear-gradient(90deg, #b8860b, #f0c96e, #b8860b); border-radius: 2px; margin: 16px auto 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sanctuary Within",
+    "overview": "行道會南勢角榮耀堂的數位介面是一個安靜的接納空間——每個頁面都像走進一個自然光漫射的禮拜堂。深夜礦燭的酒紅沉穩了基調，晨金祝福的琥珀在關鍵時刻點亮視線，大量的留白讓文字與影像有了呼吸的空間。版面語言以 Human-centered Editorial Design 為核心，強調真實的人物攝影、節制的裝飾，以及精準的文字層級，拒絕宗教視覺的厚重儀式感。\n\n這個系統刻意拒絕兩種極端：一是科技或企業網站的冷靜距離——藍灰冷色系、無感情的排版；二是傳統宗教視覺的繁複裝飾——金碧輝煌的圖騰、哥德字體、玻璃花窗仿製圖案。取而代之的是成熟而現代的溫暖：像一本精心編輯的教會紀事，記錄真實的生命故事，讓第一次來訪者感到「這裡歡迎我」。\n\n動態系統以「物理材質」為哲學：元件在觸碰時有重量感，按壓時有阻力，鬆手後以 ease-premium 緩緩回彈——讓手機使用者感覺觸碰的是有質感的物件，而非扁平的像素。整套動態系統完整支援 prefers-reduced-motion。",
+    "keyCharacteristics": [
+      "深酒紅 + 琥珀金雙主色，以白與暖米色為大面積底色，色彩比例克制",
+      "雙層「Bezel Card」是系統的視覺簽名，傳達精工感與溫暖邊框",
+      "留白充足，橫向最大寬度 max-w-7xl（80rem），頁面從不擁擠",
+      "動態有物理感（premium cubic-bezier），並完整支援 prefers-reduced-motion",
+      "標題以 font-bold（700）為基礎，不使用超薄或超粗字重於可讀文字"
+    ],
+    "rules": [
+      {
+        "name": "The Deep-to-Dawn Rule",
+        "body": "wine-950 是夜，wine-200 是晨——從深到淺代表從神聖莊嚴到日常親切的漸進。任何新版面都應在此梯度中取色，不得使用梯度外的酒紅近似值。",
+        "section": "colors"
+      },
+      {
+        "name": "The One Gold Rule",
+        "body": "琥珀金（amber）只作點睛：分隔線、按鈕、eyebrow border、focus indicator。不使用琥珀作大面積填色背景或主標題文字色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight Ladder Rule",
+        "body": "字重只使用 400（內文）與 700（標題）。900（font-black）僅限卡片背景裝飾性數字，不用於任何可讀文字。",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Ceiling Rule",
+        "body": "全大寫文字只出現在 Eyebrow Label。標題、段落、CTA 一律使用正常大小寫，避免傳教式的強迫感。",
+        "section": "typography"
+      },
+      {
+        "name": "The Wine-Tinted Shadow Rule",
+        "body": "所有陰影使用酒紅染色 rgba(98, 20, 34, ...)，而非中性 rgba(0,0,0,...)。唯一例外是深色 sermon card 的光暈。",
+        "section": "elevation"
+      },
+      {
+        "name": "The Flat-at-Rest Rule",
+        "body": "元件靜止時僅有 shadow-soft 或 shadow-card。shadow-elevated 只出現在 hover 或 active 狀態——深度是狀態的回饋，不是靜態裝飾。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 在每個 section 標題下使用 .divider-gold（64×3px amber gradient）作為視覺節奏錨點。",
+      "Do 淺色 section 中使用 .type-eyebrow-light，深色 section 中使用 .type-eyebrow-dark——絕對不交換。",
+      "Do 任何需要物理觸感的互動卡片，優先使用 .bezel-card + .bezel-card-inner 雙層結構。",
+      "Do 在深色背景（dark-section / wine-950）使用 --focus-on-dark（#f0c96e）作為 focus indicator。",
+      "Do 新增任何使用 transform 動態的元件時，同步在 prefers-reduced-motion 區塊加入取消 transform 的覆寫。",
+      "Do 表單欄位維持 font-size: max(16px, 1em) 以防止 iOS Safari 自動縮放。"
+    ],
+    "donts": [
+      "Don't 使用冷色系（藍、灰藍、青色）作為主色或裝飾——它們與 wine + amber 體系衝突，傳遞錯誤的企業距離感。",
+      "Don't 使用傳統宗教圖騰（十字架火焰圖案、彩色玻璃拼貼樣式、哥德字體）作為視覺元素。",
+      "Don't 在白色背景上以 amber（#c9a84c 以下明度）作為正文文字色——對比度不足 WCAG 4.5:1。",
+      "Don't 創造梯度外的酒紅近似值（如 #9b2335、#c0392b）。所有酒紅必須來自 wine-50 至 wine-950 的官方色階。",
+      "Don't 在可讀性標題或 CTA 文字中使用 font-black（900 字重）。",
+      "Don't 虛構教會照片、牧者姓名、聚會人數或活動內容——所有真實資訊必須來自 Sanity CMS 或已確認的靜態資料來源。"
+    ]
+  }
+}

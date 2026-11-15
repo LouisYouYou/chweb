@@ -3,10 +3,10 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Clock, Users, MapPin, Mail, ArrowRight } from 'lucide-react';
 
 const steps = [
-  { key: 'step1', icon: Clock, color: 'bg-wine-50 text-wine-600', href: 'services' },
-  { key: 'step2', icon: Users, color: 'bg-gold-warm-50 text-gold-warm-600', href: 'first-visit' },
-  { key: 'step3', icon: MapPin, color: 'bg-wine-50 text-wine-600', href: 'services' },
-  { key: 'step4', icon: Mail, color: 'bg-wine-50 text-wine-600', href: 'contact' },
+  { key: 'step1', icon: Clock,  iconBg: 'bg-gradient-to-br from-wine-500 to-rose-600',     iconText: 'text-white', ctaColor: 'text-wine-600 group-hover:text-wine-700',     href: 'services' },
+  { key: 'step2', icon: Users,  iconBg: 'bg-gradient-to-br from-emerald-500 to-teal-600',  iconText: 'text-white', ctaColor: 'text-emerald-600 group-hover:text-emerald-700', href: 'first-visit' },
+  { key: 'step3', icon: MapPin, iconBg: 'bg-gradient-to-br from-amber-400 to-orange-500',  iconText: 'text-white', ctaColor: 'text-amber-600 group-hover:text-amber-700',     href: 'services' },
+  { key: 'step4', icon: Mail,   iconBg: 'bg-gradient-to-br from-purple-500 to-indigo-600', iconText: 'text-white', ctaColor: 'text-purple-600 group-hover:text-purple-700',   href: 'contact' },
 ] as const;
 
 export default function WelcomeSection() {
@@ -28,20 +28,20 @@ export default function WelcomeSection() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {steps.map(({ key, icon: Icon, color, href }) => (
+          {steps.map(({ key, icon: Icon, iconBg, iconText, ctaColor, href }) => (
             <Link
               key={key}
               href={`/${locale}/${href}`}
               className="bezel-card welcome-haptic-cta group"
             >
               <div className="bezel-card-inner flex flex-col p-6 h-full">
-                <div aria-hidden="true" className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${color} group-hover:scale-110 transition-transform duration-300`}>
+                <div aria-hidden="true" className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${iconBg} ${iconText} shadow-md group-hover:scale-110 transition-transform duration-300`}>
                   <Icon size={20} aria-hidden="true" />
                 </div>
                 <h3 className="font-bold text-ink-800 mb-2 text-base">{t(`${key}_title` as Parameters<typeof t>[0])}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed flex-1">{t(`${key}_text` as Parameters<typeof t>[0])}</p>
                 <div className="mt-4 flex items-center justify-between gap-2" aria-hidden="true">
-                  <span className="text-xs font-semibold text-forest-600 group-hover:text-forest-700 transition-colors">
+                  <span className={`text-xs font-semibold transition-colors ${ctaColor}`}>
                     {t('cta')}
                   </span>
                   <span className="cta-icon-island">

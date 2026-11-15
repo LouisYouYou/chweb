@@ -3,6 +3,33 @@ import { Clock, MapPin } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 import FadeIn from '@/components/ui/FadeIn';
 
+const CARD_ACCENTS = [
+  {
+    topBar:    'bg-gradient-to-r from-wine-700 via-rose-500 to-wine-400',
+    iconClass: 'wine-gradient',
+    iconShadow:'shadow-wine-200',
+    numColor:  'text-wine-100',
+    timeColor: 'text-wine-600',
+    bottomBar: 'wine-gradient',
+  },
+  {
+    topBar:    'bg-gradient-to-r from-forest-700 via-emerald-500 to-forest-400',
+    iconClass: 'church-gradient',
+    iconShadow:'shadow-forest-200',
+    numColor:  'text-forest-100',
+    timeColor: 'text-forest-600',
+    bottomBar: 'church-gradient',
+  },
+  {
+    topBar:    'bg-gradient-to-r from-gold-warm-600 via-amber-400 to-gold-warm-300',
+    iconClass: 'amber-gradient',
+    iconShadow:'shadow-gold-warm-200',
+    numColor:  'text-gold-warm-100',
+    timeColor: 'text-gold-warm-700',
+    bottomBar: 'amber-gradient',
+  },
+];
+
 export default async function ServiceTimesSection() {
   const t = await getTranslations('home.service_times');
   const locale = await getLocale();
@@ -29,50 +56,56 @@ export default async function ServiceTimesSection() {
         </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {serviceTimes.map((s, idx) => (
-            <FadeIn key={s.id} delay={idx * 100}>
-            <div
-              className="group relative bg-white rounded-2xl border border-warm-beige/60 p-7 haptic-service-card overflow-hidden h-full"
-            >
-              {/* Number accent */}
-              <span aria-hidden="true" className="absolute top-5 right-5 text-6xl font-black text-forest-50 select-none pointer-events-none leading-none">
-                {String(idx + 1).padStart(2, '0')}
-              </span>
+          {serviceTimes.map((s, idx) => {
+            const accent = CARD_ACCENTS[idx] ?? CARD_ACCENTS[0];
+            return (
+              <FadeIn key={s.id} delay={idx * 100}>
+              <div className="group relative bg-white rounded-2xl border border-warm-beige/60 haptic-service-card overflow-hidden h-full flex flex-col">
+                {/* Coloured top band */}
+                <div aria-hidden="true" className={`h-1.5 w-full ${accent.topBar}`} />
 
-              {/* Icon */}
-              <div aria-hidden="true" className="w-14 h-14 church-gradient rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-wine-200 group-hover:scale-110 transition-transform">
-                <Clock size={22} aria-hidden="true" className="text-white" />
+                <div className="p-7 flex flex-col flex-1">
+                  {/* Number accent */}
+                  <span aria-hidden="true" className={`absolute top-7 right-5 text-6xl font-black ${accent.numColor} select-none pointer-events-none leading-none`}>
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+
+                  {/* Icon */}
+                  <div aria-hidden="true" className={`w-14 h-14 ${accent.iconClass} rounded-2xl flex items-center justify-center mb-5 shadow-lg ${accent.iconShadow} group-hover:scale-110 transition-transform`}>
+                    <Clock size={22} aria-hidden="true" className="text-white" />
+                  </div>
+
+                  {/* Name */}
+                  <h3 className="font-bold text-ink-800 text-lg mb-1 leading-tight">
+                    {locale === 'zh-TW' ? s.nameZh : locale === 'my' ? s.nameMy : locale === 'ja' ? s.nameJa : s.nameEn}
+                  </h3>
+
+                  {/* Day */}
+                  <p className="text-sm text-gold-warm-600 font-semibold mb-2">
+                    {locale === 'zh-TW' ? s.dayZh : locale === 'my' ? s.dayMy : locale === 'ja' ? s.dayJa : s.dayEn}
+                  </p>
+
+                  {/* Time */}
+                  {s.time && (
+                    <p className={`text-2xl font-black ${accent.timeColor} mb-4 tracking-tight`}>{s.time}</p>
+                  )}
+
+                  {/* Divider */}
+                  <div className="h-px bg-gradient-to-r from-warm-beige via-gold-warm-200 to-transparent mb-4" />
+
+                  {/* Location */}
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <MapPin size={12} aria-hidden="true" className="text-forest-400" />
+                    <span>{locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn}</span>
+                  </div>
+                </div>
+
+                {/* Bottom accent on hover */}
+                <div aria-hidden="true" className={`absolute bottom-0 left-0 right-0 h-1 ${accent.bottomBar} scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl`} />
               </div>
-
-              {/* Name */}
-              <h3 className="font-bold text-ink-800 text-lg mb-1 leading-tight">
-                {locale === 'zh-TW' ? s.nameZh : locale === 'my' ? s.nameMy : locale === 'ja' ? s.nameJa : s.nameEn}
-              </h3>
-
-              {/* Day */}
-              <p className="text-sm text-gold-warm-600 font-semibold mb-2">
-                {locale === 'zh-TW' ? s.dayZh : locale === 'my' ? s.dayMy : locale === 'ja' ? s.dayJa : s.dayEn}
-              </p>
-
-              {/* Time */}
-              {s.time && (
-                <p className="text-2xl font-black text-forest-600 mb-4 tracking-tight">{s.time}</p>
-              )}
-
-              {/* Divider */}
-              <div className="h-px bg-gradient-to-r from-warm-beige via-gold-warm-200 to-transparent mb-4" />
-
-              {/* Location */}
-              <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <MapPin size={12} aria-hidden="true" className="text-forest-400" />
-                <span>{locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn}</span>
-              </div>
-
-              {/* Bottom accent on hover */}
-              <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 h-1 wine-gradient scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl" />
-            </div>
-            </FadeIn>
-          ))}
+              </FadeIn>
+            );
+          })}
         </div>
       </div>
     </section>

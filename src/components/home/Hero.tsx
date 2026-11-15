@@ -40,13 +40,47 @@ export default function Hero() {
         quality={90}
       />
 
+      {/* Stained glass light beams — over photo, under overlays */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
+        {/* Wine / burgundy beam */}
+        <div className="absolute" style={{
+          top: '-20%', right: '7%',
+          width: '170px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(146,32,47,0.55) 22%, rgba(146,32,47,0.38) 68%, transparent 100%)',
+          transform: 'skewX(-16deg)',
+          filter: 'blur(22px)',
+          mixBlendMode: 'screen',
+        }} />
+        {/* Gold / amber beam */}
+        <div className="absolute" style={{
+          top: '-20%', right: '21%',
+          width: '95px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(201,160,96,0.60) 26%, rgba(201,160,96,0.42) 65%, transparent 100%)',
+          transform: 'skewX(-16deg)',
+          filter: 'blur(16px)',
+          mixBlendMode: 'screen',
+        }} />
+        {/* Forest / emerald beam */}
+        <div className="absolute" style={{
+          top: '-20%', right: '34%',
+          width: '120px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(68,95,76,0.48) 30%, rgba(68,95,76,0.30) 70%, transparent 100%)',
+          transform: 'skewX(-16deg)',
+          filter: 'blur(20px)',
+          mixBlendMode: 'screen',
+        }} />
+      </div>
+
       {/* Cinematic overlay — editorial wine × ink vignette */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-900/55 to-ink-900/15" />
       <div className="absolute inset-0 bg-gradient-to-t from-wine-950/75 via-transparent to-ink-950/15" />
       <div className="absolute inset-0 bg-gradient-to-tr from-wine-950/50 via-transparent to-transparent" />
 
-      {/* Warm Gold left accent bar */}
-      <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-gradient-to-b from-transparent via-gold-warm-500/60 to-transparent rounded-r" />
+      {/* Warm Gold left accent bar — glowing */}
+      <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 rounded-r" style={{
+        background: 'linear-gradient(to bottom, transparent, #c9a060, #AD8C60, transparent)',
+        boxShadow: '0 0 10px 3px rgba(201,160,96,0.50)',
+      }} />
 
       {/* Content — left-aligned editorial */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">

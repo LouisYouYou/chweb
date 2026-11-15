@@ -6,12 +6,30 @@ import { urlFor } from '@/lib/sanity/client';
 import FadeIn from '@/components/ui/FadeIn';
 
 const categoryColors: Record<string, string> = {
-  worship:   'bg-wine-100 text-wine-700 border-wine-200',
-  family:    'bg-rose-100 text-rose-700 border-rose-200',
-  youth:     'bg-purple-100 text-purple-700 border-purple-200',
-  community: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  retreat:   'bg-gold-warm-100 text-gold-warm-800 border-gold-warm-300 font-bold',
-  training:  'bg-teal-100 text-teal-700 border-teal-200',
+  worship:   'bg-wine-100 text-wine-800 border-wine-300',
+  family:    'bg-rose-100 text-rose-800 border-rose-300',
+  youth:     'bg-purple-100 text-purple-800 border-purple-300',
+  community: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+  retreat:   'bg-gold-warm-100 text-gold-warm-900 border-gold-warm-400 font-bold',
+  training:  'bg-teal-100 text-teal-800 border-teal-300',
+};
+
+const categoryDateBadge: Record<string, string> = {
+  worship:   'from-wine-700 to-rose-600 shadow-wine-200',
+  family:    'from-rose-600 to-pink-600 shadow-rose-200',
+  youth:     'from-sky-700 to-blue-600 shadow-sky-200',
+  community: 'from-emerald-700 to-teal-600 shadow-emerald-200',
+  retreat:   'from-amber-600 to-gold-warm-500 shadow-amber-200',
+  training:  'from-teal-700 to-teal-500 shadow-teal-200',
+};
+
+const categoryTopBar: Record<string, string> = {
+  worship:   'from-wine-500 to-rose-400',
+  family:    'from-rose-500 to-pink-400',
+  youth:     'from-sky-600 to-blue-500',
+  community: 'from-emerald-600 to-teal-500',
+  retreat:   'from-amber-500 to-gold-warm-400',
+  training:  'from-teal-600 to-teal-400',
 };
 
 
@@ -91,14 +109,14 @@ export default async function UpcomingEvents() {
               const categoryLabel = catKey && et.has(catKey) ? et(catKey) : (event.category ?? '');
               return (
                 <FadeIn key={event.id} delay={i * 100}>
-                <div
-                  className={`group bg-warm-white rounded-2xl border border-warm-beige/60 p-6 haptic-event-card hover:border-warm-beige hover:shadow-md transition-all duration-200`}
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-                    {/* Date badge */}
+                <div className="group bg-warm-white rounded-2xl border border-warm-beige/60 overflow-hidden haptic-event-card hover:shadow-md transition-all duration-200">
+                  {/* Thin category top bar */}
+                  <div aria-hidden="true" className={`h-1 w-full bg-gradient-to-r ${categoryTopBar[event.category] ?? 'from-gray-300 to-gray-200'}`} />
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-5 p-6">
+                    {/* Date badge — category colour */}
                     <time
                       dateTime={event.date}
-                      className="church-gradient rounded-2xl px-4 py-3 text-center shrink-0 min-w-[68px] shadow-md shadow-forest-200"
+                      className={`bg-gradient-to-br ${categoryDateBadge[event.category] ?? 'from-forest-700 to-forest-500 shadow-forest-200'} rounded-2xl px-4 py-3 text-center shrink-0 min-w-[68px] shadow-md`}
                     >
                       <p aria-hidden="true" className="text-[10px] font-bold text-forest-200 tracking-widest uppercase">{month}</p>
                       <p aria-hidden="true" className="text-3xl font-black text-white leading-tight">{day}</p>
