@@ -14,7 +14,8 @@
     "resources": "Resources",
     "main_nav": "Main navigation",
     "open_menu": "Open menu",
-    "close_menu": "Close menu"
+    "close_menu": "Close menu",
+    "sitemap": "Site Map"
   },
   "welcome": {
     "badge": "First time here?",

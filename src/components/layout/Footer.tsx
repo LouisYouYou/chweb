@@ -45,6 +45,7 @@ export default function Footer() {
     { href: `/${locale}/weekly-bulletin`, label: nav('weekly_bulletin') },
     { href: `/${locale}/gallery`, label: nav('gallery') },
     { href: `/${locale}/contact`, label: nav('contact') },
+    { href: `/${locale}/sitemap`, label: nav('sitemap') },
   ];
 
   const cta = ctaLabels[locale] ?? ctaLabels['zh-TW'];
