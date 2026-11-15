@@ -12,6 +12,7 @@ import LatestSermons from '@/components/home/LatestSermons';
 import SermonsSkeleton from '@/components/home/SermonsSkeleton';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
 import EventsSkeleton from '@/components/home/EventsSkeleton';
+import SitemapSection from '@/components/home/SitemapSection';
 import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
 import HashScrollHandler from '@/components/ui/HashScrollHandler';
@@ -37,6 +38,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <HashScrollHandler />
       <Hero />
+      <SitemapSection />
       <StatsBar />
       <AnnouncementBanner />
       <WelcomeSection />

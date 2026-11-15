@@ -58,6 +58,12 @@
       "title": "即將到來的活動",
       "subtitle": "一起參與、一起成長",
       "view_all": "查看所有活動"
+    },
+    "sitemap_preview": {
+      "eyebrow": "探索網站地圖",
+      "title": "教會每個角落，一覽無遺",
+      "subtitle": "從主日崇拜到每日靈修，所有頁面盡在其中。",
+      "cta": "開啟星球地圖"
     }
   },
   "about": {

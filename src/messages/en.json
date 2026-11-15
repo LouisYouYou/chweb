@@ -58,6 +58,12 @@
       "title": "Upcoming Events",
       "subtitle": "Join us and grow together",
       "view_all": "View All Events"
+    },
+    "sitemap_preview": {
+      "eyebrow": "EXPLORE THE SITE MAP",
+      "title": "Every Corner of Our Church",
+      "subtitle": "From Sunday services to daily devotions, every page in one place.",
+      "cta": "Open Star Map"
     }
   },
   "about": {
