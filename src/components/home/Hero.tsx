@@ -45,22 +45,22 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-wine-950/75 via-transparent to-ink-950/15" />
       <div className="absolute inset-0 bg-gradient-to-tr from-wine-950/50 via-transparent to-transparent" />
 
-      {/* Light washes — over overlays, soft-light blend for photo-natural integration */}
+      {/* Natural white light — over overlays, soft-light blend */}
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Warm red wash — right edge */}
+        {/* Main white light shaft — right */}
         <div className="absolute" style={{
-          top: '-20%', right: '3%',
-          width: '300px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(195,75,55,0.42) 22%, rgba(195,75,55,0.28) 65%, transparent 100%)',
+          top: '-20%', right: '8%',
+          width: '280px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,252,245,0.28) 20%, rgba(255,252,245,0.18) 65%, transparent 100%)',
           transform: 'skewX(-14deg)',
-          filter: 'blur(50px)',
+          filter: 'blur(52px)',
           mixBlendMode: 'soft-light',
         }} />
-        {/* Warm gold wash — inner */}
+        {/* Secondary white light — inner, slightly narrower */}
         <div className="absolute" style={{
-          top: '-20%', right: '21%',
-          width: '180px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(225,180,90,0.45) 25%, rgba(225,180,90,0.28) 68%, transparent 100%)',
+          top: '-20%', right: '24%',
+          width: '160px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,252,245,0.22) 25%, rgba(255,252,245,0.14) 68%, transparent 100%)',
           transform: 'skewX(-14deg)',
           filter: 'blur(44px)',
           mixBlendMode: 'soft-light',
