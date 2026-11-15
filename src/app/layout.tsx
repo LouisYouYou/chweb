@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Noto_Sans_TC } from "next/font/google";
+import { Geist, Noto_Sans_TC, Noto_Sans_Myanmar, Noto_Sans_JP } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,6 +14,18 @@ const notoSansTC = Noto_Sans_TC({
   weight: ["400", "500", "700"],
   display: "swap",
   preload: false,
+});
+
+const notoMyanmar = Noto_Sans_Myanmar({
+  subsets: ["myanmar"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const notoJapanese = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -116,9 +129,14 @@ export const viewport: Viewport = {
   themeColor: '#36473F',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+  const localeFontClass =
+    locale === "my" ? notoMyanmar.className
+    : locale === "ja" ? notoJapanese.className
+    : "font-sans";
   return (
-    <html className={`${geistSans.variable} ${notoSansTC.variable} h-full antialiased`}>
+    <html lang={locale} className={`${geistSans.variable} ${notoSansTC.variable} h-full antialiased ${localeFontClass}`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
