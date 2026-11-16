@@ -1,11 +1,18 @@
 'use client';
+// Pure imperative Three.js — Strict Mode safe (create/dispose on each mount cycle)
 
 import { useRef, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { useRouter } from 'next/navigation';
 
-// ─── Node data ────────────────────────────────────────────────────────────────
+// ─── Types / data ──────────────────────────────────────────────────────────────
+
+type TextureType = 'volcanic' | 'gas' | 'earth' | 'barren';
 
 interface SiteNode {
   id: string;
@@ -18,22 +25,146 @@ interface SiteNode {
   glowColor: string;
   position: [number, number, number];
   connections: string[];
+  tex: TextureType;
 }
 
 const NODES: SiteNode[] = [
-  { id: 'home',           labelZh: '首頁',     labelEn: 'Home',       path: '/',               group: 'core',      size: 1.0,  color: '#8B2F45', glowColor: '#c94060', position: [0, 0, 0],         connections: ['about','first-visit','services','events','sermons','bulletin'] },
-  { id: 'about',          labelZh: '關於我們', labelEn: 'About',      path: '/about',          group: 'core',      size: 0.65, color: '#6B2236', glowColor: '#a03050', position: [-4.5, 1.5, -1],  connections: ['home','first-visit','contact'] },
-  { id: 'first-visit',    labelZh: '初次拜訪', labelEn: 'First Visit',path: '/first-visit',    group: 'connect',   size: 0.6,  color: '#1A5C3A', glowColor: '#28a060', position: [-3, -3, 1],      connections: ['home','about','services'] },
-  { id: 'services',       labelZh: '聚會時間', labelEn: 'Services',   path: '/services',       group: 'core',      size: 0.65, color: '#8B2F45', glowColor: '#c94060', position: [3.5, -2.5, 0],   connections: ['home','events'] },
-  { id: 'events',         labelZh: '活動行事曆',labelEn: 'Events',    path: '/events',         group: 'community', size: 0.7,  color: '#1A5C3A', glowColor: '#28a060', position: [5, 1.5, 1],      connections: ['home','services','prayer-wall'] },
-  { id: 'sermons',        labelZh: '講道媒體', labelEn: 'Sermons',    path: '/sermons',        group: 'media',     size: 0.7,  color: '#7A5A20', glowColor: '#c9a040', position: [1.5, 4, -2],     connections: ['home','daily-scripture'] },
-  { id: 'bulletin',       labelZh: '教會週報', labelEn: 'Bulletin',   path: '/weekly-bulletin',group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#c9a040', position: [-1.5, 4, 1.5],   connections: ['home','sermons'] },
-  { id: 'daily-scripture',labelZh: '每日靈糧', labelEn: 'Daily Word', path: '/daily-scripture',group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#c9a040', position: [3.5, 4.5, -1.5], connections: ['sermons'] },
-  { id: 'gallery',        labelZh: '相片集',   labelEn: 'Gallery',    path: '/gallery',        group: 'community', size: 0.5,  color: '#1A5C3A', glowColor: '#28a060', position: [5.5, -1, -2],    connections: ['events'] },
-  { id: 'prayer-wall',    labelZh: '禱告牆',   labelEn: 'Prayer Wall',path: '/prayer-wall',    group: 'community', size: 0.55, color: '#1A5C3A', glowColor: '#28a060', position: [3, -4.5, -1],    connections: ['events','contact'] },
-  { id: 'contact',        labelZh: '聯絡我們', labelEn: 'Contact',    path: '/contact',        group: 'connect',   size: 0.5,  color: '#6B2236', glowColor: '#a03050', position: [-5.5, -1.5, 0.5],connections: ['about','faq'] },
-  { id: 'faq',            labelZh: '常見問題', labelEn: 'FAQ',        path: '/faq',            group: 'connect',   size: 0.45, color: '#6B2236', glowColor: '#a03050', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'] },
+  { id: 'home',           labelZh: '首頁',      labelEn: 'Home',       path: '/',                group: 'core',      size: 1.0,  color: '#8B2F45', glowColor: '#ff4070', position: [0, 0, 0],          connections: ['about','first-visit','services','events','sermons','bulletin'], tex: 'earth' },
+  { id: 'about',          labelZh: '關於我們',   labelEn: 'About',      path: '/about',           group: 'core',      size: 0.65, color: '#6B2236', glowColor: '#d04070', position: [-4.5, 1.5, -1],   connections: ['home','first-visit','contact'],          tex: 'volcanic' },
+  { id: 'first-visit',    labelZh: '初次拜訪',   labelEn: 'First Visit',path: '/first-visit',     group: 'connect',   size: 0.6,  color: '#1A5C3A', glowColor: '#28c060', position: [-3, -3, 1],       connections: ['home','about','services'],               tex: 'earth' },
+  { id: 'services',       labelZh: '聚會時間',   labelEn: 'Services',   path: '/services',        group: 'core',      size: 0.65, color: '#8B2F45', glowColor: '#ff4070', position: [3.5, -2.5, 0],    connections: ['home','events'],                        tex: 'volcanic' },
+  { id: 'events',         labelZh: '活動行事曆', labelEn: 'Events',     path: '/events',          group: 'community', size: 0.7,  color: '#1A5C3A', glowColor: '#28c060', position: [5, 1.5, 1],       connections: ['home','services','prayer-wall'],         tex: 'earth' },
+  { id: 'sermons',        labelZh: '講道媒體',   labelEn: 'Sermons',    path: '/sermons',         group: 'media',     size: 0.7,  color: '#7A5A20', glowColor: '#d4a843', position: [1.5, 4, -2],      connections: ['home','daily-scripture'],               tex: 'gas' },
+  { id: 'bulletin',       labelZh: '教會週報',   labelEn: 'Bulletin',   path: '/weekly-bulletin', group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#d4a843', position: [-1.5, 4, 1.5],    connections: ['home','sermons'],                       tex: 'gas' },
+  { id: 'daily-scripture',labelZh: '每日靈糧',   labelEn: 'Daily Word', path: '/daily-scripture', group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#d4a843', position: [3.5, 4.5, -1.5],  connections: ['sermons'],                              tex: 'gas' },
+  { id: 'gallery',        labelZh: '相片集',     labelEn: 'Gallery',    path: '/gallery',         group: 'community', size: 0.5,  color: '#1A5C3A', glowColor: '#28c060', position: [5.5, -1, -2],     connections: ['events'],                               tex: 'barren' },
+  { id: 'prayer-wall',    labelZh: '禱告牆',     labelEn: 'Prayer Wall',path: '/prayer-wall',     group: 'community', size: 0.55, color: '#1A5C3A', glowColor: '#28c060', position: [3, -4.5, -1],     connections: ['events','contact'],                     tex: 'earth' },
+  { id: 'contact',        labelZh: '聯絡我們',   labelEn: 'Contact',    path: '/contact',         group: 'connect',   size: 0.5,  color: '#6B2236', glowColor: '#d04070', position: [-5.5, -1.5, 0.5], connections: ['about','faq'],                           tex: 'barren' },
+  { id: 'faq',            labelZh: '常見問題',   labelEn: 'FAQ',        path: '/faq',             group: 'connect',   size: 0.45, color: '#6B2236', glowColor: '#d04070', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'],                 tex: 'barren' },
 ];
+
+// ─── Procedural planet surface texture ────────────────────────────────────────
+
+function makePlanetTexture(node: SiteNode): THREE.CanvasTexture {
+  const W = 512, H = 256;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d')!;
+  const col = new THREE.Color(node.color);
+  ctx.fillStyle = `rgb(${Math.round(col.r*255)},${Math.round(col.g*255)},${Math.round(col.b*255)})`;
+  ctx.fillRect(0, 0, W, H);
+
+  if (node.tex === 'gas') {
+    for (let i = 0; i < 20; i++) {
+      const y     = (i / 20) * H;
+      const bandH = H / 20 + (rnd() * 10 - 5);
+      const alpha = 0.07 + rnd() * 0.18;
+      ctx.beginPath();
+      ctx.moveTo(0, y + Math.sin(i * 0.8) * 4);
+      ctx.bezierCurveTo(W * 0.33, y + rnd() * 12 - 6, W * 0.66, y + rnd() * 12 - 6, W, y + Math.sin((i+1) * 0.8) * 4);
+      ctx.lineTo(W, y + bandH);
+      ctx.bezierCurveTo(W * 0.66, y + bandH + rnd() * 10 - 5, W * 0.33, y + bandH + rnd() * 10 - 5, 0, y + bandH);
+      ctx.closePath();
+      ctx.fillStyle = i % 2 === 0 ? `rgba(255,230,160,${alpha})` : `rgba(0,0,0,${alpha})`;
+      ctx.fill();
+    }
+    // Great spot
+    for (let pass = 0; pass < 3; pass++) {
+      ctx.beginPath();
+      ctx.ellipse(W * 0.3, H * 0.55, 32 - pass * 6, 20 - pass * 4, -0.2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,${160 - pass * 20},60,${0.15 + pass * 0.08})`;
+      ctx.fill();
+    }
+  } else if (node.tex === 'volcanic') {
+    for (let i = 0; i < 120; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rnd() * W, rnd() * H, rnd() * 28 + 4, rnd() * 18 + 3, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.05 + rnd() * 0.22})`;
+      ctx.fill();
+    }
+    for (let i = 0; i < 25; i++) {
+      const x0 = rnd() * W, y0 = rnd() * H;
+      ctx.beginPath(); ctx.moveTo(x0, y0);
+      let cx = x0, cy = y0;
+      for (let s = 0; s < 6; s++) { cx += rnd() * 36 - 18; cy += rnd() * 18 - 9; ctx.lineTo(cx, cy); }
+      ctx.strokeStyle = `rgba(255,${80 + Math.round(rnd()*80)},20,${0.1 + rnd() * 0.15})`;
+      ctx.lineWidth = 0.6 + rnd() * 1.8; ctx.stroke();
+    }
+  } else if (node.tex === 'earth') {
+    for (let i = 0; i < 9; i++) {
+      const cx = rnd() * W, cy = rnd() * H;
+      const rx = 32 + rnd() * 65, ry = 20 + rnd() * 42;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx, ry));
+      g.addColorStop(0,   'rgba(55,100,38,0.38)');
+      g.addColorStop(0.6, 'rgba(45,80,28,0.2)');
+      g.addColorStop(1,   'rgba(35,65,18,0)');
+      ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = g; ctx.fill();
+    }
+    ctx.fillStyle = 'rgba(255,255,255,0.14)';
+    ctx.fillRect(0, 0, W, 22); ctx.fillRect(0, H - 22, W, 22);
+    for (let i = 0; i < 15; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rnd() * W, rnd() * H, 18 + rnd() * 50, 3 + rnd() * 10, rnd() * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${0.04 + rnd() * 0.08})`; ctx.fill();
+    }
+  } else { // barren
+    for (let i = 0; i < 60; i++) {
+      const x = rnd() * W, y = rnd() * H, r = 3 + rnd() * 22;
+      ctx.beginPath(); ctx.arc(x, y, r + 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,215,170,${0.07 + rnd() * 0.1})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.1 + rnd() * 0.22})`; ctx.fill();
+    }
+    for (let i = 0; i < 240; i++) {
+      ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, rnd() * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.03 + rnd() * 0.07})`; ctx.fill();
+    }
+  }
+
+  return new THREE.CanvasTexture(cv);
+}
+
+function rnd() { return Math.random(); }
+
+// ─── Star glow sprite ──────────────────────────────────────────────────────────
+
+function makeStarSprite(): THREE.CanvasTexture {
+  const cv = document.createElement('canvas');
+  cv.width = 64; cv.height = 64;
+  const ctx = cv.getContext('2d')!;
+  const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0,    'rgba(255,248,228,1)');
+  g.addColorStop(0.08, 'rgba(255,248,228,0.9)');
+  g.addColorStop(0.3,  'rgba(255,240,210,0.4)');
+  g.addColorStop(0.65, 'rgba(255,235,200,0.1)');
+  g.addColorStop(1,    'rgba(255,235,200,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(cv);
+}
+
+// ─── Fresnel atmosphere shaders ────────────────────────────────────────────────
+
+const ATM_VERT = /* glsl */`
+varying vec3 vNormal;
+varying vec3 vViewDir;
+void main() {
+  vNormal   = normalize(normalMatrix * normal);
+  vec4 mv   = modelViewMatrix * vec4(position, 1.0);
+  vViewDir  = normalize(-mv.xyz);
+  gl_Position = projectionMatrix * mv;
+}`;
+
+const ATM_FRAG = /* glsl */`
+uniform vec3  uColor;
+uniform float uPower;
+uniform float uIntensity;
+varying vec3  vNormal;
+varying vec3  vViewDir;
+void main() {
+  float f = pow(1.0 - max(dot(vNormal, vViewDir), 0.0), uPower);
+  gl_FragColor = vec4(uColor, clamp(f * uIntensity, 0.0, 1.0));
+}`;
 
 // ─── Legend ───────────────────────────────────────────────────────────────────
 
@@ -76,122 +207,154 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     if (!container) return;
 
     // ── Renderer ──────────────────────────────────────────────────────────
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setClearColor(0x0a0608);
+    renderer.setClearColor(0x07040a);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(renderer.domElement);
 
     // ── Scene / Camera ────────────────────────────────────────────────────
-    const scene = new THREE.Scene();
+    const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 0.1, 100);
     camera.position.set(0, 2, 18);
 
+    // ── Bloom post-processing ─────────────────────────────────────────────
+    const composer   = new EffectComposer(renderer);
+    const bloomPass  = new UnrealBloomPass(
+      new THREE.Vector2(container.clientWidth, container.clientHeight),
+      1.15,  // strength
+      0.52,  // radius
+      0.35,  // threshold
+    );
+    composer.addPass(new RenderPass(scene, camera));
+    composer.addPass(bloomPass);
+    composer.addPass(new OutputPass());
+
     // ── Lights ────────────────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight(0x1a1010, 0.6));
+    scene.add(new THREE.AmbientLight(0x1a1015, 0.75));
 
-    const sunLight = new THREE.PointLight(0xc9a040, 4, 20);
-    sunLight.position.set(0, 0, 0);
-    scene.add(sunLight);
+    const sun = new THREE.PointLight(0xfff4e0, 3.5, 24);
+    sun.position.set(0, 0, 0);
+    scene.add(sun);
 
-    const wineLight = new THREE.PointLight(0x8B2F45, 1.5, 22);
+    const wineLight = new THREE.PointLight(0x8B2F45, 1.6, 26);
     wineLight.position.set(-8, 6, 4);
     scene.add(wineLight);
 
-    const forestLight = new THREE.PointLight(0x1A5C3A, 1.2, 22);
+    const forestLight = new THREE.PointLight(0x1A5C3A, 1.3, 26);
     forestLight.position.set(8, -4, -3);
     scene.add(forestLight);
 
-    // Orbiting fill light — casts dynamic highlights on planet surfaces
-    const fillLight = new THREE.PointLight(0x9080c0, 0.65, 26);
+    const fillLight = new THREE.PointLight(0x9080d0, 0.65, 30);
     scene.add(fillLight);
 
-    // ── Nebula cloud volumes ───────────────────────────────────────────────
-    const nebulaDefs: Array<{ pos: [number, number, number]; r: number; color: number }> = [
-      { pos: [-9,  4, -9], r: 7.5, color: 0x3d0a15 },
-      { pos: [10, -3, -7], r: 6.0, color: 0x0a1f10 },
-      { pos: [ 1,  9,-11], r: 8.5, color: 0x1a1500 },
-      { pos: [-6, -8,  5], r: 5.5, color: 0x0a0a1f },
-      { pos: [ 6,  6,  7], r: 6.0, color: 0x1a0a05 },
+    // ── Nebula particle volumes ───────────────────────────────────────────
+    const nebulaDefs: Array<{ pos:[number,number,number]; r:number; color:number; n:number }> = [
+      { pos:[-9,  4, -9], r:7.0, color:0xcc1030, n:450 },
+      { pos:[10, -3, -7], r:5.5, color:0x108040, n:320 },
+      { pos:[ 1,  9,-11], r:8.0, color:0xc09010, n:380 },
+      { pos:[-6, -8,  5], r:5.0, color:0x2030b0, n:260 },
+      { pos:[ 6,  6,  7], r:5.5, color:0x601020, n:310 },
     ];
-    for (const def of nebulaDefs) {
-      const m = new THREE.Mesh(
-        new THREE.SphereGeometry(def.r, 8, 8),
-        new THREE.MeshBasicMaterial({ color: def.color, transparent: true, opacity: 0.09, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending }),
-      );
-      m.position.set(...def.pos);
-      scene.add(m);
-    }
-
-    // ── Starfield (two populations) ───────────────────────────────────────
-    const makeStars = (count: number, spread: number, size: number, opacity: number, color: number) => {
-      const pos = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        pos[i * 3]     = (Math.random() - 0.5) * spread;
-        pos[i * 3 + 1] = (Math.random() - 0.5) * spread;
-        pos[i * 3 + 2] = (Math.random() - 0.5) * spread;
+    for (const d of nebulaDefs) {
+      const pos = new Float32Array(d.n * 3);
+      for (let i = 0; i < d.n; i++) {
+        const th = rnd() * Math.PI * 2, ph = Math.acos(2 * rnd() - 1);
+        const r  = d.r * Math.cbrt(rnd());
+        pos[i*3]  = d.pos[0] + r * Math.sin(ph) * Math.cos(th);
+        pos[i*3+1]= d.pos[1] + r * Math.sin(ph) * Math.sin(th);
+        pos[i*3+2]= d.pos[2] + r * Math.cos(ph);
       }
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      return new THREE.Points(geo, new THREE.PointsMaterial({ size, color, transparent: true, opacity, sizeAttenuation: true }));
+      scene.add(new THREE.Points(geo, new THREE.PointsMaterial({
+        color: d.color, size: 0.11, transparent: true, opacity: 0.22,
+        sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      })));
+    }
+
+    // ── Starfield (sprite glow texture) ───────────────────────────────────
+    const starSprite = makeStarSprite();
+    const makeStars = (n: number, spread: number, size: number, opacity: number) => {
+      const pos = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) {
+        pos[i*3]  = (rnd()-.5)*spread;
+        pos[i*3+1]= (rnd()-.5)*spread;
+        pos[i*3+2]= (rnd()-.5)*spread;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      return new THREE.Points(geo, new THREE.PointsMaterial({
+        size, map: starSprite, alphaMap: starSprite,
+        transparent: true, opacity,
+        sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      }));
     };
-    const stars       = makeStars(700, 70, 0.065, 0.55, 0xc8b89a);
-    const brightStars = makeStars(60,  70, 0.20,  0.90, 0xfff4e8);
-    scene.add(stars);
-    scene.add(brightStars);
+    const stars        = makeStars(1400, 85, 0.13, 0.65);
+    const brightStars  = makeStars(90,   75, 0.35, 0.95);
+    scene.add(stars, brightStars);
 
     // ── Planet nodes ──────────────────────────────────────────────────────
-    type PlanetEntry = { mesh: THREE.Mesh; innerGlow: THREE.Mesh; node: SiteNode; phase: number; freq: number };
+    type PlanetEntry = { mesh: THREE.Mesh; atmMesh: THREE.Mesh; node: SiteNode; phase: number; freq: number };
     const meshes: PlanetEntry[] = [];
 
     for (const node of NODES) {
-      const color     = new THREE.Color(node.color);
-      const glowColor = new THREE.Color(node.glowColor);
+      const baseCol  = new THREE.Color(node.color);
+      const glowCol  = new THREE.Color(node.glowColor);
 
-      // Three atmosphere layers — outer → mid → inner (additive blend)
-      const layers = [
-        { scale: 2.9,  opacity: 0.038 },
-        { scale: 2.1,  opacity: 0.082 },
-        { scale: 1.48, opacity: 0.22  },
-      ];
-      let innerGlowMesh!: THREE.Mesh;
-      for (let li = 0; li < layers.length; li++) {
-        const lm = new THREE.Mesh(
-          new THREE.SphereGeometry(node.size * layers[li].scale, 16, 16),
-          new THREE.MeshBasicMaterial({ color: glowColor, transparent: true, opacity: layers[li].opacity, depthWrite: false, blending: THREE.AdditiveBlending }),
-        );
-        lm.position.set(...node.position);
-        scene.add(lm);
-        if (li === 2) innerGlowMesh = lm;
-      }
-
-      // Planet surface — MeshPhysicalMaterial with clearcoat
+      // Surface (MeshPhysicalMaterial + procedural texture)
       const mat = new THREE.MeshPhysicalMaterial({
-        color,
-        roughness: 0.28,
-        metalness: 0.55,
-        emissive: color,
-        emissiveIntensity: 0.1,
-        clearcoat: 0.5,
-        clearcoatRoughness: 0.3,
+        map: makePlanetTexture(node),
+        color: baseCol,
+        roughness: 0.32,
+        metalness: 0.42,
+        emissive: baseCol,
+        emissiveIntensity: 0.38,
+        clearcoat: 0.65,
+        clearcoatRoughness: 0.22,
       });
-      const mesh = new THREE.Mesh(new THREE.SphereGeometry(node.size, 40, 40), mat);
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(node.size, 56, 56), mat);
       mesh.position.set(...node.position);
       mesh.userData = { node };
       scene.add(mesh);
 
-      meshes.push({ mesh, innerGlow: innerGlowMesh, node, phase: Math.random() * Math.PI * 2, freq: 0.35 + Math.random() * 0.45 });
+      // Fresnel atmosphere halo
+      const atmMat = new THREE.ShaderMaterial({
+        vertexShader:   ATM_VERT,
+        fragmentShader: ATM_FRAG,
+        uniforms: {
+          uColor:     { value: glowCol.clone() },
+          uPower:     { value: 2.6 },
+          uIntensity: { value: 0.65 },
+        },
+        transparent: true,
+        depthWrite: false,
+        side: THREE.FrontSide,
+        blending: THREE.AdditiveBlending,
+      });
+      const atmMesh = new THREE.Mesh(new THREE.SphereGeometry(node.size * 1.48, 32, 32), atmMat);
+      atmMesh.position.set(...node.position);
+      scene.add(atmMesh);
 
-      // Home planet — double ring system
+      meshes.push({ mesh, atmMesh, node, phase: rnd() * Math.PI * 2, freq: 0.35 + rnd() * 0.45 });
+
+      // Home planet — double rings
       if (node.id === 'home') {
-        const r1 = new THREE.Mesh(new THREE.TorusGeometry(1.42, 0.038, 8, 72), new THREE.MeshBasicMaterial({ color: 0xd4a843, transparent: true, opacity: 0.65 }));
+        const r1 = new THREE.Mesh(
+          new THREE.TorusGeometry(1.44, 0.04, 8, 80),
+          new THREE.MeshBasicMaterial({ color: 0xd4a843, transparent: true, opacity: 0.72 }),
+        );
         r1.rotation.x = Math.PI / 2.4;
         r1.position.set(...node.position);
         scene.add(r1);
 
-        const r2 = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.022, 8, 72), new THREE.MeshBasicMaterial({ color: 0xb8860b, transparent: true, opacity: 0.28 }));
+        const r2 = new THREE.Mesh(
+          new THREE.TorusGeometry(2.15, 0.024, 8, 80),
+          new THREE.MeshBasicMaterial({ color: 0xb8860b, transparent: true, opacity: 0.34 }),
+        );
         r2.rotation.x = Math.PI / 2.2;
         r2.rotation.z = 0.18;
         r2.position.set(...node.position);
@@ -199,9 +362,9 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       }
     }
 
-    // ── Connection lines (dashed) + traveling particles ────────────────────
-    type LineEntry = { line: THREE.Line; fromId: string; toId: string; fromPos: THREE.Vector3; toPos: THREE.Vector3 };
-    const lineObjs: LineEntry[] = [];
+    // ── 3D tube connections + particles ──────────────────────────────────
+    type ConnEntry = { tube: THREE.Mesh; fromId: string; toId: string; curve: THREE.CatmullRomCurve3 };
+    const connObjs: ConnEntry[] = [];
     const seen = new Set<string>();
 
     for (const n of NODES) {
@@ -209,31 +372,65 @@ export default function SiteMap3D({ locale }: { locale: string }) {
         const key = [n.id, cid].sort().join('--');
         if (seen.has(key)) continue;
         seen.add(key);
-        const target = NODES.find((x) => x.id === cid);
-        if (!target) continue;
-        const fromPos = new THREE.Vector3(...n.position);
-        const toPos   = new THREE.Vector3(...target.position);
-        const geo     = new THREE.BufferGeometry().setFromPoints([fromPos, toPos]);
-        const mat     = new THREE.LineDashedMaterial({ color: 0x5a3a1a, transparent: true, opacity: 0.28, dashSize: 0.5, gapSize: 0.38 });
-        const line    = new THREE.Line(geo, mat);
-        line.computeLineDistances();
-        scene.add(line);
-        lineObjs.push({ line, fromId: n.id, toId: cid, fromPos, toPos });
+        const tgt = NODES.find(x => x.id === cid);
+        if (!tgt) continue;
+
+        const a   = new THREE.Vector3(...n.position);
+        const b   = new THREE.Vector3(...tgt.position);
+        const mid = a.clone().lerp(b, 0.5).add(new THREE.Vector3((rnd()-.5)*1.5, 0.3 + rnd()*0.8, (rnd()-.5)*1.5));
+        const curve = new THREE.CatmullRomCurve3([a, mid, b]);
+
+        const tubeGeo = new THREE.TubeGeometry(curve, 10, 0.022, 4, false);
+        const tubeMat = new THREE.MeshBasicMaterial({ color: 0x5a3a1a, transparent: true, opacity: 0.28 });
+        const tube = new THREE.Mesh(tubeGeo, tubeMat);
+        scene.add(tube);
+        connObjs.push({ tube, fromId: n.id, toId: cid, curve });
       }
     }
 
-    // One glowing particle per connection — travels along the line
-    const particleCount = lineObjs.length;
-    const particlePos   = new Float32Array(particleCount * 3);
-    const particleGeo   = new THREE.BufferGeometry();
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-    const particleMat   = new THREE.PointsMaterial({ size: 0.22, color: 0xd4a843, transparent: true, opacity: 0.75, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending });
-    const particles     = new THREE.Points(particleGeo, particleMat);
+    // Traveling particles (one per connection, follows curve)
+    const pCount  = connObjs.length;
+    const pBuf    = new Float32Array(pCount * 3);
+    const pGeo    = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pBuf, 3));
+    const pMat    = new THREE.PointsMaterial({
+      size: 0.28, map: starSprite, alphaMap: starSprite,
+      transparent: true, opacity: 0.88,
+      sizeAttenuation: true, depthWrite: false,
+      blending: THREE.AdditiveBlending, color: 0xffd090,
+    });
+    const particles     = new THREE.Points(pGeo, pMat);
     scene.add(particles);
-    // Each particle starts at a random progress along its connection
-    const particleProgress = lineObjs.map(() => Math.random());
+    const pProgress     = connObjs.map(() => rnd());
+    const pTmp          = new THREE.Vector3();
 
-    // ── 2D labels (HTML overlay) ──────────────────────────────────────────
+    // ── Comet ─────────────────────────────────────────────────────────────
+    const TRAIL = 40;
+    const cBuf  = new Float32Array(TRAIL * 3);
+    const cGeo  = new THREE.BufferGeometry();
+    cGeo.setAttribute('position', new THREE.BufferAttribute(cBuf, 3));
+    const cMat  = new THREE.PointsMaterial({
+      size: 0.22, map: starSprite, alphaMap: starSprite,
+      transparent: true, opacity: 0,
+      sizeAttenuation: true, depthWrite: false,
+      blending: THREE.AdditiveBlending, color: 0xfff8e8,
+    });
+    scene.add(new THREE.Points(cGeo, cMat));
+
+    let cometT    = 0, cometDelay = 5 + rnd() * 8;
+    const cStart  = new THREE.Vector3(), cEnd = new THREE.Vector3();
+
+    function launchComet() {
+      const ang = rnd() * Math.PI * 2;
+      const opp = ang + Math.PI + (rnd() - 0.5) * 0.6;
+      const D   = 22;
+      cStart.set(Math.cos(ang)*D, (rnd()-.5)*12, Math.sin(ang)*D);
+      cEnd.set(Math.cos(opp)*D,   (rnd()-.5)*12, Math.sin(opp)*D);
+      cometT = 0;
+      cMat.opacity = 0.9;
+    }
+
+    // ── 2D labels ─────────────────────────────────────────────────────────
     const labelContainer = document.createElement('div');
     labelContainer.style.cssText = 'position:absolute;inset:0;pointer-events:none;overflow:hidden;';
     container.appendChild(labelContainer);
@@ -243,16 +440,12 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       const el = document.createElement('div');
       el.textContent = locale === 'zh-TW' ? node.labelZh : node.labelEn;
       el.style.cssText = `
-        position:absolute;
-        transform:translate(-50%,-100%);
-        color:#d4c4a8;
-        font-size:12px;
-        font-family:inherit;
-        white-space:nowrap;
-        text-shadow:0 0 8px #000,0 0 4px #000;
-        pointer-events:none;
-        transition:color 0.15s, text-shadow 0.2s, transform 0.15s;
-        letter-spacing:0.025em;
+        position:absolute; transform:translate(-50%,-100%);
+        color:#d4c4a8; font-size:12px; font-family:inherit;
+        white-space:nowrap; pointer-events:none;
+        text-shadow:0 0 10px #000,0 0 5px #000,0 0 2px #000;
+        transition:color .15s, text-shadow .2s, transform .15s;
+        letter-spacing:.025em;
       `;
       labelContainer.appendChild(el);
       labelEls.push({ el, node });
@@ -265,139 +458,160 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     controls.minDistance     = 5;
     controls.maxDistance     = 28;
     controls.autoRotate      = true;
-    controls.autoRotateSpeed = 0.35;
+    controls.autoRotateSpeed = 0.3;
 
-    // ── Raycaster ─────────────────────────────────────────────────────────
+    // ── Raycaster / pointer ───────────────────────────────────────────────
     const raycaster    = new THREE.Raycaster();
     const pointer      = new THREE.Vector2();
     let hoveredId: string | null = null;
-    const planetMeshes = meshes.map((m) => m.mesh);
+    const planetMeshes = meshes.map(m => m.mesh);
 
-    function onPointerMove(e: PointerEvent) {
-      const bcr  = container.getBoundingClientRect();
-      pointer.x  =  ((e.clientX - bcr.left) / bcr.width)  * 2 - 1;
-      pointer.y  = -((e.clientY - bcr.top)  / bcr.height) * 2 + 1;
+    function onMove(e: PointerEvent) {
+      const b = container.getBoundingClientRect();
+      pointer.x  =  ((e.clientX - b.left) / b.width)  * 2 - 1;
+      pointer.y  = -((e.clientY - b.top)  / b.height) * 2 + 1;
     }
-
     function onClick(e: MouseEvent) {
-      const bcr  = container.getBoundingClientRect();
-      pointer.x  =  ((e.clientX - bcr.left) / bcr.width)  * 2 - 1;
-      pointer.y  = -((e.clientY - bcr.top)  / bcr.height) * 2 + 1;
+      const b = container.getBoundingClientRect();
+      pointer.x  =  ((e.clientX - b.left) / b.width)  * 2 - 1;
+      pointer.y  = -((e.clientY - b.top)  / b.height) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(planetMeshes);
-      if (hits.length > 0) handleNavigate((hits[0].object.userData.node as SiteNode).path);
+      if (hits.length) handleNavigate((hits[0].object.userData.node as SiteNode).path);
     }
-
-    renderer.domElement.addEventListener('pointermove', onPointerMove);
+    renderer.domElement.addEventListener('pointermove', onMove);
     renderer.domElement.addEventListener('click', onClick);
 
     // ── Resize ────────────────────────────────────────────────────────────
-    const resizeObserver = new ResizeObserver(() => {
-      const w = container.clientWidth;
-      const h = container.clientHeight;
+    const ro = new ResizeObserver(() => {
+      const w = container.clientWidth, h = container.clientHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      composer.setSize(w, h);
     });
-    resizeObserver.observe(container);
+    ro.observe(container);
 
-    // ── Animation loop ────────────────────────────────────────────────────
+    // ── Animate ───────────────────────────────────────────────────────────
     const clock = new THREE.Clock();
-    let rafId   = 0;
-    let prevT   = 0;
+    let rafId   = 0, prevT = 0;
     const tmpV  = new THREE.Vector3();
-    const scaleV = new THREE.Vector3();
 
     function animate() {
       rafId = requestAnimationFrame(animate);
       const t     = clock.getElapsedTime();
-      const delta = t - prevT;
+      const delta = Math.min(t - prevT, 0.1);
       prevT = t;
 
       // Orbiting fill light
-      fillLight.position.set(Math.cos(t * 0.18) * 16, Math.sin(t * 0.12) * 7, Math.sin(t * 0.18) * 16);
+      fillLight.position.set(Math.cos(t * 0.18) * 17, Math.sin(t * 0.11) * 7, Math.sin(t * 0.18) * 17);
 
       // Star drift
       stars.rotation.y       = t * 0.009;
       brightStars.rotation.y = t * 0.006;
       brightStars.rotation.x = t * 0.003;
 
-      // Planet rotation + breathing emissive + hover pulse
-      for (const { mesh, innerGlow, node, phase, freq } of meshes) {
-        mesh.rotation.y = t * 0.28 + node.position[0];
-        mesh.rotation.x = Math.sin(t * 0.14 + node.position[2]) * 0.12;
-
-        const isHov = hoveredId === node.id;
-        const tgtScale = isHov ? 1.28 * (1 + Math.sin(t * 3.2) * 0.07) : 1.0;
-        scaleV.setScalar(tgtScale);
-        mesh.scale.lerp(scaleV, 0.07);
-
-        const pmat    = mesh.material as THREE.MeshPhysicalMaterial;
-        const breathe = 0.09 + Math.sin(t * freq + phase) * 0.045;
-        pmat.emissiveIntensity += ((isHov ? 0.58 : breathe) - pmat.emissiveIntensity) * 0.07;
-        pmat.emissive.set(isHov ? node.glowColor : node.color);
-
-        const igMat       = innerGlow.material as THREE.MeshBasicMaterial;
-        const tgtOpacity  = isHov ? 0.5 + Math.sin(t * 3.2) * 0.08 : 0.22 + Math.sin(t * freq + phase) * 0.07;
-        igMat.opacity    += (tgtOpacity - igMat.opacity) * 0.07;
-      }
-
       // Hover detection
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(planetMeshes);
-      hoveredId  = hits.length > 0 ? (hits[0].object.userData.node as SiteNode).id : null;
+      hoveredId  = hits.length ? (hits[0].object.userData.node as SiteNode).id : null;
       renderer.domElement.style.cursor = hoveredId ? 'pointer' : 'default';
 
-      // Connection lines — highlight on hover
-      for (const { line, fromId, toId } of lineObjs) {
-        const hl  = hoveredId === fromId || hoveredId === toId;
-        const lm  = line.material as THREE.LineDashedMaterial;
-        lm.color.set(hl ? 0xc9a040 : 0x5a3a1a);
-        lm.opacity += ((hl ? 0.75 : 0.28) - lm.opacity) * 0.1;
+      // Planet animation
+      for (const { mesh, atmMesh, node, phase, freq } of meshes) {
+        mesh.rotation.y = t * 0.28 + node.position[0] * 0.5;
+        mesh.rotation.x = Math.sin(t * 0.14 + node.position[2]) * 0.09;
+
+        const isHov    = hoveredId === node.id;
+        const tgtScale = isHov ? 1.3 + Math.sin(t * 3.0) * 0.05 : 1.0;
+        mesh.scale.x  += (tgtScale - mesh.scale.x) * 0.07;
+        mesh.scale.y   = mesh.scale.x;
+        mesh.scale.z   = mesh.scale.x;
+
+        const pmat    = mesh.material as THREE.MeshPhysicalMaterial;
+        const breathe = 0.11 + Math.sin(t * freq + phase) * 0.055;
+        pmat.emissiveIntensity += ((isHov ? 0.7 : breathe) - pmat.emissiveIntensity) * 0.07;
+        pmat.emissive.set(isHov ? node.glowColor : node.color);
+
+        const aMat = atmMesh.material as THREE.ShaderMaterial;
+        const tgtI = isHov ? 1.1 + Math.sin(t * 2.5) * 0.15 : 0.65 + Math.sin(t * freq + phase) * 0.1;
+        aMat.uniforms.uIntensity.value += (tgtI - aMat.uniforms.uIntensity.value) * 0.07;
+        const tgtAS = isHov ? 1.1 : 1.0;
+        atmMesh.scale.x += (tgtAS - atmMesh.scale.x) * 0.07;
+        atmMesh.scale.y = atmMesh.scale.z = atmMesh.scale.x;
       }
 
-      // Traveling particles along connections
-      const posAttr = particles.geometry.attributes.position;
-      for (let i = 0; i < lineObjs.length; i++) {
-        const { fromId, toId, fromPos, toPos } = lineObjs[i];
-        const hl    = hoveredId === fromId || hoveredId === toId;
-        const speed = hl ? 0.45 : 0.18;
-        particleProgress[i] = (particleProgress[i] + delta * speed) % 1;
-        const p = particleProgress[i];
-        posAttr.array[i * 3]     = fromPos.x + (toPos.x - fromPos.x) * p;
-        posAttr.array[i * 3 + 1] = fromPos.y + (toPos.y - fromPos.y) * p;
-        posAttr.array[i * 3 + 2] = fromPos.z + (toPos.z - fromPos.z) * p;
+      // Tube connection highlights
+      const goldCol = new THREE.Color(0xc9a040);
+      const dimCol  = new THREE.Color(0x5a3a1a);
+      for (const { tube, fromId, toId } of connObjs) {
+        const hl = hoveredId === fromId || hoveredId === toId;
+        const tm = tube.material as THREE.MeshBasicMaterial;
+        tm.color.lerp(hl ? goldCol : dimCol, 0.1);
+        tm.opacity += ((hl ? 0.78 : 0.28) - tm.opacity) * 0.1;
       }
-      (posAttr as THREE.BufferAttribute).needsUpdate = true;
 
-      // 2D label positions + hover style
+      // Traveling particles
+      const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
+      for (let i = 0; i < pCount; i++) {
+        const hl    = hoveredId === connObjs[i].fromId || hoveredId === connObjs[i].toId;
+        pProgress[i] = (pProgress[i] + delta * (hl ? 0.55 : 0.2)) % 1;
+        connObjs[i].curve.getPoint(pProgress[i], pTmp);
+        posAttr.array[i*3]   = pTmp.x;
+        posAttr.array[i*3+1] = pTmp.y;
+        posAttr.array[i*3+2] = pTmp.z;
+      }
+      posAttr.needsUpdate = true;
+
+      // Comet
+      cometDelay -= delta;
+      if (cometDelay <= 0 && cometT === 0) launchComet();
+      if (cMat.opacity > 0 && cometT < 1) {
+        cometT = Math.min(cometT + delta * 0.65, 1);
+        const posC = cGeo.attributes.position as THREE.BufferAttribute;
+        for (let i = 0; i < TRAIL; i++) {
+          const p  = Math.max(0, cometT - (i / TRAIL) * 0.1);
+          const cp = cStart.clone().lerp(cEnd, p);
+          posC.array[i*3] = cp.x; posC.array[i*3+1] = cp.y; posC.array[i*3+2] = cp.z;
+        }
+        posC.needsUpdate = true;
+        if (cometT >= 1) {
+          cMat.opacity = 0;
+          cometDelay   = 10 + rnd() * 15;
+          cometT       = 0;
+        }
+      }
+
+      // Label projection
       for (const { el, node } of labelEls) {
         tmpV.set(...node.position);
         tmpV.y += node.size + 0.65;
         tmpV.project(camera);
-        const x = ( tmpV.x * 0.5 + 0.5) * container.clientWidth;
-        const y = (-tmpV.y * 0.5 + 0.5) * container.clientHeight;
-        el.style.left = `${x}px`;
-        el.style.top  = `${y}px`;
-        const isHov         = hoveredId === node.id;
-        el.style.color      = isHov ? '#ffffff' : '#d4c4a8';
-        el.style.textShadow = isHov ? '0 0 14px rgba(201,160,64,0.9), 0 0 6px #000' : '0 0 8px #000, 0 0 4px #000';
-        el.style.transform  = isHov ? 'translate(-50%, -130%) scale(1.1)' : 'translate(-50%, -100%)';
-        el.style.display    = tmpV.z < 1 ? 'block' : 'none';
+        el.style.left = `${( tmpV.x * .5 + .5) * container.clientWidth}px`;
+        el.style.top  = `${(-tmpV.y * .5 + .5) * container.clientHeight}px`;
+        const isHov    = hoveredId === node.id;
+        el.style.color = isHov ? '#fff' : '#d4c4a8';
+        el.style.textShadow = isHov
+          ? '0 0 18px rgba(201,160,64,0.95), 0 0 8px #000'
+          : '0 0 10px #000, 0 0 5px #000, 0 0 2px #000';
+        el.style.transform = isHov ? 'translate(-50%,-132%) scale(1.12)' : 'translate(-50%,-100%)';
+        el.style.display   = tmpV.z < 1 ? 'block' : 'none';
       }
 
       controls.update();
-      renderer.render(scene, camera);
+      composer.render();
     }
     animate();
 
     // ── Cleanup ───────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(rafId);
-      resizeObserver.disconnect();
-      renderer.domElement.removeEventListener('pointermove', onPointerMove);
+      ro.disconnect();
+      renderer.domElement.removeEventListener('pointermove', onMove);
       renderer.domElement.removeEventListener('click', onClick);
       controls.dispose();
+      starSprite.dispose();
+      composer.dispose();
       renderer.dispose();
       if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
       if (container.contains(labelContainer))       container.removeChild(labelContainer);
@@ -405,7 +619,7 @@ export default function SiteMap3D({ locale }: { locale: string }) {
   }, [locale, handleNavigate]);
 
   return (
-    <div className="absolute inset-0 bg-[#0a0608]">
+    <div className="absolute inset-0 bg-[#07040a]">
       <div ref={containerRef} className="absolute inset-0" />
       <Legend locale={locale} />
     </div>
