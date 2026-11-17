@@ -32,10 +32,10 @@ export default function SitemapSection() {
 
       <SiteMap3DLoader locale={locale} embedded />
 
-      {/* Top blend — merges Hero's wine-950 bottom into deep-space background */}
+      {/* Top blend — warm tint at section edge, semi-transparent so Hero photo shows through */}
       <div
-        className="absolute inset-x-0 top-0 h-40 pointer-events-none z-20"
-        style={{ background: 'linear-gradient(to bottom, #380a14 0%, transparent 100%)' }}
+        className="absolute inset-x-0 top-0 h-24 pointer-events-none z-20"
+        style={{ background: 'linear-gradient(to bottom, rgba(56,10,20,0.25) 0%, transparent 100%)' }}
       />
 
       {/* Left-edge wine vignette — echoes Hero's warm left wash */}
