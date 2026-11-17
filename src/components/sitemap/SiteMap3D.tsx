@@ -60,78 +60,183 @@ function makePlanetTexture(node: SiteNode): THREE.CanvasTexture {
   cv.width = W; cv.height = H;
   const ctx = cv.getContext('2d')!;
   const col = new THREE.Color(node.color);
-  ctx.fillStyle = `rgb(${Math.round(col.r*255)},${Math.round(col.g*255)},${Math.round(col.b*255)})`;
+  const br = Math.round(col.r * 255);
+  const bg = Math.round(col.g * 255);
+  const bb = Math.round(col.b * 255);
+  ctx.fillStyle = `rgb(${br},${bg},${bb})`;
   ctx.fillRect(0, 0, W, H);
 
+  // Derived land / highlight tones (brighter variant of base color = rough land / rock)
+  const lr = Math.min(255, Math.round(br * 2.0 + 25));
+  const lg = Math.min(255, Math.round(bg * 2.0 + 18));
+  const lb = Math.min(255, Math.round(bb * 2.0 + 12));
+
   if (node.tex === 'gas') {
-    // Warm-on-cool: golden wisps against violet/purple base
-    for (let i = 0; i < 20; i++) {
-      const y     = (i / 20) * H;
-      const bandH = H / 20 + (rnd() * 10 - 5);
-      const alpha = 0.08 + rnd() * 0.20;
+    // 28 atmospheric bands with multi-harmonic turbulence edges
+    for (let i = 0; i < 28; i++) {
+      const fy = i / 28;
+      const y  = fy * H;
+      const bh = H / 28 + (rnd() * 8 - 4);
+      const a  = 0.06 + rnd() * 0.22;
+      const ph = rnd() * Math.PI * 2;
       ctx.beginPath();
-      ctx.moveTo(0, y + Math.sin(i * 0.8) * 4);
-      ctx.bezierCurveTo(W * 0.33, y + rnd() * 12 - 6, W * 0.66, y + rnd() * 12 - 6, W, y + Math.sin((i+1) * 0.8) * 4);
-      ctx.lineTo(W, y + bandH);
-      ctx.bezierCurveTo(W * 0.66, y + bandH + rnd() * 10 - 5, W * 0.33, y + bandH + rnd() * 10 - 5, 0, y + bandH);
+      ctx.moveTo(0, y + Math.sin(ph) * 5 + Math.sin(ph * 2.3) * 2.5);
+      ctx.bezierCurveTo(
+        W * 0.3,  y + Math.sin(ph + 1.0) * 7 + rnd() * 6 - 3,
+        W * 0.65, y + Math.sin(ph + 2.1) * 7 + rnd() * 6 - 3,
+        W,        y + Math.sin(ph + 3.1) * 5 + Math.sin((ph + 3.1) * 2.3) * 2.5
+      );
+      ctx.lineTo(W, y + bh);
+      ctx.bezierCurveTo(
+        W * 0.65, y + bh + Math.sin(ph + 2.6) * 6 - 3,
+        W * 0.3,  y + bh + Math.sin(ph + 1.5) * 6 - 3,
+        0,        y + bh
+      );
       ctx.closePath();
-      ctx.fillStyle = i % 3 === 0
-        ? `rgba(220,195,255,${alpha})`   // soft lavender
-        : i % 3 === 1
-        ? `rgba(255,220,150,${alpha * 0.6})`  // warm gold
-        : `rgba(0,0,0,${alpha * 0.5})`;
+      const type = i % 4;
+      ctx.fillStyle = type === 0
+        ? `rgba(230,205,255,${a})`
+        : type === 1
+        ? `rgba(255,228,160,${a * 0.65})`
+        : type === 2
+        ? `rgba(${lr},${lg},${lb},${a * 0.45})`
+        : `rgba(0,0,0,${a * 0.55})`;
       ctx.fill();
     }
-    // Luminous spot
-    for (let pass = 0; pass < 3; pass++) {
+    // Great storm oval — layered rings (bright interior = rough; dark ring = smooth/ocean-like glint)
+    const sx = W * (0.25 + rnd() * 0.5), sy = H * (0.4 + rnd() * 0.2);
+    for (let pass = 4; pass >= 0; pass--) {
       ctx.beginPath();
-      ctx.ellipse(W * 0.3, H * 0.55, 32 - pass * 6, 20 - pass * 4, -0.2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,${180 - pass * 20},100,${0.12 + pass * 0.07})`;
+      ctx.ellipse(sx, sy, 36 - pass * 5, 22 - pass * 3, -0.18, 0, Math.PI * 2);
+      const alpha = 0.08 + pass * 0.07;
+      ctx.fillStyle = pass % 2 === 0
+        ? `rgba(255,${170 - pass * 15},80,${alpha})`
+        : `rgba(0,0,0,${alpha * 0.6})`;
       ctx.fill();
     }
+    // Vortex wisps around storm
+    for (let i = 0; i < 8; i++) {
+      const ang = (i / 8) * Math.PI * 2;
+      const ex = sx + Math.cos(ang) * (40 + rnd() * 20);
+      const ey = sy + Math.sin(ang) * (26 + rnd() * 12);
+      ctx.beginPath();
+      ctx.ellipse(ex, ey, 8 + rnd() * 20, 2 + rnd() * 5, ang + 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,235,180,${0.05 + rnd() * 0.09})`; ctx.fill();
+    }
+
   } else if (node.tex === 'volcanic') {
-    for (let i = 0; i < 100; i++) {
+    // Rock face variation — darker crevices
+    for (let i = 0; i < 80; i++) {
       ctx.beginPath();
-      ctx.ellipse(rnd() * W, rnd() * H, rnd() * 24 + 3, rnd() * 15 + 2, rnd() * Math.PI, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${0.06 + rnd() * 0.20})`;
-      ctx.fill();
+      ctx.ellipse(rnd() * W, rnd() * H, rnd() * 30 + 5, rnd() * 18 + 3, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.07 + rnd() * 0.22})`; ctx.fill();
     }
-    for (let i = 0; i < 20; i++) {
+    // Lighter rock faces / plateaus
+    for (let i = 0; i < 30; i++) {
+      const cx2 = rnd() * W, cy2 = rnd() * H;
+      const rg = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, 15 + rnd() * 30);
+      rg.addColorStop(0, `rgba(${lr},${lg},${lb},0.18)`);
+      rg.addColorStop(1, `rgba(${lr},${lg},${lb},0)`);
+      ctx.beginPath(); ctx.ellipse(cx2, cy2, 20 + rnd() * 35, 12 + rnd() * 20, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = rg; ctx.fill();
+    }
+    // Lava rivers — wider range, brighter peaks
+    for (let i = 0; i < 28; i++) {
       const x0 = rnd() * W, y0 = rnd() * H;
       ctx.beginPath(); ctx.moveTo(x0, y0);
-      let cx = x0, cy = y0;
-      for (let s = 0; s < 6; s++) { cx += rnd() * 36 - 18; cy += rnd() * 18 - 9; ctx.lineTo(cx, cy); }
-      ctx.strokeStyle = `rgba(255,${100 + Math.round(rnd()*80)},30,${0.12 + rnd() * 0.14})`;
-      ctx.lineWidth = 0.5 + rnd() * 1.6; ctx.stroke();
+      let cx2 = x0, cy2 = y0;
+      const segs = 5 + Math.floor(rnd() * 4);
+      for (let s = 0; s < segs; s++) { cx2 += rnd() * 40 - 20; cy2 += rnd() * 20 - 10; ctx.lineTo(cx2, cy2); }
+      const lavaG = 90 + Math.round(rnd() * 110);
+      ctx.strokeStyle = `rgba(255,${lavaG},20,${0.15 + rnd() * 0.18})`;
+      ctx.lineWidth = 0.5 + rnd() * 2.5; ctx.stroke();
     }
+    // Lava pools — radial hot spots
+    for (let i = 0; i < 8; i++) {
+      const px = rnd() * W, py = rnd() * H;
+      const pr = 6 + rnd() * 18;
+      const pg = ctx.createRadialGradient(px, py, 0, px, py, pr);
+      pg.addColorStop(0,   `rgba(255,220,60,0.28)`);
+      pg.addColorStop(0.4, `rgba(255,110,20,0.18)`);
+      pg.addColorStop(1,   `rgba(200,40,0,0)`);
+      ctx.beginPath(); ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fillStyle = pg; ctx.fill();
+    }
+
   } else if (node.tex === 'earth') {
-    for (let i = 0; i < 9; i++) {
-      const cx = rnd() * W, cy = rnd() * H;
-      const rx = 32 + rnd() * 65, ry = 20 + rnd() * 42;
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx, ry));
-      g.addColorStop(0,   'rgba(60,110,45,0.36)');
-      g.addColorStop(0.6, 'rgba(45,80,28,0.18)');
-      g.addColorStop(1,   'rgba(35,65,18,0)');
-      ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, rnd() * Math.PI, 0, Math.PI * 2);
-      ctx.fillStyle = g; ctx.fill();
+    // Continents — planet-color-derived land masses (bright = rough land, dark = smooth ocean)
+    for (let i = 0; i < 11; i++) {
+      const cx2 = rnd() * W, cy2 = H * 0.08 + rnd() * H * 0.84;
+      const rx2 = 28 + rnd() * 70, ry2 = 18 + rnd() * 44;
+      const cg = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, Math.max(rx2, ry2));
+      cg.addColorStop(0,   `rgba(${lr},${lg},${lb},0.50)`);
+      cg.addColorStop(0.4, `rgba(${lr},${lg},${lb},0.28)`);
+      cg.addColorStop(0.8, `rgba(${lr},${lg},${lb},0.10)`);
+      cg.addColorStop(1,   `rgba(${lr},${lg},${lb},0)`);
+      ctx.beginPath(); ctx.ellipse(cx2, cy2, rx2, ry2, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = cg; ctx.fill();
     }
-    ctx.fillStyle = 'rgba(255,255,255,0.12)';
-    ctx.fillRect(0, 0, W, 20); ctx.fillRect(0, H - 20, W, 20);
-    for (let i = 0; i < 12; i++) {
+    // Coastal shallows — darker ocean band at continent edges (adds specular-dark transition)
+    for (let i = 0; i < 15; i++) {
       ctx.beginPath();
-      ctx.ellipse(rnd() * W, rnd() * H, 18 + rnd() * 50, 3 + rnd() * 10, rnd() * 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${0.03 + rnd() * 0.07})`; ctx.fill();
+      ctx.ellipse(rnd() * W, H * 0.1 + rnd() * H * 0.8, 20 + rnd() * 50, 6 + rnd() * 20, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.04 + rnd() * 0.08})`; ctx.fill();
     }
+    // Ice caps — smooth gradient fade (dark base shows through = specular glint at poles)
+    const ice1 = ctx.createLinearGradient(0, 0, 0, H * 0.20);
+    ice1.addColorStop(0,   'rgba(240,250,255,0.60)');
+    ice1.addColorStop(0.5, 'rgba(220,238,255,0.25)');
+    ice1.addColorStop(1,   'rgba(200,225,255,0)');
+    ctx.fillStyle = ice1; ctx.fillRect(0, 0, W, H * 0.20);
+    const ice2 = ctx.createLinearGradient(0, H * 0.80, 0, H);
+    ice2.addColorStop(0,   'rgba(200,225,255,0)');
+    ice2.addColorStop(0.5, 'rgba(220,238,255,0.22)');
+    ice2.addColorStop(1,   'rgba(240,250,255,0.55)');
+    ctx.fillStyle = ice2; ctx.fillRect(0, H * 0.80, W, H * 0.20);
+    // Cloud wisps — more visible
+    for (let i = 0; i < 22; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rnd() * W, H * 0.08 + rnd() * H * 0.84, 22 + rnd() * 70, 2.5 + rnd() * 9, rnd() * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${0.06 + rnd() * 0.12})`; ctx.fill();
+    }
+
   } else { // barren
-    for (let i = 0; i < 55; i++) {
-      const x = rnd() * W, y = rnd() * H, r = 3 + rnd() * 20;
-      ctx.beginPath(); ctx.arc(x, y, r + 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200,180,255,${0.05 + rnd() * 0.09})`; ctx.fill();
-      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${0.10 + rnd() * 0.20})`; ctx.fill();
+    // Terrain highland/lowland variation
+    for (let i = 0; i < 20; i++) {
+      const hx = rnd() * W, hy = rnd() * H;
+      const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, 30 + rnd() * 60);
+      hg.addColorStop(0, `rgba(${lr},${lg},${lb},0.14)`);
+      hg.addColorStop(1, `rgba(${lr},${lg},${lb},0)`);
+      ctx.beginPath(); ctx.ellipse(hx, hy, 40 + rnd() * 70, 25 + rnd() * 45, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = hg; ctx.fill();
     }
-    for (let i = 0; i < 200; i++) {
-      ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, rnd() * 2.5, 0, Math.PI * 2);
+    // Impact craters — bright ejecta rim (rough) + dark smooth floor (specular)
+    for (let i = 0; i < 50; i++) {
+      const x = rnd() * W, y = rnd() * H, r = 3 + rnd() * 22;
+      // Ejecta halo
+      ctx.beginPath(); ctx.arc(x, y, r + 4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${lr},${lg},${lb},${0.08 + rnd() * 0.12})`; ctx.fill();
+      // Crater floor (dark = smooth = specular glint — like a dry lake bed)
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.12 + rnd() * 0.22})`; ctx.fill();
+    }
+    // Ejecta rays — 3–4 large craters with radial streak patterns
+    for (let i = 0; i < 4; i++) {
+      const ex = rnd() * W, ey = rnd() * H;
+      const rays = 8 + Math.floor(rnd() * 8);
+      for (let r2 = 0; r2 < rays; r2++) {
+        const ang = (r2 / rays) * Math.PI * 2;
+        const len = 25 + rnd() * 50;
+        ctx.beginPath();
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex + Math.cos(ang) * len, ey + Math.sin(ang) * len);
+        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${0.07 + rnd() * 0.10})`;
+        ctx.lineWidth = 0.5 + rnd() * 1.5; ctx.stroke();
+      }
+    }
+    // Fine noise grain
+    for (let i = 0; i < 180; i++) {
+      ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, rnd() * 2, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(0,0,0,${0.03 + rnd() * 0.06})`; ctx.fill();
     }
   }
@@ -207,19 +312,30 @@ varying vec3 vViewDir;
 varying vec2 vUv;
 
 void main() {
-  vec4 tex = texture2D(uMap, vUv);
+  vec4  tex      = texture2D(uMap, vUv);
+  vec3  lightDir = normalize(vec3(0.5, 0.75, 0.9));
 
-  // Soft directional fill — warm angled light from above-right
-  float diff = max(dot(vNormal, normalize(vec3(0.5, 0.75, 0.9))), 0.0) * 0.45 + 0.55;
-  vec3 surface = tex.rgb * uBaseColor * diff * 2.5;
+  // Lambertian diffuse
+  float diff    = max(dot(vNormal, lightDir), 0.0) * 0.45 + 0.55;
+  vec3  surface = tex.rgb * uBaseColor * diff * 2.5;
 
-  // Inner radiance — stained-glass backlit bloom toward the viewer
+  // Roughness from texture brightness — dark px (ocean) = smooth, bright (land) = rough
+  float brightness = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
+  float roughness  = clamp(brightness * 2.0, 0.0, 1.0);
+
+  // Blinn-Phong specular — concentrated on smooth (low roughness) areas: water / ice
+  vec3  halfVec  = normalize(lightDir + vViewDir);
+  float spec     = pow(max(dot(vNormal, halfVec), 0.0), 72.0);
+  vec3  specular = vec3(0.60, 0.78, 1.0) * spec * (1.0 - roughness) * 0.50;
+
+  // Limb darkening — physical planetary effect (edges darker)
   float face    = max(dot(vNormal, vViewDir), 0.0);
+  float limb    = pow(face, 0.38) * 0.20 + 0.80;
+
+  // Inner radiance glow
   float innerGlow = pow(face, 2.0) * 0.55;
 
-  // Breathing emissive + inner radiance = jewel lit from within
-  vec3 col = surface + uGlowColor * (uEmissive + innerGlow * 0.38);
-
+  vec3 col = (surface + specular) * limb + uGlowColor * (uEmissive + innerGlow * 0.38);
   gl_FragColor = vec4(col, 1.0);
 }`;
 

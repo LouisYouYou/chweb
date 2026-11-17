@@ -14,7 +14,6 @@ export default async function SitemapPage() {
 
   return (
     <main className="fixed inset-0 bg-[#0a0608] overflow-hidden z-[9999]">
-      {/* Header overlay */}
       <div className="absolute top-0 left-0 right-0 z-10 px-6 pt-6 pb-4 pointer-events-none"
         style={{ background: 'linear-gradient(to bottom, rgba(10,6,8,0.85) 0%, transparent 100%)' }}
       >
@@ -26,7 +25,6 @@ export default async function SitemapPage() {
         </h1>
       </div>
 
-      {/* Back button */}
       <div className="absolute top-6 right-6 z-10">
         <a
           href={`/${locale}`}
@@ -36,7 +34,6 @@ export default async function SitemapPage() {
         </a>
       </div>
 
-      {/* 3D Canvas */}
       <div className="absolute inset-0">
         <SiteMap3DLoader locale={locale} />
       </div>

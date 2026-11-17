@@ -1,21 +1,27 @@
 'use client';
 
-import { useState, useEffect, type ComponentType } from 'react';
+import { useEffect, useState, type ComponentType } from 'react';
+import { useTranslations } from 'next-intl';
 
-export default function SiteMap3DLoader({ locale }: { locale: string }) {
-  const [SiteMap3D, setSiteMap3D] = useState<ComponentType<{ locale: string }> | null>(null);
+export default function SiteMap3DLoader({ locale, embedded = false }: { locale: string; embedded?: boolean }) {
+  const t = useTranslations('nav');
+  const [View, setView] = useState<ComponentType<{ locale: string; embedded?: boolean }> | null>(null);
 
   useEffect(() => {
-    import('./SiteMap3D').then((m) => setSiteMap3D(() => m.default));
+    let active = true;
+    import('./SiteMap3D').then((module) => {
+      if (active) setView(() => module.default);
+    });
+    return () => { active = false; };
   }, []);
 
-  if (!SiteMap3D) {
+  if (!View) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-white/40 text-sm animate-pulse">載入星球地圖中…</div>
+      <div className="flex h-full items-center justify-center text-sm text-white/45" role="status">
+        {t('sitemap')}
       </div>
     );
   }
 
-  return <SiteMap3D locale={locale} />;
+  return <View locale={locale} embedded={embedded} />;
 }
