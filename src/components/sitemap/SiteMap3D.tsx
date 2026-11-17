@@ -27,6 +27,8 @@ interface SiteNode {
   position: [number, number, number];
   connections: string[];
   tex: TextureType;
+  descZh: string;
+  descEn: string;
 }
 
 // Palette: 4 stained-glass jewel families
@@ -36,18 +38,18 @@ interface SiteNode {
 // Connect   — deep rose     #2a0d18 / #c04870
 
 const NODES: SiteNode[] = [
-  { id: 'home',           labelZh: '首頁',      labelEn: 'Home',       path: '/',                group: 'core',      size: 1.0,  color: '#3d1e06', glowColor: '#d4921c', position: [0, 0, 0],          connections: ['about','first-visit','services','events','sermons','bulletin'], tex: 'earth' },
-  { id: 'about',          labelZh: '關於我們',   labelEn: 'About',      path: '/about',           group: 'core',      size: 0.65, color: '#3a1c05', glowColor: '#c07e14', position: [-4.5, 1.5, -1],   connections: ['home','first-visit','contact'],          tex: 'volcanic' },
-  { id: 'first-visit',    labelZh: '初次拜訪',   labelEn: 'First Visit',path: '/first-visit',     group: 'connect',   size: 0.6,  color: '#2a0d18', glowColor: '#c04870', position: [-3, -3, 1],       connections: ['home','about','services'],               tex: 'earth' },
-  { id: 'services',       labelZh: '聚會時間',   labelEn: 'Services',   path: '/services',        group: 'core',      size: 0.65, color: '#3d1e06', glowColor: '#d4921c', position: [3.5, -2.5, 0],    connections: ['home','events'],                        tex: 'volcanic' },
-  { id: 'events',         labelZh: '活動行事曆', labelEn: 'Events',     path: '/events',          group: 'community', size: 0.7,  color: '#0a1b38', glowColor: '#3a7fd4', position: [5, 1.5, 1],       connections: ['home','services','prayer-wall'],         tex: 'earth' },
-  { id: 'sermons',        labelZh: '講道媒體',   labelEn: 'Sermons',    path: '/sermons',         group: 'media',     size: 0.7,  color: '#1a0d38', glowColor: '#8060c8', position: [1.5, 4, -2],      connections: ['home','daily-scripture'],               tex: 'gas' },
-  { id: 'bulletin',       labelZh: '教會週報',   labelEn: 'Bulletin',   path: '/weekly-bulletin', group: 'media',     size: 0.5,  color: '#160b32', glowColor: '#7050b8', position: [-1.5, 4, 1.5],    connections: ['home','sermons'],                       tex: 'gas' },
-  { id: 'daily-scripture',labelZh: '每日靈糧',   labelEn: 'Daily Word', path: '/daily-scripture', group: 'media',     size: 0.5,  color: '#1a0d38', glowColor: '#8060c8', position: [3.5, 4.5, -1.5],  connections: ['sermons'],                              tex: 'gas' },
-  { id: 'gallery',        labelZh: '相片集',     labelEn: 'Gallery',    path: '/gallery',         group: 'community', size: 0.5,  color: '#091830', glowColor: '#3070c0', position: [5.5, -1, -2],     connections: ['events'],                               tex: 'barren' },
-  { id: 'prayer-wall',    labelZh: '禱告牆',     labelEn: 'Prayer Wall',path: '/prayer-wall',     group: 'community', size: 0.55, color: '#0a1b38', glowColor: '#3a7fd4', position: [3, -4.5, -1],     connections: ['events','contact'],                     tex: 'earth' },
-  { id: 'contact',        labelZh: '聯絡我們',   labelEn: 'Contact',    path: '/contact',         group: 'connect',   size: 0.5,  color: '#280b16', glowColor: '#b04060', position: [-5.5, -1.5, 0.5], connections: ['about','faq'],                           tex: 'barren' },
-  { id: 'faq',            labelZh: '常見問題',   labelEn: 'FAQ',        path: '/faq',             group: 'connect',   size: 0.45, color: '#280b16', glowColor: '#b04060', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'],                 tex: 'barren' },
+  { id: 'home',           labelZh: '首頁',      labelEn: 'Home',       path: '/',                group: 'core',      size: 1.0,  color: '#3d1e06', glowColor: '#d4921c', position: [0, 0, 0],          connections: ['about','first-visit','services','events','sermons','bulletin'], tex: 'earth',   descZh: '歡迎來到行道會南勢角榮耀堂，認識我們的起點', descEn: 'Welcome to Glory Church of Nanshijiao' },
+  { id: 'about',          labelZh: '關於我們',   labelEn: 'About',      path: '/about',           group: 'core',      size: 0.65, color: '#3a1c05', glowColor: '#c07e14', position: [-4.5, 1.5, -1],   connections: ['home','first-visit','contact'],          tex: 'volcanic', descZh: '認識教會的異象、歷史與同工團隊',         descEn: 'Our vision, history and leadership team' },
+  { id: 'first-visit',    labelZh: '初次拜訪',   labelEn: 'First Visit',path: '/first-visit',     group: 'connect',   size: 0.6,  color: '#2a0d18', glowColor: '#c04870', position: [-3, -3, 1],       connections: ['home','about','services'],               tex: 'earth',   descZh: '新朋友必看：交通、流程與問答指南',          descEn: 'First-time visitor guide & directions' },
+  { id: 'services',       labelZh: '聚會時間',   labelEn: 'Services',   path: '/services',        group: 'core',      size: 0.65, color: '#3d1e06', glowColor: '#d4921c', position: [3.5, -2.5, 0],    connections: ['home','events'],                        tex: 'volcanic', descZh: '主日禮拜 10:00–11:30，歡迎全家大小同來',   descEn: 'Sunday service 10:00–11:30, all welcome' },
+  { id: 'events',         labelZh: '活動行事曆', labelEn: 'Events',     path: '/events',          group: 'community', size: 0.7,  color: '#0a1b38', glowColor: '#3a7fd4', position: [5, 1.5, 1],       connections: ['home','services','prayer-wall'],         tex: 'earth',   descZh: '節期特會、社區活動與教會行事曆',            descEn: 'Festivals, revivals & church calendar' },
+  { id: 'sermons',        labelZh: '講道媒體',   labelEn: 'Sermons',    path: '/sermons',         group: 'media',     size: 0.7,  color: '#1a0d38', glowColor: '#8060c8', position: [1.5, 4, -2],      connections: ['home','daily-scripture'],               tex: 'gas',     descZh: '歷年講道影音、信息摘要與免費下載',          descEn: 'Sermon archive, audio & video library' },
+  { id: 'bulletin',       labelZh: '教會週報',   labelEn: 'Bulletin',   path: '/weekly-bulletin', group: 'media',     size: 0.5,  color: '#160b32', glowColor: '#7050b8', position: [-1.5, 4, 1.5],    connections: ['home','sermons'],                       tex: 'gas',     descZh: '每週教會週報與最新活動公告',               descEn: 'Weekly bulletin & announcements' },
+  { id: 'daily-scripture',labelZh: '每日靈糧',   labelEn: 'Daily Word', path: '/daily-scripture', group: 'media',     size: 0.5,  color: '#1a0d38', glowColor: '#8060c8', position: [3.5, 4.5, -1.5],  connections: ['sermons'],                              tex: 'gas',     descZh: '每日靈修默想與聖經閱讀進度',               descEn: 'Daily devotional & Bible reading plan' },
+  { id: 'gallery',        labelZh: '相片集',     labelEn: 'Gallery',    path: '/gallery',         group: 'community', size: 0.5,  color: '#091830', glowColor: '#3070c0', position: [5.5, -1, -2],     connections: ['events'],                               tex: 'barren',  descZh: '教會生活、主日崇拜與活動精彩回顧',          descEn: 'Photo gallery of church life & events' },
+  { id: 'prayer-wall',    labelZh: '禱告牆',     labelEn: 'Prayer Wall',path: '/prayer-wall',     group: 'community', size: 0.55, color: '#0a1b38', glowColor: '#3a7fd4', position: [3, -4.5, -1],     connections: ['events','contact'],                     tex: 'earth',   descZh: '提交代禱事項，與弟兄姊妹彼此守望',         descEn: 'Submit prayer requests, pray together' },
+  { id: 'contact',        labelZh: '聯絡我們',   labelEn: 'Contact',    path: '/contact',         group: 'connect',   size: 0.5,  color: '#280b16', glowColor: '#b04060', position: [-5.5, -1.5, 0.5], connections: ['about','faq'],                           tex: 'barren',  descZh: '教會地址、電話、地圖與問路指引',            descEn: 'Address, phone, map & directions' },
+  { id: 'faq',            labelZh: '常見問題',   labelEn: 'FAQ',        path: '/faq',             group: 'connect',   size: 0.45, color: '#280b16', glowColor: '#b04060', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'],                 tex: 'barren',  descZh: '關於信仰、洗禮與教會的常見問答',            descEn: 'FAQ about faith, baptism & church life' },
 ];
 
 // ─── Procedural planet surface texture ────────────────────────────────────────
@@ -559,6 +561,43 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     controls.autoRotateSpeed = 0.3;
     if (embedded) renderer.domElement.style.touchAction = 'pan-y';
 
+    // ── Camera focus state ────────────────────────────────────────────────
+    // Mutable closure vars — no React re-render needed for camera animation
+    let currentSelectedId: string | null = null;
+    const camHome = { pos: new THREE.Vector3(0, 2, 18), target: new THREE.Vector3(0, 0.5, 0) };
+    const camFocus = {
+      active: false,
+      tgtTarget: new THREE.Vector3(),
+      tgtPos:    new THREE.Vector3(),
+    };
+
+    function focusPlanet(node: SiteNode) {
+      const planetPos = new THREE.Vector3(...node.position);
+      // Keep current viewing angle, zoom to fixed distance from planet
+      const toCam = camera.position.clone().sub(planetPos).normalize();
+      const dist  = node.size * 3.5 + 4.5;
+      camFocus.tgtTarget.copy(planetPos);
+      camFocus.tgtPos.copy(planetPos).addScaledVector(toCam, dist);
+      camFocus.active = true;
+    }
+
+    function focusHome() {
+      camFocus.tgtTarget.copy(camHome.target);
+      camFocus.tgtPos.copy(camHome.pos);
+      camFocus.active = true;
+    }
+
+    function handleSelect(newId: string | null) {
+      currentSelectedId = newId;
+      setSelectedId(newId);
+      if (newId) {
+        const node = NODES.find(n => n.id === newId);
+        if (node) focusPlanet(node);
+      } else {
+        focusHome();
+      }
+    }
+
     // ── Raycaster / pointer ───────────────────────────────────────────────
     const raycaster    = new THREE.Raycaster();
     const pointer      = new THREE.Vector2();
@@ -585,10 +624,10 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
       aim(e);
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(planetMeshes);
-      setSelectedId(hits.length ? (hits[0].object.userData.node as SiteNode).id : null);
+      handleSelect(hits.length ? (hits[0].object.userData.node as SiteNode).id : null);
     }
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setSelectedId(null);
+      if (e.key === 'Escape') handleSelect(null);
     }
     renderer.domElement.addEventListener('pointermove', onMove);
     renderer.domElement.addEventListener('pointerdown', onPointerDown);
@@ -616,6 +655,18 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
       const t     = clock.getElapsedTime();
       const delta = Math.min(t - prevT, 0.1);
       prevT = t;
+
+      // Camera focus animation
+      controls.autoRotate = !currentSelectedId;
+      if (camFocus.active) {
+        const spd = 0.055;
+        controls.target.lerp(camFocus.tgtTarget, spd);
+        camera.position.lerp(camFocus.tgtPos, spd);
+        if (controls.target.distanceTo(camFocus.tgtTarget) < 0.04 &&
+            camera.position.distanceTo(camFocus.tgtPos) < 0.04) {
+          camFocus.active = false;
+        }
+      }
 
       // Orbiting fill light
       fillLight.position.set(Math.cos(t * 0.18) * 17, Math.sin(t * 0.11) * 7, Math.sin(t * 0.18) * 17);
@@ -776,20 +827,84 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     };
   }, [embedded, labels, locale]);
 
+  const ctaLabel = locale === 'zh-TW' ? '前往頁面' : locale === 'ja' ? 'ページへ' : locale === 'my' ? 'သွားပါ' : 'Visit Page';
+
   return (
     <div className="absolute inset-0 bg-[#08050c]">
+      <style>{`
+        @keyframes smFadeUp {
+          from { opacity: 0; transform: translate(-50%, 10px); }
+          to   { opacity: 1; transform: translate(-50%, 0);    }
+        }
+      `}</style>
+
       <div ref={containerRef} className="absolute inset-0" />
-      {selected && (
-        <a
-          href={`/${locale}${selected.path === '/' ? '' : selected.path}`}
-          data-planet-open
-          className="absolute left-1/2 z-20 inline-flex min-h-11 -translate-x-1/2 items-center gap-2 rounded-full border border-[#c9a060]/50 bg-[#06040e]/90 px-5 py-2.5 text-sm text-[#f0d888] backdrop-blur-sm"
-          style={{ bottom: '24%', boxShadow: '0 0 24px rgba(201,160,64,0.18)' }}
-        >
-          {labels[selected.id]}
-          <ArrowRight size={15} />
-        </a>
-      )}
+
+      {selected && (() => {
+        const meta = GROUP_META[selected.group];
+        const desc = locale === 'zh-TW' ? selected.descZh : selected.descEn;
+        return (
+          <div
+            key={selected.id}
+            className="absolute left-1/2 z-20 w-72 rounded-2xl backdrop-blur-md"
+            style={{
+              bottom: '12%',
+              transform: 'translateX(-50%)',
+              animation: 'smFadeUp 0.22s ease-out forwards',
+              border: `1px solid ${selected.glowColor}35`,
+              background: `radial-gradient(ellipse at top, ${selected.glowColor}14 0%, #09060f 55%)`,
+              boxShadow: `0 0 48px ${selected.glowColor}18, inset 0 1px 0 rgba(255,255,255,0.04)`,
+            }}
+          >
+            <div className="px-5 pt-4 pb-5">
+              {/* Group badge + close */}
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-2 h-2 rounded-full flex-shrink-0"
+                    style={{ background: meta.color, boxShadow: `0 0 6px ${meta.color}` }}
+                  />
+                  <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: meta.color }}>
+                    {locale === 'zh-TW' ? meta.labelZh : meta.labelEn}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSelectedId(null)}
+                  className="w-6 h-6 flex items-center justify-center rounded-full text-white/35 hover:text-white/75 hover:bg-white/8 transition-colors text-xs leading-none"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Planet name */}
+              <h3 className="text-[15px] font-bold mb-1.5 leading-snug" style={{ color: selected.glowColor }}>
+                {labels[selected.id]}
+              </h3>
+
+              {/* Description */}
+              <p className="text-[12px] leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.52)' }}>
+                {desc}
+              </p>
+
+              {/* CTA */}
+              <a
+                href={`/${locale}${selected.path === '/' ? '' : selected.path}`}
+                className="flex items-center justify-center gap-2 w-full rounded-full py-2.5 text-[13px] font-semibold transition-opacity hover:opacity-80"
+                style={{
+                  background: `linear-gradient(135deg, ${selected.glowColor}30 0%, ${selected.glowColor}18 100%)`,
+                  border: `1px solid ${selected.glowColor}45`,
+                  color: selected.glowColor,
+                }}
+              >
+                {ctaLabel}
+                <ArrowRight size={13} />
+              </a>
+            </div>
+          </div>
+        );
+      })()}
+
       <Legend locale={locale} embedded={embedded} />
     </div>
   );
