@@ -417,7 +417,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     const viewW = Math.max(container.clientWidth, 1);
     const viewH = Math.max(container.clientHeight, 1);
     renderer.setSize(viewW, viewH);
-    renderer.setClearColor(0x08050c);
+    renderer.setClearColor(0x0a0608);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -946,7 +946,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
   const ctaLabel = locale === 'zh-TW' ? '前往頁面' : locale === 'ja' ? 'ページへ' : locale === 'my' ? 'သွားပါ' : 'Visit Page';
 
   return (
-    <div className="absolute inset-0 bg-[#08050c]">
+    <div className="absolute inset-0 bg-[#0d0608]">
       <style>{`
         @keyframes smFadeUp {
           from { opacity: 0; transform: translate(-50%, 10px); }
