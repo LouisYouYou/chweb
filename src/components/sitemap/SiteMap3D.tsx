@@ -1,14 +1,15 @@
 'use client';
 // Pure imperative Three.js — Strict Mode safe (create/dispose on each mount cycle)
 
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
-import { useRouter } from 'next/navigation';
+import { ArrowRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 // ─── Types / data ──────────────────────────────────────────────────────────────
 
@@ -28,19 +29,25 @@ interface SiteNode {
   tex: TextureType;
 }
 
+// Palette: 4 stained-glass jewel families
+// Core      — amber gold    #3d1e06 / #d4921c
+// Media     — royal purple  #1a0d38 / #8060c8
+// Community — deep sapphire #0a1b38 / #3a7fd4
+// Connect   — deep rose     #2a0d18 / #c04870
+
 const NODES: SiteNode[] = [
-  { id: 'home',           labelZh: '首頁',      labelEn: 'Home',       path: '/',                group: 'core',      size: 1.0,  color: '#8B2F45', glowColor: '#ff4070', position: [0, 0, 0],          connections: ['about','first-visit','services','events','sermons','bulletin'], tex: 'earth' },
-  { id: 'about',          labelZh: '關於我們',   labelEn: 'About',      path: '/about',           group: 'core',      size: 0.65, color: '#6B2236', glowColor: '#d04070', position: [-4.5, 1.5, -1],   connections: ['home','first-visit','contact'],          tex: 'volcanic' },
-  { id: 'first-visit',    labelZh: '初次拜訪',   labelEn: 'First Visit',path: '/first-visit',     group: 'connect',   size: 0.6,  color: '#1A5C3A', glowColor: '#28c060', position: [-3, -3, 1],       connections: ['home','about','services'],               tex: 'earth' },
-  { id: 'services',       labelZh: '聚會時間',   labelEn: 'Services',   path: '/services',        group: 'core',      size: 0.65, color: '#8B2F45', glowColor: '#ff4070', position: [3.5, -2.5, 0],    connections: ['home','events'],                        tex: 'volcanic' },
-  { id: 'events',         labelZh: '活動行事曆', labelEn: 'Events',     path: '/events',          group: 'community', size: 0.7,  color: '#1A5C3A', glowColor: '#28c060', position: [5, 1.5, 1],       connections: ['home','services','prayer-wall'],         tex: 'earth' },
-  { id: 'sermons',        labelZh: '講道媒體',   labelEn: 'Sermons',    path: '/sermons',         group: 'media',     size: 0.7,  color: '#7A5A20', glowColor: '#d4a843', position: [1.5, 4, -2],      connections: ['home','daily-scripture'],               tex: 'gas' },
-  { id: 'bulletin',       labelZh: '教會週報',   labelEn: 'Bulletin',   path: '/weekly-bulletin', group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#d4a843', position: [-1.5, 4, 1.5],    connections: ['home','sermons'],                       tex: 'gas' },
-  { id: 'daily-scripture',labelZh: '每日靈糧',   labelEn: 'Daily Word', path: '/daily-scripture', group: 'media',     size: 0.5,  color: '#7A5A20', glowColor: '#d4a843', position: [3.5, 4.5, -1.5],  connections: ['sermons'],                              tex: 'gas' },
-  { id: 'gallery',        labelZh: '相片集',     labelEn: 'Gallery',    path: '/gallery',         group: 'community', size: 0.5,  color: '#1A5C3A', glowColor: '#28c060', position: [5.5, -1, -2],     connections: ['events'],                               tex: 'barren' },
-  { id: 'prayer-wall',    labelZh: '禱告牆',     labelEn: 'Prayer Wall',path: '/prayer-wall',     group: 'community', size: 0.55, color: '#1A5C3A', glowColor: '#28c060', position: [3, -4.5, -1],     connections: ['events','contact'],                     tex: 'earth' },
-  { id: 'contact',        labelZh: '聯絡我們',   labelEn: 'Contact',    path: '/contact',         group: 'connect',   size: 0.5,  color: '#6B2236', glowColor: '#d04070', position: [-5.5, -1.5, 0.5], connections: ['about','faq'],                           tex: 'barren' },
-  { id: 'faq',            labelZh: '常見問題',   labelEn: 'FAQ',        path: '/faq',             group: 'connect',   size: 0.45, color: '#6B2236', glowColor: '#d04070', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'],                 tex: 'barren' },
+  { id: 'home',           labelZh: '首頁',      labelEn: 'Home',       path: '/',                group: 'core',      size: 1.0,  color: '#3d1e06', glowColor: '#d4921c', position: [0, 0, 0],          connections: ['about','first-visit','services','events','sermons','bulletin'], tex: 'earth' },
+  { id: 'about',          labelZh: '關於我們',   labelEn: 'About',      path: '/about',           group: 'core',      size: 0.65, color: '#3a1c05', glowColor: '#c07e14', position: [-4.5, 1.5, -1],   connections: ['home','first-visit','contact'],          tex: 'volcanic' },
+  { id: 'first-visit',    labelZh: '初次拜訪',   labelEn: 'First Visit',path: '/first-visit',     group: 'connect',   size: 0.6,  color: '#2a0d18', glowColor: '#c04870', position: [-3, -3, 1],       connections: ['home','about','services'],               tex: 'earth' },
+  { id: 'services',       labelZh: '聚會時間',   labelEn: 'Services',   path: '/services',        group: 'core',      size: 0.65, color: '#3d1e06', glowColor: '#d4921c', position: [3.5, -2.5, 0],    connections: ['home','events'],                        tex: 'volcanic' },
+  { id: 'events',         labelZh: '活動行事曆', labelEn: 'Events',     path: '/events',          group: 'community', size: 0.7,  color: '#0a1b38', glowColor: '#3a7fd4', position: [5, 1.5, 1],       connections: ['home','services','prayer-wall'],         tex: 'earth' },
+  { id: 'sermons',        labelZh: '講道媒體',   labelEn: 'Sermons',    path: '/sermons',         group: 'media',     size: 0.7,  color: '#1a0d38', glowColor: '#8060c8', position: [1.5, 4, -2],      connections: ['home','daily-scripture'],               tex: 'gas' },
+  { id: 'bulletin',       labelZh: '教會週報',   labelEn: 'Bulletin',   path: '/weekly-bulletin', group: 'media',     size: 0.5,  color: '#160b32', glowColor: '#7050b8', position: [-1.5, 4, 1.5],    connections: ['home','sermons'],                       tex: 'gas' },
+  { id: 'daily-scripture',labelZh: '每日靈糧',   labelEn: 'Daily Word', path: '/daily-scripture', group: 'media',     size: 0.5,  color: '#1a0d38', glowColor: '#8060c8', position: [3.5, 4.5, -1.5],  connections: ['sermons'],                              tex: 'gas' },
+  { id: 'gallery',        labelZh: '相片集',     labelEn: 'Gallery',    path: '/gallery',         group: 'community', size: 0.5,  color: '#091830', glowColor: '#3070c0', position: [5.5, -1, -2],     connections: ['events'],                               tex: 'barren' },
+  { id: 'prayer-wall',    labelZh: '禱告牆',     labelEn: 'Prayer Wall',path: '/prayer-wall',     group: 'community', size: 0.55, color: '#0a1b38', glowColor: '#3a7fd4', position: [3, -4.5, -1],     connections: ['events','contact'],                     tex: 'earth' },
+  { id: 'contact',        labelZh: '聯絡我們',   labelEn: 'Contact',    path: '/contact',         group: 'connect',   size: 0.5,  color: '#280b16', glowColor: '#b04060', position: [-5.5, -1.5, 0.5], connections: ['about','faq'],                           tex: 'barren' },
+  { id: 'faq',            labelZh: '常見問題',   labelEn: 'FAQ',        path: '/faq',             group: 'connect',   size: 0.45, color: '#280b16', glowColor: '#b04060', position: [-4.5, -3.5, -1.5],connections: ['contact','first-visit'],                 tex: 'barren' },
 ];
 
 // ─── Procedural planet surface texture ────────────────────────────────────────
@@ -55,70 +62,75 @@ function makePlanetTexture(node: SiteNode): THREE.CanvasTexture {
   ctx.fillRect(0, 0, W, H);
 
   if (node.tex === 'gas') {
+    // Warm-on-cool: golden wisps against violet/purple base
     for (let i = 0; i < 20; i++) {
       const y     = (i / 20) * H;
       const bandH = H / 20 + (rnd() * 10 - 5);
-      const alpha = 0.07 + rnd() * 0.18;
+      const alpha = 0.08 + rnd() * 0.20;
       ctx.beginPath();
       ctx.moveTo(0, y + Math.sin(i * 0.8) * 4);
       ctx.bezierCurveTo(W * 0.33, y + rnd() * 12 - 6, W * 0.66, y + rnd() * 12 - 6, W, y + Math.sin((i+1) * 0.8) * 4);
       ctx.lineTo(W, y + bandH);
       ctx.bezierCurveTo(W * 0.66, y + bandH + rnd() * 10 - 5, W * 0.33, y + bandH + rnd() * 10 - 5, 0, y + bandH);
       ctx.closePath();
-      ctx.fillStyle = i % 2 === 0 ? `rgba(255,230,160,${alpha})` : `rgba(0,0,0,${alpha})`;
+      ctx.fillStyle = i % 3 === 0
+        ? `rgba(220,195,255,${alpha})`   // soft lavender
+        : i % 3 === 1
+        ? `rgba(255,220,150,${alpha * 0.6})`  // warm gold
+        : `rgba(0,0,0,${alpha * 0.5})`;
       ctx.fill();
     }
-    // Great spot
+    // Luminous spot
     for (let pass = 0; pass < 3; pass++) {
       ctx.beginPath();
       ctx.ellipse(W * 0.3, H * 0.55, 32 - pass * 6, 20 - pass * 4, -0.2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,${160 - pass * 20},60,${0.15 + pass * 0.08})`;
+      ctx.fillStyle = `rgba(255,${180 - pass * 20},100,${0.12 + pass * 0.07})`;
       ctx.fill();
     }
   } else if (node.tex === 'volcanic') {
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 100; i++) {
       ctx.beginPath();
-      ctx.ellipse(rnd() * W, rnd() * H, rnd() * 28 + 4, rnd() * 18 + 3, rnd() * Math.PI, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${0.05 + rnd() * 0.22})`;
+      ctx.ellipse(rnd() * W, rnd() * H, rnd() * 24 + 3, rnd() * 15 + 2, rnd() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,0,0,${0.06 + rnd() * 0.20})`;
       ctx.fill();
     }
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 20; i++) {
       const x0 = rnd() * W, y0 = rnd() * H;
       ctx.beginPath(); ctx.moveTo(x0, y0);
       let cx = x0, cy = y0;
       for (let s = 0; s < 6; s++) { cx += rnd() * 36 - 18; cy += rnd() * 18 - 9; ctx.lineTo(cx, cy); }
-      ctx.strokeStyle = `rgba(255,${80 + Math.round(rnd()*80)},20,${0.1 + rnd() * 0.15})`;
-      ctx.lineWidth = 0.6 + rnd() * 1.8; ctx.stroke();
+      ctx.strokeStyle = `rgba(255,${100 + Math.round(rnd()*80)},30,${0.12 + rnd() * 0.14})`;
+      ctx.lineWidth = 0.5 + rnd() * 1.6; ctx.stroke();
     }
   } else if (node.tex === 'earth') {
     for (let i = 0; i < 9; i++) {
       const cx = rnd() * W, cy = rnd() * H;
       const rx = 32 + rnd() * 65, ry = 20 + rnd() * 42;
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx, ry));
-      g.addColorStop(0,   'rgba(55,100,38,0.38)');
-      g.addColorStop(0.6, 'rgba(45,80,28,0.2)');
+      g.addColorStop(0,   'rgba(60,110,45,0.36)');
+      g.addColorStop(0.6, 'rgba(45,80,28,0.18)');
       g.addColorStop(1,   'rgba(35,65,18,0)');
       ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, rnd() * Math.PI, 0, Math.PI * 2);
       ctx.fillStyle = g; ctx.fill();
     }
-    ctx.fillStyle = 'rgba(255,255,255,0.14)';
-    ctx.fillRect(0, 0, W, 22); ctx.fillRect(0, H - 22, W, 22);
-    for (let i = 0; i < 15; i++) {
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillRect(0, 0, W, 20); ctx.fillRect(0, H - 20, W, 20);
+    for (let i = 0; i < 12; i++) {
       ctx.beginPath();
       ctx.ellipse(rnd() * W, rnd() * H, 18 + rnd() * 50, 3 + rnd() * 10, rnd() * 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${0.04 + rnd() * 0.08})`; ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${0.03 + rnd() * 0.07})`; ctx.fill();
     }
   } else { // barren
-    for (let i = 0; i < 60; i++) {
-      const x = rnd() * W, y = rnd() * H, r = 3 + rnd() * 22;
+    for (let i = 0; i < 55; i++) {
+      const x = rnd() * W, y = rnd() * H, r = 3 + rnd() * 20;
       ctx.beginPath(); ctx.arc(x, y, r + 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,215,170,${0.07 + rnd() * 0.1})`; ctx.fill();
+      ctx.fillStyle = `rgba(200,180,255,${0.05 + rnd() * 0.09})`; ctx.fill();
       ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${0.1 + rnd() * 0.22})`; ctx.fill();
+      ctx.fillStyle = `rgba(0,0,0,${0.10 + rnd() * 0.20})`; ctx.fill();
     }
-    for (let i = 0; i < 240; i++) {
+    for (let i = 0; i < 200; i++) {
       ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, rnd() * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${0.03 + rnd() * 0.07})`; ctx.fill();
+      ctx.fillStyle = `rgba(0,0,0,${0.03 + rnd() * 0.06})`; ctx.fill();
     }
   }
 
@@ -166,26 +178,76 @@ void main() {
   gl_FragColor = vec4(uColor, clamp(f * uIntensity, 0.0, 1.0));
 }`;
 
+// ─── Planet surface shader — inner radiance (stained-glass holy light) ────────
+
+const PLANET_VERT = /* glsl */`
+varying vec3 vNormal;
+varying vec3 vViewDir;
+varying vec2 vUv;
+
+void main() {
+  vUv         = uv;
+  vec4 mv     = modelViewMatrix * vec4(position, 1.0);
+  vNormal     = normalize(normalMatrix * normal);
+  vViewDir    = normalize(-mv.xyz);
+  gl_Position = projectionMatrix * mv;
+}`;
+
+const PLANET_FRAG = /* glsl */`
+uniform sampler2D uMap;
+uniform vec3  uBaseColor;
+uniform vec3  uGlowColor;
+uniform float uEmissive;
+uniform float uTime;
+
+varying vec3 vNormal;
+varying vec3 vViewDir;
+varying vec2 vUv;
+
+void main() {
+  vec4 tex = texture2D(uMap, vUv);
+
+  // Soft directional fill — warm angled light from above-right
+  float diff = max(dot(vNormal, normalize(vec3(0.5, 0.75, 0.9))), 0.0) * 0.45 + 0.55;
+  vec3 surface = tex.rgb * uBaseColor * diff * 2.5;
+
+  // Inner radiance — stained-glass backlit bloom toward the viewer
+  float face    = max(dot(vNormal, vViewDir), 0.0);
+  float innerGlow = pow(face, 2.0) * 0.55;
+
+  // Breathing emissive + inner radiance = jewel lit from within
+  vec3 col = surface + uGlowColor * (uEmissive + innerGlow * 0.38);
+
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
 // ─── Legend ───────────────────────────────────────────────────────────────────
 
 const GROUP_META: Record<string, { color: string; labelZh: string; labelEn: string }> = {
-  core:      { color: '#8B2F45', labelZh: '核心頁面', labelEn: 'Core' },
-  media:     { color: '#7A5A20', labelZh: '媒體資源', labelEn: 'Media' },
-  community: { color: '#1A5C3A', labelZh: '社群活動', labelEn: 'Community' },
-  connect:   { color: '#6B2236', labelZh: '聯絡資訊', labelEn: 'Connect' },
+  core:      { color: '#d4921c', labelZh: '核心頁面', labelEn: 'Core' },
+  media:     { color: '#8060c8', labelZh: '媒體資源', labelEn: 'Media' },
+  community: { color: '#3a7fd4', labelZh: '社群活動', labelEn: 'Community' },
+  connect:   { color: '#c04870', labelZh: '聯絡資訊', labelEn: 'Connect' },
 };
 
-function Legend({ locale }: { locale: string }) {
+function sceneHint(locale: string, embedded: boolean) {
+  if (locale === 'zh-TW') return embedded ? '拖曳旋轉 · 點選後開啟' : '拖曳旋轉 · 滾輪縮放 · 點選後開啟';
+  if (locale === 'ja') return embedded ? 'ドラッグで回転 · 選んで開く' : 'ドラッグで回転 · スクロールで拡縮 · 選んで開く';
+  if (locale === 'my') return embedded ? 'ဆွဲ၍လှည့်ပါ · ရွေးပြီးမှ ဖွင့်ပါ' : 'ဆွဲ၍လှည့်ပါ · ချဲ့ကြည့်ပါ · ရွေးပြီးမှ ဖွင့်ပါ';
+  return embedded ? 'Drag · Select, then open' : 'Drag · Scroll · Select, then open';
+}
+
+function Legend({ locale, embedded }: { locale: string; embedded: boolean }) {
   return (
     <div className="absolute bottom-6 left-6 flex flex-col gap-2 pointer-events-none z-10">
       {Object.entries(GROUP_META).map(([key, meta]) => (
         <div key={key} className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: meta.color, boxShadow: `0 0 8px ${meta.color}` }} />
-          <span className="text-xs text-white/60 font-medium">{locale === 'zh-TW' ? meta.labelZh : meta.labelEn}</span>
+          <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: meta.color, boxShadow: `0 0 7px ${meta.color}` }} />
+          <span className="text-xs font-medium" style={{ color: '#a89060' }}>{locale === 'zh-TW' ? meta.labelZh : meta.labelEn}</span>
         </div>
       ))}
-      <p className="mt-2 text-[10px] text-white/35 leading-tight">
-        {locale === 'zh-TW' ? '拖曳旋轉 · 滾輪縮放 · 點擊前往' : 'Drag · Scroll · Click'}
+      <p className="mt-2 text-[10px] leading-tight" style={{ color: '#6a5030' }}>
+        {sceneHint(locale, embedded)}
       </p>
     </div>
   );
@@ -193,14 +255,39 @@ function Legend({ locale }: { locale: string }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function SiteMap3D({ locale }: { locale: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
+function planetLabel(
+  id: string,
+  nav: ReturnType<typeof useTranslations<'nav'>>,
+  welcome: ReturnType<typeof useTranslations<'welcome'>>,
+) {
+  switch (id) {
+    case 'home': return nav('home');
+    case 'about': return nav('about');
+    case 'first-visit': return welcome('badge');
+    case 'services': return nav('services');
+    case 'events': return nav('events');
+    case 'sermons': return nav('sermons');
+    case 'bulletin': return nav('weekly_bulletin');
+    case 'daily-scripture': return nav('daily_scripture');
+    case 'gallery': return nav('gallery');
+    case 'prayer-wall': return nav('prayer_wall');
+    case 'contact': return nav('contact');
+    case 'faq': return nav('faq');
+    default: return nav('sitemap');
+  }
+}
 
-  const handleNavigate = useCallback(
-    (path: string) => router.push(`/${locale}${path === '/' ? '' : path}`),
-    [locale, router],
-  );
+export default function SiteMap3D({ locale, embedded = false }: { locale: string; embedded?: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const nav = useTranslations('nav');
+  const welcome = useTranslations('welcome');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const labels = useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const node of NODES) map[node.id] = planetLabel(node.id, nav, welcome);
+    return map;
+  }, [nav, welcome]);
+  const selected = NODES.find(node => node.id === selectedId);
 
   useEffect(() => {
     const container = containerRef.current as HTMLDivElement;
@@ -209,55 +296,62 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     // ── Renderer ──────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setClearColor(0x07040a);
+    const viewW = Math.max(container.clientWidth, 1);
+    const viewH = Math.max(container.clientHeight, 1);
+    renderer.setSize(viewW, viewH);
+    renderer.setClearColor(0x06040e);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMappingExposure = 1.05;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(renderer.domElement);
 
     // ── Scene / Camera ────────────────────────────────────────────────────
     const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(55, viewW / viewH, 0.1, 100);
     camera.position.set(0, 2, 18);
 
     // ── Bloom post-processing ─────────────────────────────────────────────
     const composer   = new EffectComposer(renderer);
     const bloomPass  = new UnrealBloomPass(
       new THREE.Vector2(container.clientWidth, container.clientHeight),
-      1.15,  // strength
-      0.52,  // radius
-      0.35,  // threshold
+      0.95,  // strength  — refined, not overwrought
+      0.70,  // radius    — soft diffuse bloom
+      0.28,  // threshold — picks up jewel-toned glows
     );
+    const outputPass = new OutputPass();
     composer.addPass(new RenderPass(scene, camera));
     composer.addPass(bloomPass);
-    composer.addPass(new OutputPass());
+    composer.addPass(outputPass);
 
     // ── Lights ────────────────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight(0x1a1015, 0.75));
+    scene.add(new THREE.AmbientLight(0x0a0820, 0.55));
 
-    const sun = new THREE.PointLight(0xfff4e0, 3.5, 24);
+    const sun = new THREE.PointLight(0xfff4e0, 2.8, 26);
     sun.position.set(0, 0, 0);
     scene.add(sun);
 
-    const wineLight = new THREE.PointLight(0x8B2F45, 1.6, 26);
-    wineLight.position.set(-8, 6, 4);
-    scene.add(wineLight);
+    // Warm amber fill — from upper-left (like candlelight through glass)
+    const amberLight = new THREE.PointLight(0xd4921c, 1.1, 28);
+    amberLight.position.set(-8, 6, 4);
+    scene.add(amberLight);
 
-    const forestLight = new THREE.PointLight(0x1A5C3A, 1.3, 26);
-    forestLight.position.set(8, -4, -3);
-    scene.add(forestLight);
+    // Cool violet fill — from lower-right (deep shadow counterpoint)
+    const violetLight = new THREE.PointLight(0x6040c0, 0.65, 28);
+    violetLight.position.set(8, -4, -3);
+    scene.add(violetLight);
 
-    const fillLight = new THREE.PointLight(0x9080d0, 0.65, 30);
+    // Soft purple moving fill
+    const fillLight = new THREE.PointLight(0x8060a0, 0.4, 32);
     scene.add(fillLight);
 
     // ── Nebula particle volumes ───────────────────────────────────────────
+    // Deep cosmic hues — no primary colours, all jewel-toned shadows
     const nebulaDefs: Array<{ pos:[number,number,number]; r:number; color:number; n:number }> = [
-      { pos:[-9,  4, -9], r:7.0, color:0xcc1030, n:450 },
-      { pos:[10, -3, -7], r:5.5, color:0x108040, n:320 },
-      { pos:[ 1,  9,-11], r:8.0, color:0xc09010, n:380 },
-      { pos:[-6, -8,  5], r:5.0, color:0x2030b0, n:260 },
-      { pos:[ 6,  6,  7], r:5.5, color:0x601020, n:310 },
+      { pos:[-9,  4, -9], r:7.0, color:0x200830, n:450 },  // deep violet
+      { pos:[10, -3, -7], r:5.5, color:0x102040, n:320 },  // deep cobalt
+      { pos:[ 1,  9,-11], r:8.0, color:0x302010, n:380 },  // dusty amber
+      { pos:[-6, -8,  5], r:5.0, color:0x180820, n:260 },  // dark indigo
+      { pos:[ 6,  6,  7], r:5.5, color:0x280818, n:310 },  // deep crimson
     ];
     for (const d of nebulaDefs) {
       const pos = new Float32Array(d.n * 3);
@@ -271,7 +365,7 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
       scene.add(new THREE.Points(geo, new THREE.PointsMaterial({
-        color: d.color, size: 0.11, transparent: true, opacity: 0.22,
+        color: d.color, size: 0.11, transparent: true, opacity: 0.16,
         sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending,
       })));
     }
@@ -293,8 +387,8 @@ export default function SiteMap3D({ locale }: { locale: string }) {
         sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending,
       }));
     };
-    const stars        = makeStars(1400, 85, 0.13, 0.65);
-    const brightStars  = makeStars(90,   75, 0.35, 0.95);
+    const stars        = makeStars(1600, 85, 0.12, 0.60);
+    const brightStars  = makeStars(80,   75, 0.32, 0.90);
     scene.add(stars, brightStars);
 
     // ── Planet nodes ──────────────────────────────────────────────────────
@@ -305,55 +399,56 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       const baseCol  = new THREE.Color(node.color);
       const glowCol  = new THREE.Color(node.glowColor);
 
-      // Surface (MeshPhysicalMaterial + procedural texture)
-      const mat = new THREE.MeshPhysicalMaterial({
-        map: makePlanetTexture(node),
-        color: baseCol,
-        roughness: 0.32,
-        metalness: 0.42,
-        emissive: baseCol,
-        emissiveIntensity: 0.38,
-        clearcoat: 0.65,
-        clearcoatRoughness: 0.22,
+      // Surface — inner radiance ShaderMaterial (stained-glass jewel)
+      const mat = new THREE.ShaderMaterial({
+        vertexShader:   PLANET_VERT,
+        fragmentShader: PLANET_FRAG,
+        uniforms: {
+          uMap:       { value: makePlanetTexture(node) },
+          uBaseColor: { value: baseCol.clone() },
+          uGlowColor: { value: glowCol.clone() },
+          uEmissive:  { value: 0.14 },
+          uTime:      { value: 0.0 },
+        },
       });
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(node.size, 56, 56), mat);
       mesh.position.set(...node.position);
       mesh.userData = { node };
       scene.add(mesh);
 
-      // Fresnel atmosphere halo
+      // Fresnel atmosphere halo — tighter, more refined
       const atmMat = new THREE.ShaderMaterial({
         vertexShader:   ATM_VERT,
         fragmentShader: ATM_FRAG,
         uniforms: {
           uColor:     { value: glowCol.clone() },
-          uPower:     { value: 2.6 },
-          uIntensity: { value: 0.65 },
+          uPower:     { value: 2.8 },
+          uIntensity: { value: 0.60 },
         },
         transparent: true,
         depthWrite: false,
         side: THREE.FrontSide,
         blending: THREE.AdditiveBlending,
       });
-      const atmMesh = new THREE.Mesh(new THREE.SphereGeometry(node.size * 1.48, 32, 32), atmMat);
+      const atmMesh = new THREE.Mesh(new THREE.SphereGeometry(node.size * 1.44, 32, 32), atmMat);
       atmMesh.position.set(...node.position);
       scene.add(atmMesh);
 
       meshes.push({ mesh, atmMesh, node, phase: rnd() * Math.PI * 2, freq: 0.35 + rnd() * 0.45 });
 
-      // Home planet — double rings
+      // Home planet — refined gold rings
       if (node.id === 'home') {
         const r1 = new THREE.Mesh(
-          new THREE.TorusGeometry(1.44, 0.04, 8, 80),
-          new THREE.MeshBasicMaterial({ color: 0xd4a843, transparent: true, opacity: 0.72 }),
+          new THREE.TorusGeometry(1.44, 0.03, 8, 80),
+          new THREE.MeshBasicMaterial({ color: 0xd4a030, transparent: true, opacity: 0.65 }),
         );
         r1.rotation.x = Math.PI / 2.4;
         r1.position.set(...node.position);
         scene.add(r1);
 
         const r2 = new THREE.Mesh(
-          new THREE.TorusGeometry(2.15, 0.024, 8, 80),
-          new THREE.MeshBasicMaterial({ color: 0xb8860b, transparent: true, opacity: 0.34 }),
+          new THREE.TorusGeometry(2.1, 0.018, 8, 80),
+          new THREE.MeshBasicMaterial({ color: 0xb88010, transparent: true, opacity: 0.28 }),
         );
         r2.rotation.x = Math.PI / 2.2;
         r2.rotation.z = 0.18;
@@ -362,7 +457,7 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       }
     }
 
-    // ── 3D tube connections + particles ──────────────────────────────────
+    // ── Fine gold connections + traveling particles ────────────────────────
     type ConnEntry = { tube: THREE.Mesh; fromId: string; toId: string; curve: THREE.CatmullRomCurve3 };
     const connObjs: ConnEntry[] = [];
     const seen = new Set<string>();
@@ -377,27 +472,28 @@ export default function SiteMap3D({ locale }: { locale: string }) {
 
         const a   = new THREE.Vector3(...n.position);
         const b   = new THREE.Vector3(...tgt.position);
-        const mid = a.clone().lerp(b, 0.5).add(new THREE.Vector3((rnd()-.5)*1.5, 0.3 + rnd()*0.8, (rnd()-.5)*1.5));
+        const mid = a.clone().lerp(b, 0.5).add(new THREE.Vector3((rnd()-.5)*1.2, 0.3 + rnd()*0.7, (rnd()-.5)*1.2));
         const curve = new THREE.CatmullRomCurve3([a, mid, b]);
 
-        const tubeGeo = new THREE.TubeGeometry(curve, 10, 0.022, 4, false);
-        const tubeMat = new THREE.MeshBasicMaterial({ color: 0x5a3a1a, transparent: true, opacity: 0.28 });
+        // Thin gold filament — like cathedral lead came lit from within
+        const tubeGeo = new THREE.TubeGeometry(curve, 10, 0.008, 4, false);
+        const tubeMat = new THREE.MeshBasicMaterial({ color: 0x2a1808, transparent: true, opacity: 0.20 });
         const tube = new THREE.Mesh(tubeGeo, tubeMat);
         scene.add(tube);
         connObjs.push({ tube, fromId: n.id, toId: cid, curve });
       }
     }
 
-    // Traveling particles (one per connection, follows curve)
+    // Traveling light motes along connections
     const pCount  = connObjs.length;
     const pBuf    = new Float32Array(pCount * 3);
     const pGeo    = new THREE.BufferGeometry();
     pGeo.setAttribute('position', new THREE.BufferAttribute(pBuf, 3));
     const pMat    = new THREE.PointsMaterial({
-      size: 0.28, map: starSprite, alphaMap: starSprite,
-      transparent: true, opacity: 0.88,
+      size: 0.20, map: starSprite, alphaMap: starSprite,
+      transparent: true, opacity: 0.80,
       sizeAttenuation: true, depthWrite: false,
-      blending: THREE.AdditiveBlending, color: 0xffd090,
+      blending: THREE.AdditiveBlending, color: 0xf0c060,
     });
     const particles     = new THREE.Points(pGeo, pMat);
     scene.add(particles);
@@ -410,7 +506,7 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     const cGeo  = new THREE.BufferGeometry();
     cGeo.setAttribute('position', new THREE.BufferAttribute(cBuf, 3));
     const cMat  = new THREE.PointsMaterial({
-      size: 0.22, map: starSprite, alphaMap: starSprite,
+      size: 0.18, map: starSprite, alphaMap: starSprite,
       transparent: true, opacity: 0,
       sizeAttenuation: true, depthWrite: false,
       blending: THREE.AdditiveBlending, color: 0xfff8e8,
@@ -427,7 +523,7 @@ export default function SiteMap3D({ locale }: { locale: string }) {
       cStart.set(Math.cos(ang)*D, (rnd()-.5)*12, Math.sin(ang)*D);
       cEnd.set(Math.cos(opp)*D,   (rnd()-.5)*12, Math.sin(opp)*D);
       cometT = 0;
-      cMat.opacity = 0.9;
+      cMat.opacity = 0.85;
     }
 
     // ── 2D labels ─────────────────────────────────────────────────────────
@@ -438,14 +534,14 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     const labelEls: { el: HTMLDivElement; node: SiteNode }[] = [];
     for (const node of NODES) {
       const el = document.createElement('div');
-      el.textContent = locale === 'zh-TW' ? node.labelZh : node.labelEn;
+      el.textContent = labels[node.id] ?? '';
       el.style.cssText = `
         position:absolute; transform:translate(-50%,-100%);
-        color:#d4c4a8; font-size:12px; font-family:inherit;
+        color:#c8a848; font-size:12px; font-family:inherit;
         white-space:nowrap; pointer-events:none;
-        text-shadow:0 0 10px #000,0 0 5px #000,0 0 2px #000;
+        text-shadow:0 0 10px rgba(0,0,0,0.9),0 0 5px rgba(0,0,0,0.9),0 0 16px rgba(212,160,48,0.3);
         transition:color .15s, text-shadow .2s, transform .15s;
-        letter-spacing:.025em;
+        letter-spacing:.03em;
       `;
       labelContainer.appendChild(el);
       labelEls.push({ el, node });
@@ -455,10 +551,13 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping   = true;
     controls.dampingFactor   = 0.055;
+    controls.enableZoom      = !embedded;
+    controls.enablePan       = !embedded;
     controls.minDistance     = 5;
     controls.maxDistance     = 28;
     controls.autoRotate      = true;
     controls.autoRotateSpeed = 0.3;
+    if (embedded) renderer.domElement.style.touchAction = 'pan-y';
 
     // ── Raycaster / pointer ───────────────────────────────────────────────
     const raycaster    = new THREE.Raycaster();
@@ -466,25 +565,39 @@ export default function SiteMap3D({ locale }: { locale: string }) {
     let hoveredId: string | null = null;
     const planetMeshes = meshes.map(m => m.mesh);
 
-    function onMove(e: PointerEvent) {
+    let downX = 0, downY = 0, tracking = false;
+    function aim(e: PointerEvent) {
       const b = container.getBoundingClientRect();
       pointer.x  =  ((e.clientX - b.left) / b.width)  * 2 - 1;
       pointer.y  = -((e.clientY - b.top)  / b.height) * 2 + 1;
     }
-    function onClick(e: MouseEvent) {
-      const b = container.getBoundingClientRect();
-      pointer.x  =  ((e.clientX - b.left) / b.width)  * 2 - 1;
-      pointer.y  = -((e.clientY - b.top)  / b.height) * 2 + 1;
+    function onMove(e: PointerEvent) { aim(e); }
+    function onPointerDown(e: PointerEvent) {
+      if (!e.isPrimary) return;
+      tracking = true;
+      downX = e.clientX;
+      downY = e.clientY;
+    }
+    function onPointerUp(e: PointerEvent) {
+      if (!tracking || !e.isPrimary) return;
+      tracking = false;
+      if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+      aim(e);
       raycaster.setFromCamera(pointer, camera);
       const hits = raycaster.intersectObjects(planetMeshes);
-      if (hits.length) handleNavigate((hits[0].object.userData.node as SiteNode).path);
+      setSelectedId(hits.length ? (hits[0].object.userData.node as SiteNode).id : null);
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setSelectedId(null);
     }
     renderer.domElement.addEventListener('pointermove', onMove);
-    renderer.domElement.addEventListener('click', onClick);
+    renderer.domElement.addEventListener('pointerdown', onPointerDown);
+    renderer.domElement.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('keydown', onKeyDown);
 
     // ── Resize ────────────────────────────────────────────────────────────
     const ro = new ResizeObserver(() => {
-      const w = container.clientWidth, h = container.clientHeight;
+      const w = Math.max(container.clientWidth, 1), h = Math.max(container.clientHeight, 1);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -494,11 +607,12 @@ export default function SiteMap3D({ locale }: { locale: string }) {
 
     // ── Animate ───────────────────────────────────────────────────────────
     const clock = new THREE.Clock();
-    let rafId   = 0, prevT = 0;
-    const tmpV  = new THREE.Vector3();
+    let rafId = 0, prevT = 0, active = false, onScreen = false, disposed = false;
+    const tmpV = new THREE.Vector3();
 
     function animate() {
-      rafId = requestAnimationFrame(animate);
+      rafId = 0;
+      if (!active) return;
       const t     = clock.getElapsedTime();
       const delta = Math.min(t - prevT, 0.1);
       prevT = t;
@@ -528,34 +642,34 @@ export default function SiteMap3D({ locale }: { locale: string }) {
         mesh.scale.y   = mesh.scale.x;
         mesh.scale.z   = mesh.scale.x;
 
-        const pmat    = mesh.material as THREE.MeshPhysicalMaterial;
-        const breathe = 0.11 + Math.sin(t * freq + phase) * 0.055;
-        pmat.emissiveIntensity += ((isHov ? 0.7 : breathe) - pmat.emissiveIntensity) * 0.07;
-        pmat.emissive.set(isHov ? node.glowColor : node.color);
+        const pmat    = mesh.material as THREE.ShaderMaterial;
+        const breathe = 0.09 + Math.sin(t * freq + phase) * 0.045;
+        pmat.uniforms.uEmissive.value += ((isHov ? 0.60 : breathe) - pmat.uniforms.uEmissive.value) * 0.07;
+        pmat.uniforms.uTime.value = t;
 
         const aMat = atmMesh.material as THREE.ShaderMaterial;
-        const tgtI = isHov ? 1.1 + Math.sin(t * 2.5) * 0.15 : 0.65 + Math.sin(t * freq + phase) * 0.1;
+        const tgtI = isHov ? 1.0 + Math.sin(t * 2.5) * 0.12 : 0.60 + Math.sin(t * freq + phase) * 0.08;
         aMat.uniforms.uIntensity.value += (tgtI - aMat.uniforms.uIntensity.value) * 0.07;
-        const tgtAS = isHov ? 1.1 : 1.0;
+        const tgtAS = isHov ? 1.08 : 1.0;
         atmMesh.scale.x += (tgtAS - atmMesh.scale.x) * 0.07;
         atmMesh.scale.y = atmMesh.scale.z = atmMesh.scale.x;
       }
 
-      // Tube connection highlights
-      const goldCol = new THREE.Color(0xc9a040);
-      const dimCol  = new THREE.Color(0x5a3a1a);
+      // Fine connection highlights
+      const goldHl  = new THREE.Color(0xd4a030);
+      const goldDim = new THREE.Color(0x2a1808);
       for (const { tube, fromId, toId } of connObjs) {
         const hl = hoveredId === fromId || hoveredId === toId;
         const tm = tube.material as THREE.MeshBasicMaterial;
-        tm.color.lerp(hl ? goldCol : dimCol, 0.1);
-        tm.opacity += ((hl ? 0.78 : 0.28) - tm.opacity) * 0.1;
+        tm.color.lerp(hl ? goldHl : goldDim, 0.1);
+        tm.opacity += ((hl ? 0.72 : 0.20) - tm.opacity) * 0.1;
       }
 
-      // Traveling particles
+      // Traveling light motes
       const posAttr = particles.geometry.attributes.position as THREE.BufferAttribute;
       for (let i = 0; i < pCount; i++) {
         const hl    = hoveredId === connObjs[i].fromId || hoveredId === connObjs[i].toId;
-        pProgress[i] = (pProgress[i] + delta * (hl ? 0.55 : 0.2)) % 1;
+        pProgress[i] = (pProgress[i] + delta * (hl ? 0.50 : 0.18)) % 1;
         connObjs[i].curve.getPoint(pProgress[i], pTmp);
         posAttr.array[i*3]   = pTmp.x;
         posAttr.array[i*3+1] = pTmp.y;
@@ -590,38 +704,93 @@ export default function SiteMap3D({ locale }: { locale: string }) {
         el.style.left = `${( tmpV.x * .5 + .5) * container.clientWidth}px`;
         el.style.top  = `${(-tmpV.y * .5 + .5) * container.clientHeight}px`;
         const isHov    = hoveredId === node.id;
-        el.style.color = isHov ? '#fff' : '#d4c4a8';
+        el.style.color = isHov ? '#f0d888' : '#c8a848';
         el.style.textShadow = isHov
-          ? '0 0 18px rgba(201,160,64,0.95), 0 0 8px #000'
-          : '0 0 10px #000, 0 0 5px #000, 0 0 2px #000';
+          ? '0 0 20px rgba(240,200,80,0.9), 0 0 8px rgba(0,0,0,0.9)'
+          : '0 0 10px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,0.9), 0 0 16px rgba(212,160,48,0.25)';
         el.style.transform = isHov ? 'translate(-50%,-132%) scale(1.12)' : 'translate(-50%,-100%)';
         el.style.display   = tmpV.z < 1 ? 'block' : 'none';
       }
 
       controls.update();
       composer.render();
+      if (active) rafId = requestAnimationFrame(animate);
     }
-    animate();
+    function halt() {
+      active = false;
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+    function resume() {
+      if (disposed || !onScreen || document.hidden || rafId) return;
+      active = true;
+      prevT = clock.getElapsedTime();
+      rafId = requestAnimationFrame(animate);
+    }
+    function onVisibility() { if (document.hidden) halt(); else resume(); }
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (onScreen) resume(); else halt();
+    });
+    io.observe(container);
+    document.addEventListener('visibilitychange', onVisibility);
 
     // ── Cleanup ───────────────────────────────────────────────────────────
     return () => {
-      cancelAnimationFrame(rafId);
+      disposed = true;
+      halt();
+      io.disconnect();
       ro.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('keydown', onKeyDown);
       renderer.domElement.removeEventListener('pointermove', onMove);
-      renderer.domElement.removeEventListener('click', onClick);
+      renderer.domElement.removeEventListener('pointerdown', onPointerDown);
+      renderer.domElement.removeEventListener('pointerup', onPointerUp);
       controls.dispose();
-      starSprite.dispose();
+      const textures = new Set<THREE.Texture>();
+      const materials = new Set<THREE.Material>();
+      scene.traverse((object) => {
+        const mesh = object as THREE.Mesh;
+        mesh.geometry?.dispose();
+        if (!mesh.material) return;
+        for (const mat of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+          materials.add(mat);
+          for (const value of Object.values(mat)) {
+            if (value instanceof THREE.Texture) textures.add(value);
+          }
+          if (mat instanceof THREE.ShaderMaterial) {
+            for (const u of Object.values(mat.uniforms)) {
+              if (u.value instanceof THREE.Texture) textures.add(u.value);
+            }
+          }
+        }
+      });
+      textures.forEach(t => t.dispose());
+      materials.forEach(m => m.dispose());
+      bloomPass.dispose();
+      outputPass.dispose();
       composer.dispose();
       renderer.dispose();
-      if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
-      if (container.contains(labelContainer))       container.removeChild(labelContainer);
+      renderer.domElement.remove();
+      labelContainer.remove();
     };
-  }, [locale, handleNavigate]);
+  }, [embedded, labels, locale]);
 
   return (
-    <div className="absolute inset-0 bg-[#07040a]">
+    <div className="absolute inset-0 bg-[#06040e]">
       <div ref={containerRef} className="absolute inset-0" />
-      <Legend locale={locale} />
+      {selected && (
+        <a
+          href={`/${locale}${selected.path === '/' ? '' : selected.path}`}
+          data-planet-open
+          className="absolute left-1/2 z-20 inline-flex min-h-11 -translate-x-1/2 items-center gap-2 rounded-full border border-[#c9a060]/50 bg-[#06040e]/90 px-5 py-2.5 text-sm text-[#f0d888] backdrop-blur-sm"
+          style={{ bottom: '24%', boxShadow: '0 0 24px rgba(201,160,64,0.18)' }}
+        >
+          {labels[selected.id]}
+          <ArrowRight size={15} />
+        </a>
+      )}
+      <Legend locale={locale} embedded={embedded} />
     </div>
   );
 }
