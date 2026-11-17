@@ -397,6 +397,7 @@ function planetLabel(
 
 export default function SiteMap3D({ locale, embedded = false }: { locale: string; embedded?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const handleSelectRef = useRef<(id: string | null) => void>(() => {});
   const nav = useTranslations('nav');
   const welcome = useTranslations('welcome');
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -510,7 +511,8 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     scene.add(stars, brightStars);
 
     // ── Planet nodes ──────────────────────────────────────────────────────
-    type PlanetEntry = { mesh: THREE.Mesh; atmMesh: THREE.Mesh; node: SiteNode; phase: number; freq: number };
+    type PlanetEntry = { mesh: THREE.Mesh; atmMesh: THREE.Mesh; selRing: THREE.Mesh; node: SiteNode; phase: number; freq: number };
+    type BurstEntry  = { ring: THREE.Mesh; t: number };
     const meshes: PlanetEntry[] = [];
 
     for (const node of NODES) {
@@ -552,7 +554,16 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
       atmMesh.position.set(...node.position);
       scene.add(atmMesh);
 
-      meshes.push({ mesh, atmMesh, node, phase: rnd() * Math.PI * 2, freq: 0.35 + rnd() * 0.45 });
+      // Selected indicator ring — invisible until planet is clicked
+      const selRing = new THREE.Mesh(
+        new THREE.TorusGeometry(node.size * 1.65, 0.022, 6, 64),
+        new THREE.MeshBasicMaterial({ color: glowCol.clone(), transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }),
+      );
+      selRing.rotation.x = Math.PI / 2.4;
+      selRing.position.set(...node.position);
+      scene.add(selRing);
+
+      meshes.push({ mesh, atmMesh, selRing, node, phase: rnd() * Math.PI * 2, freq: 0.35 + rnd() * 0.45 });
 
       // Home planet — refined gold rings
       if (node.id === 'home') {
@@ -677,6 +688,9 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     controls.autoRotateSpeed = 0.3;
     if (embedded) renderer.domElement.style.touchAction = 'pan-y';
 
+    // ── Click burst state ─────────────────────────────────────────────────
+    const bursts: BurstEntry[] = [];
+
     // ── Camera focus state ────────────────────────────────────────────────
     // Mutable closure vars — no React re-render needed for camera animation
     let currentSelectedId: string | null = null;
@@ -708,11 +722,24 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
       setSelectedId(newId);
       if (newId) {
         const node = NODES.find(n => n.id === newId);
-        if (node) focusPlanet(node);
+        if (node) {
+          focusPlanet(node);
+          // Click burst — expanding ring billboard
+          const gc = new THREE.Color(node.glowColor);
+          const bRing = new THREE.Mesh(
+            new THREE.RingGeometry(node.size * 0.85, node.size * 1.0, 48),
+            new THREE.MeshBasicMaterial({ color: gc, transparent: true, opacity: 0.72, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }),
+          );
+          bRing.position.set(...node.position);
+          bRing.quaternion.copy(camera.quaternion);
+          scene.add(bRing);
+          bursts.push({ ring: bRing, t: 0 });
+        }
       } else {
         focusHome();
       }
     }
+    handleSelectRef.current = handleSelect;
 
     // ── Raycaster / pointer ───────────────────────────────────────────────
     const raycaster    = new THREE.Raycaster();
@@ -799,34 +826,47 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
       renderer.domElement.style.cursor = hoveredId ? 'pointer' : 'default';
 
       // Planet animation
-      for (const { mesh, atmMesh, node, phase, freq } of meshes) {
+      for (const { mesh, atmMesh, selRing, node, phase, freq } of meshes) {
         mesh.rotation.y = t * 0.28 + node.position[0] * 0.5;
         mesh.rotation.x = Math.sin(t * 0.14 + node.position[2]) * 0.09;
 
-        const isHov    = hoveredId === node.id;
-        const tgtScale = isHov ? 1.3 + Math.sin(t * 3.0) * 0.05 : 1.0;
+        const isHov = hoveredId === node.id;
+        const isSel = currentSelectedId === node.id;
+        const tgtScale = isHov ? 1.3 + Math.sin(t * 3.0) * 0.05
+                       : isSel ? 1.12 + Math.sin(t * 1.5) * 0.03
+                       : 1.0;
         mesh.scale.x  += (tgtScale - mesh.scale.x) * 0.07;
         mesh.scale.y   = mesh.scale.x;
         mesh.scale.z   = mesh.scale.x;
 
         const pmat    = mesh.material as THREE.ShaderMaterial;
         const breathe = 0.09 + Math.sin(t * freq + phase) * 0.045;
-        pmat.uniforms.uEmissive.value += ((isHov ? 0.60 : breathe) - pmat.uniforms.uEmissive.value) * 0.07;
+        const tgtEm   = isHov ? 0.60 : isSel ? 0.36 + Math.sin(t * 1.6 + phase) * 0.07 : breathe;
+        pmat.uniforms.uEmissive.value += (tgtEm - pmat.uniforms.uEmissive.value) * 0.07;
         pmat.uniforms.uTime.value = t;
 
         const aMat = atmMesh.material as THREE.ShaderMaterial;
-        const tgtI = isHov ? 1.0 + Math.sin(t * 2.5) * 0.12 : 0.60 + Math.sin(t * freq + phase) * 0.08;
+        const tgtI = isHov ? 1.0 + Math.sin(t * 2.5) * 0.12
+                   : isSel ? 0.82 + Math.sin(t * 1.6 + phase) * 0.10
+                   : 0.60 + Math.sin(t * freq + phase) * 0.08;
         aMat.uniforms.uIntensity.value += (tgtI - aMat.uniforms.uIntensity.value) * 0.07;
-        const tgtAS = isHov ? 1.08 : 1.0;
+        const tgtAS = isHov ? 1.08 : isSel ? 1.04 : 1.0;
         atmMesh.scale.x += (tgtAS - atmMesh.scale.x) * 0.07;
         atmMesh.scale.y = atmMesh.scale.z = atmMesh.scale.x;
+
+        // Selected ring — pulse and slow-orbit
+        const sRMat = selRing.material as THREE.MeshBasicMaterial;
+        const tgtROp = isSel ? 0.42 + Math.sin(t * 2.0 + phase) * 0.15 : 0;
+        sRMat.opacity += (tgtROp - sRMat.opacity) * 0.06;
+        if (isSel || sRMat.opacity > 0.005) selRing.rotation.y += delta * 0.55;
       }
 
       // Fine connection highlights
       const goldHl  = new THREE.Color(0xd4a030);
       const goldDim = new THREE.Color(0x2a1808);
       for (const { tube, fromId, toId } of connObjs) {
-        const hl = hoveredId === fromId || hoveredId === toId;
+        const hl = hoveredId === fromId || hoveredId === toId
+                || currentSelectedId === fromId || currentSelectedId === toId;
         const tm = tube.material as THREE.MeshBasicMaterial;
         tm.color.lerp(hl ? goldHl : goldDim, 0.1);
         tm.opacity += ((hl ? 0.72 : 0.20) - tm.opacity) * 0.1;
@@ -863,6 +903,21 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
         }
       }
 
+      // Click burst rings — expand billboard and fade out
+      for (let i = bursts.length - 1; i >= 0; i--) {
+        const b = bursts[i];
+        b.t = Math.min(b.t + delta * 2.8, 1);
+        b.ring.scale.setScalar(1 + b.t * 2.8);
+        b.ring.quaternion.copy(camera.quaternion);
+        (b.ring.material as THREE.MeshBasicMaterial).opacity = 0.72 * (1 - b.t);
+        if (b.t >= 1) {
+          scene.remove(b.ring);
+          b.ring.geometry.dispose();
+          (b.ring.material as THREE.Material).dispose();
+          bursts.splice(i, 1);
+        }
+      }
+
       // Label projection
       for (const { el, node } of labelEls) {
         tmpV.set(...node.position);
@@ -870,12 +925,16 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
         tmpV.project(camera);
         el.style.left = `${( tmpV.x * .5 + .5) * container.clientWidth}px`;
         el.style.top  = `${(-tmpV.y * .5 + .5) * container.clientHeight}px`;
-        const isHov    = hoveredId === node.id;
-        el.style.color = isHov ? '#f0d888' : '#c8a848';
-        el.style.textShadow = isHov
+        const isHov = hoveredId === node.id;
+        const isSel = currentSelectedId === node.id;
+        el.style.color = isSel ? node.glowColor : isHov ? '#f0d888' : '#c8a848';
+        el.style.textShadow = isSel
+          ? `0 0 24px ${node.glowColor}cc, 0 0 8px rgba(0,0,0,0.9)`
+          : isHov
           ? '0 0 20px rgba(240,200,80,0.9), 0 0 8px rgba(0,0,0,0.9)'
           : '0 0 10px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,0.9), 0 0 16px rgba(212,160,48,0.25)';
-        el.style.transform = isHov ? 'translate(-50%,-132%) scale(1.12)' : 'translate(-50%,-100%)';
+        el.style.transform = isSel ? 'translate(-50%,-138%) scale(1.18)' : isHov ? 'translate(-50%,-132%) scale(1.12)' : 'translate(-50%,-100%)';
+        el.style.fontWeight = isSel ? 'bold' : '';
         el.style.display   = tmpV.z < 1 ? 'block' : 'none';
       }
 
@@ -932,6 +991,8 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
           }
         }
       });
+      bursts.forEach(b => { scene.remove(b.ring); b.ring.geometry.dispose(); (b.ring.material as THREE.Material).dispose(); });
+      bursts.length = 0;
       textures.forEach(t => t.dispose());
       materials.forEach(m => m.dispose());
       bloomPass.dispose();
@@ -949,8 +1010,12 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     <div className="absolute inset-0 bg-[#0d0608]">
       <style>{`
         @keyframes smFadeUp {
-          from { opacity: 0; transform: translate(-50%, 10px); }
+          from { opacity: 0; transform: translate(-50%, 12px); }
           to   { opacity: 1; transform: translate(-50%, 0);    }
+        }
+        @keyframes smItemIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0);   }
         }
       `}</style>
 
@@ -974,7 +1039,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
           >
             <div className="px-5 pt-4 pb-5">
               {/* Group badge + close */}
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3" style={{ animation: 'smItemIn 0.22s ease-out 0.06s forwards', opacity: 0 }}>
                 <div className="flex items-center gap-2">
                   <span
                     className="w-2 h-2 rounded-full flex-shrink-0"
@@ -985,7 +1050,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
                   </span>
                 </div>
                 <button
-                  onClick={() => setSelectedId(null)}
+                  onClick={() => handleSelectRef.current(null)}
                   className="w-6 h-6 flex items-center justify-center rounded-full text-white/35 hover:text-white/75 hover:bg-white/8 transition-colors text-xs leading-none"
                   aria-label="Close"
                 >
@@ -994,12 +1059,12 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
               </div>
 
               {/* Planet name */}
-              <h3 className="text-[15px] font-bold mb-1.5 leading-snug" style={{ color: selected.glowColor }}>
+              <h3 className="text-[15px] font-bold mb-1.5 leading-snug" style={{ color: selected.glowColor, animation: 'smItemIn 0.22s ease-out 0.11s forwards', opacity: 0 }}>
                 {labels[selected.id]}
               </h3>
 
               {/* Description */}
-              <p className="text-[12px] leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.52)' }}>
+              <p className="text-[12px] leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.52)', animation: 'smItemIn 0.20s ease-out 0.15s forwards', opacity: 0 }}>
                 {desc}
               </p>
 
@@ -1011,6 +1076,8 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
                   background: `linear-gradient(135deg, ${selected.glowColor}30 0%, ${selected.glowColor}18 100%)`,
                   border: `1px solid ${selected.glowColor}45`,
                   color: selected.glowColor,
+                  animation: 'smItemIn 0.20s ease-out 0.19s forwards',
+                  opacity: 0,
                 }}
               >
                 {ctaLabel}
