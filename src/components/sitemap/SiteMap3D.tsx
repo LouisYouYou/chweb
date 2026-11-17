@@ -299,7 +299,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
     const viewW = Math.max(container.clientWidth, 1);
     const viewH = Math.max(container.clientHeight, 1);
     renderer.setSize(viewW, viewH);
-    renderer.setClearColor(0x06040e);
+    renderer.setClearColor(0x08050c);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -777,7 +777,7 @@ export default function SiteMap3D({ locale, embedded = false }: { locale: string
   }, [embedded, labels, locale]);
 
   return (
-    <div className="absolute inset-0 bg-[#06040e]">
+    <div className="absolute inset-0 bg-[#08050c]">
       <div ref={containerRef} className="absolute inset-0" />
       {selected && (
         <a
