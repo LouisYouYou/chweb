@@ -40,10 +40,10 @@ export default function Hero() {
         quality={90}
       />
 
-      {/* Cinematic soft-focus — blurred duplicate masked to right half, no backdropFilter */}
+      {/* Cinematic soft-focus — desktop only; on mobile the full-width photo makes masking awkward */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 overflow-hidden pointer-events-none"
+        className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none"
         style={{
           maskImage: 'linear-gradient(to right, transparent 28%, rgba(0,0,0,0.6) 48%, black 68%)',
           WebkitMaskImage: 'linear-gradient(to right, transparent 28%, rgba(0,0,0,0.6) 48%, black 68%)',
@@ -90,20 +90,13 @@ export default function Hero() {
 
       {/* ── Cinematic texture layers (wine palette, no colour change) ── */}
 
-      {/* Atmospheric fog — three-pass wine mist for depth */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 92% 80% at 62% 44%, rgba(118,25,41,0.12) 0%, rgba(80,15,25,0.05) 58%, transparent 74%)',
-      }} />
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 78% 68% at 62% 44%, rgba(146,32,47,0.28) 0%, rgba(98,20,34,0.12) 48%, transparent 66%)',
-      }} />
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 56% 50% at 62% 44%, rgba(180,40,58,0.18) 0%, transparent 62%)',
-        filter: 'blur(55px)',
-      }} />
+      {/* Atmospheric fog — three-pass wine mist; backgrounds in CSS for media-query override */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none hero-fog-1" />
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none hero-fog-2" />
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none hero-fog-3" />
 
-      {/* Circular arc sweep — wine-luminance ring */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
+      {/* Circular arc sweep — desktop only; horizontal arc doesn't translate to portrait */}
+      <div aria-hidden="true" className="hidden sm:block absolute inset-0 pointer-events-none" style={{
         background: `
           radial-gradient(circle at 62% 44%, transparent 25%, rgba(118,25,41,0.04) 37%, rgba(155,35,52,0.26) 45%, rgba(118,25,41,0.04) 55%, transparent 65%),
           radial-gradient(ellipse 78% 90% at 70% 110%, rgba(118,25,41,0.22) 0%, transparent 50%)
@@ -111,15 +104,14 @@ export default function Hero() {
         mixBlendMode: 'screen',
       }} />
 
-      {/* Film grain — coarse pass */}
+      {/* Film grain — coarse pass; opacity in CSS for media-query override */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hero-grain-coarse"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
           backgroundSize: '160px 160px',
-          opacity: 0.20,
           mixBlendMode: 'overlay',
           animation: 'hero-grain 0.45s steps(1) infinite',
         }}
@@ -127,12 +119,11 @@ export default function Hero() {
       {/* Film grain — fine pass */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hero-grain-fine"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
           backgroundSize: '120px 120px',
-          opacity: 0.11,
           mixBlendMode: 'soft-light',
           animation: 'hero-grain 0.38s steps(1) infinite',
           animationDelay: '0.22s',

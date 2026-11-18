@@ -471,6 +471,38 @@ a, button, [role="button"] {
   to   { transform: translateX(-50%); }
 }
 
+/* ── Hero cinematic layers — desktop defaults ── */
+.hero-fog-1 {
+  background: radial-gradient(ellipse 92% 80% at 62% 44%, rgba(118,25,41,0.12) 0%, rgba(80,15,25,0.05) 58%, transparent 74%);
+}
+.hero-fog-2 {
+  background: radial-gradient(ellipse 78% 68% at 62% 44%, rgba(146,32,47,0.28) 0%, rgba(98,20,34,0.12) 48%, transparent 66%);
+}
+.hero-fog-3 {
+  background: radial-gradient(ellipse 56% 50% at 62% 44%, rgba(180,40,58,0.18) 0%, transparent 62%);
+  filter: blur(55px);
+}
+.hero-grain-coarse { opacity: 0.20; }
+.hero-grain-fine   { opacity: 0.11; }
+
+/* ── Hero cinematic layers — mobile overrides (< sm = 640px) ── */
+@media (max-width: 639px) {
+  /* Fog centre shifts to 50% x / 70% y — works with portrait layout */
+  .hero-fog-1 {
+    background: radial-gradient(ellipse 150% 55% at 50% 72%, rgba(118,25,41,0.10) 0%, transparent 70%);
+  }
+  .hero-fog-2 {
+    background: radial-gradient(ellipse 130% 48% at 50% 68%, rgba(146,32,47,0.20) 0%, rgba(98,20,34,0.08) 50%, transparent 68%);
+  }
+  .hero-fog-3 {
+    background: radial-gradient(ellipse 100% 42% at 50% 62%, rgba(180,40,58,0.12) 0%, transparent 65%);
+    filter: blur(40px);
+  }
+  /* Grain lighter — small screen amplifies texture visually */
+  .hero-grain-coarse { opacity: 0.14; }
+  .hero-grain-fine   { opacity: 0.08; }
+}
+
 /* ── Hero film grain ── */
 @keyframes hero-grain {
   0%   { background-position: 0px 0px; }
