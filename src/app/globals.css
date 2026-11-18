@@ -471,6 +471,16 @@ a, button, [role="button"] {
   to   { transform: translateX(-50%); }
 }
 
+/* ── Hero film grain ── */
+@keyframes hero-grain {
+  0%   { background-position: 0px 0px; }
+  20%  { background-position: -5px 3px; }
+  40%  { background-position: 4px -5px; }
+  60%  { background-position: -3px 6px; }
+  80%  { background-position: 5px -4px; }
+  100% { background-position: 0px 0px; }
+}
+
 /* ── Hero title animations ── */
 @keyframes hero-title-in {
   from { opacity: 0; transform: translateY(28px); filter: blur(8px); }
