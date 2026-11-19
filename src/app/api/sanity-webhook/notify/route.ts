@@ -140,7 +140,7 @@ export async function POST(req: NextRequest) {
 
     // ── AI 生成靈修文案 ──────────────────────────────────────────────────
     let ai: DevotionalOutput | null = null
-    if (verseZh && referenceZh && process.env.ANTHROPIC_API_KEY) {
+    if (verseZh && referenceZh && process.env.GOOGLE_AI_API_KEY) {
       try {
         ai = await generateDevotional({ verseZh, referenceZh, reflectionZh, imageUrl })
         // 存入 Supabase
