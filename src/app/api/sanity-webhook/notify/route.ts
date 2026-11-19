@@ -7,6 +7,8 @@ import {
   announcementHtml,   announcementSubject,
   sundayMessageHtml,  sundayMessageSubject,
 } from '@/lib/email/notifyTemplates'
+import { generateDevotional, sanityImageUrl, type DevotionalOutput } from '@/lib/ai/devotional'
+import { sendPushToAll } from '@/lib/push/sendAll'
 
 // ── 固定管理者 / 牧師通知名單 ─────────────────────────────────────────────
 const ADMIN_EMAILS = (process.env.ADMIN_NOTIFY_EMAILS ?? '')
@@ -129,11 +131,50 @@ export async function POST(req: NextRequest) {
   let results = { sent: 0, failed: 0 }
 
   if (type === 'dailyScripture') {
-    const date = (payload.date ?? payload._updatedAt ?? new Date().toISOString().slice(0, 10)) as string
+    const date       = (payload.date ?? new Date().toISOString().slice(0, 10)) as string
+    const verseZh    = (payload.verseZh ?? '') as string
+    const referenceZh = (payload.referenceZh ?? '') as string
+    const reflectionZh = (payload.reflectionZh ?? undefined) as string | undefined
+    const imageRef   = (payload.image as { asset?: { _ref?: string } } | undefined)?.asset?._ref
+    const imageUrl   = imageRef ? sanityImageUrl(imageRef) : null
+
+    // ── AI 生成靈修文案 ──────────────────────────────────────────────────
+    let ai: DevotionalOutput | null = null
+    if (verseZh && referenceZh && process.env.ANTHROPIC_API_KEY) {
+      try {
+        ai = await generateDevotional({ verseZh, referenceZh, reflectionZh, imageUrl })
+        // 存入 Supabase
+        const supabase = createAdminClient()
+        await supabase.from('ai_devotional_content').upsert({
+          sanity_id:          (payload._id ?? '') as string,
+          date,
+          notification_title: ai.notificationTitle,
+          notification_body:  ai.notificationBody,
+          devotional_text:    ai.devotionalText,
+          prayer_prompt:      ai.prayerPrompt,
+          email_intro:        ai.emailIntro,
+          generated_at:       new Date().toISOString(),
+        }, { onConflict: 'date' })
+      } catch (e) {
+        console.error('AI 生成失敗:', e)
+      }
+    }
+
+    // ── 寄 Email（含 AI 文案）───────────────────────────────────────────
     results = await sendBulk(transporter, allRecipients, (locale) => ({
       subject: dailyScriptureSubject(locale, date),
-      html:    dailyScriptureHtml(locale, date),
+      html:    dailyScriptureHtml(locale, date, ai ?? undefined),
     }))
+
+    // ── 送 Web Push ──────────────────────────────────────────────────────
+    if (ai) {
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gcns.org.tw'
+      sendPushToAll({
+        title: ai.notificationTitle,
+        body:  ai.notificationBody,
+        url:   `${baseUrl}/zh-TW/daily-scripture`,
+      }).catch((e: unknown) => console.error('Push 發送失敗:', e))
+    }
   }
 
   else if (type === 'announcement') {

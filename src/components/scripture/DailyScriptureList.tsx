@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/client'
 import type { DailyScripture } from '@/lib/sanity/queries'
+import type { AiDevotional } from '@/app/[locale]/daily-scripture/page'
 import ScriptureInteractions from './ScriptureInteractions'
 
 const BASE_URL = 'https://nanshijiaoglory.vercel.app'
@@ -12,6 +13,7 @@ const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 interface Props {
   scriptures: DailyScripture[]
   locale: string
+  aiMap?: Record<string, AiDevotional>
 }
 
 function formatShareTitle(date: string, locale: string): string {
@@ -23,7 +25,7 @@ function formatShareTitle(date: string, locale: string): string {
   return `Daily Scripture ${MONTHS_EN[m - 1]} ${d}, ${year}`
 }
 
-export default function DailyScriptureList({ scriptures, locale }: Props) {
+export default function DailyScriptureList({ scriptures, locale, aiMap = {} }: Props) {
   return (
     <div className="space-y-10">
       {scriptures.map((s) => {
@@ -36,6 +38,8 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
         const pageUrl   = `${BASE_URL}/${locale}/daily-scripture/${s.date}`
         const shareUrl  = pageUrl
         const socialUrl = pageUrl
+
+        const ai = aiMap[s.date]
 
         return (
           <div key={s._id} id={s._id} className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
@@ -66,6 +70,21 @@ export default function DailyScriptureList({ scriptures, locale }: Props) {
               />
             ) : (
               <div className="p-8 text-center text-gray-300">（尚未上傳配圖）</div>
+            )}
+
+            {/* AI 靈修文案 */}
+            {ai && (ai.devotional_text || ai.prayer_prompt) && (
+              <div className="px-5 py-5 border-t border-wine-50 bg-gradient-to-b from-wine-50/40 to-white space-y-3">
+                {ai.devotional_text && (
+                  <p className="text-sm text-gray-700 leading-relaxed">{ai.devotional_text}</p>
+                )}
+                {ai.prayer_prompt && (
+                  <p className="text-xs text-wine-700 font-medium flex items-start gap-1.5">
+                    <span className="shrink-0 mt-0.5">🙏</span>
+                    <span>{ai.prayer_prompt}</span>
+                  </p>
+                )}
+              </div>
             )}
 
             {/* Interactions */}

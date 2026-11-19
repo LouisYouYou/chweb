@@ -26,7 +26,9 @@ ${inner}
 
 // ── 每日經文 ─────────────────────────────────────────────────────────────────
 
-export function dailyScriptureHtml(locale: string, date: string): string {
+interface AiContent { emailIntro?: string; devotionalText?: string; prayerPrompt?: string }
+
+export function dailyScriptureHtml(locale: string, date: string, ai?: AiContent): string {
   const pageUrl = `${BASE}/${locale}/daily-scripture`
   const fmt = new Date(date).toLocaleDateString(
     locale === 'zh-TW' ? 'zh-TW' : locale === 'ja' ? 'ja-JP' : 'en-US',
@@ -34,12 +36,22 @@ export function dailyScriptureHtml(locale: string, date: string): string {
   )
 
   const t = {
-    subject:  locale === 'en' ? `📖 Daily Scripture ${fmt}` : locale === 'my' ? `📖 နေ့စဉ်သမ္မာကျမ်း ${fmt}` : locale === 'ja' ? `📖 今日のみことば ${fmt}` : `📖 每日經文 ${fmt}`,
     title:    locale === 'en' ? 'New Daily Scripture' : locale === 'my' ? 'နေ့စဉ်သမ္မာကျမ်း အသစ်' : locale === 'ja' ? '今日のみことばが更新されました' : `每日經文已更新`,
-    body:     locale === 'en' ? `Today's scripture (${fmt}) has been published. Click below to read and meditate.` : locale === 'my' ? `ယနေ့ (${fmt}) သမ္မာကျမ်းစာ ထုတ်ဝေပြီးပါပြီ။` : locale === 'ja' ? `${fmt}のみことばが公開されました。下のボタンから読むことができます。` : `${fmt} 的每日經文已上傳，點擊下方按鈕閱讀今日靈修。`,
+    body:     ai?.emailIntro ?? (
+      locale === 'en' ? `Today's scripture (${fmt}) has been published. Click below to read and meditate.` :
+      locale === 'my' ? `ယနေ့ (${fmt}) သမ္မာကျမ်းစာ ထုတ်ဝေပြီးပါပြီ။` :
+      locale === 'ja' ? `${fmt}のみことばが公開されました。` :
+      `${fmt} 的每日經文已上傳，點擊下方按鈕閱讀今日靈修。`
+    ),
     cta:      locale === 'en' ? 'Read Scripture' : locale === 'my' ? 'ကျမ်းစာ ဖတ်ရန်' : locale === 'ja' ? 'みことばを読む' : '閱讀今日經文',
     unsub:    locale === 'en' ? 'You are receiving this because you subscribed to Glory Church updates.' : locale === 'ja' ? 'このメールは南勢角榮耀堂のニュースレターに登録したため送信されました。' : '您收到此信是因為您訂閱了行道會南勢角榮耀堂的最新資訊。',
   }
+
+  const aiBlock = (ai?.devotionalText || ai?.prayerPrompt) ? `
+  <div style="margin:20px 0;padding:18px 20px;background:#fdf6f7;border-left:3px solid #92202f;border-radius:0 8px 8px 0;">
+    ${ai.devotionalText ? `<p style="margin:0 0 10px;color:#380a14;font-size:14px;line-height:1.9;">${ai.devotionalText}</p>` : ''}
+    ${ai.prayerPrompt  ? `<p style="margin:0;color:#76192a;font-size:13px;font-style:italic;">🙏 ${ai.prayerPrompt}</p>` : ''}
+  </div>` : ''
 
   const inner = `
 <tr><td style="${HEADER_STYLE}">
@@ -48,8 +60,9 @@ export function dailyScriptureHtml(locale: string, date: string): string {
   <p style="margin:6px 0 0;color:#f6c8cd;font-size:13px;">${fmt}</p>
 </td></tr>
 <tr><td style="${BODY_STYLE}">
-  <p style="color:#333;font-size:15px;line-height:1.8;margin:0 0 24px;">${t.body}</p>
-  <div style="text-align:center;">
+  <p style="color:#333;font-size:15px;line-height:1.8;margin:0 0 16px;">${t.body}</p>
+  ${aiBlock}
+  <div style="text-align:center;margin-top:24px;">
     <a href="${pageUrl}" style="display:inline-block;background:linear-gradient(135deg,#380a14,#92202f);color:#fff;padding:13px 32px;border-radius:9999px;text-decoration:none;font-weight:700;font-size:14px;">${t.cta}</a>
   </div>
 </td></tr>`
