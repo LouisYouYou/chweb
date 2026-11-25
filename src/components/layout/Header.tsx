@@ -187,15 +187,23 @@ export default function Header({ locale }: HeaderProps) {
           </Link>
 
           {/* ── Desktop nav ── */}
-          <nav aria-label={t('main_nav')} className="hidden lg:flex items-center gap-1">
+          <nav aria-label={t('main_nav')} className="hidden lg:flex items-center gap-1.5">
             {mainLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center px-3.5 py-2 min-h-[36px] text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                   transparent
-                    ? isActive(href) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                    : isActive(href) ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                    ? `rounded-full focus-visible:ring-white/50 focus-visible:ring-offset-transparent ${
+                        isActive(href)
+                          ? 'nav-glass-item-active text-white'
+                          : 'nav-glass-item text-white/90 hover:text-white'
+                      }`
+                    : `rounded-md focus-visible:ring-forest-600 transition-colors duration-200 ${
+                        isActive(href)
+                          ? 'text-forest-600 bg-forest-50'
+                          : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                      }`
                 }`}
               >
                 {label}
@@ -215,10 +223,18 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="resources-menu"
                 onClick={() => setDesktopDropdownOpen(v => !v)}
                 onKeyDown={handleResourcesTriggerKeyDown}
-                className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
+                className={`inline-flex items-center gap-1 px-3.5 py-2 min-h-[36px] text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                   transparent
-                    ? isResourcesActive ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                    : isResourcesActive ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                    ? `rounded-full focus-visible:ring-white/50 focus-visible:ring-offset-transparent ${
+                        isResourcesActive
+                          ? 'nav-glass-item-active text-white'
+                          : 'nav-glass-item text-white/90 hover:text-white'
+                      }`
+                    : `rounded-md focus-visible:ring-forest-600 transition-colors duration-200 ${
+                        isResourcesActive
+                          ? 'text-forest-600 bg-forest-50'
+                          : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                      }`
                 }`}
               >
                 {t('resources')}
@@ -239,7 +255,11 @@ export default function Header({ locale }: HeaderProps) {
                     id="resources-menu"
                     role="menu"
                     ref={resourcesMenuRef}
-                    className="bg-white rounded-2xl shadow-lg border border-warm-beige py-2 w-44 overflow-hidden"
+                    className={`rounded-2xl py-2 w-44 overflow-hidden ${
+                      transparent
+                        ? 'nav-glass-dropdown'
+                        : 'bg-white shadow-lg border border-warm-beige'
+                    }`}
                   >
                     {resourceLinks.map(({ href, label, icon: Icon }, idx) => (
                       <Link
@@ -247,13 +267,19 @@ export default function Header({ locale }: HeaderProps) {
                         href={href}
                         role="menuitem"
                         onKeyDown={(e) => handleResourcesMenuKeyDown(e, idx)}
-                        className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
-                          isActive(href)
-                            ? 'text-forest-600 bg-forest-50 font-medium'
-                            : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                        className={`flex items-center gap-2.5 px-4 py-2.5 text-sm ${
+                          transparent
+                            ? isActive(href)
+                              ? 'nav-glass-dropdown-item-active'
+                              : 'nav-glass-dropdown-item'
+                            : `transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
+                                isActive(href)
+                                  ? 'text-forest-600 bg-forest-50 font-medium'
+                                  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                              }`
                         }`}
                       >
-                        <Icon size={14} aria-hidden="true" className="text-forest-400 shrink-0" />
+                        <Icon size={14} aria-hidden="true" className={transparent ? 'text-white/50 shrink-0' : 'text-forest-400 shrink-0'} />
                         {label}
                       </Link>
                     ))}
@@ -264,10 +290,18 @@ export default function Header({ locale }: HeaderProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className={`inline-flex items-center px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
+              className={`inline-flex items-center px-3.5 py-2 min-h-[36px] text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 transparent
-                  ? isActive(`/${locale}/contact`) ? 'text-white bg-white/15' : 'text-white/90 hover:text-white hover:bg-white/10'
-                  : isActive(`/${locale}/contact`) ? 'text-forest-600 bg-forest-50'  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                  ? `rounded-full focus-visible:ring-white/50 focus-visible:ring-offset-transparent ${
+                      isActive(`/${locale}/contact`)
+                        ? 'nav-glass-item-active text-white'
+                        : 'nav-glass-item text-white/90 hover:text-white'
+                    }`
+                  : `rounded-md focus-visible:ring-forest-600 transition-colors duration-200 ${
+                      isActive(`/${locale}/contact`)
+                        ? 'text-forest-600 bg-forest-50'
+                        : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                    }`
               }`}
             >
               {t('contact')}
@@ -290,10 +324,10 @@ export default function Header({ locale }: HeaderProps) {
                 aria-controls="lang-menu"
                 onClick={() => setLangOpen(v => !v)}
                 onKeyDown={(e) => { if (e.key === 'Escape') setLangOpen(false); }}
-                className={`flex items-center gap-2 px-3 py-1.5 min-h-[44px] text-sm rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
+                className={`flex items-center gap-2 px-3 py-1.5 min-h-[36px] text-sm rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                   transparent
-                    ? 'text-white/90 hover:text-white border border-white/40 hover:border-white/70'
-                    : 'text-gray-600 hover:text-forest-600 border border-gray-200 hover:border-forest-300'
+                    ? 'nav-glass-item text-white/90 hover:text-white focus-visible:ring-white/50'
+                    : 'text-gray-600 hover:text-forest-600 border border-gray-200 hover:border-forest-300 transition-colors duration-200 focus-visible:ring-forest-600'
                 }`}
               >
                 <span
@@ -312,16 +346,26 @@ export default function Header({ locale }: HeaderProps) {
                   onMouseEnter={() => { if (langHoverTimeout.current) clearTimeout(langHoverTimeout.current); }}
                   onMouseLeave={() => { langHoverTimeout.current = setTimeout(() => setLangOpen(false), 120); }}
                 >
-                  <div className="bg-white rounded-xl shadow-lg border border-warm-beige py-1.5 w-44 overflow-hidden">
+                  <div className={`rounded-xl py-1.5 w-44 overflow-hidden ${
+                    transparent
+                      ? 'nav-glass-dropdown'
+                      : 'bg-white shadow-lg border border-warm-beige'
+                  }`}>
                     {Object.entries(LOCALE_DATA).map(([localeCode, { code, label }]) => (
                       <button
                         key={localeCode}
                         onClick={() => switchLocale(localeCode)}
                         onKeyDown={handleLangItemKeyDown}
-                        className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] text-sm transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
-                          locale === localeCode
-                            ? 'text-forest-600 bg-forest-50 font-medium'
-                            : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                        className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] text-sm ${
+                          transparent
+                            ? locale === localeCode
+                              ? 'nav-glass-dropdown-item-active'
+                              : 'nav-glass-dropdown-item'
+                            : `transition-colors focus:outline-none focus:bg-forest-50 focus:text-forest-600 ${
+                                locale === localeCode
+                                  ? 'text-forest-600 bg-forest-50 font-medium'
+                                  : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'
+                              }`
                         }`}
                       >
                         <span

@@ -213,13 +213,13 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={`/${locale}/first-visit`}
-                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-wine-700 text-white font-bold rounded-full hover:bg-wine-800 text-sm whitespace-nowrap w-full sm:w-auto cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                className="glass-btn glass-btn-primary inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-white font-bold rounded-full text-sm whitespace-nowrap w-full sm:w-auto"
               >
                 {t('cta_primary')}
               </Link>
               <Link
                 href={`/${locale}/services`}
-                className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 border border-white/50 text-white/90 font-semibold rounded-full hover:bg-white/10 hover:border-white/70 text-sm whitespace-nowrap w-full sm:w-auto backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                className="glass-btn glass-btn-secondary inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-white/90 font-semibold rounded-full text-sm whitespace-nowrap w-full sm:w-auto"
               >
                 {t('cta_secondary')}
               </Link>
@@ -229,7 +229,7 @@ export default function Hero() {
             <div className="flex flex-row gap-3">
               <Link
                 href={`/${locale}/weekly-bulletin`}
-                className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 border border-white/20 text-white/45 font-medium rounded-full hover:bg-white/5 hover:border-white/35 hover:text-white/65 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                className="glass-btn glass-btn-ghost inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 text-white/50 font-medium rounded-full text-xs"
               >
                 <FileText size={12} aria-hidden="true" />
                 {zh ? '教會週報' : 'Bulletin'}
@@ -240,7 +240,7 @@ export default function Hero() {
                   href="https://www.youtube.com/@winson651202/live"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 border border-red-400/70 text-red-300/80 font-medium rounded-full bg-red-400/10 hover:bg-red-400/20 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                  className="glass-btn glass-btn-live inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 text-red-300/85 font-medium rounded-full text-xs"
                 >
                   <span aria-hidden="true" className="relative flex h-2 w-2 shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
@@ -253,13 +253,15 @@ export default function Hero() {
                   href="https://www.youtube.com/@winson651202"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 border border-white/20 text-white/40 font-medium rounded-full hover:bg-white/5 hover:text-white/55 text-xs backdrop-blur-sm cta-depth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
+                  className="glass-btn glass-btn-ghost inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 text-white/40 font-medium rounded-full text-xs"
                 >
                   <Radio size={12} aria-hidden="true" className="opacity-45" />
                   {zh ? '主日直播' : 'Live'}
                 </a>
               ) : (
-                <span className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 border border-white/15 text-white/25 font-medium rounded-full text-xs backdrop-blur-sm cursor-default">
+                <span className="glass-btn-ghost inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2.5 text-white/25 font-medium rounded-full text-xs cursor-default"
+                  style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+                >
                   <Radio size={12} aria-hidden="true" className="opacity-25" />
                   {zh ? '主日直播' : 'Live'}
                 </span>

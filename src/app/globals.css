@@ -444,6 +444,192 @@ a, button, [role="button"] {
   outline-offset: 3px;
 }
 
+/* ── Glass Nav Items (transparent header over Hero) ── */
+
+.nav-glass-item {
+  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.32),
+    0 2px 10px rgba(0,0,0,0.14);
+  transition:
+    background   200ms cubic-bezier(0.22,1,0.36,1),
+    border-color 200ms cubic-bezier(0.22,1,0.36,1),
+    box-shadow   200ms cubic-bezier(0.22,1,0.36,1),
+    transform    120ms cubic-bezier(0.22,1,0.36,1);
+}
+.nav-glass-item:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.07) 100%);
+  border-color: rgba(255,255,255,0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.42),
+    0 4px 16px rgba(0,0,0,0.20);
+  transform: translateY(-1px);
+}
+.nav-glass-item:active { transform: translateY(0px); }
+
+.nav-glass-item-active {
+  background: linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.40);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.50),
+    0 4px 18px rgba(0,0,0,0.22);
+}
+.nav-glass-item-active:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 100%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.56),
+    0 6px 22px rgba(0,0,0,0.26);
+  transform: translateY(-1px);
+}
+
+/* ── Glass Dropdown (Resources sub-menu over Hero) ── */
+
+.nav-glass-dropdown {
+  background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.28);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.40),
+    inset 0 -1px 0 rgba(255,255,255,0.08),
+    0 8px 32px rgba(0,0,0,0.35),
+    0 2px 8px rgba(0,0,0,0.20);
+}
+
+.nav-glass-dropdown-item {
+  color: rgba(255,255,255,0.75);
+  transition: background 160ms cubic-bezier(0.22,1,0.36,1), color 160ms;
+}
+.nav-glass-dropdown-item:hover {
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+}
+.nav-glass-dropdown-item:focus {
+  outline: none;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+}
+
+.nav-glass-dropdown-item-active {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 500;
+}
+.nav-glass-dropdown-item-active:hover {
+  background: rgba(255,255,255,0.24);
+}
+
+/* ── Glass Button System ── */
+
+.glass-btn {
+  position: relative;
+  transition:
+    box-shadow  200ms cubic-bezier(0.22,1,0.36,1),
+    transform   120ms cubic-bezier(0.22,1,0.36,1),
+    background  200ms cubic-bezier(0.22,1,0.36,1),
+    border-color 200ms cubic-bezier(0.22,1,0.36,1);
+}
+.glass-btn:active  { transform: translateY(1px) scale(0.985); }
+.glass-btn:focus-visible { outline: 2px solid var(--focus-on-dark); outline-offset: 3px; }
+
+/* Primary — wine red glass (like "Start project" orange in ref) */
+.glass-btn-primary {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.0) 46%, rgba(0,0,0,0.10) 100%),
+    linear-gradient(180deg, #be2a3e 0%, #871520 100%);
+  border: 1px solid rgba(255,255,255,0.30);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.45),
+    inset 0 -1px 0 rgba(0,0,0,0.30),
+    0 6px 28px rgba(140,20,35,0.60),
+    0 2px 6px rgba(0,0,0,0.40);
+}
+.glass-btn-primary:hover {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.0) 46%, rgba(0,0,0,0.06) 100%),
+    linear-gradient(180deg, #d13347 0%, #9a1a28 100%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.52),
+    inset 0 -1px 0 rgba(0,0,0,0.25),
+    0 10px 36px rgba(160,25,42,0.70),
+    0 3px 10px rgba(0,0,0,0.45);
+  transform: translateY(-2px);
+}
+
+/* Secondary — clear glass pill (like "Secondary" in ref) */
+.glass-btn-secondary {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.0) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.38);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(255,255,255,0.08),
+    inset 1px 0 0 rgba(180,200,255,0.12),
+    0 4px 20px rgba(0,0,0,0.30),
+    0 1px 4px rgba(0,0,0,0.22);
+}
+.glass-btn-secondary:hover {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%);
+  border-color: rgba(255,255,255,0.52);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.65),
+    inset 0 -1px 0 rgba(255,255,255,0.10),
+    inset 1px 0 0 rgba(180,200,255,0.18),
+    0 7px 28px rgba(0,0,0,0.36),
+    0 2px 6px rgba(0,0,0,0.26);
+  transform: translateY(-2px);
+}
+
+/* Ghost — faint glass for tertiary / utility buttons */
+.glass-btn-ghost {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.32),
+    0 2px 10px rgba(0,0,0,0.18);
+}
+.glass-btn-ghost:hover {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.05) 100%);
+  border-color: rgba(255,255,255,0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.40),
+    0 4px 14px rgba(0,0,0,0.24);
+  transform: translateY(-1px);
+}
+
+/* Live — red-tinted glass */
+.glass-btn-live {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(239,68,68,0.06) 50%, rgba(185,28,28,0.10) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(239,68,68,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.40),
+    inset 0 -1px 0 rgba(185,28,28,0.15),
+    0 3px 14px rgba(185,28,28,0.28),
+    0 1px 4px rgba(0,0,0,0.20);
+}
+.glass-btn-live:hover {
+  border-color: rgba(239,68,68,0.60);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.48),
+    0 5px 20px rgba(185,28,28,0.38);
+  transform: translateY(-1px);
+}
+
 .cta-icon-island {
   display:         inline-flex;
   align-items:     center;
