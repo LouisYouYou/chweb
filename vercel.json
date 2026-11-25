@@ -1,4 +1,8 @@
 {
+  "buildCommand": "next build",
+  "env": {
+    "NEXT_TURBOPACK": "0"
+  },
   "crons": [
     {
       "path": "/api/cron/sunday-live-check",
