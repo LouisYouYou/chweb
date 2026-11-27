@@ -8,7 +8,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 import { Clock, MapPin, Car, Train, ExternalLink, CreditCard } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
-import PageHero from '@/components/layout/PageHero';
 
 export default async function ServicesPage() {
   const t = await getTranslations('services');
@@ -16,7 +15,26 @@ export default async function ServicesPage() {
 
   return (
     <div>
-      <PageHero title={t('title')} subtitle={t('subtitle')} />
+      {/* Page opening — service times editorial, wine-950 */}
+      <section
+        className="relative bg-wine-950 overflow-hidden"
+        style={{ minHeight: 'calc(13rem + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}
+      >
+        <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(90,10,30,0.7) 0%, transparent 65%)' }} />
+        <div aria-hidden="true" className="absolute bottom-0 right-0 w-96 h-64 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 100% 100%, rgba(201,168,76,0.1) 0%, transparent 70%)' }} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col md:flex-row items-end md:items-center gap-8 md:gap-16">
+          <div className="flex-1">
+            <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-4">{t('title')}</h1>
+            <p className="text-wine-200 text-base max-w-md leading-relaxed">{t('subtitle')}</p>
+          </div>
+          <div aria-hidden="true" className="shrink-0 select-none hidden md:block text-right">
+            <p className="font-black text-wine-700 leading-none tracking-tight" style={{ fontSize: 'clamp(5rem, 10vw, 8rem)' }}>10:00</p>
+            <p className="text-wine-600 text-sm mt-1">主日崇拜</p>
+          </div>
+        </div>
+      </section>
 
       {/* Service Times */}
       <section className="py-20 px-4">

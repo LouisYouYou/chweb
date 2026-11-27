@@ -6,7 +6,6 @@ import {
   Baby, MapPin, ShieldCheck, Phone,
 } from 'lucide-react'
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
-import PageHero from '@/components/layout/PageHero'
 import FadeIn from '@/components/ui/FadeIn'
 
 export async function generateMetadata({
@@ -36,7 +35,31 @@ export default async function FirstVisitPage() {
 
   return (
     <div>
-      <PageHero title={t('page_title')} subtitle={t('page_subtitle')} />
+      {/* Page opening — personal centered welcome, wine-950 */}
+      <section
+        className="relative bg-wine-950 overflow-hidden"
+        style={{ minHeight: 'calc(13rem + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}
+      >
+        <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(90,10,30,0.7) 0%, transparent 65%)' }} />
+        <div aria-hidden="true" className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-48 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.12) 0%, transparent 70%)' }} />
+        <div aria-hidden="true" className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px,#fff 1px,transparent 0)', backgroundSize:'32px 32px' }} />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <div
+            aria-hidden="true"
+            className="w-16 h-0.5 mx-auto mb-10"
+            style={{ background: 'linear-gradient(90deg, transparent, #c9a84c, transparent)' }}
+          />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-5">
+            {t('page_title')}
+          </h1>
+          <p className="text-wine-200 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+            {t('page_subtitle')}
+          </p>
+        </div>
+      </section>
 
       <section className="py-20 bg-[#fdfaf5]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

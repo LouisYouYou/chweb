@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { getTranslations, getLocale } from 'next-intl/server';
 import SermonLibrary from '@/components/sermons/SermonLibrary';
 import SundayMessagesList from '@/components/sermons/SundayMessagesList';
-import PageHero from '@/components/layout/PageHero';
 import SermonsJsonLd from '@/components/seo/SermonsJsonLd';
 import { getChannelVideos } from '@/lib/youtube';
 
@@ -20,7 +19,25 @@ export default async function SermonsPage() {
   return (
     <div>
       <SermonsJsonLd videos={videos} />
-      <PageHero title={t('title')} subtitle={t('subtitle')} />
+      {/* Page opening — editorial dark with amber bar, ink-950 */}
+      <section
+        className="relative bg-ink-950 overflow-hidden"
+        style={{ minHeight: 'calc(13rem + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}
+      >
+        <div aria-hidden="true" className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px,#fff 1px,transparent 0)', backgroundSize:'32px 32px' }} />
+        <div aria-hidden="true" className="absolute bottom-0 left-0 w-full h-32 pointer-events-none"
+          style={{ background: 'linear-gradient(to top, rgba(10,5,5,0.6), transparent)' }} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div
+            aria-hidden="true"
+            className="w-14 h-0.5 mb-8"
+            style={{ background: 'linear-gradient(90deg, #c9a84c, transparent)' }}
+          />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-5">{t('title')}</h1>
+          <p className="text-ink-300 text-base max-w-xl leading-relaxed">{t('subtitle')}</p>
+        </div>
+      </section>
 
       <SundayMessagesList locale={locale} />
 

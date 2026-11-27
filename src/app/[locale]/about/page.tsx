@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { getTranslations } from 'next-intl/server';
 import { Heart, BookOpen, Users, Globe } from 'lucide-react';
 import FadeIn from '@/components/ui/FadeIn';
-import PageHero from '@/components/layout/PageHero';
 import { getPastors, getStoryCards } from '@/lib/sanity/queries'
 import { urlFor } from '@/lib/sanity/client'
 
@@ -29,7 +28,26 @@ export default async function AboutPage() {
 
   return (
     <div>
-      <PageHero title={t('title')} subtitle={t('subtitle')} />
+      {/* Page opening — editorial left-aligned, ink-950 */}
+      <section
+        className="relative bg-ink-950 overflow-hidden"
+        style={{ minHeight: 'calc(13rem + 6.5rem)', marginTop: '-6.5rem', paddingTop: '6.5rem' }}
+      >
+        <div aria-hidden="true" className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px,#fff 1px,transparent 0)', backgroundSize:'32px 32px' }} />
+        <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 40% 30%, rgba(90,10,30,0.4) 0%, transparent 60%)' }} />
+        <span aria-hidden="true" className="absolute right-0 bottom-0 select-none pointer-events-none font-black text-white leading-none"
+          style={{ fontSize: 'clamp(14rem, 28vw, 22rem)', opacity: 0.025, lineHeight: 0.8 }}>榮</span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex items-stretch gap-5 mb-6">
+            <div aria-hidden="true" className="w-px self-stretch bg-gradient-to-b from-wine-500 to-transparent shrink-0" />
+            <div aria-hidden="true" className="self-center w-10 h-px bg-gradient-to-r from-gold-warm-500 to-transparent" />
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-5">{t('title')}</h1>
+          <p className="text-wine-200 text-base sm:text-lg max-w-xl leading-relaxed">{t('subtitle')}</p>
+        </div>
+      </section>
 
       {/* Mission & Vision */}
       <section className="py-20 px-4">
