@@ -102,13 +102,11 @@ export default function NewsletterSection() {
   const done = status === 'success' || status === 'duplicate'
 
   return (
-    <section className="bg-forest-900 pt-24 pb-14 px-4 relative overflow-hidden">
-      {/* Wave: UpcomingEvents (warm white) dips into newsletter top */}
-      <div aria-hidden="true" className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block h-14">
-          <path d="M0,0 L1440,0 C1080,56 360,56 0,0 Z" fill="#EDE8DF"/>
-        </svg>
-      </div>
+    <section className="bg-wine-950 pt-24 pb-14 px-4 relative overflow-hidden">
+      {/* Thin amber separator between FirstVisitCTA and Newsletter */}
+      <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px pointer-events-none"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent)' }}
+      />
       {/* Decorative background */}
       <div aria-hidden="true" className="absolute inset-0 opacity-5 pointer-events-none"
         style={{ backgroundImage: 'radial-gradient(circle at 2px 2px,#fff 1px,transparent 0)', backgroundSize: '36px 36px' }}

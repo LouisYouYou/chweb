@@ -29,7 +29,7 @@
     "step3_text": "捷運南勢角站 4 號出口步行約 10 分鐘，歡迎你親自來訪。",
     "step4_title": "聯絡我們",
     "step4_text": "有任何問題都可以來信或來電，我們很樂意與你聊聊。",
-    "cta": "了解更多 →"
+    "cta": "了解更多"
   },
   "scripture": {
     "title": "每日經文",
@@ -155,7 +155,7 @@
     "almost_full": "名額即將額滿",
     "spots_available": "尚有名額",
     "back_to_events": "返回活動行事曆",
-    "eyebrow": "EVENTS",
+    "eyebrow": "近期活動",
     "categories": {
       "worship": "崇拜",
       "family": "家庭",
@@ -221,7 +221,7 @@
     "live_stream": "線上直播"
   },
   "sundayMessage": {
-    "eyebrow": "SUNDAY MESSAGE",
+    "eyebrow": "本週信息",
     "heading": "本週主日信息",
     "no_image": "尚未上傳信息主圖",
     "watch_cta": "觀看完整講道",

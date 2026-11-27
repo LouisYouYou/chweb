@@ -124,7 +124,7 @@ export const serviceTimes = [
     nameEn: 'Youth Fellowship',
     nameMy: 'လူငယ် ဝတ်ပြုကိုးကွယ်ပွဲ',
     nameJa: '青年礼拝',
-    dayZh: '每週六固定聚會',
+    dayZh: '每週六',
     dayEn: 'Every Saturday',
     dayMy: 'စနေ တိုင်းတိုင်း',
     dayJa: '毎週土曜日',

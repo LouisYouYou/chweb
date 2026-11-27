@@ -29,7 +29,7 @@
     "step3_text": "Approx. 10-minute walk from MRT Nanshijiao Station Exit 4. We'd love to see you.",
     "step4_title": "Get in Touch",
     "step4_text": "Have questions? Send us a message or give us a call — we'd love to chat.",
-    "cta": "Learn More →"
+    "cta": "Learn More"
   },
   "scripture": {
     "title": "Daily Scripture",
@@ -155,7 +155,7 @@
     "almost_full": "Almost full",
     "spots_available": "Spots available",
     "back_to_events": "Back to Events Calendar",
-    "eyebrow": "EVENTS",
+    "eyebrow": "Events",
     "categories": {
       "worship": "Worship",
       "family": "Family",
@@ -221,7 +221,7 @@
     "live_stream": "Live Stream"
   },
   "sundayMessage": {
-    "eyebrow": "SUNDAY MESSAGE",
+    "eyebrow": "Sunday message",
     "heading": "This Week's Message",
     "no_image": "No image uploaded yet",
     "watch_cta": "Watch Full Sermon",

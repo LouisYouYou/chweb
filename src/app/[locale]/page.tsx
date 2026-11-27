@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import Hero from '@/components/home/Hero';
-import StatsBar from '@/components/home/StatsBar';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import WelcomeSection from '@/components/home/WelcomeSection';
 import ServiceTimesSection from '@/components/home/ServiceTimesSection';
@@ -12,7 +11,7 @@ import LatestSermons from '@/components/home/LatestSermons';
 import SermonsSkeleton from '@/components/home/SermonsSkeleton';
 import UpcomingEvents from '@/components/home/UpcomingEvents';
 import EventsSkeleton from '@/components/home/EventsSkeleton';
-import SitemapSection from '@/components/home/SitemapSection';
+import FirstVisitCTA from '@/components/home/FirstVisitCTA';
 import { getChannelVideos } from '@/lib/youtube';
 import { buildMetadata, pageSEO } from '@/lib/seo/metadata'
 import HashScrollHandler from '@/components/ui/HashScrollHandler';
@@ -38,20 +37,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <HashScrollHandler />
       <Hero />
-      <SitemapSection />
-      <StatsBar />
-      <AnnouncementBanner />
-      <WelcomeSection />
-      <ServiceTimesSection />
       <Suspense fallback={<SundayMessageSkeleton />}>
         <SundayMessageSection />
       </Suspense>
+      <AnnouncementBanner />
+      <WelcomeSection />
+      <ServiceTimesSection />
       <Suspense fallback={<SermonsSkeleton />}>
         <LatestSermonsLoader />
       </Suspense>
       <Suspense fallback={<EventsSkeleton />}>
         <UpcomingEvents />
       </Suspense>
+      <FirstVisitCTA />
     </>
   );
 }

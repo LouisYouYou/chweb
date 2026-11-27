@@ -29,7 +29,7 @@
     "step3_text": "MRT南勢角駅4番出口から徒歩約10分です。お気軽にお越しください。",
     "step4_title": "お問い合わせ",
     "step4_text": "ご質問はメールや電話でお気軽にどうぞ。喜んでお話しします。",
-    "cta": "詳しく見る →"
+    "cta": "詳しく見る"
   },
   "scripture": {
     "title": "今日のみことば",
@@ -155,7 +155,7 @@
     "almost_full": "残りわずか",
     "spots_available": "残席あり",
     "back_to_events": "イベントカレンダーに戻る",
-    "eyebrow": "EVENTS",
+    "eyebrow": "近日のイベント",
     "categories": {
       "worship": "礼拝",
       "family": "ファミリー",

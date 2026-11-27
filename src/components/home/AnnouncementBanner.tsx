@@ -112,7 +112,7 @@ export default async function AnnouncementBanner() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
               >
                 {inner}
               </a>
@@ -120,7 +120,7 @@ export default async function AnnouncementBanner() {
               <Link
                 key={item._id}
                 href={item.link}
-                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
+                className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
               >
                 {inner}
               </Link>
