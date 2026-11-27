@@ -99,7 +99,7 @@ export default async function AboutPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <div className="flex justify-center mb-3">
-              <span className="text-gold-warm-600 text-xs font-semibold tracking-[0.3em] uppercase border-l-2 border-gold-warm-400 pl-3">Our Shepherds</span>
+              <span className="text-gold-warm-600 text-xs font-semibold border-l-2 border-gold-warm-400 pl-3">Our Shepherds</span>
             </div>
             <h2 className="text-3xl font-bold text-ink-800 mb-2">{t('team_title')}</h2>
             <div className="w-16 h-1 bg-gold-warm-500 mx-auto rounded-full mt-4" />
@@ -148,7 +148,7 @@ export default async function AboutPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <div className="flex justify-center mb-3">
-                <span className="text-gold-warm-600 text-xs font-semibold tracking-[0.3em] uppercase border-l-2 border-gold-warm-400 pl-3">Our People</span>
+                <span className="text-gold-warm-600 text-xs font-semibold border-l-2 border-gold-warm-400 pl-3">Our People</span>
               </div>
               <h2 className="text-3xl font-bold text-ink-800 mb-2">{t('stories_title')}</h2>
               <p className="text-ink-400 text-sm mt-3">{t('stories_subtitle')}</p>

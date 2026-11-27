@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations, getLocale } from 'next-intl/server';
-import { Calendar, MapPin, ArrowRight, Users, Tag, ClipboardList, CalendarX2 } from 'lucide-react';
+import { Calendar, MapPin, Users, Tag, ClipboardList, CalendarX2 } from 'lucide-react';
 import { getUpcomingEvents } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/client';
 import FadeIn from '@/components/ui/FadeIn';
@@ -78,7 +78,6 @@ export default async function UpcomingEvents() {
             className="inline-flex items-center gap-2 text-wine-600 hover:text-wine-800 border border-wine-200 hover:border-wine-400 px-4 py-2 min-h-[44px] rounded-full text-sm font-semibold transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
           >
             {t('view_all')}
-            <ArrowRight aria-hidden="true" size={15} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
         </FadeIn>

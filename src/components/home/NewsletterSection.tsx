@@ -116,7 +116,7 @@ export default function NewsletterSection() {
 
       <div className="max-w-2xl mx-auto text-center relative">
         {/* Eyebrow */}
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-warm-500/10 text-gold-warm-300 text-xs font-semibold tracking-widest uppercase mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-warm-500/10 text-gold-warm-300 text-xs font-semibold mb-4">
           <Mail aria-hidden="true" size={12} />
           {c.eyebrow}
         </span>

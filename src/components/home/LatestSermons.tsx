@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTranslations, getLocale } from 'next-intl/server';
-import { Play, ArrowRight, Calendar, PlayCircle } from 'lucide-react';
+import { Play, Calendar, PlayCircle } from 'lucide-react';
 import type { YouTubeVideo } from '@/lib/youtube';
 import FadeIn from '@/components/ui/FadeIn';
 import { SermonThumbnail } from '@/components/home/SermonThumbnail';
@@ -49,7 +49,6 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
             className="inline-flex items-center gap-2 text-gold-warm-400 hover:text-gold-warm-300 transition-colors text-sm font-semibold group border border-gold-warm-400/30 hover:border-gold-warm-400/60 px-4 py-2 min-h-[44px] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink-900"
           >
             {t('view_all')}
-            <ArrowRight aria-hidden="true" size={15} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
         </FadeIn>
@@ -94,7 +93,6 @@ export default async function LatestSermons({ videos }: LatestSermonsProps) {
                   </h3>
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-gold-warm-400 group-hover:text-gold-warm-300">
                     {st('listen')}
-                    <ArrowRight aria-hidden="true" size={12} className="group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </Link>
