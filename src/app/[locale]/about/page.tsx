@@ -73,18 +73,20 @@ export default async function AboutPage() {
             <h2 className="text-3xl font-bold text-ink-800 mb-2">{t('values_title')}</h2>
             <div className="w-16 h-1 bg-gold-warm-500 mx-auto rounded-full mt-4" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
             {values.map(({ icon, title, text }, i) => {
               const Icon = iconMap[icon];
               return (
-                <FadeIn key={title} delay={i * 100} className="flex flex-col">
-                <div className="bg-warm-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow flex-1 border border-warm-beige/40">
-                  <div className="w-14 h-14 wine-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon size={22} className="text-white" />
+                <FadeIn key={title} delay={i * 100}>
+                  <div className="flex gap-5">
+                    <div aria-hidden="true" className="shrink-0 w-10 h-10 wine-gradient rounded-lg flex items-center justify-center mt-0.5">
+                      <Icon size={18} className="text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-ink-800 text-base mb-1.5">{title}</h3>
+                      <p className="text-sm text-ink-500 leading-relaxed">{text}</p>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-ink-800 text-lg mb-2">{title}</h3>
-                  <p className="text-sm text-ink-500 leading-relaxed">{text}</p>
-                </div>
                 </FadeIn>
               );
             })}
@@ -103,48 +105,36 @@ export default async function AboutPage() {
             <div className="w-16 h-1 bg-gold-warm-500 mx-auto rounded-full mt-4" />
           </div>
 
-          <div className="flex flex-col gap-6">
+          {/* Pastoral team — editorial divide-y rows, no card containers */}
+          <div className="divide-y divide-wine-50">
             {[0, 1].map((i) => {
               const pastor = pastors[i]
               const initials = i === 0 ? '陳' : '羅'
               return (
                 <FadeIn key={i} delay={i * 150}>
-                <div className="bg-warm-white rounded-3xl border border-wine-100 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-                  <div className="flex flex-row items-stretch">
-                    <div className="w-1.5 shrink-0 wine-gradient rounded-l-3xl" />
-
-                    <div className="flex flex-col sm:flex-row items-center gap-6 p-7 sm:p-8 w-full">
-                      {/* Photo circle */}
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white shadow-md ring-2 ring-wine-100 shrink-0">
-                        {pastor?.photo?.asset ? (
-                          <Image
-                            src={urlFor(pastor.photo).width(224).height(224).fit('crop').auto('format').url()}
-                            alt={t(`team.${i}.name`)}
-                            width={112}
-                            height={112}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full wine-gradient flex items-center justify-center">
-                            <span className="text-white text-4xl font-bold select-none">{initials}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Text */}
-                      <div className="text-center sm:text-left">
-                        <span className="inline-block px-3 py-1 rounded-full bg-gold-warm-50 border border-gold-warm-200 text-gold-warm-700 text-xs font-semibold tracking-wider mb-2">
-                          {t(`team.${i}.role`)}
-                        </span>
-                        <h3 className="text-2xl font-bold text-ink-800 mb-2">{t(`team.${i}.name`)}</h3>
-                        <div className="w-8 h-0.5 bg-gold-warm-400 rounded-full mb-3 mx-auto sm:mx-0" />
-                        <p className="text-sm text-ink-500 leading-relaxed max-w-xl">
-                          {t(`team.${i}.desc`)}
-                        </p>
-                      </div>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 py-10">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 ring-2 ring-wine-100">
+                      {pastor?.photo?.asset ? (
+                        <Image
+                          src={urlFor(pastor.photo).width(160).height(160).fit('crop').auto('format').url()}
+                          alt={t(`team.${i}.name`)}
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full wine-gradient flex items-center justify-center">
+                          <span className="text-white text-2xl font-bold select-none">{initials}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-xs text-gold-warm-600 mb-1">{t(`team.${i}.role`)}</p>
+                      <h3 className="text-xl font-bold text-ink-800 mb-2">{t(`team.${i}.name`)}</h3>
+                      <div aria-hidden="true" className="w-8 h-px bg-gold-warm-400 mb-3" />
+                      <p className="text-sm text-ink-500 leading-relaxed max-w-xl">{t(`team.${i}.desc`)}</p>
                     </div>
                   </div>
-                </div>
                 </FadeIn>
               )
             })}

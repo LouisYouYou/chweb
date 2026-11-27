@@ -6,7 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   return buildMetadata(locale, pageSEO.services)
 }
-import { Clock, MapPin, Car, Train, ExternalLink, CreditCard } from 'lucide-react';
+import { MapPin, Car, Train, ExternalLink, CreditCard } from 'lucide-react';
 import { serviceTimes } from '@/lib/data/events';
 
 export default async function ServicesPage() {
@@ -36,26 +36,42 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* Service Times */}
-      <section className="py-20 px-4">
+      {/* Service Times — editorial typographic grid */}
+      <section className="py-20 px-4 bg-warm-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {serviceTimes.map((s) => (
-              <div key={s.id} className="bg-white border border-warm-beige/60 rounded-2xl p-6 hover:shadow-lg transition-shadow hover:border-gold-warm-400">
-                <div className="w-12 h-12 wine-gradient rounded-xl flex items-center justify-center mb-4">
-                  <Clock size={20} className="text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-wine-100">
+            {serviceTimes.map((s, idx) => {
+              const name     = locale === 'zh-TW' ? s.nameZh : locale === 'my' ? s.nameMy : locale === 'ja' ? s.nameJa : s.nameEn;
+              const day      = locale === 'zh-TW' ? s.dayZh  : locale === 'my' ? s.dayMy  : locale === 'ja' ? s.dayJa  : s.dayEn;
+              const location = locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn;
+              const [timeStart, timeEnd] = s.time ? s.time.split(' - ') : [null, null];
+              const pad = idx === 0 ? 'md:pr-12' : idx === serviceTimes.length - 1 ? 'md:pl-12' : 'md:px-12';
+              return (
+                <div key={s.id} className={`py-10 md:py-0 flex flex-col h-full ${pad}`}>
+                  <p className="text-xs font-semibold text-gold-warm-600 mb-2">{name}</p>
+                  <p className="text-sm text-gray-400 mb-6">{day}</p>
+                  <div aria-hidden="true" className="w-10 h-px bg-gradient-to-r from-wine-400 to-transparent mb-6" />
+                  {timeStart ? (
+                    <div className="flex-1">
+                      <p className="font-black text-wine-700 leading-none tracking-tight" style={{ fontSize: 'clamp(2.75rem, 5vw, 4rem)' }}>
+                        {timeStart}
+                      </p>
+                      {timeEnd && <p className="text-sm text-gray-400 mt-2">— {timeEnd}</p>}
+                    </div>
+                  ) : (
+                    <div className="flex-1">
+                      <p className="font-black text-wine-400 leading-none tracking-tight" style={{ fontSize: 'clamp(2.75rem, 5vw, 4rem)' }}>
+                        {locale === 'zh-TW' ? '固定聚會' : locale === 'my' ? 'ပုံမှန်' : locale === 'ja' ? '定例' : 'Regular'}
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-8">
+                    <MapPin size={11} aria-hidden="true" className="text-gold-warm-400 shrink-0" />
+                    <span>{location}</span>
+                  </div>
                 </div>
-                <h3 className="font-bold text-ink-800 mb-2">
-                  {locale === 'zh-TW' ? s.nameZh : locale === 'my' ? s.nameMy : locale === 'ja' ? s.nameJa : s.nameEn}
-                </h3>
-                <p className="text-sm text-ink-500">{locale === 'zh-TW' ? s.dayZh : locale === 'my' ? s.dayMy : locale === 'ja' ? s.dayJa : s.dayEn}</p>
-                <p className="text-2xl font-bold text-gold-warm-600 my-2">{s.time}</p>
-                <div className="flex items-center gap-1.5 text-sm text-ink-400">
-                  <MapPin size={14} />
-                  {locale === 'zh-TW' ? s.locationZh : locale === 'my' ? s.locationMy : locale === 'ja' ? s.locationJa : s.locationEn}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

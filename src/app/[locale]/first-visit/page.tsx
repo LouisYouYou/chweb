@@ -71,19 +71,19 @@ export default async function FirstVisitPage() {
             </p>
           </FadeIn>
 
-          {/* Q&A cards */}
-          <div className="space-y-4">
+          {/* Q&A — editorial divide-y rows, no card containers */}
+          <div className="divide-y divide-wine-50">
             {sections.map(({ icon: Icon, q, a }, i) => (
               <FadeIn key={i} delay={i * 60}>
-                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 flex gap-5 group hover:border-wine-100 hover:shadow-md transition-all duration-300">
-                  <div className="shrink-0 w-11 h-11 church-gradient rounded-xl flex items-center justify-center shadow-sm shadow-wine-200 mt-0.5 group-hover:scale-105 transition-transform duration-300">
-                    <Icon size={18} className="text-white" aria-hidden="true" />
+                <div className="flex gap-5 py-7">
+                  <div aria-hidden="true" className="shrink-0 w-9 h-9 wine-gradient rounded-lg flex items-center justify-center mt-0.5">
+                    <Icon size={16} className="text-white" />
                   </div>
                   <div>
-                    <h2 className="font-bold text-wine-900 text-base sm:text-lg mb-2 leading-snug">
+                    <h2 className="font-bold text-ink-800 text-base sm:text-lg mb-2 leading-snug">
                       {q}
                     </h2>
-                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
                       {a}
                     </p>
                   </div>

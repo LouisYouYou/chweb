@@ -160,64 +160,61 @@ export default function SundayMessageInteractions({ sanityId, title, shareUrl, s
         </button>
       </div>
 
-      {/* 分享列 */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-gray-400 flex items-center gap-1 mr-1">
+      {/* 分享列 — icon + 平台色文字，無 pill 背景 */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span className="text-xs text-gray-400 flex items-center gap-1">
           <Share2 size={12} aria-hidden="true" />
           分享
         </span>
 
-        {/* LINE — 使用 msg/text 格式才能帶入標題文字 */}
         <a
           href={`https://line.me/R/msg/text/?${lineText}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-[#06C755] hover:bg-[#05b04c] text-white text-xs font-semibold rounded-full transition-colors duration-200"
+          className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium transition-opacity hover:opacity-70"
+          style={{ color: '#06C755' }}
           aria-label="分享至 LINE"
         >
           <LineIcon />
           LINE
         </a>
 
-        {/* Facebook */}
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodedSocialUrl}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-[#1877F2] hover:bg-[#1565c0] text-white text-xs font-semibold rounded-full transition-colors duration-200"
+          className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium transition-opacity hover:opacity-70"
+          style={{ color: '#1877F2' }}
           aria-label="分享至 Facebook"
         >
           <FacebookIcon />
           Facebook
         </a>
 
-        {/* X (Twitter) */}
         <a
           href={`https://twitter.com/intent/tweet?url=${encodedSocialUrl}&text=${encodedTitle}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-black hover:bg-gray-800 text-white text-xs font-semibold rounded-full transition-colors duration-200"
+          className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium text-gray-800 transition-opacity hover:opacity-70"
           aria-label="分享至 X (Twitter)"
         >
           <XIcon />
           X
         </a>
 
-        {/* Instagram */}
         <button
           onClick={handleInstagram}
-          className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 text-white text-xs font-semibold rounded-full transition-colors duration-200 cursor-pointer"
-          style={{ background: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)' }}
+          className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium transition-opacity hover:opacity-70 cursor-pointer"
+          style={{ color: '#dc2743' }}
           aria-label="分享至 Instagram"
         >
           <InstagramIcon />
           {igCopied ? '已複製！貼至 IG' : 'Instagram'}
         </button>
 
-        {/* 複製連結 */}
         <button
           onClick={handleCopyLink}
-          className="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-full transition-colors duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium text-gray-500 transition-opacity hover:opacity-70 cursor-pointer"
           aria-label="複製連結"
         >
           <Link size={12} aria-hidden="true" />

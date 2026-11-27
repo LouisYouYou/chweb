@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Link from 'next/link';
 
@@ -76,19 +76,17 @@ export default function ContactForm() {
                   {t('reply_notice')}
                 </p>
                 <div className="flex flex-col gap-3 pt-1">
-                  <p className="text-xs font-semibold text-ink-400 uppercase tracking-wider">{t('success_next')}</p>
+                  <p className="text-xs text-ink-400">{t('success_next')}</p>
                   <Link
                     href={`/${locale}/services`}
-                    className="flex items-center gap-2 text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors"
+                    className="text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors underline underline-offset-2 decoration-wine-200"
                   >
-                    <ArrowRight size={14} />
                     {t('success_link_services')}
                   </Link>
                   <Link
                     href={`/${locale}/first-visit`}
-                    className="flex items-center gap-2 text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors"
+                    className="text-sm text-wine-600 hover:text-wine-800 font-medium transition-colors underline underline-offset-2 decoration-wine-200"
                   >
-                    <ArrowRight size={14} />
                     {t('success_link_first_visit')}
                   </Link>
                 </div>
@@ -186,54 +184,49 @@ export default function ContactForm() {
           {/* Info */}
           <div>
             <h2 className="text-2xl font-bold text-ink-800 mb-6">{t('info_title')}</h2>
-            <div className="space-y-5">
+            {/* Contact info — editorial divide-y rows */}
+            <div className="divide-y divide-wine-50">
               {[
                 {
                   icon: MapPin,
                   label: t('address'),
                   value: locale === 'zh-TW' ? '新北市中和區忠孝街 39-15 號' : locale === 'ja' ? '新北市中和区忠孝街39-15号' : 'No.39-15, Zhongxiao St., Zhonghe Dist., New Taipei City',
                   href: 'https://www.google.com/maps/place/%E8%A1%8C%E9%81%93%E6%9C%83%E5%8D%97%E5%8B%A2%E8%A7%92%E6%A6%AE%E8%80%80%E5%A0%82/@24.9846438,121.5119889,17z',
-                  color: 'bg-wine-50 text-wine-600',
                 },
                 {
                   icon: Phone,
                   label: t('phone'),
                   value: '(02) 8668-5515',
                   href: 'tel:+886286685515',
-                  color: 'bg-green-50 text-green-600',
                 },
                 {
                   icon: Mail,
                   label: t('email_label'),
                   value: 'winson651202@gmail.com',
                   href: 'mailto:winson651202@gmail.com',
-                  color: 'bg-gold-warm-50 text-gold-warm-600',
                 },
                 {
                   icon: Clock,
                   label: t('office_hours'),
                   value: t('office_hours_text'),
                   href: null as string | null,
-                  color: 'bg-purple-50 text-purple-600',
                 },
-              ].map(({ icon: Icon, label, value, href, color }) => (
-                <div key={label} className="flex items-start gap-4 p-5 bg-warm-beige/20 rounded-2xl">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${color}`}>
-                    <Icon size={18} />
-                  </div>
-                  <div>
+              ].map(({ icon: Icon, label, value, href }) => (
+                <div key={label} className="flex items-center gap-5 py-5">
+                  <Icon size={16} aria-hidden="true" className="text-gold-warm-500 shrink-0" />
+                  <div className="min-w-0">
                     <p className="text-xs text-ink-400 mb-0.5">{label}</p>
                     {href ? (
                       <a
                         href={href}
                         target={href.startsWith('http') ? '_blank' : undefined}
                         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="font-medium text-ink-800 hover:text-wine-700 underline underline-offset-2 decoration-wine-200 transition-colors"
+                        className="text-sm font-medium text-ink-800 hover:text-wine-700 transition-colors"
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="font-medium text-ink-800">{value}</p>
+                      <p className="text-sm font-medium text-ink-800">{value}</p>
                     )}
                   </div>
                 </div>
