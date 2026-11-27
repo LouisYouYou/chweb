@@ -34,7 +34,7 @@ export default async function SermonsPage() {
             className="w-14 h-0.5 mb-8"
             style={{ background: 'linear-gradient(90deg, #c9a84c, transparent)' }}
           />
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-5">{t('title')}</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-5">{t('title')}</h1>
           <p className="text-ink-300 text-base max-w-xl leading-relaxed">{t('subtitle')}</p>
         </div>
       </section>

@@ -27,7 +27,7 @@ export default async function ContactPage() {
           style={{ background: 'radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.06) 0%, transparent 65%)' }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-4">{t('title')}</h1>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">{t('title')}</h1>
             <p className="text-ink-300 text-base max-w-md leading-relaxed">{t('subtitle')}</p>
           </div>
           <div className="hidden md:block border-l border-wine-800 pl-10 space-y-6">

@@ -26,7 +26,7 @@ export default async function ServicesPage() {
           style={{ background: 'radial-gradient(ellipse at 100% 100%, rgba(201,168,76,0.1) 0%, transparent 70%)' }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col md:flex-row items-end md:items-center gap-8 md:gap-16">
           <div className="flex-1">
-            <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-4">{t('title')}</h1>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">{t('title')}</h1>
             <p className="text-wine-200 text-base max-w-md leading-relaxed">{t('subtitle')}</p>
           </div>
           <div aria-hidden="true" className="shrink-0 select-none hidden md:block text-right">

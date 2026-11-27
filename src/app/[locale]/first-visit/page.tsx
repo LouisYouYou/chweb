@@ -52,7 +52,7 @@ export default async function FirstVisitPage() {
             className="w-16 h-0.5 mx-auto mb-10"
             style={{ background: 'linear-gradient(90deg, transparent, #c9a84c, transparent)' }}
           />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-5">
             {t('page_title')}
           </h1>
           <p className="text-wine-200 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">

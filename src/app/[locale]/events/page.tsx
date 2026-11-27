@@ -53,7 +53,7 @@ export default async function EventsPage() {
         <span aria-hidden="true" className="absolute right-0 bottom-0 select-none pointer-events-none font-black text-white leading-none"
           style={{ fontSize: 'clamp(14rem, 26vw, 20rem)', opacity: 0.025, lineHeight: 0.8 }}>活</span>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-4">{t('title')}</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">{t('title')}</h1>
           <p className="text-wine-200 text-base max-w-md leading-relaxed">{t('subtitle')}</p>
         </div>
       </section>

@@ -44,7 +44,7 @@ export default async function AboutPage() {
             <div aria-hidden="true" className="w-px self-stretch bg-gradient-to-b from-wine-500 to-transparent shrink-0" />
             <div aria-hidden="true" className="self-center w-10 h-px bg-gradient-to-r from-gold-warm-500 to-transparent" />
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-5">{t('title')}</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-5">{t('title')}</h1>
           <p className="text-wine-200 text-base sm:text-lg max-w-xl leading-relaxed">{t('subtitle')}</p>
         </div>
       </section>
