@@ -799,5 +799,16 @@ a, button, [role="button"] {
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #F7F5F0; }
-::-webkit-scrollbar-thumb { background: #36473F; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #22302a; }
+::-webkit-scrollbar-thumb { background: #92202f; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #761929; }
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(142, 32, 47, 0.18);
+  color: var(--foreground);
+}
+
+/* ── Caret ── */
+input, textarea, [contenteditable] {
+  caret-color: #92202f;
+}
