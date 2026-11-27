@@ -36,7 +36,7 @@ export default function LineFloatButton() {
       <a
         href="tel:+886286685515"
         aria-label="撥打電話 (02) 8668-5515"
-        className="flex items-center gap-2 min-h-[44px] px-3 sm:px-4 rounded-full shadow-xl text-white text-sm font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-wine-700 hover:bg-wine-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
+        className="flex items-center gap-2 min-h-[44px] px-3 sm:px-4 rounded-full shadow-xl text-white text-sm font-bold transition-[transform,background-color] duration-200 hover:scale-105 active:scale-95 bg-wine-700 hover:bg-wine-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-400 focus-visible:ring-offset-2"
       >
         <Phone size={18} />
         <span className="hidden sm:inline">{phoneLabel[locale] ?? phoneLabel['zh-TW']}</span>
@@ -49,7 +49,7 @@ export default function LineFloatButton() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="加入 LINE 官方帳號"
-          className="flex items-center gap-2 min-h-[44px] px-3 sm:px-4 rounded-full shadow-xl text-white text-sm font-bold transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#06C755] focus-visible:ring-offset-2"
+          className="flex items-center gap-2 min-h-[44px] px-3 sm:px-4 rounded-full shadow-xl text-white text-sm font-bold transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#06C755] focus-visible:ring-offset-2"
           style={{ background: '#06C755' }}
         >
           <LineIcon />

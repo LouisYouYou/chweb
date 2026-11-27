@@ -139,12 +139,12 @@ export default function NewsletterSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={c.placeholder}
-              className="flex-1 px-5 py-3.5 rounded-full bg-wine-950/80 border border-wine-800/60 text-white placeholder-wine-400/70 text-sm focus:outline-none focus:ring-2 focus:ring-gold-warm-400/50 focus:border-gold-warm-400/50 transition-all"
+              className="flex-1 px-5 py-3.5 rounded-full bg-wine-950/80 border border-wine-800/60 text-white placeholder-wine-400/70 text-sm focus:outline-none focus:ring-2 focus:ring-gold-warm-400/50 focus:border-gold-warm-400/50 transition-[border-color,box-shadow]"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="min-h-[44px] px-7 py-3.5 bg-gold-warm-500 hover:bg-gold-warm-400 active:bg-gold-warm-400 text-white font-bold rounded-full text-sm transition-all shadow-lg shadow-gold-warm-500/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
+              className="min-h-[44px] px-7 py-3.5 bg-gold-warm-500 hover:bg-gold-warm-400 active:bg-gold-warm-400 text-white font-bold rounded-full text-sm transition-[background-color,opacity] shadow-lg shadow-gold-warm-500/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-wine-950"
             >
               {status === 'loading' && <Loader2 aria-hidden="true" size={14} className="animate-spin" />}
               {status === 'loading' ? c.loading : c.cta}

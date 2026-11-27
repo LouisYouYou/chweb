@@ -142,7 +142,7 @@ export default function Hero() {
 
           {/* Eyebrow */}
           <p
-            className="text-xs tracking-[0.3em] uppercase font-semibold mb-5"
+            className="text-xs font-semibold mb-5"
             style={{
               color: '#AD8C60',
               animation: 'hero-title-in 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both',

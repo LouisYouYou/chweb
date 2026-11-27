@@ -147,7 +147,7 @@ export default function Header({ locale }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
         transparent
           ? 'bg-transparent shadow-none'
           : 'bg-white/[.97] backdrop-blur-md shadow-sm'
@@ -388,7 +388,7 @@ export default function Header({ locale }: HeaderProps) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen(v => !v)}
-              className={`lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
+              className={`lg:hidden inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] rounded-md transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-1 ${
                 transparent
                   ? 'text-white hover:bg-white/10'
                   : 'text-gray-600 hover:text-forest-600 hover:bg-forest-50'

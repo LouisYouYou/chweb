@@ -60,7 +60,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
             href="tel:+886286685515"
-            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-lg hover:opacity-90 hover:shadow-xl transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 church-gradient text-white text-sm font-bold rounded-full shadow-lg hover:opacity-90 hover:shadow-xl transition-[box-shadow,opacity,transform] duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
           >
             <Phone size={16} />
             {cta.phone}
@@ -69,7 +69,7 @@ export default function Footer() {
             href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 border border-wine-700/50 hover:border-gold-warm-400 text-white/60 hover:text-gold-warm-300 text-sm font-bold rounded-full transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
+            className="inline-flex items-center gap-2.5 min-h-[48px] w-full sm:w-auto justify-center px-7 py-3 border border-wine-700/50 hover:border-gold-warm-400 text-white/60 hover:text-gold-warm-300 text-sm font-bold rounded-full transition-[border-color,color,transform] duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-warm-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
           >
             <Navigation size={16} />
             {cta.map}

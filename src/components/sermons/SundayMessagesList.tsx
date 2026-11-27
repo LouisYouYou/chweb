@@ -40,7 +40,7 @@ export default async function SundayMessagesList({ locale }: Props) {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <div className="mb-10">
-            <p className="type-eyebrow-light mb-3">SUNDAY MESSAGE</p>
+            <p className="type-eyebrow-light mb-3">Sunday Message</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-ink-800 mb-2">{heading}</h2>
             <p className="text-gray-500 text-sm">{subtitle}</p>
             <div className="divider-gold mt-4" />

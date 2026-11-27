@@ -30,7 +30,7 @@ export function SermonThumbnail({ src, alt }: SermonThumbnailProps) {
       alt={alt}
       fill
       sizes="(max-width: 639px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 34px), (max-width: 1279px) calc(33.333vw - 35px), 392px"
-      className="object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
+      className="object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-[opacity,transform] duration-500"
       onError={() => { if (!isFallback) setImageSrc(SERMON_PLACEHOLDER) }}
       unoptimized={isFallback}
     />

@@ -158,7 +158,7 @@ export default async function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {stories.map((story, i) => (
                 <FadeIn key={story._id} delay={i * 80}>
-                  <div className="bg-warm-beige/20 rounded-2xl p-6 flex flex-col gap-4 h-full border border-warm-beige/40 hover:border-gold-warm-200 hover:shadow-md transition-all duration-300">
+                  <div className="bg-warm-beige/20 rounded-2xl p-6 flex flex-col gap-4 h-full border border-warm-beige/40 hover:border-gold-warm-200 hover:shadow-md transition-[border-color,box-shadow] duration-300">
                     {/* Quote */}
                     <p className="text-ink-700 leading-relaxed text-sm flex-1">
                       <span className="text-gold-warm-400 text-2xl leading-none mr-1 select-none">"</span>

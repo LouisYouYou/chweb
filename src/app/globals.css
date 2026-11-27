@@ -137,12 +137,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-noto-tc), var(--font-geist-sans), -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-  /* Prevent overscroll bounce from interfering with fixed modals on iOS */
+  overflow-x: clip;
   overscroll-behavior-y: none;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 /* ── iOS Safari fixes ── */
@@ -203,26 +204,22 @@ a, button, [role="button"] {
 
 /* Section eyebrow — light (cream/white) sections */
 .type-eyebrow-light {
-  font-size:      0.75rem;
-  font-weight:    700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  line-height:    var(--text-xs--line-height);
-  color:          #AD8C60;
-  border-left:    2px solid #AD8C60;
-  padding-left:   0.75rem;
+  font-size:    0.75rem;
+  font-weight:  700;
+  line-height:  var(--text-xs--line-height);
+  color:        #AD8C60;
+  border-left:  2px solid #AD8C60;
+  padding-left: 0.75rem;
 }
 
 /* Section eyebrow — dark sections */
 .type-eyebrow-dark {
-  font-size:      0.75rem;
-  font-weight:    700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  line-height:    var(--text-xs--line-height);
-  color:          #c9a060;
-  border-left:    2px solid #c9a060;
-  padding-left:   0.75rem;
+  font-size:    0.75rem;
+  font-weight:  700;
+  line-height:  var(--text-xs--line-height);
+  color:        #c9a060;
+  border-left:  2px solid #c9a060;
+  padding-left: 0.75rem;
 }
 
 /* Body copy — secondary descriptive text */

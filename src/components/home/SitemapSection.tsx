@@ -45,7 +45,7 @@ export default function SitemapSection() {
       />
 
       <div className="absolute top-6 left-6 z-10 pointer-events-none select-none">
-        <p className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: '#c9a84c' }}>
+        <p className="text-[10px] font-bold" style={{ color: '#c9a84c' }}>
           ✦ {t('sitemap_preview.eyebrow')}
         </p>
         <p className="mt-1 text-sm font-semibold text-white/80" style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1rem)' }}>

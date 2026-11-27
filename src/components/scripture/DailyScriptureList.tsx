@@ -79,10 +79,7 @@ export default function DailyScriptureList({ scriptures, locale, aiMap = {} }: P
                   <p className="text-sm text-gray-700 leading-relaxed">{ai.devotional_text}</p>
                 )}
                 {ai.prayer_prompt && (
-                  <p className="text-xs text-wine-700 font-medium flex items-start gap-1.5">
-                    <span className="shrink-0 mt-0.5">🙏</span>
-                    <span>{ai.prayer_prompt}</span>
-                  </p>
+                  <p className="text-xs text-wine-700 font-medium leading-relaxed">{ai.prayer_prompt}</p>
                 )}
               </div>
             )}

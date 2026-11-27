@@ -75,7 +75,7 @@ export default async function UpcomingEvents() {
           </div>
           <Link
             href={`/${locale}/events`}
-            className="inline-flex items-center gap-2 text-wine-600 hover:text-wine-800 border border-wine-200 hover:border-wine-400 px-4 py-2 min-h-[44px] rounded-full text-sm font-semibold transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 text-wine-600 hover:text-wine-800 border border-wine-200 hover:border-wine-400 px-4 py-2 min-h-[44px] rounded-full text-sm font-semibold transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
           >
             {t('view_all')}
           </Link>
@@ -108,7 +108,7 @@ export default async function UpcomingEvents() {
               const categoryLabel = catKey && et.has(catKey) ? et(catKey) : (event.category ?? '');
               return (
                 <FadeIn key={event.id} delay={i * 100}>
-                <div className="group bg-warm-white rounded-2xl border border-warm-beige/60 overflow-hidden haptic-event-card hover:shadow-md transition-all duration-200">
+                <div className="group bg-warm-white rounded-2xl border border-warm-beige/60 overflow-hidden haptic-event-card hover:shadow-md transition-shadow duration-200">
                   {/* Thin category top bar */}
                   <div aria-hidden="true" className={`h-1 w-full bg-gradient-to-r ${categoryTopBar[event.category] ?? 'from-wine-400 to-wine-200'}`} />
                   <div className="flex flex-col sm:flex-row sm:items-center gap-5 p-6">
@@ -160,7 +160,7 @@ export default async function UpcomingEvents() {
                         href={event.registrationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 wine-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
+                        className="shrink-0 inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 wine-gradient text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:opacity-90 active:scale-[0.98] transition-[box-shadow,opacity,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wine-500 focus-visible:ring-offset-2"
                       >
                         <ClipboardList aria-hidden="true" size={14} />
                         {et('register')}
